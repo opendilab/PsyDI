@@ -91,7 +91,7 @@ export class PsyDI {
         throw error;
       }
     } else {
-      console.error('Server Error:', data);
+      console.error('Server Error:');
     }
   }
 }

@@ -15,7 +15,9 @@ const configuration = new Configuration({
 })
 
 const openai = new OpenAIApi(configuration)
-const userCountDict = {}
+const userCountDict: {
+  [key: string]: number;
+} = {}
 
 export async function POST(req: Request) {
   const json = await req.json()
@@ -37,7 +39,7 @@ export async function POST(req: Request) {
 
   // Request the Fireworks API for the response based on the prompt
   const turnCount = userCountDict[userId]
-  let messages_user = messages.filter((message) => message.role === 'user')
+  let messages_user = messages.filter((message: {[key: string]: string}) => message.role === 'user')
   const response = await fireworks.create({
     rawContent: messages_user[turnCount].content,
     uid: userId,
