@@ -1,20 +1,15 @@
 import { kv } from '@vercel/kv'
-import { OpenAIStream, StreamingTextResponse, experimental_StreamData } from 'ai'
+import { StreamingTextResponse } from 'ai'
+import { HttpResponse, http } from 'msw';
 
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
 import { PsyDI } from '@/lib/psydi'
 
 export const runtime = 'edge'
-const fireworks = new PsyDI('https://opendilabcommunity-psydi.hf.space/')
+const server = new PsyDI('https://opendilabcommunity-psydi.hf.space/')
+const encoder = new TextEncoder();
 
-
-import { Configuration, OpenAIApi } from 'openai-edge'
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY
-})
-
-const openai = new OpenAIApi(configuration)
 const userCountDict: {
   [key: string]: number;
 } = {}
@@ -35,12 +30,11 @@ export async function POST(req: Request) {
   } else {
     userCountDict[userId] += 1
   }
-  const startTime: Date = new Date();
 
-  // Request the Fireworks API for the response based on the prompt
+  const startTime: Date = new Date();
   const turnCount = userCountDict[userId]
   let messages_user = messages.filter((message: {[key: string]: string}) => message.role === 'user')
-  const response = await fireworks.create({
+  const response = await server.create({
     rawContent: messages_user[turnCount].content,
     uid: userId,
     turnCount: turnCount,
@@ -55,44 +49,12 @@ export async function POST(req: Request) {
   const elapsedTime: number = endTime.getTime() - startTime.getTime();
   console.log(response_string, `Total elapsed time: ${elapsedTime}ms`)
 
-
-  let messages_tmp = [messages_user[turnCount]]
-  messages_tmp[0].content = `repeat the following content strictly without any modification: ${response_string}`
-  const res = await openai.createChatCompletion({
-    model: 'gpt-3.5-turbo',
-    messages: messages_tmp,
-    temperature: 0.1,
-    stream: true,
-  })
-  // const data = new experimental_StreamData();
-
-  // Convert the response into a friendly text-stream
-  const stream = OpenAIStream(res, {
-    async onCompletion(completion) {
-      const title = json.messages[0].content.substring(0, 100)
-      const id = json.id ?? nanoid()
-      const createdAt = Date.now()
-      const path = `/chat/${id}`
-      const payload = {
-        id,
-        title,
-        userId,
-        createdAt,
-        path,
-        messages,
-      }
-      //await kv.hmset(`chat:${id}`, payload)
-      //await kv.zadd(`user:chat:${userId}`, {
-      //  score: createdAt,
-      //  member: `chat:${id}`
-      //})
+  const response_string_with_newline = response_string.replace(/\n/g, "\n\n")
+  const dataStream = new ReadableStream({
+    start(controller) {
+        controller.enqueue(encoder.encode(response_string_with_newline));
+        controller.close();
     },
-    //onFinal(completion) {
-    //  data.close();
-    //},
-    //experimental_streamData: true,
-  })
-
-  //return new StreamingTextResponse(stream, {}, data)
-  return new StreamingTextResponse(stream)
+  });
+  return new StreamingTextResponse(dataStream);
 }
