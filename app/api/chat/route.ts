@@ -1,6 +1,7 @@
 import { kv } from '@vercel/kv'
 import { StreamingTextResponse } from 'ai'
 import { HttpResponse, http } from 'msw';
+import { translate } from '@vitalets/google-translate-api';
 
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
@@ -50,9 +51,16 @@ export async function POST(req: Request) {
   console.log(response_string, `Total elapsed time: ${elapsedTime}ms`)
 
   const response_string_with_newline = response_string.replace(/\n/g, "\n\n")
+  try {
+    var { text } = await translate(response_string_with_newline, {from: 'en', to: 'zh-CN'});
+  } catch (e: any) {
+    if (e.name === 'TooManyRequestsError' || e.name === 'ConnectTimeoutError') {
+        console.log('Translate API is not available or rate limit exceeded, using original text')
+    }
+  }
   const dataStream = new ReadableStream({
     start(controller) {
-        controller.enqueue(encoder.encode(response_string_with_newline));
+        controller.enqueue(encoder.encode(text ? text : response_string_with_newline));
         controller.close();
     },
   });
