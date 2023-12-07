@@ -17,6 +17,7 @@ export interface PromptProps
   extends Pick<UseChatHelpers, 'input' | 'setInput'> {
   onSubmit: (value: string) => Promise<void>
   isLoading: boolean
+  placeholder: string
 }
 
 export function PromptForm({
