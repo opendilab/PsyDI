@@ -38,7 +38,7 @@ export async function POST(req: Request) {
   const debug = process.env.DEBUG
   let response_string = ''
   if (debug === 'true') {
-    response_string = 'hello world'
+    response_string = 'hello world\n![alt text](https://github.com/opendilab/CodeMorpheus/blob/afa80a5bcabdd72104d400eb831f906a7a99cbb1/assets/template_imgs.jpeg?raw=true)'
   } else {
     let messages_user = messages.filter((message: {[key: string]: string}) => message.role === 'user')
     const response = await server.create({

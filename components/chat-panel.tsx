@@ -30,6 +30,19 @@ export function ChatPanel({
   setInput,
   messages
 }: ChatPanelProps) {
+  const initPlaceholder = 'Please enter your personal posts (separated by newlines).'
+  const blobTreePlaceholder = 'Please enter the blob number of your choice (1-20).'
+  const imgPlaceholder = 'Please select your favourite options.'
+  const QAPlaceholder = 'Select above options or enter your own answer.'
+  let placeholder = ''
+  if (messages?.length === 0) {
+    placeholder = initPlaceholder
+  } else if (messages?.length > 0){ 
+    placeholder = QAPlaceholder
+  } else {
+    placeholder = initPlaceholder
+  }
+
   return (
     <div className="fixed inset-x-0 bottom-0 bg-gradient-to-b from-muted/10 from-10% to-muted/30 to-50%">
       <ButtonScrollToBottom />
@@ -69,6 +82,7 @@ export function ChatPanel({
             input={input}
             setInput={setInput}
             isLoading={isLoading}
+            placeholder={placeholder}
           />
           <FooterText className="hidden sm:block" />
         </div>
