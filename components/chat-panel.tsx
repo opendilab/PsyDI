@@ -39,15 +39,13 @@ export function ChatPanel({
   const imgPlaceholder = 'Please select your favourite options.'
   const QAPlaceholder = 'Select above options or enter your own answer.'
 
-  const mergedVariantOverrides = {
-    variant: 'bg-primary',
-  };
-
   let placeholder = ''
   let enableOptionButtons = false
   if (messages?.length === 0) {
     placeholder = initPlaceholder
   } else if (messages?.length > 0){ 
+    placeholder = blobTreePlaceholder
+  } else if (messages?.length > 2){ 
     placeholder = QAPlaceholder
     if (messages[messages.length - 1].role === 'assistant') {
       enableOptionButtons = true
