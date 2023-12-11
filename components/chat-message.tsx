@@ -84,14 +84,16 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
         </>
     ) : (
       <>
-      <div
-        className={cn(
-          'flex h-10 w-9 shrink-0 select-none items-center justify-center rounded-md border shadow',
-          'bg-primary text-primary-foreground'
-        )}
-      >
-        {<IconPsyDI />}
-      </div>
+      { message.role === 'assistant' && (
+        <div
+          className={cn(
+            'flex h-10 w-9 shrink-0 select-none items-center justify-center rounded-md border shadow',
+            'bg-primary text-primary-foreground'
+          )}
+        >
+          {<IconPsyDI />}
+        </div>
+      )}
       <div className="flex-1 px-1 ml-4 space-y-2 overflow-hidden">
         <MemoizedReactMarkdown
           className="prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0"
@@ -132,9 +134,11 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
             }
           }}
         >
-          {message.content}
+          { message.role === 'assistant' ? message.content : '### ' + message.content }
         </MemoizedReactMarkdown>
-        <ChatMessageActions message={message} />
+        { message.role === 'assistant' && (
+          <ChatMessageActions message={message} />
+        )}
       </div>
       <div
         className={cn(

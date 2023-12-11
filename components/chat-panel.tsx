@@ -23,6 +23,25 @@ export interface ChatPanelProps
   id?: string
 }
 
+const lang = process.env.LANG || 'zh' // default to zh
+var texts = {
+  initPlaceholder: '',
+  imgPlaceholder: '',
+  blobTreePlaceholder: '',
+  QAPlaceholder: ''
+};
+if (lang === 'zh') {
+  texts.initPlaceholder = '请输入您的个人动态（以换行符分隔）。'
+  texts.imgPlaceholder = '请选择您喜欢的图片选项。(1-9)'
+  texts.blobTreePlaceholder = '请输入您的选择的 blob 数字（1-20）。'
+  texts.QAPlaceholder = '选择上面的选项或输入您自己的答案。'
+} else if (lang === 'en') {
+  texts.initPlaceholder = 'Please enter your personal posts (separated by newlines).'
+  texts.imgPlaceholder = 'Please select your favourite images options (1-9).'
+  texts.blobTreePlaceholder = 'Please enter the blob number of your choice (1-20).'
+  texts.QAPlaceholder = 'Select above options or enter your own answer.'
+}
+
 export function ChatPanel({
   id,
   isLoading,
@@ -34,24 +53,23 @@ export function ChatPanel({
   messages
 }: ChatPanelProps) {
 
-  const initPlaceholder = 'Please enter your personal posts (separated by newlines).'
-  const blobTreePlaceholder = 'Please enter the blob number of your choice (1-20).'
-  const imgPlaceholder = 'Please select your favourite options.'
-  const QAPlaceholder = 'Select above options or enter your own answer.'
-
   let placeholder = ''
   let enableOptionButtons = false
   if (messages?.length === 0) {
-    placeholder = initPlaceholder
-  } else if (messages?.length > 0){ 
-    placeholder = blobTreePlaceholder
-  } else if (messages?.length > 2){ 
-    placeholder = QAPlaceholder
+    placeholder = ''
+  } else if (messages?.length === 2) {  // start phase + ask for post
+    placeholder = texts.initPlaceholder
+  } else if (messages?.length === 4) {
+    placeholder = texts.imgPlaceholder
+  } else if (messages?.length === 6){ 
+    placeholder = texts.blobTreePlaceholder
+  } else if (messages?.length > 7){ 
+    placeholder = texts.QAPlaceholder
     if (messages[messages.length - 1].role === 'assistant') {
       enableOptionButtons = true
     }
   } else {
-    placeholder = initPlaceholder
+    placeholder = ''
   }
 
   return (
@@ -95,7 +113,6 @@ export function ChatPanel({
                 }}
             >
             <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={() => {
-              console.log(append)
               append({
                 id,
                 content: '(A)',
@@ -103,7 +120,6 @@ export function ChatPanel({
               })
             }} startIcon={<CatchingPokemonSharpIcon />}>A</MuiButton>
             <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={() => {
-              console.log(append)
               append({
                 id,
                 content: '(B)',

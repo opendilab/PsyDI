@@ -8,6 +8,26 @@ import { nanoid } from '@/lib/utils'
 import { PsyDI } from '@/lib/psydi'
 
 
+const lang = process.env.LANG || 'zh' // default to zh
+var texts = {
+  userPostsResponse: "",
+  explorationPhaseResponse: "",
+  mbtiOptionResponse: "",
+  philosophyResponse: "",
+  blobTreeResponse: "",
+};
+if (lang === 'zh') {
+    texts.userPostsResponse = "现在，让我们从日常生活聊起。最近有什么趣事吗？您的想法和感受是？在您输入一段想法后请点击提交。（多条动态之间以换行分隔）"
+    texts.mbtiOptionResponse = "**（第一题）** 首先，我很好奇您对于视觉艺术的喜好。请在以下九张图片中选择您最喜欢的一张，并告诉我您选择的编号。" 
+    texts.philosophyResponse = "**（第二题）** 著名的“电车难题”是一个富有争议的话题。我很想听听您的想法，请选择一项最符合的，或直接告诉我您的见解。"
+    texts.blobTreeResponse = "**（第三题）** 最后，请在以下图片中选择一个让您感到最舒适安心的场景，并告知我对应的编号。"
+} else if (lang === 'en') {
+    texts.userPostsResponse = "Now, let's start with your daily life. What's new? What are your thoughts and feelings? Please submit your thoughts after you type them in (separate multiple posts with a new line)."
+    texts.mbtiOptionResponse = "**(Question 1)** First, I am curious about your preferences for visual arts. Please choose your favorite one from the following nine pictures and tell me the number you choose."
+    texts.philosophyResponse = "**(Question 2)** The famous 'trolley problem' is a controversial topic. I would like to hear your thoughts. Please choose the one that best suits you, or tell me your thoughts directly."
+    texts.blobTreeResponse = "**(Question 3)** Finally, please choose a scene from the following pictures that makes you feel most comfortable and tell me the corresponding number."
+}
+
 export const runtime = 'edge'
 const server = new PsyDI('https://opendilabcommunity-psydi.hf.space/')
 const encoder = new TextEncoder();
@@ -39,7 +59,12 @@ export async function POST(req: Request) {
   const debug = process.env.DEBUG
   let response_string = ''
   if (turnCount === 0) {
-    response_string = '您好，我是您的 MBTI 测试助手，首先我将通过一系列趣味问题来构建您的概览形象，从而为您后续生成定制化的 MBTI 测试。\n**第一题：[Blob Tree]** 请在下方图片中选出最符合您心意的小人，并将序号填在回答栏中（1-20）。'
+    response_string = texts.userPostsResponse
+  } else if (turnCount === 1) {
+    response_string = texts.mbtiOptionResponse
+    response_string += `![alt text](${process.env.MBTI_OPTION_IMAGE_URL})`
+  } else if (turnCount === 2) {
+    response_string = texts.blobTreeResponse
     response_string += `![alt text](${process.env.BLOB_TREE_IMAGE_URL})`
   } else {
     if (debug === 'true') {
@@ -63,18 +88,21 @@ export async function POST(req: Request) {
   const elapsedTime: number = endTime.getTime() - startTime.getTime();
   console.log(response_string, `Total elapsed time: ${elapsedTime}ms`)
 
-  const response_string_with_newline = response_string.replace(/\n/g, "\n\n");
-  var finalText = '';
-  try {
-    var { text } = await translate(response_string_with_newline, {from: 'en', to: 'zh-CN'});
-    finalText = text
-  } catch (e: any) {
-    if (e.name === 'TooManyRequestsError' || e.name === 'ConnectTimeoutError') {
-        console.log('Translate API is not available or rate limit exceeded, using original text')
+  var finalText = response_string.replace(/\n/g, "\n\n");
+  if (turnCount > 2) {
+    if (lang === 'zh') {
+        try {
+            var { text } = await translate(finalText, {from: 'en', to: 'zh-CN'});
+            finalText = text
+        } catch (e: any) {
+            if (e.name === 'TooManyRequestsError' || e.name === 'ConnectTimeoutError') {
+                console.log('Translate API is not available or rate limit exceeded, using original text')
+            }
+        }
     }
-  }
-  if (debug === 'true' && turnCount > 0) {
-    finalText += `![alt text](${process.env.EXAMPLE_IMAGE_URL})`
+    if (debug === 'true') {
+        finalText += `![alt text](${process.env.EXAMPLE_IMAGE_URL})`
+    }
   }
 
   const title = json.messages[0].content.substring(0, 100)
@@ -100,7 +128,7 @@ export async function POST(req: Request) {
 
   const dataStream = new ReadableStream({
     start(controller) {
-        controller.enqueue(encoder.encode(text ? text : response_string_with_newline));
+        controller.enqueue(encoder.encode(finalText));
         controller.close();
     },
   });
