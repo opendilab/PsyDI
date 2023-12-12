@@ -12,11 +12,10 @@ export function FooterText({ className, ...props }: React.ComponentProps<'p'>) {
       )}
       {...props}
     >
-      AI+Psychology app built by{' '}
       <ExternalLink href="https://github.com/opendilab">
         OpenDILab
       </ExternalLink>
-      .
+      出品，版权所有 © 2023
     </p>
   )
 }

@@ -28,18 +28,24 @@ var texts = {
   initPlaceholder: '',
   imgPlaceholder: '',
   blobTreePlaceholder: '',
-  QAPlaceholder: ''
+  QAPlaceholder: '',
+  generate: '',
+  stop: '',
 };
 if (lang === 'zh') {
   texts.initPlaceholder = '请输入您的个人动态（以换行符分隔）。'
   texts.imgPlaceholder = '请选择您喜欢的图片选项。(1-9)'
   texts.blobTreePlaceholder = '请输入您的选择的 blob 数字（1-20）。'
   texts.QAPlaceholder = '选择上面的选项或输入您自己的答案。'
+  texts.generate = '重新生成回复'
+  texts.stop = '停止生成'
 } else if (lang === 'en') {
   texts.initPlaceholder = 'Please enter your personal posts (separated by newlines).'
   texts.imgPlaceholder = 'Please select your favourite images options (1-9).'
   texts.blobTreePlaceholder = 'Please enter the blob number of your choice (1-20).'
   texts.QAPlaceholder = 'Select above options or enter your own answer.'
+  texts.generate = 'Regenerate response'
+  texts.stop = 'Stop generating'
 }
 
 export function ChatPanel({
@@ -84,7 +90,7 @@ export function ChatPanel({
               className="bg-background"
             >
               <IconStop className="mr-2" />
-              Stop generating
+              {texts.stop}
             </Button>
           ) : (
             messages?.length > 0 && (
@@ -94,7 +100,7 @@ export function ChatPanel({
                 className="bg-background"
               >
                 <IconRefresh className="mr-2" />
-                Regenerate response
+                {texts.generate}
               </Button>
             )
           )}
