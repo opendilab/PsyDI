@@ -71,15 +71,11 @@ export async function POST(req: Request) {
     if (debug === 'true') {
       response_string = `hello world\n`
     } else { 
-        let messages_user = messages.filter((message: {[key: string]: string}) => message.role === 'user')
-        const response = await agent.create({
-            rawContent: messages_user[turnCount].content,
+        const messagesUser = messages.filter((message: {[key: string]: string}) => message.role === 'user')
+        const response = await agent.getQuestions({
             uid: userId,
             turnCount: turnCount,
-            stream: true,
-            max_tokens: 1000,
-            temperature: 0.75,
-            top_p: 1,
+            messages: messagesUser,
         })
         const done = response.done
         response_string = response.response_string
