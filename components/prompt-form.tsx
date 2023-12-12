@@ -13,6 +13,17 @@ import { useEnterSubmit } from '@/lib/hooks/use-enter-submit'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 
+const lang = process.env.LANG || 'zh' // default to zh
+var texts = {
+  newChat: "",
+}
+if (lang === 'zh') {
+  texts.newChat = "新评测"
+} else if (lang === 'en') {
+  texts.newChat = "New Chat"
+}
+
+
 export interface PromptProps
   extends Pick<UseChatHelpers, 'input' | 'setInput'> {
   onSubmit: (value: string) => Promise<void>
@@ -64,10 +75,10 @@ export function PromptForm({
               )}
             >
               <IconPlus />
-              <span className="sr-only">New Chat</span>
+              <span className="sr-only">{texts.newChat}</span>
             </button>
           </TooltipTrigger>
-          <TooltipContent>New Chat</TooltipContent>
+          <TooltipContent>{texts.newChat}</TooltipContent>
         </Tooltip>
         <Textarea
           ref={inputRef}

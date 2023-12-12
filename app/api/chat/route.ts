@@ -18,14 +18,14 @@ var texts = {
 };
 if (lang === 'zh') {
     texts.userPostsResponse = "现在，让我们从日常生活聊起。最近有什么趣事吗？您的想法和感受是？在您输入一段想法后请点击提交。（多条动态之间以换行分隔）"
-    texts.mbtiOptionResponse = "**（第一题）** 首先，我很好奇您对于视觉艺术的喜好。请在以下九张图片中选择您最喜欢的一张，并告诉我您选择的编号。" 
-    texts.philosophyResponse = "**（第二题）** 著名的“电车难题”是一个富有争议的话题。我很想听听您的想法，请选择一项最符合的，或直接告诉我您的见解。"
-    texts.blobTreeResponse = "**（第三题）** 最后，请在以下图片中选择一个让您感到最舒适安心的场景，并告知我对应的编号。"
+    texts.mbtiOptionResponse = "首先，我很好奇您对于视觉艺术的喜好。请在以下九张图片中选择您最喜欢的一张，并告诉我您选择的编号。" 
+    texts.philosophyResponse = "著名的“电车难题”是一个富有争议的话题。我很想听听您的想法，请选择一项最符合的，或直接告诉我您的见解。"
+    texts.blobTreeResponse = "最后，请在以下图片中选择一个让您感到最舒适安心的场景，并告知我对应的编号。"
 } else if (lang === 'en') {
     texts.userPostsResponse = "Now, let's start with your daily life. What's new? What are your thoughts and feelings? Please submit your thoughts after you type them in (separate multiple posts with a new line)."
-    texts.mbtiOptionResponse = "**(Question 1)** First, I am curious about your preferences for visual arts. Please choose your favorite one from the following nine pictures and tell me the number you choose."
-    texts.philosophyResponse = "**(Question 2)** The famous 'trolley problem' is a controversial topic. I would like to hear your thoughts. Please choose the one that best suits you, or tell me your thoughts directly."
-    texts.blobTreeResponse = "**(Question 3)** Finally, please choose a scene from the following pictures that makes you feel most comfortable and tell me the corresponding number."
+    texts.mbtiOptionResponse = "First, I am curious about your preferences for visual arts. Please choose your favorite one from the following nine pictures and tell me the number you choose."
+    texts.philosophyResponse = "The famous 'trolley problem' is a controversial topic. I would like to hear your thoughts. Please choose the one that best suits you, or tell me your thoughts directly."
+    texts.blobTreeResponse = "Finally, please choose a scene from the following pictures that makes you feel most comfortable and tell me the corresponding number."
 }
 
 export const runtime = 'edge'

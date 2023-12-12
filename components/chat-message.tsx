@@ -134,7 +134,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
             }
           }}
         >
-          { message.role === 'assistant' ? message.content : '### ' + message.content }
+        { message.role === 'assistant' ? message.content : '> ### ' + message.content}
         </MemoizedReactMarkdown>
         { message.role === 'assistant' && (
           <ChatMessageActions message={message} />
