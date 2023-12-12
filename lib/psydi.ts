@@ -1,9 +1,63 @@
 // https communication with the server
+import { auth } from '@/auth';
+
+type UserData = {
+  turnCount: number;
+  postList: string[];
+};
+
 export class PsyDI {
   private apiUrl: string;
+  private data: Record<string, UserData>;
 
   constructor(apiUrl: string) {
     this.apiUrl = apiUrl;
+    this.data = {};
+  }
+
+  registerUser(userId: string): boolean {
+    if (!(userId in this.data)) {
+      this.data[userId] = {
+        turnCount: 0,
+        postList: [],
+      }; 
+    }
+    return true;
+  }
+
+  deleteUser(userId: string): boolean {
+    if (userId in this.data) {
+      delete this.data[userId];
+      return true;
+    } else {
+      throw new Error('User not registered, delete error');
+    }
+  }
+
+  getTurnCount(userId: string): number {
+    if (userId in this.data) {
+        return this.data[userId].turnCount;
+    } else {
+      throw new Error('User not registered');
+    }
+  }
+
+  setTurnCount(userId: string, turnCount: number): boolean {
+    if (userId in this.data) {
+        this.data[userId].turnCount = turnCount;
+        return true;
+    } else {
+      throw new Error('User not registered');
+    }
+  }
+
+  appendPost(userId: string, post: string): boolean {
+    if (userId in this.data) {
+        this.data[userId].postList.push(post);
+        return true;
+    } else {
+      throw new Error('User not registered');
+    }
   }
 
   async fetchData(endpoint: string): Promise<any> {
@@ -95,3 +149,14 @@ export class PsyDI {
     }
   }
 }
+
+const agent = new PsyDI('https://opendilabcommunity-psydi.hf.space/')
+
+export const getPsyDIAgent = () => {
+  return agent;
+};
+
+export async function deleteCurrentUser() {
+  const userId = (await auth())?.user.id
+  agent.deleteUser(userId);
+};

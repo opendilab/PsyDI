@@ -5,7 +5,7 @@ import { translate } from '@vitalets/google-translate-api';
 
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
-import { PsyDI } from '@/lib/psydi'
+import { getPsyDIAgent } from '@/lib/psydi'
 
 
 const lang = process.env.LANG || 'zh' // default to zh
@@ -29,34 +29,35 @@ if (lang === 'zh') {
 }
 
 export const runtime = 'edge'
-const server = new PsyDI('https://opendilabcommunity-psydi.hf.space/')
 const encoder = new TextEncoder();
 
-const userCountDict: {
-  [key: string]: number;
-} = {}
-
 export async function POST(req: Request) {
+  const agent = getPsyDIAgent()
   const json = await req.json()
   const { messages, _ } = json
-  const userId = (await auth())?.user.id
-
+  const user = (await auth())?.user
+  const userId = user.id
   if (!userId) {
     return new Response('Unauthorized', {
       status: 401
     })
   }
-
-  if (!(userId in userCountDict)) {
-    userCountDict[userId] = 0
-  } else {
-    userCountDict[userId] += 1
+  // remove old data
+  try {
+    const turnCount = agent.getTurnCount(userId)
+    if (turnCount > 0 && messages.length <= 1) {
+      agent.deleteUser(userId)
+    }
+  } catch (e) {
+    // do nothing
   }
 
-  const startTime: Date = new Date();
-  const turnCount = userCountDict[userId]
+  agent.registerUser(userId)
 
+  const turnCount = agent.getTurnCount(userId)
   const debug = process.env.DEBUG
+
+  const startTime: Date = new Date();
   let response_string = ''
   if (turnCount === 0) {
     response_string = texts.userPostsResponse
@@ -71,7 +72,7 @@ export async function POST(req: Request) {
       response_string = `hello world\n`
     } else { 
         let messages_user = messages.filter((message: {[key: string]: string}) => message.role === 'user')
-        const response = await server.create({
+        const response = await agent.create({
             rawContent: messages_user[turnCount].content,
             uid: userId,
             turnCount: turnCount,
@@ -120,11 +121,11 @@ export async function POST(req: Request) {
         response: response_string,
   }
   // console.log(payload)
-  await kv.hmset(`chat:${id}`, payload)
-  await kv.zadd(`user:chat:${userId}`, {
-        score: createdAt,
-        member: `chat:${id}`
-  })
+  //await kv.hmset(`chat:${id}`, payload)
+  //await kv.zadd(`user:chat:${userId}`, {
+  //      score: createdAt,
+  //      member: `chat:${id}`
+  //})
 
   const dataStream = new ReadableStream({
     start(controller) {
@@ -132,5 +133,7 @@ export async function POST(req: Request) {
         controller.close();
     },
   });
+  agent.setTurnCount(userId, turnCount + 1)
+
   return new StreamingTextResponse(dataStream);
 }
