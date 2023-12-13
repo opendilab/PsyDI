@@ -32,7 +32,16 @@ function deepCopy(obj: any): any {
 }
 
 const lang = process.env.LANG || 'zh' // default to zh
-var texts = {
+
+interface Texts {
+  userPostsAnswer: string; 
+  explorationPhaseTitle: string;
+  mbtiOptionInfo: Record<string, any>;
+  mbtiOptionAnswer: string;
+  blobTreeAnswer: string;
+  discoveryPhaseTitle: string;
+}
+var texts: Texts = {
   userPostsAnswer: "",
   explorationPhaseTitle: "",
   mbtiOptionInfo: {},
