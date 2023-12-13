@@ -59,6 +59,7 @@ export interface EmptyScreenProps
 }
 export function EmptyScreen({ setInput, append, id }: EmptyScreenProps) {
   const handleClick = () => {
+    console.info("send start message")
     append({
       id,
       content: "start",

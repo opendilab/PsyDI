@@ -91,7 +91,7 @@ export async function POST(req: Request) {
   }
   const endTime: Date = new Date();
   const elapsedTime: number = endTime.getTime() - startTime.getTime();
-  console.log(response_string, `Total elapsed time: ${elapsedTime}ms`)
+  console.info(response_string, `Total elapsed time: ${elapsedTime}ms`)
 
   var finalText = response_string.replace(/\n/g, "\n\n");
   if (turnCount > 3) {
@@ -101,7 +101,7 @@ export async function POST(req: Request) {
             finalText = text
         } catch (e: any) {
             if (e.name === 'TooManyRequestsError' || e.name === 'ConnectTimeoutError') {
-                console.log('Translate API is not available or rate limit exceeded, using original text')
+                console.error('Translate API is not available or rate limit exceeded, using original text')
             }
         }
     }
@@ -124,7 +124,7 @@ export async function POST(req: Request) {
         messages: messages,
         response: response_string,
   }
-  // console.log(payload)
+  // console.info(payload)
   //await kv.hmset(`chat:${id}`, payload)
   //await kv.zadd(`user:chat:${userId}`, {
   //      score: createdAt,
