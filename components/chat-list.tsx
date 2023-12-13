@@ -102,29 +102,29 @@ export function ChatList({ messages }: ChatList) {
     return null
   }
   const chatID = messages[0].id;
+  messages = messages.filter((message: {[key: string]: string}) => message.role !== 'user' || message.content !== 'start')
   var modifiedMessages = deepCopy(messages);
-  if (messages.length >= 1) {
-    modifiedMessages.splice(0, 1); // remove start phase
+  if (messages.length >= 0) {
     modifiedMessages.splice(0, 0, {id: chatID, content: texts.startPhaseTitle, role: "system"}); // insert system message
   }
-  if (messages.length >= 3) {  // start phase + ask for user posts + user posts
+  if (messages.length >= 2) {  // ask for user posts + user posts
     modifiedMessages.splice(3, 0, {id: chatID, content: texts.userPostsAnswer, role: "assistant"}); // insert assistant message
     modifiedMessages.splice(4, 0, {id: chatID, content: texts.explorationPhaseTitle, role: "system"}); // insert system message
   }
-  if (messages.length >= 5) {  // start phase + ask for user posts + user posts + mbti option + mbti option answer
-    const key = parseInt(messages[4].content).toString();
+  if (messages.length >= 4) {  // ask for user posts + user posts + mbti option + mbti option answer
+    const key = parseInt(messages[3].content).toString();
     const mbtiInfo = texts.mbtiOptionInfo[key];
     modifiedMessages.splice(7, 0, {id: chatID, content: mbtiInfo + texts.mbtiOptionAnswer, role: "assistant"}); // insert assistant message
   }
-  if (messages.length >= 7) {
-    const userAnswer = messages[6].content;
+  if (messages.length >= 6) {
+    const userAnswer = messages[5].content;
     if (userAnswer.includes("(") && userAnswer.includes(")")) {
       modifiedMessages.splice(10, 0, {id: chatID, content: texts.philosophyFixedAnswer, role: "assistant"}); // insert assistant message
     } else {
       modifiedMessages.splice(10, 0, {id: chatID, content: texts.philosophyFreeAnswer, role: "assistant"}); // insert assistant messages
     }
   }
-  if (messages.length >= 9) {  // start phase + ask for user posts + user posts + mbti option + mbti option answer + tram + tram answer + blob tree + blob tree answer
+  if (messages.length >= 8) {  // ask for user posts + user posts + mbti option + mbti option answer + tram + tram answer + blob tree + blob tree answer
     modifiedMessages.splice(13, 0, {id: chatID, content: texts.blobTreeAnswer, role: "assistant"}); // insert assistant message
     modifiedMessages.splice(14, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
   }
