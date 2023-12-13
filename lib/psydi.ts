@@ -112,7 +112,7 @@ export class PsyDI {
   async getQuestions(payload: any): Promise<any> {
     const startTime: Date = new Date();
     let finalPayload: { [key: string]: any } = payload;
-    if (finalPayload.turnCount === 3) {
+    if (finalPayload.turnCount === 4) {
         finalPayload = this.getPostsPayload(payload.uid, payload.messages);
     } else {
         finalPayload.endpoint = 'post_user_answer';
@@ -198,11 +198,26 @@ export class PsyDI {
     }
   }
 
+  getPhilosophyAnswer(answer: string): string {
+    if (answer === '(A)') {
+      return "Facing the trolley promblem, my decision is: Do nothing and let the train run over the five people on the normal route."
+    } else if (answer === '(B)') {
+      return "Facing the trolley promblem, my decision is: Pull the lever and change to another track, so that the train runs over the person on the other track."
+    } else if (answer === '(C)') {
+      return "Facing the trolley promblem, my decision is: Rush to the track and stop the train with your body to save the six people."
+    } else if (answer === '(D)') {
+      return "Facing the trolley promblem, my decision is: Do nothing, because no choice is inherently good or bad."
+    } else {
+      return "Facing the trolley promblem, my decision is: " + answer
+    }
+  }
+
   getPostsPayload(uid: string, messages: Record<string, string>[]): Record<string, any> {
     const startTime: Date = new Date();
     const rawContent = messages.map((message) => message.content)
     let postList = [...rawContent[0].split('\n'), ...rawContent.slice(1)]
-    postList[postList.length - 2] = this.getMBTIOptionAnswer(postList[postList.length - 2])
+    postList[postList.length - 3] = this.getMBTIOptionAnswer(postList[postList.length - 3])
+    postList[postList.length - 2] = this.getPhilosophyAnswer(postList[postList.length - 2])
     postList[postList.length - 1] = this.getBlobTreeAnswer(postList[postList.length - 1])
     return {
       endpoint: 'post_user_posts',
@@ -212,7 +227,7 @@ export class PsyDI {
   }
 }
 
-const agent = new PsyDI('https://opendilabcommunity-psydi.hf.space/')
+const agent = new PsyDI(process.env.PSYDI_API_URL || "placeholder")
 
 export const getPsyDIAgent = () => {
   return agent;

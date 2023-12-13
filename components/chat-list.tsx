@@ -38,6 +38,8 @@ interface Texts {
   explorationPhaseTitle: string;
   mbtiOptionInfo: Record<string, any>;
   mbtiOptionAnswer: string;
+  philosophyFixedAnswer: string; 
+  philosophyFreeAnswer: string;
   blobTreeAnswer: string;
   discoveryPhaseTitle: string;
 }
@@ -46,6 +48,8 @@ var texts: Texts = {
   explorationPhaseTitle: "",
   mbtiOptionInfo: {},
   mbtiOptionAnswer: "",
+  philosophyFixedAnswer: "",
+  philosophyFreeAnswer: "",
   blobTreeAnswer: "",
   discoveryPhaseTitle: "",
 }
@@ -64,7 +68,9 @@ if (lang === 'zh') {
     '9': "这是西班牙艺术家 Pablo Picasso 于1921年创作的油画《Nous autres musiciens (Three Musicians) 》，以明亮丰富的颜色、简化的形状和具象化的元素为特征，展现了 Pablo Picasso 在这一时期对于形式的大胆实验和对于主题的独特演绎。"
   }
   texts.mbtiOptionAnswer = "您和过去的大师产生了共鸣！"
-  texts.blobTreeAnswer = "原来如此！经过刚才的互动，我已对您有了一定了解啦。接下来的问题会更深入，希望您放松心情，选择与您最相近的选项。"
+  texts.philosophyFixedAnswer = "非常有意思的观点！我想应该会有很多人与您持相似看法。"
+  texts.philosophyFreeAnswer = "您独特的见解令我眼前一亮！"
+  texts.blobTreeAnswer = "原来如此！经过刚才的互动，我已对您有了一定了解啦。接下来的问题会更深入，希望您放松心情，选择与您最相近的选项。（请稍等 15-25 秒为您生成定制化测试问题）"
   texts.discoveryPhaseTitle = "『发现篇章』"
 } else if (lang === 'en') {
   texts.userPostsAnswer = "Thanks for your sharing. It helps me to know you better. Now, let's explore your unique personality through some interesting questions."
@@ -81,7 +87,9 @@ if (lang === 'zh') {
     '9': "This is Nous autres musiciens (Three Musicians) by Spanish artist Pablo Picasso in 1921, which is characterized by bright and rich colors, simplified shapes and figurative elements. It shows Pablo Picasso's bold experiments with form and unique interpretation of themes during this period."
   };
   texts.mbtiOptionAnswer = "You resonate with the master!"
-  texts.blobTreeAnswer = "I see! After our interaction, I have a better understanding of you. The following questions will be more in-depth. Please relax and choose the option that is closest to you."
+  texts.philosophyFixedAnswer = "Very interesting point of view! I think many people should have similar views with you."
+  texts.philosophyFreeAnswer = "Your unique insights are refreshing!"
+  texts.blobTreeAnswer = "I see! After our interaction, I have a better understanding of you. The following questions will be more in-depth. Please relax and choose the option that is closest to you. (Please wait 15-25 seconds for your customized test questions to be generated)"
   texts.discoveryPhaseTitle = "[Discovery Phase]"
 }
 
@@ -100,9 +108,17 @@ export function ChatList({ messages }: ChatList) {
     const mbtiInfo = texts.mbtiOptionInfo[key];
     modifiedMessages.splice(7, 0, {id: chatID, content: mbtiInfo + texts.mbtiOptionAnswer, role: "assistant"}); // insert assistant message
   }
-  if (messages.length >= 7) {  // start phase + ask for user posts + user posts + mbti option + mbti option answer + blob tree + blob tree answer
-    modifiedMessages.splice(10, 0, {id: chatID, content: texts.blobTreeAnswer, role: "assistant"}); // insert assistant message
-    modifiedMessages.splice(11, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
+  if (messages.length >= 7) {
+    const userAnswer = messages[6].content;
+    if (userAnswer.includes("(") && userAnswer.includes(")")) {
+      modifiedMessages.splice(10, 0, {id: chatID, content: texts.philosophyFixedAnswer, role: "assistant"}); // insert assistant message
+    } else {
+      modifiedMessages.splice(10, 0, {id: chatID, content: texts.philosophyFreeAnswer, role: "assistant"}); // insert assistant messages
+    }
+  }
+  if (messages.length >= 9) {  // start phase + ask for user posts + user posts + mbti option + mbti option answer + tram + tram answer + blob tree + blob tree answer
+    modifiedMessages.splice(13, 0, {id: chatID, content: texts.blobTreeAnswer, role: "assistant"}); // insert assistant message
+    modifiedMessages.splice(14, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
   }
 
   return (
