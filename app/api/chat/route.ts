@@ -31,7 +31,7 @@ if (lang === 'zh') {
     texts.blobTreeResponse = "Finally, please choose a scene from the following pictures that makes you feel most comfortable and tell me the corresponding number."
 }
 
-export const runtime = 'edge'
+export const runtime = 'nodejs'
 export const maxDuration = 300
 const encoder = new TextEncoder();
 
