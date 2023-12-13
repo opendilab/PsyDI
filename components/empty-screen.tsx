@@ -58,14 +58,6 @@ export interface EmptyScreenProps
   id?: string
 }
 export function EmptyScreen({ setInput, append, id }: EmptyScreenProps) {
-  const handleClick = () => {
-    console.info("send start message")
-    append({
-      id,
-      content: "start",
-      role: 'user'
-    })
-  }
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="rounded-lg border bg-background p-8">
@@ -85,7 +77,16 @@ export function EmptyScreen({ setInput, append, id }: EmptyScreenProps) {
           {texts.intro3}
         </p>
         <div className="mt-4 flex flex-col items-start space-y-2">
-          <Button variant="link" className="h-auto p-0 text-base" onClick={handleClick} >
+          <Button variant="link" className="h-auto p-0 text-base" onClick={
+            async () => {
+              console.info("send start message")
+              await append({
+                id,
+                content: "start",
+                role: 'user'
+              })
+            }
+          }>
               <IconArrowRight className="mr-2 text-muted-foreground" />
           {texts.start}
           </Button>
