@@ -31,7 +31,6 @@ var texts = {
   intro2: '',
   intro3: '',
   start: '',
-  systemStartMessages: '',
 }
 if (lang === 'zh') {
     texts.welcome = '欢迎来到 PsyDI！'
@@ -39,14 +38,12 @@ if (lang === 'zh') {
     texts.intro2 = "您好，我是您的 MBTI 测评 AI 智能体，希望通过轻松的对话，共同探索您独特的个性和倾向。"
     texts.intro3 = "为了更好地了解您，我会先询问您最近的一些想法，然后邀请您完成一个简单有趣的测试。这将帮助我捕捉到您珍贵的内在世界。基于对您的了解，我会进一步提出问题来探寻您内在的动机，您只需要放松地选出最让您感到舒适的选项。最终，我们将一起解读测试结果，帮助您更好地发现自我。"
     texts.start = "现在开始测试"
-    texts.systemStartMessages = "『起始篇章』"
 } else if (lang === 'en') {
     texts.welcome = 'Welcome to PsyDI!'
     texts.intro1 = "This is an open source MBTI test AI developed by OpenDILab."
     texts.intro2 = "In this app, you will delve into the exploration of your MBTI through in-depth questioning and answers with AI." 
     texts.intro3 = "You can start a MBTI exploration with your posts or try the following examples:"
     texts.start = "Start the test now"
-    texts.systemStartMessages = "[Start Phase]"
 } else {
   // raise error  
   throw new Error('Language not supported: ' + lang)
@@ -64,8 +61,8 @@ export function EmptyScreen({ setInput, append, id }: EmptyScreenProps) {
   const handleClick = () => {
     append({
       id,
-      content: texts.systemStartMessages,
-      role: 'system'
+      content: "start",
+      role: 'user'
     })
   }
   return (
