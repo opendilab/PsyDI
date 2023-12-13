@@ -223,6 +223,7 @@ export class PsyDI {
       endpoint: 'post_user_posts',
       uid: uid,
       post_list: postList,
+      origin_post_list: postList.slice(0, postList.length - 3),
     }
   }
 }
