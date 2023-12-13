@@ -133,8 +133,21 @@ export async function POST(req: Request) {
 
   const dataStream = new ReadableStream({
     start(controller) {
-        controller.enqueue(encoder.encode(finalText));
-        controller.close();
+      controller.enqueue(encoder.encode(finalText.slice(0, 5)));
+      let index = 5;
+      const timer = setInterval(() => {
+        if (index >= finalText.length) {
+          clearInterval(timer);
+        } else {
+          if (finalText[index] === '!' && finalText[index + 1] === '[') {
+            controller.enqueue(encoder.encode(finalText.slice(index)));
+            index = finalText.length;
+          } else {
+            controller.enqueue(encoder.encode(finalText[index]));
+            index++;
+          }
+        }
+      }, 50);
     },
   });
   agent.setTurnCount(userId, turnCount + 1)
