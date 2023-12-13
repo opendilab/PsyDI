@@ -4,7 +4,7 @@ module.exports = {
     locales: ['zh', 'en'],
     defaultLocale: 'zh',
     localeDetection: false
-  }
+  },
   reactStrictMode: true,
   experimental: {
     serverActions: true,
