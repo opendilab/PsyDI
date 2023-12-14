@@ -60,6 +60,10 @@ export async function POST(req: Request) {
   agent.registerUser(userId)
 
   const turnCount = agent.getTurnCount(userId)
+  let streamDelay = 80
+  if (turnCount > 3) {
+    streamDelay = 50
+  }
   const debug = process.env.DEBUG
 
   const startTime: Date = new Date();
@@ -153,7 +157,7 @@ export async function POST(req: Request) {
                     index++;
                 }
             }
-        }, 80);
+        }, streamDelay);
       } else {
            controller.enqueue(encoder.encode(finalText))
            controller.close()

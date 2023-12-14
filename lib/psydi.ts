@@ -154,6 +154,7 @@ export class PsyDI {
         });
         const data = await response.json();
         console.info('data', data.ret)
+        let done = false
         if (!('done' in data.ret)) {
            done = true 
         } else {
