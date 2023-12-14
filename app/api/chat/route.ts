@@ -5,7 +5,7 @@ import { translate } from '@vitalets/google-translate-api';
 
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
-import { getPsyDIAgent } from '@/lib/psydi'
+import { getPsyDIAgent } from '@/app/psydi'
 
 
 const lang = process.env.LANG || 'zh' // default to zh
@@ -47,19 +47,10 @@ export async function POST(req: Request) {
       status: 401
     })
   }
-  // remove old data
-  try {
-    const turnCount = agent.getTurnCount(userId)
-    if (turnCount > 0 && messages.length <= 1) {
-      agent.deleteUser(userId)
-    }
-  } catch (e) {
-    // do nothing
-  }
 
-  agent.registerUser(userId)
+  await agent.registerUser(userId, messages.length <= 1)
 
-  const turnCount = agent.getTurnCount(userId)
+  const turnCount = await agent.getTurnCount(userId)
   let streamDelay = 80
   if (turnCount > 3) {
     streamDelay = 50
@@ -164,7 +155,7 @@ export async function POST(req: Request) {
       }
     },
   });
-  agent.setTurnCount(userId, turnCount + 1)
+  await agent.setTurnCount(userId, turnCount + 1)
 
   return new StreamingTextResponse(dataStream);
 }

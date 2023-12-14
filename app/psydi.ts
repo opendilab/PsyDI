@@ -1,4 +1,4 @@
-// https communication with the server
+import { kv } from '@vercel/kv'
 import { auth } from '@/auth';
 
 type UserData = {
@@ -8,13 +8,11 @@ type UserData = {
 
 export class PsyDI {
   private apiUrl: string;
-  private data: Record<string, UserData>;
   private MBTIOptions: Record<string, string> = {};
   private BlobTreeOptions: Record<string, string> = {};
 
   constructor(apiUrl: string) {
     this.apiUrl = apiUrl;
-    this.data = {};
     this.MBTIOptions = {
         '1': 'I have a appreciation for the beauty of representational painting, especially when it evokes a sense of pleasantness. This preference hints at my inclination toward adventure, responsibility, and an agreeable nature.',
         '2': 'I have a appreciation for the beauty of representational painting. This preference hints at my inclination toward adventure, responsibility, and an agreeable nature.',
@@ -51,48 +49,40 @@ export class PsyDI {
     };
   }
 
-  registerUser(userId: string): boolean {
-    if (!(userId in this.data)) {
-      this.data[userId] = {
-        turnCount: 0,
-        postList: [],
-      }; 
+  async registerUser(userId: string, isEmpty: boolean) {
+    try {
+      const turnCount = await kv.hget(`ucount:${userId}`, 'turnCount');
+      if (!(turnCount)) {
+        await kv.hset(`ucount:${userId}`, {turnCount: 0});
+      } else {
+        if (isEmpty && (typeof turnCount === 'number') && turnCount > 0) {
+          await kv.hset(`ucount:${userId}`, {turnCount: 0});
+        }
+      }
+    } catch (e) {
+      throw new Error('User not registered or kv error', e || '');
     }
     return true;
   }
 
-  deleteUser(userId: string): boolean {
-    if (userId in this.data) {
-      delete this.data[userId];
-      return true;
-    } else {
-      throw new Error('User not registered, delete error');
+  async getTurnCount(userId: string): Promise<number> {
+    try {
+      const turnCount = await kv.hget(`ucount:${userId}`, 'turnCount');
+      if (typeof turnCount === 'number') {
+        return turnCount;
+      } else {
+        throw new Error('User not registered');
+      }
+    } catch (e) {
+      throw new Error('User not registered or kv error', e || '');
     }
   }
 
-  getTurnCount(userId: string): number {
-    if (userId in this.data) {
-        return this.data[userId].turnCount;
-    } else {
-      throw new Error('User not registered');
-    }
-  }
-
-  setTurnCount(userId: string, turnCount: number): boolean {
-    if (userId in this.data) {
-        this.data[userId].turnCount = turnCount;
-        return true;
-    } else {
-      throw new Error('User not registered');
-    }
-  }
-
-  appendPost(userId: string, post: string): boolean {
-    if (userId in this.data) {
-        this.data[userId].postList.push(post);
-        return true;
-    } else {
-      throw new Error('User not registered');
+  async setTurnCount(userId: string, turnCount: number) {
+    try {
+      await kv.hset(`ucount:${userId}`, {turnCount: turnCount}); 
+    } catch (e) {
+      throw new Error('User not registered or kv error', e || '');
     }
   }
 
@@ -247,9 +237,4 @@ const agent = new PsyDI(process.env.PSYDI_API_URL || "placeholder")
 
 export const getPsyDIAgent = () => {
   return agent;
-};
-
-export async function deleteCurrentUser() {
-  const userId = (await auth())?.user.id
-  agent.deleteUser(userId);
 };
