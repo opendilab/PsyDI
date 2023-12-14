@@ -139,22 +139,24 @@ export async function POST(req: Request) {
         let index = 0;
         const timer = setInterval(() => {
             if (index === 0) {
-            controller.enqueue(encoder.encode(finalText.slice(0, 5)));
-            index = 5;
+                controller.enqueue(encoder.encode(finalText.slice(0, 5)));
+                index = 5;
             } else if (index >= finalText.length) {
-            clearInterval(timer);
+                clearInterval(timer);
+                controller.close()
             } else {
-            if (finalText[index] === '!' && finalText[index + 1] === '[') {
-                controller.enqueue(encoder.encode(finalText.slice(index)));
-                index = finalText.length;
-            } else {
-                controller.enqueue(encoder.encode(finalText[index]));
-                index++;
-            }
+                if (finalText[index] === '!' && finalText[index + 1] === '[') {
+                    controller.enqueue(encoder.encode(finalText.slice(index)));
+                    index = finalText.length;
+                } else {
+                    controller.enqueue(encoder.encode(finalText[index]));
+                    index++;
+                }
             }
         }, 80);
       } else {
            controller.enqueue(encoder.encode(finalText))
+           controller.close()
       }
     },
   });
