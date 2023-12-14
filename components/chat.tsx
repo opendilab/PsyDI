@@ -46,8 +46,30 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         if (response.status === 401) {
           toast.error(response.statusText)
         }
+        setTimeout(() => {
+          window.scrollTo({
+            top: document.body.offsetHeight,
+            behavior: 'smooth'
+          }) 
+        }, 100)
+      },
+      onFinish() {
+        setTimeout(() => {
+          window.scrollTo({
+            top: document.body.offsetHeight,
+            behavior: 'smooth'
+          }) 
+        }, 10)
       }
     })
+  const appendWithScroll = (message: any): Promise<string | null | undefined> => {
+    const ret = append(message)
+    window.scrollTo({
+      top: document.body.offsetHeight,
+      behavior: 'smooth'
+    })
+    return ret
+  }
   return (
     <>
       <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>
@@ -64,7 +86,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         id={id}
         isLoading={isLoading}
         stop={stop}
-        append={append}
+        append={appendWithScroll}
         reload={reload}
         messages={messages}
         input={input}
