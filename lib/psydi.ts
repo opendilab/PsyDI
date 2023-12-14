@@ -153,7 +153,13 @@ export class PsyDI {
             body: JSON.stringify({'uid': finalPayload.uid}),
         });
         const data = await response.json();
-        if (data.ret?.done) {
+        console.info('data', data.ret)
+        if (!('done' in data.ret)) {
+           done = true 
+        } else {
+           done = data.ret.done;
+        }
+        if (done) {
           const url = `${this.apiUrl}/get_result`;
           const response = await fetch(url, {
             method: 'POST',
@@ -163,7 +169,6 @@ export class PsyDI {
             body: JSON.stringify({'uid': finalPayload.uid}),
           });
           const data = await response.json();
-          console.info('data', data.ret)
           const result = data.ret.result;
           const processedResult = result.slice(1, result.length - 1)
           const mbti = data.ret.predicted_mbti
