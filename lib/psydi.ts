@@ -164,8 +164,11 @@ export class PsyDI {
           });
           const data = await response.json();
           const result = data.ret.result;
-          console.log('QA test done, the result is: ', result);
-          return {done: true, 'response_string': result};
+          const processedResult = result.slice(1, result.length - 1)
+          const mbti = data.ret.predicted_mbti;
+          const finalResult = `Your MBTI type is ${mbti}.\n\nHere is some detailed description about your personality:\n ${processedResult}`
+          console.info('QA test done, the result is: ', finalResult);
+          return {done: true, 'response_string': finalResult};
         } else {
             return {'done': false, 'response_string': data.ret.question};
         }

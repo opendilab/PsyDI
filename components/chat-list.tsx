@@ -101,6 +101,7 @@ export function ChatList({ messages }: ChatList) {
   if (!messages.length) {
     return null
   }
+  console.info(messages);
   const chatID = messages[0].id;
   messages = messages.filter((message: Message) => message.role !== 'user' || message.content !== 'start')
   var modifiedMessages = deepCopy(messages);
