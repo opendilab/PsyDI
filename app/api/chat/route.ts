@@ -9,6 +9,7 @@ import { getPsyDIAgent } from '@/lib/psydi'
 
 
 const lang = process.env.LANG || 'zh' // default to zh
+const streamFlag = process.env.STREAM_FLAG || false
 var texts = {
   userPostsResponse: "",
   explorationPhaseResponse: "",
@@ -103,6 +104,7 @@ export async function POST(req: Request) {
             if (e.name === 'TooManyRequestsError' || e.name === 'ConnectTimeoutError') {
                 console.error('Translate API is not available or rate limit exceeded, using original text')
             }
+            console.error('Other translate error', e)
         }
     }
     if (debug === 'true') {
@@ -133,21 +135,27 @@ export async function POST(req: Request) {
 
   const dataStream = new ReadableStream({
     start(controller) {
-      controller.enqueue(encoder.encode(finalText.slice(0, 5)));
-      let index = 5;
-      const timer = setInterval(() => {
-        if (index >= finalText.length) {
-          clearInterval(timer);
-        } else {
-          if (finalText[index] === '!' && finalText[index + 1] === '[') {
-            controller.enqueue(encoder.encode(finalText.slice(index)));
-            index = finalText.length;
-          } else {
-            controller.enqueue(encoder.encode(finalText[index]));
-            index++;
-          }
-        }
-      }, 50);
+      if (streamFlag) {
+        let index = 0;
+        const timer = setInterval(() => {
+            if (index === 0) {
+            controller.enqueue(encoder.encode(finalText.slice(0, 5)));
+            index = 5;
+            } else if (index >= finalText.length) {
+            clearInterval(timer);
+            } else {
+            if (finalText[index] === '!' && finalText[index + 1] === '[') {
+                controller.enqueue(encoder.encode(finalText.slice(index)));
+                index = finalText.length;
+            } else {
+                controller.enqueue(encoder.encode(finalText[index]));
+                index++;
+            }
+            }
+        }, 80);
+      } else {
+           controller.enqueue(encoder.encode(finalText))
+      }
     },
   });
   agent.setTurnCount(userId, turnCount + 1)
