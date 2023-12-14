@@ -170,6 +170,7 @@ export class PsyDI {
             body: JSON.stringify({'uid': finalPayload.uid}),
           });
           const data = await response.json();
+          console.info('final data', data.ret)
           const result = data.ret.result;
           const processedResult = result.slice(1, result.length - 1)
           const mbti = data.ret.predicted_mbti
