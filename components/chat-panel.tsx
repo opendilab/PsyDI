@@ -89,31 +89,8 @@ export function ChatPanel({
     <div className="fixed inset-x-0 bottom-0 bg-gradient-to-b from-muted/10 from-10% to-muted/30 to-50%">
       <ButtonScrollToBottom />
       <div className="mx-auto sm:max-w-2xl sm:px-4">
-        <div className="flex h-10 items-center justify-center">
-          {isLoading ? (
-            <Button
-              variant="outline"
-              onClick={() => stop()}
-              className="bg-background"
-            >
-              <IconStop className="mr-2" />
-              {texts.stop}
-            </Button>
-          ) : (
-            messages?.length > 0 && (
-              <Button
-                variant="outline"
-                onClick={() => reload()}
-                className="bg-background"
-              >
-                <IconRefresh className="mr-2" />
-                {texts.generate}
-              </Button>
-            )
-          )}
-        </div>
         <div className="space-y-4 border-t bg-background px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
-            { enableOptionButtons && (
+            { enableOptionButtons && !isLoading && (
             <Box
                 sx={{
                     display: 'grid',
@@ -125,28 +102,28 @@ export function ChatPanel({
                     gridTemplateColumns: 'repeat(2, 1fr)',
                 }}
             >
-            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={() => {
+            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} disabled={isLoading} onClick={() => {
               append({
                 id,
                 content: '(A)',
                 role: 'user'
               })
             }} startIcon={<CatchingPokemonSharpIcon />}>A</MuiButton>
-            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={() => {
+            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} disabled={isLoading} onClick={() => {
               append({
                 id,
                 content: '(B)',
                 role: 'user'
               })
             }} startIcon={<CatchingPokemonSharpIcon />}>B</MuiButton>
-            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={() => {
+            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} disabled={isLoading} onClick={() => {
               append({
                 id,
                 content: '(C)',
                 role: 'user'
               })
             }} startIcon={<CatchingPokemonSharpIcon />}>C</MuiButton>
-            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={() => {
+            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} disabled={isLoading} onClick={() => {
               append({
                 id,
                 content: '(D)',
