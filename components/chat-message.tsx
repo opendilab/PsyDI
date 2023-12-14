@@ -39,6 +39,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
         <MemoizedReactMarkdown
           className="prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 right-align"
           remarkPlugins={[remarkGfm, remarkMath]}
+          //@ts-ignore
           rehypePlugins={[rehypeRaw]}
           components={{
             p({ children }) {

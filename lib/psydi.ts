@@ -119,7 +119,7 @@ export class PsyDI {
         finalPayload.answer = finalPayload.messages[finalPayload.turnCount - 1].content;
         finalPayload.messages = [];
     }
-    console.log('payload:', finalPayload);
+    console.info('payload:', finalPayload);
     const url = `${this.apiUrl}/${finalPayload.endpoint}`;
 
     let code = -1;
@@ -140,7 +140,7 @@ export class PsyDI {
 
     const endTime: Date = new Date();
     const elapsedTime: number = endTime.getTime() - startTime.getTime();
-    console.log(`${finalPayload.endpoint} elapsed time: ${elapsedTime}ms`);
+    console.info(`${finalPayload.endpoint} elapsed time: ${elapsedTime}ms`);
 
     if (code === 0) {
       const url = `${this.apiUrl}/get_question`;
@@ -153,7 +153,7 @@ export class PsyDI {
             body: JSON.stringify({'uid': finalPayload.uid}),
         });
         const data = await response.json();
-        if (data.ret.done) {
+        if (data.ret?.done) {
           const url = `${this.apiUrl}/get_result`;
           const response = await fetch(url, {
             method: 'POST',
@@ -163,9 +163,11 @@ export class PsyDI {
             body: JSON.stringify({'uid': finalPayload.uid}),
           });
           const data = await response.json();
+          console.info('data', data.ret)
           const result = data.ret.result;
           const processedResult = result.slice(1, result.length - 1)
-          const mbti = data.ret.predicted_mbti;
+          const mbti = data.ret.predicted_mbti
+          const typeTable = data.ret.type_table
           const finalResult = `Your MBTI type is ${mbti}.\n\nHere is some detailed description about your personality:\n ${processedResult}`
           console.info('QA test done, the result is: ', finalResult);
           return {done: true, 'response_string': finalResult};
