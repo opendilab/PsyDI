@@ -4,6 +4,7 @@
 import { Message } from 'ai'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
+import rehypeRaw from 'rehype-raw'
 
 import { cn } from '@/lib/utils'
 import { CodeBlock } from '@/components/ui/codeblock'
@@ -14,6 +15,11 @@ import { ChatMessageActions } from '@/components/chat-message-actions'
 export interface ChatMessageProps {
   message: Message
 }
+
+const userMarkdownFormatL = `<div style='text-align: right;'>
+`
+const userMarkdownFormatR = `
+</div>`
 
 export function ChatMessage({ message, ...props }: ChatMessageProps) {
   return (
@@ -29,10 +35,11 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
         )}
       >
       </div>
-      <div className="flex-1 px-1 ml-4 space-y-2 overflow-hidden">
+      <div className="flex-1 px-1 mr-4 space-y-2 overflow-hidden">
         <MemoizedReactMarkdown
-          className="prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0"
+          className="prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 right-align"
           remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeRaw]}
           components={{
             p({ children }) {
               return <p className="mb-2 last:mb-0">{children}</p>
@@ -69,7 +76,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
             }
           }}
         >
-          {message.content}
+          {userMarkdownFormatL + message.content + userMarkdownFormatR}
         </MemoizedReactMarkdown>
         <ChatMessageActions message={message} />
       </div>
