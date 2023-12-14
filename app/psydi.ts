@@ -164,7 +164,7 @@ export class PsyDI {
             console.info(`[${finalPayload.uid}]final data`, data.ret)
             const result = data.ret.result;
             const processedResult = result.slice(1, result.length - 1)
-            const mbti = data.ret.predicted_mbti
+            const mbti = data.ret.mbti
             const typeTable = data.ret.type_table
             const finalResult = `Your MBTI type is ${mbti}.\n\nHere is some detailed description about your personality:\n ${processedResult}`
             console.info(`[${finalPayload}]QA test done, the result is: `, finalResult);
