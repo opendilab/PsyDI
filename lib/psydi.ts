@@ -144,46 +144,49 @@ export class PsyDI {
 
     if (code === 0) {
       const url = `${this.apiUrl}/get_question`;
-      try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({'uid': finalPayload.uid}),
-        });
-        const data = await response.json();
-        console.info('data', data.ret)
-        let done = false
-        if (!('done' in data.ret)) {
-           done = true 
-        } else {
-           done = data.ret.done;
+      while (true) {
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({'uid': finalPayload.uid}),
+            });
+            const data = await response.json();
+            console.info('data', data.ret)
+            let done = false
+            if (!('done' in data.ret)) {
+            done = true 
+            } else {
+            done = data.ret.done;
+            }
+            if (done) {
+            const url = `${this.apiUrl}/get_result`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({'uid': finalPayload.uid}),
+            });
+            const data = await response.json();
+            console.info('final data', data.ret)
+            const result = data.ret.result;
+            const processedResult = result.slice(1, result.length - 1)
+            const mbti = data.ret.predicted_mbti
+            const typeTable = data.ret.type_table
+            const finalResult = `Your MBTI type is ${mbti}.\n\nHere is some detailed description about your personality:\n ${processedResult}`
+            console.info('QA test done, the result is: ', finalResult);
+            return {done: true, 'response_string': finalResult};
+            } else {
+                return {'done': false, 'response_string': data.ret.question};
+            }
+        } catch (error) {
+            // retry
+            console.error('Comm Error:', error);
+            setTimeout(() => {}, 1000);
         }
-        if (done) {
-          const url = `${this.apiUrl}/get_result`;
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({'uid': finalPayload.uid}),
-          });
-          const data = await response.json();
-          console.info('final data', data.ret)
-          const result = data.ret.result;
-          const processedResult = result.slice(1, result.length - 1)
-          const mbti = data.ret.predicted_mbti
-          const typeTable = data.ret.type_table
-          const finalResult = `Your MBTI type is ${mbti}.\n\nHere is some detailed description about your personality:\n ${processedResult}`
-          console.info('QA test done, the result is: ', finalResult);
-          return {done: true, 'response_string': finalResult};
-        } else {
-            return {'done': false, 'response_string': data.ret.question};
-        }
-      } catch (error) {
-        console.error('Comm Error:', error);
-        throw error;
       }
     } else {
       console.error('Server Error:');
