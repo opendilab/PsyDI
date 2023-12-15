@@ -1,5 +1,4 @@
 import { kv } from '@vercel/kv'
-import { auth } from '@/auth';
 
 type UserData = {
   turnCount: number;
@@ -166,7 +165,7 @@ export class PsyDI {
             const processedResult = result.slice(1, result.length - 1)
             const mbti = data.ret.mbti
             const typeTable = data.ret.type_table
-            const finalResult = `Your MBTI type is ${mbti}.\n\nHere is some detailed description about your personality:\n ${processedResult}`
+            const finalResult = `#### Test Completed\n\nYour MBTI type is **${mbti}**.\n\nHere is some detailed description about your personality:\n ${processedResult}`
             console.info(`[${finalPayload}]QA test done, the result is: `, finalResult);
             return {done: true, 'response_string': finalResult};
             } else {
