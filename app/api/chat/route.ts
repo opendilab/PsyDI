@@ -95,8 +95,14 @@ export async function POST(req: Request) {
   if (turnCount > 3) {
     if (lang === 'zh') {
         try {
-            var { text } = await translate(finalText, {from: 'en', to: 'zh-CN'});
-            finalText = text
+            const idx = finalText.indexOf("![final img")
+            if (idx !== -1) {
+                var { text } = await translate(finalText.substring(0, idx), {from: 'en', to: 'zh-CN'});
+                finalText = text + finalText.substring(idx)
+            } else {
+                var { text } = await translate(finalText, {from: 'en', to: 'zh-CN'});
+                finalText = text
+            }
         } catch (e: any) {
             if (e.name === 'TooManyRequestsError' || e.name === 'ConnectTimeoutError') {
                 console.error('Translate API is not available or rate limit exceeded, using original text')

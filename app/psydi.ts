@@ -148,12 +148,16 @@ export class PsyDI {
                 body: JSON.stringify({'uid': finalPayload.uid}),
             });
             const data = await response.json();
-            console.info(`[${finalPayload.uid}]final data`, data.ret)
+            // console.info(`[${finalPayload.uid}]final data`, data.ret)
             const result = data.ret.result;
             const processedResult = result.slice(1, result.length - 1)
             const mbti = data.ret.mbti
             const typeTable = data.ret.type_table
-            const finalResult = `#### Test Completed\n\nYour MBTI type is **${mbti}**.\n\nHere is some detailed description about your personality:\n ${processedResult}`
+            const imageUrl = data.ret?.image_url
+            let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**.\n\nHere is some detailed description about your personality:\n ${processedResult}`
+            if (imageUrl !== 'null') {
+              finalResult += `\n\nYour MBTI Personalized Characteristic Image: ![final img](${imageUrl})` 
+            }
             console.info(`[${finalPayload.uid}]QA test done, the result is: `, finalResult);
             return {done: true, 'response_string': finalResult};
             } else {
