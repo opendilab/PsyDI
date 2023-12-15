@@ -85,19 +85,6 @@ export class PsyDI {
     }
   }
 
-  async fetchData(endpoint: string): Promise<any> {
-    const url = `${this.apiUrl}/${endpoint}`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error:', error);
-      throw error;
-    }
-  }
-
   async getQuestions(payload: any): Promise<any> {
     const startTime: Date = new Date();
     let finalPayload: { [key: string]: any } = payload;
@@ -123,7 +110,7 @@ export class PsyDI {
       const data = await response.json();
       code = data.code;
     } catch (error) {
-      console.error('Comm Error:', error);
+      console.error(`[${finalPayload.uid}Comm Error:`, error);
       throw error;
     }
 
@@ -133,6 +120,7 @@ export class PsyDI {
 
     if (code === 0) {
       const url = `${this.apiUrl}/get_question`;
+      let retryCount = 0
       while (true) {
         try {
             const response = await fetch(url, {
@@ -173,12 +161,16 @@ export class PsyDI {
             }
         } catch (error) {
             // retry
-            console.error('Comm Error:', error);
-            setTimeout(() => {}, 1000);
+            retryCount += 1
+            if (retryCount > 5) {
+              throw error
+            }
+            console.error(`[${finalPayload.uid}Comm Error:`, error);
+            await setTimeout(() => {}, 1000);
         }
       }
     } else {
-      console.error('Server Error:');
+      console.error(`[${finalPayload.uid}Sever Error:`);
     }
   }
 
