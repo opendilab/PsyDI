@@ -154,7 +154,7 @@ export class PsyDI {
             const mbti = data.ret.mbti
             const typeTable = data.ret.type_table
             const finalResult = `#### Test Completed\n\nYour MBTI type is **${mbti}**.\n\nHere is some detailed description about your personality:\n ${processedResult}`
-            console.info(`[${finalPayload}]QA test done, the result is: `, finalResult);
+            console.info(`[${finalPayload.uid}]QA test done, the result is: `, finalResult);
             return {done: true, 'response_string': finalResult};
             } else {
                 return {'done': false, 'response_string': data.ret.question};
