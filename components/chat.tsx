@@ -34,6 +34,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   )
   const [previewTokenDialog, setPreviewTokenDialog] = useState(IS_PREVIEW)
   const [previewTokenInput, setPreviewTokenInput] = useState(previewToken ?? '')
+  const [chatDone, setChatDone] = useState(false)
   const { messages, append, reload, stop, setMessages, isLoading, input, setInput} =
     useChat({
       initialMessages,
@@ -46,6 +47,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         if (response.status === 401) {
           toast.error(response.statusText)
         }
+        setChatDone(response.headers.get('chat-done') === 'true')
         setTimeout(() => {
           window.scrollTo({
             top: document.body.offsetHeight,
@@ -75,7 +77,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>
         {messages.length ? (
           <>
-            <ChatList messages={messages} />
+            <ChatList messages={messages} chatDone={chatDone} />
             <ChatScrollAnchor trackVisibility={isLoading} />
           </>
         ) : (
@@ -84,7 +86,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       </div>
       <ChatPanel
         id={id}
-        isLoading={isLoading}
+        isLoading={isLoading || chatDone}
         stop={stop}
         append={appendWithScroll}
         reload={reload}

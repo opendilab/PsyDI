@@ -5,6 +5,7 @@ import { ChatMessage } from '@/components/chat-message'
 
 export interface ChatList {
   messages: Message[]
+  chatDone: boolean
 }
 
 function deepCopy(obj: any): any {
@@ -43,6 +44,8 @@ interface Texts {
   philosophyFreeAnswer: string;
   blobTreeAnswer: string;
   discoveryPhaseTitle: string;
+  endPhaseTitle: string;
+  endDescription: string;
 }
 var texts: Texts = {
   startPhaseTitle: "",
@@ -54,6 +57,8 @@ var texts: Texts = {
   philosophyFreeAnswer: "",
   blobTreeAnswer: "",
   discoveryPhaseTitle: "",
+  endPhaseTitle: "",
+  endDescription: "",
 }
 if (lang === 'zh') {
   texts.startPhaseTitle = "『起始篇章』"
@@ -75,6 +80,8 @@ if (lang === 'zh') {
   texts.philosophyFreeAnswer = "您独特的见解令我眼前一亮！"
   texts.blobTreeAnswer = "原来如此！经过刚才的互动，我已对您有了一定了解啦。接下来的问题会更深入，希望您放松心情，选择与您最相近的选项。（请稍等 15-25 秒为您生成定制化测试问题）"
   texts.discoveryPhaseTitle = "『发现篇章』"
+  texts.endPhaseTitle = "『回响篇章』"
+  texts.endDescription = "感谢您的回答！我已为您准备好一份专属个性报告，希望能帮助您更好地认识自我。这次轻松的对话不仅让我捕捉到了您的独特个性，也希望帮助您看清内心，接纳自我。每一个人都有属于自己的独特魅力，值得被认可与理解。如果日后您想要再次探索自我，欢迎随时来找我聊聊！我随时在这里等待您再次开启交流。"
 } else if (lang === 'en') {
   texts.startPhaseTitle = "[Start Phase]"
   texts.userPostsAnswer = "Thanks for your sharing. It helps me to know you better. Now, let's explore your unique personality through some interesting questions."
@@ -95,13 +102,15 @@ if (lang === 'zh') {
   texts.philosophyFreeAnswer = "Your unique insights are refreshing!"
   texts.blobTreeAnswer = "I see! After our interaction, I have a better understanding of you. The following questions will be more in-depth. Please relax and choose the option that is closest to you. (Please wait 15-25 seconds for your customized test questions to be generated)"
   texts.discoveryPhaseTitle = "[Discovery Phase]"
+  texts.endPhaseTitle = "[End Phase]"
+  texts.endDescription = "Thank you for your answers! I have prepared a customized personality report for you, hoping to help you better understand yourself. This relaxed conversation not only allows me to capture your unique personality, but also hopes to help you see your heart and accept yourself. Everyone has their own unique charm, which deserves to be recognized and understood. If you want to explore yourself again in the future, please feel free to come to me! I am always here waiting for you to start a conversation again."
 }
 
-export function ChatList({ messages }: ChatList) {
+export function ChatList({ messages, chatDone }: ChatList) {
   if (!messages.length) {
     return null
   }
-  console.info(messages);
+  //console.info(messages);
   const chatID = messages[0].id;
   messages = messages.filter((message: Message) => message.role !== 'user' || message.content !== 'start')
   var modifiedMessages = deepCopy(messages);
@@ -128,6 +137,10 @@ export function ChatList({ messages }: ChatList) {
   if (messages.length >= 8) {  // ask for user posts + user posts + mbti option + mbti option answer + tram + tram answer + blob tree + blob tree answer
     modifiedMessages.splice(13, 0, {id: chatID, content: texts.blobTreeAnswer, role: "assistant"}); // insert assistant message
     modifiedMessages.splice(14, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
+  }
+  if (chatDone) {
+    modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endPhaseTitle, role: "system"}); // insert system message
+    modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endDescription, role: "assistant"}); // insert assistant message
   }
 
   return (

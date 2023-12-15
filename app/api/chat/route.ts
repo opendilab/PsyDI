@@ -58,6 +58,7 @@ export async function POST(req: Request) {
   const debug = process.env.DEBUG
 
   const startTime: Date = new Date();
+  var done = false;
   let response_string = ''
   if (turnCount === 0) {
     response_string = texts.userPostsResponse
@@ -74,6 +75,7 @@ export async function POST(req: Request) {
   } else {
     if (debug === 'true') {
       response_string = `hello world\n`
+      done = true
     } else { 
         const messagesUser = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content !== 'start')
         const response = await agent.getQuestions({
@@ -81,7 +83,7 @@ export async function POST(req: Request) {
             turnCount: turnCount,
             messages: messagesUser,
         })
-        const done = response.done
+        done = response.done
         response_string = response.response_string
     }
   }
@@ -156,6 +158,9 @@ export async function POST(req: Request) {
     },
   });
   await agent.setTurnCount(userId, turnCount + 1)
+  console.info(`[${userId}]return done`, done, turnCount)
 
-  return new StreamingTextResponse(dataStream);
+  return new StreamingTextResponse(dataStream, {
+    headers: { 'CHAT-DONE': done.toString() },
+  });
 }
