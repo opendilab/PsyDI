@@ -1,3 +1,4 @@
+//@ts-ignore
 import { v4 as uuidv4 } from 'uuid';
 import { cookies } from 'next/headers'
 
@@ -13,7 +14,7 @@ export function auth() {
   const cookiesList = cookies()
   const hasCookie = cookiesList.has('userId')
   if (hasCookie) {
-    const userId = cookiesList.get('userId').value
+    const userId = cookiesList.get('userId')?.value
     return {user: {id: userId}}
   } else {
     const userId = uuidv4()
@@ -27,7 +28,7 @@ export function clear() {
   const cookiesList = cookies()
   const hasCookie = cookiesList.has('userId')
   if (hasCookie) {
-    const userId = cookiesList.get('userId').value
+    const userId = cookiesList.get('userId')?.value
     console.info('clear session', userId);
     cookies().delete('userId')
   }
