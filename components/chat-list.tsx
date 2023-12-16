@@ -41,7 +41,9 @@ interface Texts {
   mbtiOptionInfo: Record<string, any>;
   mbtiOptionAnswer: string;
   philosophyFixedAnswer: string; 
+  philosophyFixedAnswerPart2: string; 
   philosophyFreeAnswer: string;
+  philosophyRatio: string[];
   blobTreeAnswer: string;
   discoveryPhaseTitle: string;
   endPhaseTitle: string;
@@ -55,6 +57,8 @@ var texts: Texts = {
   mbtiOptionAnswer: "",
   philosophyFixedAnswer: "",
   philosophyFreeAnswer: "",
+  philosophyFixedAnswerPart2: "",
+  philosophyRatio: ["8.4", "51.9", "15.1", "21.6"],
   blobTreeAnswer: "",
   discoveryPhaseTitle: "",
   endPhaseTitle: "",
@@ -76,8 +80,9 @@ if (lang === 'zh') {
     '9': "这是西班牙艺术家 Pablo Picasso 于1921年创作的油画《Nous autres musiciens (Three Musicians) 》，以明亮丰富的颜色、简化的形状和具象化的元素为特征，展现了 Pablo Picasso 在这一时期对于形式的大胆实验和对于主题的独特演绎。"
   }
   texts.mbtiOptionAnswer = "您和过去的大师产生了共鸣！"
-  texts.philosophyFixedAnswer = "非常有意思的观点！我想应该会有很多人与您持相似看法。"
+  texts.philosophyFixedAnswer = "非常有意思的观点！我想应该会有很多人与您持相似看法。据不完全统计，有"
   texts.philosophyFreeAnswer = "您独特的见解令我眼前一亮！"
+  texts.philosophyFixedAnswerPart2 = "的用户和您选择了相同的选项。"
   texts.blobTreeAnswer = "原来如此！经过刚才的互动，我已对您有了一定了解啦。接下来的问题会更深入，希望您放松心情，选择与您最相近的选项。（请稍等 15-25 秒为您生成定制化测试问题）"
   texts.discoveryPhaseTitle = "『发现篇章』"
   texts.endPhaseTitle = "『回响篇章』"
@@ -129,7 +134,11 @@ export function ChatList({ messages, chatDone }: ChatList) {
   if (messages.length >= 6) {
     const userAnswer = messages[5].content;
     if (userAnswer.includes("(") && userAnswer.includes(")")) {
-      modifiedMessages.splice(10, 0, {id: chatID, content: texts.philosophyFixedAnswer, role: "assistant"}); // insert assistant message
+      const option2Index = {"(A)": 0, "(B)": 1, "(C)": 2, "(D)": 3}
+      //@ts-ignore
+      const ratio = texts.philosophyRatio[option2Index[userAnswer]] || "10.5"
+      const finalString = texts.philosophyFixedAnswer + ` ${ratio}% ` + texts.philosophyFixedAnswerPart2;
+      modifiedMessages.splice(10, 0, {id: chatID, content: finalString, role: "assistant"}); // insert assistant message
     } else {
       modifiedMessages.splice(10, 0, {id: chatID, content: texts.philosophyFreeAnswer, role: "assistant"}); // insert assistant messages
     }

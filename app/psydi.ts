@@ -9,6 +9,7 @@ export class PsyDI {
   private apiUrl: string;
   private MBTIOptions: Record<string, string> = {};
   private BlobTreeOptions: Record<string, string> = {};
+  private MBTIStatistics: Record<string, number> = {};
 
   constructor(apiUrl: string) {
     this.apiUrl = apiUrl;
@@ -46,6 +47,24 @@ export class PsyDI {
         '20': 'Psychology test defines me as ambitious, confident, and full of life, I\'m innovator and not afraid to take risks. My detachment and passion bring me many successes and satisfactions.',
         '21': 'Psychology test defines me as a person who tries but does not know how to find the best solutions for my life. I\'m a person who must learn to ask for help from those around me and give up my suspicious nature.'
     };
+    this.MBTIStatistics = {
+        'INTP': 5.71,
+        'INTJ': 3.74,
+        'ENTP': 4.35,
+        'ENTJ': 3.03,
+        'INFP': 10.63,
+        'INFJ': 5.60,
+        'ENFP': 9.43,
+        'ENFJ': 5.69,
+        'ISTJ': 4.74,
+        'ISFJ': 9.52,
+        'ESTJ': 5.41,
+        'ESFJ': 10.16,
+        'ISTP': 3.59,
+        'ISFP': 8.41,
+        'ESTP': 3.20,
+        'ESFP': 6.81,
+    }
   }
 
   async registerUser(userId: string, isEmpty: boolean) {
@@ -154,7 +173,7 @@ export class PsyDI {
             const mbti = data.ret.mbti
             const typeTable = data.ret.type_table
             const imageUrl = data.ret?.image_url
-            let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**.\n\nHere is some detailed description about your personality:\n ${processedResult}`
+            let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]} of the MBTI tests.\n\nHere is some detailed description about your personality:\n ${processedResult}`
             if (imageUrl !== 'null') {
               finalResult += `\n\nYour MBTI Personalized Characteristic Image: ![final img](${imageUrl})` 
             }
@@ -215,7 +234,7 @@ export class PsyDI {
   getPostsPayload(uid: string, messages: Record<string, string>[]): Record<string, any> {
     const startTime: Date = new Date();
     const rawContent = messages.map((message) => message.content)
-    let postList = [...rawContent[0].split('\n'), ...rawContent.slice(1)]
+    let postList = [...rawContent[0].split(/[\n,;,；]/), ...rawContent.slice(1)]
     postList[postList.length - 3] = this.getMBTIOptionAnswer(postList[postList.length - 3])
     postList[postList.length - 2] = this.getPhilosophyAnswer(postList[postList.length - 2])
     postList[postList.length - 1] = this.getBlobTreeAnswer(postList[postList.length - 1])
