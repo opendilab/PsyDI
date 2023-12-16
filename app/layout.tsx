@@ -10,6 +10,7 @@ import { Providers } from '@/components/providers'
 import { Header } from '@/components/header'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXTAUTH_URL || 'http://localhost:3000'),
   title: {
     default: 'PsyDI Agent',
     template: '%s | PsyDI Agent'

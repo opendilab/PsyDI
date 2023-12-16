@@ -55,7 +55,7 @@ dependencies:
     version: registry.npmmirror.com/@vercel/og@0.5.20
   '@vitalets/google-translate-api':
     specifier: ^9.2.0
-    version: registry.npmmirror.com/@vitalets/google-translate-api@9.2.0
+    version: registry.npmmirror.com/@vitalets/google-translate-api@9.2.0(encoding@0.1.13)
   ai:
     specifier: ^2.1.6
     version: registry.npmmirror.com/ai@2.2.27(react@18.2.0)(solid-js@1.8.7)(svelte@4.2.8)(vue@3.3.12)
@@ -65,6 +65,9 @@ dependencies:
   clsx:
     specifier: ^1.2.1
     version: registry.npmmirror.com/clsx@1.2.1
+  encoding:
+    specifier: ^0.1.13
+    version: 0.1.13
   focus-trap-react:
     specifier: ^10.1.1
     version: registry.npmmirror.com/focus-trap-react@10.2.3(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
@@ -479,6 +482,12 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
+  /encoding@0.1.13:
+    resolution: {integrity: sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==, tarball: https://registry.npmmirror.com/encoding/-/encoding-0.1.13.tgz}
+    dependencies:
+      iconv-lite: 0.6.3
+    dev: false
+
   /estree-walker@2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==, tarball: https://registry.npmmirror.com/estree-walker/-/estree-walker-2.0.2.tgz}
     dev: false
@@ -495,6 +504,20 @@ packages:
     os: [darwin]
     requiresBuild: true
     optional: true
+
+  /iconv-lite@0.4.24:
+    resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==, tarball: https://registry.npmmirror.com/iconv-lite/-/iconv-lite-0.4.24.tgz}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      safer-buffer: 2.1.2
+    dev: false
+
+  /iconv-lite@0.6.3:
+    resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==, tarball: https://registry.npmmirror.com/iconv-lite/-/iconv-lite-0.6.3.tgz}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      safer-buffer: 2.1.2
+    dev: false
 
   /is-reference@3.0.2:
     resolution: {integrity: sha512-v3rht/LgVcsdZa3O2Nqs+NMowLOxeOm7Ay9+/ARQ2F+qEoANRcqrjAZKGN0v8ymUetZGgkp26LTnGT7H0Qo9Pg==, tarball: https://registry.npmmirror.com/is-reference/-/is-reference-3.0.2.tgz}
@@ -595,6 +618,10 @@ packages:
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==, tarball: https://registry.npmmirror.com/react-is/-/react-is-16.13.1.tgz}
+    dev: false
+
+  /safer-buffer@2.1.2:
+    resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==, tarball: https://registry.npmmirror.com/safer-buffer/-/safer-buffer-2.1.2.tgz}
     dev: false
 
   /seroval@0.15.1:
@@ -2575,15 +2602,16 @@ packages:
       yoga-wasm-web: registry.npmmirror.com/yoga-wasm-web@0.3.3
     dev: false
 
-  registry.npmmirror.com/@vitalets/google-translate-api@9.2.0:
+  registry.npmmirror.com/@vitalets/google-translate-api@9.2.0(encoding@0.1.13):
     resolution: {integrity: sha512-w98IPWGuexlGmh8Y19AxF6cgWT0U5JLevVNDKEuFpTWtBC9z3YtDWKTDxF3nPP1k9bWicuB1V7I7YfHoZiDScw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vitalets/google-translate-api/-/google-translate-api-9.2.0.tgz}
+    id: registry.npmmirror.com/@vitalets/google-translate-api/9.2.0
     name: '@vitalets/google-translate-api'
     version: 9.2.0
     engines: {node: '>=14'}
     dependencies:
       '@types/http-errors': registry.npmmirror.com/@types/http-errors@1.8.2
       http-errors: registry.npmmirror.com/http-errors@2.0.0
-      node-fetch: registry.npmmirror.com/node-fetch@2.7.0
+      node-fetch: registry.npmmirror.com/node-fetch@2.7.0(encoding@0.1.13)
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -3998,7 +4026,7 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       chardet: registry.npmmirror.com/chardet@0.7.0
-      iconv-lite: registry.npmmirror.com/iconv-lite@0.4.24
+      iconv-lite: 0.4.24
       tmp: registry.npmmirror.com/tmp@0.0.33
     dev: false
 
@@ -4558,15 +4586,6 @@ packages:
       setprototypeof: registry.npmmirror.com/setprototypeof@1.2.0
       statuses: registry.npmmirror.com/statuses@2.0.1
       toidentifier: registry.npmmirror.com/toidentifier@1.0.1
-    dev: false
-
-  registry.npmmirror.com/iconv-lite@0.4.24:
-    resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/iconv-lite/-/iconv-lite-0.4.24.tgz}
-    name: iconv-lite
-    version: 0.4.24
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      safer-buffer: registry.npmmirror.com/safer-buffer@2.1.2
     dev: false
 
   registry.npmmirror.com/ieee754@1.2.1:
@@ -5947,8 +5966,9 @@ packages:
       - babel-plugin-macros
     dev: false
 
-  registry.npmmirror.com/node-fetch@2.7.0:
+  registry.npmmirror.com/node-fetch@2.7.0(encoding@0.1.13):
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/node-fetch/-/node-fetch-2.7.0.tgz}
+    id: registry.npmmirror.com/node-fetch/2.7.0
     name: node-fetch
     version: 2.7.0
     engines: {node: 4.x || >=6.0.0}
@@ -5958,6 +5978,7 @@ packages:
       encoding:
         optional: true
     dependencies:
+      encoding: 0.1.13
       whatwg-url: registry.npmmirror.com/whatwg-url@5.0.0
     dev: false
 
@@ -6893,12 +6914,6 @@ packages:
       get-intrinsic: registry.npmmirror.com/get-intrinsic@1.2.2
       is-regex: registry.npmmirror.com/is-regex@1.1.4
     dev: true
-
-  registry.npmmirror.com/safer-buffer@2.1.2:
-    resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/safer-buffer/-/safer-buffer-2.1.2.tgz}
-    name: safer-buffer
-    version: 2.1.2
-    dev: false
 
   registry.npmmirror.com/satori@0.10.9:
     resolution: {integrity: sha512-XU9EELUEZuioT4acLIpCXxHcFzrsC8muvg0MY28d+TlqwxbkTzBmWbw+3+hnCzXT7YZ0Qm8k3eXktDaEu+qmEw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/satori/-/satori-0.10.9.tgz}

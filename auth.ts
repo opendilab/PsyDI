@@ -1,3 +1,5 @@
+"use server"
+
 //@ts-ignore
 import { v4 as uuidv4 } from 'uuid';
 import { cookies } from 'next/headers'
@@ -10,7 +12,7 @@ interface Session {
   }
 }
 
-export function auth() {
+export async function auth() {
   const cookiesList = cookies()
   const hasCookie = cookiesList.has('userId')
   if (hasCookie) {
@@ -24,7 +26,7 @@ export function auth() {
   }
 }
 
-export function clear() {
+export async function clear() {
   const cookiesList = cookies()
   const hasCookie = cookiesList.has('userId')
   if (hasCookie) {
