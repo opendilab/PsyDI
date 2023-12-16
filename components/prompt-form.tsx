@@ -16,11 +16,14 @@ import { useRouter } from 'next/navigation'
 const lang = process.env.LANG || 'zh' // default to zh
 var texts = {
   newChat: "",
+  sendMessage: "",
 }
 if (lang === 'zh') {
   texts.newChat = "新评测"
+  texts.sendMessage = "发送回复"
 } else if (lang === 'en') {
   texts.newChat = "New Chat"
+  texts.sendMessage = "Send Message"
 }
 
 
@@ -100,10 +103,10 @@ export function PromptForm({
                 disabled={isLoading || input === ''}
               >
                 <IconArrowElbow />
-                <span className="sr-only">Send message</span>
+                <span className="sr-only">{texts.sendMessage}</span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Send message</TooltipContent>
+            <TooltipContent>{texts.sendMessage}</TooltipContent>
           </Tooltip>
         </div>
       </div>

@@ -34,7 +34,7 @@ var texts = {
   stop: '',
 };
 if (lang === 'zh') {
-  texts.initPlaceholder = '请输入您的个人动态（以换行符分隔）。'
+  texts.initPlaceholder = '请输入您的个人动态（以中文分号或换行符分隔）。'
   texts.imgPlaceholder = '请选择您喜欢的图片选项。(1-9)'
   texts.philosophyPlacehodler = '请选择上面的选项 (ABCD) 或输入您自己的答案。'
   texts.blobTreePlaceholder = '请输入您的选择的 blob 数字（1-21）。'
@@ -43,7 +43,7 @@ if (lang === 'zh') {
   texts.generate = '重新生成回复'
   texts.stop = '停止生成'
 } else if (lang === 'en') {
-  texts.initPlaceholder = 'Please enter your personal posts (separated by newlines).'
+  texts.initPlaceholder = 'Please enter your personal posts (separated by semicolons or newlines).'
   texts.imgPlaceholder = 'Please select your favourite images options (1-9).'
   texts.philosophyPlacehodler = 'Please select above options (ABCD) or enter your own answer.'
   texts.blobTreePlaceholder = 'Please enter the blob number of your choice (1-21).'

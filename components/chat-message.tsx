@@ -16,12 +16,26 @@ export interface ChatMessageProps {
   message: Message
 }
 
-const userMarkdownFormatL = `<div style='text-align: right;'>
+const userMarkdownFormatLComplex = `<div style='text-align: left;text-align-last: left;'>
+`
+const userMarkdownFormatLSimple = `<div style='text-align: right;'>
 `
 const userMarkdownFormatR = `
 </div>`
 
 export function ChatMessage({ message, ...props }: ChatMessageProps) {
+  const processUserContent = (content: string) => {
+    const splitContent = content.split(/\n|；|;/g)
+    const maxLen = Math.max(...splitContent.map((item) => item.length))
+    let processedContent = content
+    processedContent = processedContent.replace(/\n|；|;/g, "<br>")
+    if (maxLen > 16) {
+      processedContent = userMarkdownFormatLComplex + processedContent + userMarkdownFormatR
+    } else {
+      processedContent = userMarkdownFormatLSimple + processedContent + userMarkdownFormatR
+    }
+    return processedContent
+  }
   return (
     <div
       className={cn('group relative mb-4 flex items-start md:-ml-12')}
@@ -75,9 +89,10 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                 />
               )
             }
+
           }}
         >
-          {userMarkdownFormatL + message.content + userMarkdownFormatR}
+          {processUserContent(message.content)}
         </MemoizedReactMarkdown>
         <ChatMessageActions message={message} />
       </div>

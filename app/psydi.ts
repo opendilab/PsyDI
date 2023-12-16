@@ -173,7 +173,7 @@ export class PsyDI {
             const mbti = data.ret.mbti
             const typeTable = data.ret.type_table
             const imageUrl = data.ret?.image_url
-            let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]} of the MBTI tests.\n\nHere is some detailed description about your personality:\n ${processedResult}`
+            let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI tests.\n\nHere is some detailed description about your personality:\n ${processedResult}`
             if (imageUrl !== 'null') {
               finalResult += `\n\nYour MBTI Personalized Characteristic Image: ![final img](${imageUrl})` 
             }

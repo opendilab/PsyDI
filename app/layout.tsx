@@ -11,10 +11,10 @@ import { Header } from '@/components/header'
 
 export const metadata: Metadata = {
   title: {
-    default: 'PsyDI Chatbot',
-    template: '%s | PsyDI Chatbot'
+    default: 'PsyDI Agent',
+    template: '%s | PsyDI Agent'
   },
-  description: 'An AI-powered chatbot built by OpenDILab.',
+  description: 'An AI-powered chat agent built by OpenDILab.',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' }
