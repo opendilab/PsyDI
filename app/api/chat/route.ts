@@ -2,6 +2,7 @@ import { kv } from '@vercel/kv'
 import { StreamingTextResponse } from 'ai'
 import { HttpResponse, http } from 'msw';
 import { translate } from '@vitalets/google-translate-api';
+//import { translate } from '@/lib/translate';
 
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
@@ -9,7 +10,7 @@ import { getPsyDIAgent } from '@/app/psydi'
 
 
 const lang = process.env.LANG || 'zh' // default to zh
-const streamFlag = process.env.STREAM_FLAG || false
+const streamFlag = process.env.STREAM_FLAG == 'true' || false
 var texts = {
   userPostsResponse: "",
   explorationPhaseResponse: "",

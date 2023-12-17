@@ -123,13 +123,14 @@ export class PsyDI {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
         },
         body: JSON.stringify(finalPayload),
       });
       const data = await response.json();
       code = data.code;
     } catch (error) {
-      console.error(`[${finalPayload.uid}Comm Error:`, error);
+      console.error(`[${finalPayload.uid}]Comm Error:`, error);
       throw error;
     }
 
@@ -145,7 +146,8 @@ export class PsyDI {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
                 },
                 body: JSON.stringify({'uid': finalPayload.uid}),
             });
@@ -162,7 +164,8 @@ export class PsyDI {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
                 },
                 body: JSON.stringify({'uid': finalPayload.uid}),
             });
