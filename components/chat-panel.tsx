@@ -1,4 +1,6 @@
 import { type UseChatHelpers } from 'ai/react'
+import { useState } from 'react';
+import { useRouter } from 'next/navigation'
 import Box from '@mui/material/Box';
 import { Button as MuiButton } from '@mui/material';
 import CatchingPokemonSharpIcon from '@mui/icons-material/CatchingPokemonSharp';
@@ -22,6 +24,12 @@ export interface ChatPanelProps
   > {
   id?: string
 }
+
+type ConfirmationDialogProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+};
 
 const lang = process.env.LANG || 'zh' // default to zh
 var texts = {
@@ -52,6 +60,34 @@ if (lang === 'zh') {
   texts.stop = 'Stop generating'
 }
 
+const ConfirmationDialog = ({ isOpen, onClose, onConfirm }: ConfirmationDialogProps) => {
+  const handleConfirm = () => {
+    onConfirm();
+    onClose();
+  };
+
+  return (
+    <div style={{ display: isOpen ? 'block' : 'none'}}>
+      <p style={{textAlign: 'center', fontSize: '18px'}}><b>您确定要开启新评测吗？</b></p>
+    <Box
+        sx={{
+            display: 'grid',
+            columnGap: 3,
+            rowGap: 0,
+            marginRight: 2,
+            marginLeft: 2,
+            marginDown: 0,
+            marginTop: 2,
+            gridTemplateColumns: 'repeat(2, 1fr)',
+        }}
+    >
+      <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={handleConfirm}>确认</MuiButton>
+      <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={onClose}>取消</MuiButton>
+    </Box>
+    </div>
+  );
+};
+
 export function ChatPanel({
   id,
   isLoading,
@@ -62,6 +98,21 @@ export function ChatPanel({
   setInput,
   messages
 }: ChatPanelProps) {
+  const router = useRouter()
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+
+  const handleCloseConfirmation = () => {
+    setIsConfirmationOpen(false);
+  };
+
+  const handleNewChat = () => {
+    setIsConfirmationOpen(true);
+  };
+
+  const handleConfirmNewChat = () => {
+    router.refresh()
+    router.push('/')
+  };
 
   let placeholder = ''
   let enableOptionButtons = false
@@ -93,6 +144,13 @@ export function ChatPanel({
         {/* placeholder */}
         </div>
         <div className="space-y-4 border-t bg-background px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
+            { isConfirmationOpen && (
+                <ConfirmationDialog
+                isOpen={isConfirmationOpen}
+                onClose={handleCloseConfirmation}
+                onConfirm={handleConfirmNewChat}
+                />
+            )}
             { enableOptionButtons && !isLoading && (
             <Box
                 sx={{
@@ -147,6 +205,7 @@ export function ChatPanel({
             setInput={setInput}
             isLoading={isLoading}
             placeholder={placeholder}
+            handleNewChat={handleNewChat}
           />
           <FooterText className="hidden sm:block" />
         </div>

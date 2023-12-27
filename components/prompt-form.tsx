@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/tooltip'
 import { useEnterSubmit } from '@/lib/hooks/use-enter-submit'
 import { cn } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
 
 const lang = process.env.LANG || 'zh' // default to zh
 var texts = {
@@ -32,6 +31,7 @@ export interface PromptProps
   onSubmit: (value: string) => Promise<void>
   isLoading: boolean
   placeholder: string
+  handleNewChat: () => void
 }
 
 export function PromptForm({
@@ -40,10 +40,10 @@ export function PromptForm({
   setInput,
   isLoading,
   placeholder,
+  handleNewChat,
 }: PromptProps) {
   const { formRef, onKeyDown } = useEnterSubmit()
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
-  const router = useRouter()
 
   React.useEffect(() => {
     if (inputRef.current) {
@@ -67,11 +67,7 @@ export function PromptForm({
         <Tooltip>
           <TooltipTrigger asChild>
             <button
-              onClick={e => {
-                e.preventDefault()
-                router.refresh()
-                router.push('/')
-              }}
+              onClick={handleNewChat}
               className={cn(
                 buttonVariants({ size: 'sm', variant: 'outline' }),
                 'absolute left-0 top-4 h-8 w-8 rounded-full bg-background p-0 sm:left-4'
