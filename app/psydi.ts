@@ -107,7 +107,7 @@ export class PsyDI {
   async getQuestions(payload: any): Promise<any> {
     const startTime: Date = new Date();
     let finalPayload: { [key: string]: any } = payload;
-    if (finalPayload.turnCount === 4) {
+    if (finalPayload.turnCount === 3) {
         finalPayload = this.getPostsPayload(payload.uid, payload.messages);
     } else {
         finalPayload.endpoint = 'post_user_answer';

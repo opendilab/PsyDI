@@ -131,21 +131,9 @@ export function ChatList({ messages, chatDone }: ChatList) {
     const mbtiInfo = texts.mbtiOptionInfo[key];
     modifiedMessages.splice(7, 0, {id: chatID, content: mbtiInfo + texts.mbtiOptionAnswer, role: "assistant"}); // insert assistant message
   }
-  if (messages.length >= 6) {
-    const userAnswer = messages[5].content;
-    if (userAnswer.includes("(") && userAnswer.includes(")")) {
-      const option2Index = {"(A)": 0, "(B)": 1, "(C)": 2, "(D)": 3}
-      //@ts-ignore
-      const ratio = texts.philosophyRatio[option2Index[userAnswer]] || "10.5"
-      const finalString = texts.philosophyFixedAnswer + ` ${ratio}% ` + texts.philosophyFixedAnswerPart2;
-      modifiedMessages.splice(10, 0, {id: chatID, content: finalString, role: "assistant"}); // insert assistant message
-    } else {
-      modifiedMessages.splice(10, 0, {id: chatID, content: texts.philosophyFreeAnswer, role: "assistant"}); // insert assistant messages
-    }
-  }
-  if (messages.length >= 8) {  // ask for user posts + user posts + mbti option + mbti option answer + tram + tram answer + blob tree + blob tree answer
-    modifiedMessages.splice(13, 0, {id: chatID, content: texts.blobTreeAnswer, role: "assistant"}); // insert assistant message
-    modifiedMessages.splice(14, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
+  if (messages.length >= 6) {  // ask for user posts + user posts + mbti option + mbti option answer + blob tree + blob tree answer
+    modifiedMessages.splice(10, 0, {id: chatID, content: texts.blobTreeAnswer, role: "assistant"}); // insert assistant message
+    modifiedMessages.splice(11, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
   }
   if (chatDone) {
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endPhaseTitle, role: "system"}); // insert system message

@@ -67,10 +67,6 @@ export async function POST(req: Request) {
     response_string = texts.mbtiOptionResponse
     response_string += `![alt text](${process.env.MBTI_OPTION_IMAGE_URL})`
   } else if (turnCount === 2) {
-    response_string = texts.philosophyResponse
-    response_string += `![alt text](${process.env.PHILOSOPHY_IMAGE_URL})`
-    response_string += texts.philosophyAnswers
-  } else if (turnCount === 3) {
     response_string = texts.blobTreeResponse
     response_string += `![alt text](${process.env.BLOB_TREE_IMAGE_URL})`
   } else {
@@ -93,7 +89,7 @@ export async function POST(req: Request) {
   console.info(response_string, `Total elapsed time: ${elapsedTime}ms`)
 
   var finalText = response_string.replace(/\n/g, "\n\n");
-  if (turnCount > 3) {
+  if (turnCount > 2) {
     if (lang === 'zh') {
         try {
             const idx = finalText.indexOf("![final img")

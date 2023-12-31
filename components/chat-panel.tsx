@@ -122,12 +122,9 @@ export function ChatPanel({
     placeholder = texts.initPlaceholder
   } else if (messages?.length === 4) {
     placeholder = texts.imgPlaceholder
-  } else if (messages?.length === 6) {
-    placeholder = texts.philosophyPlacehodler
-    enableOptionButtons = true
-  } else if (messages?.length === 8){ 
+  } else if (messages?.length === 6){ 
     placeholder = texts.blobTreePlaceholder
-  } else if (messages?.length > 9){ 
+  } else if (messages?.length > 7){ 
     placeholder = texts.QAPlaceholder
     if (messages[messages.length - 1].role === 'assistant') {
       enableOptionButtons = true
