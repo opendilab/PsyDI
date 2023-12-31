@@ -1,11 +1,14 @@
 import { type Message } from 'ai'
+import { BeatLoader } from 'react-spinners'
 
 import { Separator } from '@/components/ui/separator'
 import { ChatMessage } from '@/components/chat-message'
+import { GetThemeColor } from '@/components/theme-toggle'
 
 export interface ChatList {
   messages: Message[]
   chatDone: boolean
+  isLoading: boolean
 }
 
 function deepCopy(obj: any): any {
@@ -111,7 +114,7 @@ if (lang === 'zh') {
   texts.endDescription = "Thank you for your answers! I have prepared a customized personality report for you, hoping to help you better understand yourself. This relaxed conversation not only allows me to capture your unique personality, but also hopes to help you see your heart and accept yourself. Everyone has their own unique charm, which deserves to be recognized and understood. If you want to explore yourself again in the future, please feel free to come to me! I am always here waiting for you to start a conversation again."
 }
 
-export function ChatList({ messages, chatDone }: ChatList) {
+export function ChatList({ messages, chatDone, isLoading }: ChatList) {
   if (!messages.length) {
     return null
   }
@@ -149,6 +152,12 @@ export function ChatList({ messages, chatDone }: ChatList) {
           )}
         </div>
       ))}
+      {isLoading && (
+        <Separator className="my-4 md:my-8" />
+      )}
+      <div className="flex items-center justify-center h-16">
+        <BeatLoader color={GetThemeColor().antiPrimary} loading={isLoading} size={10} />
+      </div>
     </div>
   )
 }
