@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast'
 
 export { Toaster } from 'react-hot-toast'
 
-export function errorToaster(message: string, duration: int = 2000) {
+export function errorToaster(message: string, duration: number = 2000) {
   toast.error(
     message,
     {

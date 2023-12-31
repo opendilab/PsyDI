@@ -61,6 +61,18 @@ export async function POST(req: Request) {
   var done = false;
   var errorCode = 0;
   let response_string = ''
+
+  // post info
+  if (!(debug === 'true') && (turnCount === 1 || turnCount === 5)) {
+    const messagesUser = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content !== 'start')
+    agent.postPosts({
+      uid: userId,
+      turnCount: turnCount,
+      messages: messagesUser,
+    })
+  }
+
+  // get next question
   if (turnCount === 0) {
     response_string = texts.userPostsResponse
   } else if (turnCount === 1) {

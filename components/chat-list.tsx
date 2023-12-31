@@ -123,17 +123,16 @@ export function ChatList({ messages, chatDone }: ChatList) {
     modifiedMessages.splice(0, 0, {id: chatID, content: texts.startPhaseTitle, role: "system"}); // insert system message
   }
   if (messages.length >= 2) {  // ask for user posts + user posts
-    modifiedMessages.splice(3, 0, {id: chatID, content: texts.userPostsAnswer, role: "assistant"}); // insert assistant message
-    modifiedMessages.splice(4, 0, {id: chatID, content: texts.explorationPhaseTitle, role: "system"}); // insert system message
+    modifiedMessages.splice(3, 0, {id: chatID, content: texts.explorationPhaseTitle, role: "system"}); // insert system message
   }
   if (messages.length >= 4) {  // ask for user posts + user posts + mbti option + mbti option answer
     const key = parseInt(messages[3].content).toString();
     const mbtiInfo = texts.mbtiOptionInfo[key];
-    modifiedMessages.splice(7, 0, {id: chatID, content: mbtiInfo + texts.mbtiOptionAnswer, role: "assistant"}); // insert assistant message
+    //modifiedMessages.splice(7, 0, {id: chatID, content: mbtiInfo + texts.mbtiOptionAnswer, role: "assistant"}); // insert assistant message
   }
-  if (messages.length >= 6) {  // ask for user posts + user posts + mbti option + mbti option answer + blob tree + blob tree answer
-    modifiedMessages.splice(10, 0, {id: chatID, content: texts.blobTreeAnswer, role: "assistant"}); // insert assistant message
-    modifiedMessages.splice(11, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
+  if (messages.length >= 10) {  // ask for user posts + user posts + mbti option + mbti option answer + blob tree + blob tree answer + 4
+  //  modifiedMessages.splice(10, 0, {id: chatID, content: texts.blobTreeAnswer, role: "assistant"}); // insert assistant message
+    modifiedMessages.splice(12, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
   }
   if (chatDone) {
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endPhaseTitle, role: "system"}); // insert system message
