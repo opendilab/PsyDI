@@ -19,7 +19,7 @@ import {
 import { useState } from 'react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
-import { toast } from 'react-hot-toast'
+import { errorToaster } from './toaster'
 
 const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
 export interface ChatProps extends React.ComponentProps<'div'> {
@@ -45,7 +45,10 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       },
       onResponse(response) {
         if (response.status === 401) {
-          toast.error(response.statusText)
+          errorToaster(response.statusText)
+        }
+        if (response.headers.get('chat-errorcode') !== '0') {
+            errorToaster("服务器超时错误，请点击左下角'加号'按钮重启评测，并稍后再试", 10000)
         }
         setChatDone(response.headers.get('chat-done') === 'true')
         setTimeout(() => {

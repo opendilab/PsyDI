@@ -10,6 +10,7 @@ import { PromptForm } from '@/components/prompt-form'
 import { ButtonScrollToBottom } from '@/components/button-scroll-to-bottom'
 import { IconRefresh, IconStop } from '@/components/ui/icons'
 import { FooterText } from '@/components/footer'
+import { errorToaster } from '@/components/toaster'
 
 export interface ChatPanelProps
   extends Pick<
@@ -40,6 +41,8 @@ var texts = {
   QAPlaceholder: '',
   generate: '',
   stop: '',
+  imgErrorInfo: '',
+  blobTreeErrorInfo: '',
 };
 if (lang === 'zh') {
   texts.initPlaceholder = '请输入您的个人动态（以中文分号或换行符分隔）。'
@@ -50,6 +53,8 @@ if (lang === 'zh') {
   texts.QAPlaceholder = '选择上面的选项 (ABCD) 。'
   texts.generate = '重新生成回复'
   texts.stop = '停止生成'
+  texts.imgErrorInfo = '格式错误，请仅输入 1-9 之间的数字。'
+  texts.blobTreeErrorInfo = '格式错误，请仅输入 1-21 之间的数字。'
 } else if (lang === 'en') {
   texts.initPlaceholder = 'Please enter your personal posts (separated by semicolons or newlines).'
   texts.imgPlaceholder = 'Please select your favourite images options (1-9).'
@@ -58,6 +63,8 @@ if (lang === 'zh') {
   texts.QAPlaceholder = 'Select above options or enter your own answer.'
   texts.generate = 'Regenerate response'
   texts.stop = 'Stop generating'
+  texts.imgErrorInfo = 'Answer format error, please enter only numbers between 1-9.'
+  texts.blobTreeErrorInfo = 'Answer format error, please enter only numbers between 1-21.'
 }
 
 const ConfirmationDialog = ({ isOpen, onClose, onConfirm }: ConfirmationDialogProps) => {
@@ -112,6 +119,23 @@ export function ChatPanel({
   const handleConfirmNewChat = () => {
     router.refresh()
     router.push('/')
+  };
+
+  const checkValue = (value: string) => {
+    if (messages?.length === 4) {
+      const intValue = parseInt(value)
+      if (isNaN(intValue) || intValue < 1 || intValue > 9) {
+        errorToaster(texts.imgErrorInfo)
+        return false
+      }
+    } else if (messages?.length === 6) {
+      const intValue = parseInt(value)
+      if (isNaN(intValue) || intValue < 1 || intValue > 21) {
+        errorToaster(texts.blobTreeErrorInfo)
+        return false
+      }
+    }
+    return true
   };
 
   let placeholder = ''
@@ -192,11 +216,13 @@ export function ChatPanel({
             )}
           <PromptForm
             onSubmit={async value => {
-              await append({
-                id,
-                content: value,
-                role: 'user'
-              })
+              if (checkValue(value)) {
+                await append({
+                  id,
+                  content: value,
+                  role: 'user'
+                })
+              }
             }}
             input={input}
             setInput={setInput}

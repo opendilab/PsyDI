@@ -160,28 +160,28 @@ export class PsyDI {
               done = data.ret.done;
             }
             if (done) {
-            const url = `${this.apiUrl}/get_result`;
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
-                },
-                body: JSON.stringify({'uid': finalPayload.uid}),
-            });
-            const data = await response.json();
-            // console.info(`[${finalPayload.uid}]final data`, data.ret)
-            const result = data.ret.result;
-            const processedResult = result.slice(1, result.length - 1)
-            const mbti = data.ret.mbti
-            const typeTable = data.ret.type_table
-            const imageUrl = data.ret?.image_url
-            let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI tests.\n\nHere is some detailed description about your personality:\n ${processedResult}`
-            if (imageUrl !== 'null') {
-              finalResult += `\n\nYour MBTI Personalized Characteristic Image: ![final img](${imageUrl})` 
-            }
-            console.info(`[${finalPayload.uid}]QA test done, the result is: `, finalResult);
-            return {done: true, 'response_string': finalResult};
+                const url = `${this.apiUrl}/get_result`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
+                    },
+                    body: JSON.stringify({'uid': finalPayload.uid}),
+                });
+                const data = await response.json();
+                // console.info(`[${finalPayload.uid}]final data`, data.ret)
+                const result = data.ret.result;
+                const processedResult = result.slice(1, result.length - 1)
+                const mbti = data.ret.mbti
+                const typeTable = data.ret.type_table
+                const imageUrl = data.ret?.image_url
+                let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI tests.\n\nHere is some detailed description about your personality:\n ${processedResult}`
+                if (imageUrl !== 'null') {
+                finalResult += `\n\nYour MBTI Personalized Characteristic Image: ![final img](${imageUrl})` 
+                }
+                console.info(`[${finalPayload.uid}]QA test done, the result is: `, finalResult);
+                return {done: true, 'response_string': finalResult};
             } else {
                 return {'done': false, 'response_string': data.ret.question};
             }
@@ -197,6 +197,7 @@ export class PsyDI {
       }
     } else {
       console.error(`[${finalPayload.uid}Sever Error:`);
+      throw new Error('Server Error');
     }
   }
 

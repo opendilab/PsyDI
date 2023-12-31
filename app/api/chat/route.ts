@@ -2,7 +2,6 @@ import { kv } from '@vercel/kv'
 import { StreamingTextResponse } from 'ai'
 import { HttpResponse, http } from 'msw';
 import { translate } from '@vitalets/google-translate-api';
-//import { translate } from '@/lib/translate';
 
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
@@ -60,6 +59,7 @@ export async function POST(req: Request) {
 
   const startTime: Date = new Date();
   var done = false;
+  var errorCode = 0;
   let response_string = ''
   if (turnCount === 0) {
     response_string = texts.userPostsResponse
@@ -75,13 +75,17 @@ export async function POST(req: Request) {
       done = true
     } else { 
         const messagesUser = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content !== 'start')
-        const response = await agent.getQuestions({
-            uid: userId,
-            turnCount: turnCount,
-            messages: messagesUser,
-        })
-        done = response.done
-        response_string = response.response_string
+        try {
+            const response = await agent.getQuestions({
+                uid: userId,
+                turnCount: turnCount,
+                messages: messagesUser,
+            })
+            done = response.done
+            response_string = response.response_string
+        } catch {
+          errorCode = -1
+        }
     }
   }
   const endTime: Date = new Date();
@@ -89,7 +93,7 @@ export async function POST(req: Request) {
   console.info(response_string, `Total elapsed time: ${elapsedTime}ms`)
 
   var finalText = response_string.replace(/\n/g, "\n\n");
-  if (turnCount > 2) {
+  if (errorCode === 0 && turnCount > 2) {
     if (lang === 'zh') {
         try {
             const idx = finalText.indexOf("![final img")
@@ -164,6 +168,6 @@ export async function POST(req: Request) {
   console.info(`[${userId}]return done`, done, turnCount)
 
   return new StreamingTextResponse(dataStream, {
-    headers: { 'CHAT-DONE': done.toString() },
+    headers: { 'CHAT-DONE': done.toString(), 'CHAT-ERRORCODE': errorCode.toString()},
   });
 }
