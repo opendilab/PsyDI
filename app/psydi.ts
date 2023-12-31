@@ -119,7 +119,7 @@ export class PsyDI {
             });
             const data = await response.json();
             console.info(`[${payload.uid}]data`, data.ret)
-            const response_string = data.ret.question + '\n' + data.ret['Option A'] + '\n' + data.ret['Option B'] + '\n' + data.ret['Option C'] + '\n' + data.ret['Option D'];
+            const response_string = data.ret['Question'] + '\n(A) ' + data.ret['Option A'] + '\n(B) ' + data.ret['Option B'] + '\n(C) ' + data.ret['Option C'] + '\n(D) ' + data.ret['Option D'];
             return {'done': false, 'response_string': response_string};
         } catch (error) {
             // retry
@@ -179,7 +179,9 @@ export class PsyDI {
                 console.info(`[${payload.uid}]QA test done, the result is: `, finalResult);
                 return {done: true, 'response_string': finalResult};
             } else {
-                return {'done': false, 'response_string': data.ret.question};
+                const q = data.ret.question
+                const response_string = q['Analysis'] + '\n' + q['Question'] + '\n(A) ' + q['Option A'] + '\n(B) ' + q['Option B'] + '\n(C) ' + q['Option C'] + '\n(D) ' + q['Option D'];
+                return {'done': false, 'response_string': response_string};
             }
         } catch (error) {
             // retry
@@ -227,7 +229,7 @@ export class PsyDI {
   async getQuestions(payload: any): Promise<any> {
     const startTime: Date = new Date();
     let finalPayload: { [key: string]: any } = payload;
-    if (finalPayload.turnCount < 4) {
+    if (finalPayload.turnCount < 5) {
         finalPayload.endpoint = 'post_user_pre_answer';
         finalPayload.answer = finalPayload.messages[finalPayload.turnCount - 1].content;
         finalPayload.index = finalPayload.turnCount - 1;
@@ -237,24 +239,31 @@ export class PsyDI {
         finalPayload.answer = finalPayload.messages[finalPayload.turnCount - 1].content;
         finalPayload.messages = [];
     }
-    console.info(`[${finalPayload.uid}]payload:`, finalPayload);
-    const url = `${this.apiUrl}/${finalPayload.endpoint}`;
 
     let code = -1;
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
-        },
-        body: JSON.stringify(finalPayload),
-      });
-      const data = await response.json();
-      code = data.code;
-    } catch (error) {
-      console.error(`[${finalPayload.uid}]Comm Error:`, error);
-      throw error;
+    if (finalPayload.turnCount === 5) {  // skip post_user_answer when turnCount === 5
+      code = 0
+    } else {
+      console.info(`[${finalPayload.uid}]payload:`, finalPayload);
+      const url = `${this.apiUrl}/${finalPayload.endpoint}`;
+      try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
+            },
+            body: JSON.stringify(finalPayload),
+        });
+        const data = await response.json();
+        code = data.code;
+        if (code === 0 && finalPayload.endpoint === 'post_user_pre_answer') {
+            console.log('post', data.ret.post)  // TODO
+        }
+        } catch (error) {
+        console.error(`[${finalPayload.uid}]Comm Error:`, error);
+        throw error;
+      }
     }
 
     const endTime: Date = new Date();
@@ -262,7 +271,7 @@ export class PsyDI {
     console.info(`[${finalPayload.uid}]${finalPayload.endpoint} elapsed time: ${elapsedTime}ms`);
 
     if (code === 0) {
-      if (finalPayload.turnCount < 6) {
+      if (finalPayload.turnCount < 5) {
         return this.getPreQuestions(finalPayload);
       } else {
         return this.getPhase3Questions(finalPayload);
@@ -312,8 +321,8 @@ export class PsyDI {
     const rawContent = messages.map((message) => message.content)
     if (additional) {
       let postList = rawContent.slice(1)
-      postList[postList.length - 2] = this.getMBTIOptionAnswer(postList[postList.length - 2])
-      postList[postList.length - 1] = this.getBlobTreeAnswer(postList[postList.length - 1])
+      postList[0] = this.getMBTIOptionAnswer(postList[0])
+      postList[1] = this.getBlobTreeAnswer(postList[1])
       return {
         endpoint: 'post_additional_posts',
         uid: uid,
@@ -325,6 +334,7 @@ export class PsyDI {
         endpoint: 'post_user_posts',
         uid: uid,
         post_list: postList,
+        record: false,
       }
     }
   }
