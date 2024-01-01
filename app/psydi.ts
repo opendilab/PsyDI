@@ -184,15 +184,33 @@ export class PsyDI {
                 const result = data.ret.result;
                 const processedResult = result.slice(1, result.length - 1)
                 const mbti = data.ret.mbti
-                const typeTable = data.ret.type_table
-                console.log('typeTable', typeTable)
+                const table = data.ret.table
+                const keyword1 = processedResult.split('"Keyword A": ')[1].split('"')[1]
+                const keyword2 = processedResult.split('"Keyword B": ')[1].split('"')[1]
+                const reason1 = processedResult.split('"Reason A": ')[1].split('"')[1]
+                const reason2 = processedResult.split('"Reason B": ')[1].split('"')[1]
+                const description = {keywords: [keyword1, keyword2], texts: [reason1, reason2]}
+                const naiveAttr = this.getNaiveAttrValue(table, mbti)
                 const imageUrl = data.ret?.image_url
-                let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the  MBTI  tests.\n\nHere is some detailed description about your personality:\n ${processedResult}`
+
+                let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI tests.\n`
+                finalResult += "The detailed rating is: " + Object.keys(naiveAttr).map(key => `${key}: ${(naiveAttr[key]*100).toFixed(1)}%`).join(', ') + '\n'
+                finalResult += "Here is some detailed description about your personality:\n"
+                finalResult += `> 关键词 A：${description.keywords[0]}` + '\n' + `解释：${description.texts[0]}` + '\n'
+                finalResult += `> 关键词 B：${description.keywords[1]}` + '\n' + `解释：${description.texts[1]}` + '\n'
                 if (imageUrl !== 'null') {
                   finalResult += `\n\nYour MBTI Personalized Characteristic Image: ![final img](${imageUrl})` 
                 }
                 console.info(`[${payload.uid}]QA test done, the result is: `, finalResult);
-                return {done: true, 'response_string': finalResult};
+                let resultExtras = {
+                  mbti: mbti, 
+                  headUrl: "",
+                  imageUrl: imageUrl,
+                  description: description,
+                  naiveAttr: naiveAttr,
+                  // totalRatio: [], 
+                }
+                return {done: true, 'response_string': finalResult, 'result_extras': resultExtras};
             } else {
                 const q = data.ret.question
                 const index = data.ret.index
@@ -326,6 +344,30 @@ export class PsyDI {
       console.error(`[${uid}Sever Error:`);
       throw new Error('Server Error');
     }
+  }
+
+  getNaiveAttrValue(table: Record<string, number>, predictedMBTI: string): Record<string, number> {
+    const compareMapping = {
+      'E': 'I',
+      'S': 'N',
+      'T': 'F',
+      'J': 'P',
+      'I': 'E',
+      'N': 'S',
+      'F': 'T',
+      'P': 'J',
+    }
+    let naiveAttrValue = {} as Record<string, number>;
+    for (let i = 0; i < 4; i++) {
+      let oppositeMBTIArray = Array.from(predictedMBTI)  // deepcopy
+      // @ts-ignore
+      oppositeMBTIArray[i] = compareMapping[predictedMBTI[i]];
+      const oppositeMBTI = oppositeMBTIArray.join('');
+      const val = table[predictedMBTI] / (table[predictedMBTI] + table[oppositeMBTI])
+      naiveAttrValue[predictedMBTI[i]] = val;
+      naiveAttrValue[oppositeMBTI[i]] = 1 - val;
+    }
+    return naiveAttrValue
   }
 
   getMBTIOptionAnswer(answer: string): string[] {
