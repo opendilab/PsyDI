@@ -182,8 +182,21 @@ export class PsyDI {
                 return {done: true, 'response_string': finalResult};
             } else {
                 const q = data.ret.question
-                const response_string = q['Analysis'] + '\n' + q['Question'] + '\n(A) ' + q['Option A'] + '\n(B) ' + q['Option B'] + '\n(C) ' + q['Option C'] + '\n(D) ' + q['Option D'];
-                return {'done': false, 'response_string': response_string};
+                const index = data.ret.index
+                const userPostsCount = payload.messages[0].content.split(/[\n,;,；]/).length
+                const phase2Index = index + 1 - userPostsCount
+                var infoString = index < userPostsCount ? `> This problem is based on the ${index + 1}-th user post.` : `> This problem is based on the ${phase2Index}-th chat in the exploration phase. `
+                if (phase2Index >= 1) {
+                  const choiceExplanation = await kv.hget(`ucount:${payload.uid}chat:${phase2Index + 1}`, 'post');
+                  infoString += `Your answer about this chat means that "${choiceExplanation}"`
+                }
+                if (phase2Index === 1) {
+                  infoString += `\n![alt text](${process.env.MBTI_OPTION_IMAGE_URL})`
+                } else if (phase2Index === 2) {
+                  infoString += `\n![alt text](${process.env.BLOB_TREE_IMAGE_URL})`
+                }
+                const responseString = infoString + '\n' + q['Question'] + '\n(A) ' + q['Option A'] + '\n(B) ' + q['Option B'] + '\n(C) ' + q['Option C'] + '\n(D) ' + q['Option D'];
+                return {'done': false, 'response_string': responseString};
             }
         } catch (error) {
             // retry
@@ -264,7 +277,6 @@ export class PsyDI {
         const data = await response.json();
         code = data.code;
         if (code === 0 && endpoint === 'post_user_pre_answer') {
-            console.log('post', turnCount, data.ret.post)  // TODO
             await kv.hset(`ucount:${uid}chat:${turnCount}`, {post: data.ret.post}); 
         }
         } catch (error) {
@@ -336,10 +348,12 @@ export class PsyDI {
       let postList = rawContent.slice(1)
       postList[0] = this.getMBTIOptionAnswer(postList[0])
       postList[1] = this.getBlobTreeAnswer(postList[1])
-      const post4 = kv.hget(`ucount:${uid}chat:4`, 'post'); 
-      const post5 = kv.hget(`ucount:${uid}chat:5`, 'post');
-      postList[2] = await post4.toString()
-      postList[3] = await post5.toString()
+      kv.hset(`ucount:${uid}chat:2`, {post: postList[0]});
+      kv.hset(`ucount:${uid}chat:3`, {post: postList[1]});
+      const post4 = kv.hget(`ucount:${uid}chat:4`, 'post') as Promise<string>;
+      const post5 = kv.hget(`ucount:${uid}chat:5`, 'post') as Promise<string>;
+      postList[2] = (await post4).toString()
+      postList[3] = (await post5).toString()
       return {
         endpoint: 'post_additional_posts',
         uid: uid,

@@ -20,12 +20,13 @@ var texts = {
   blobTreeResponse: "",
 };
 if (lang === 'zh') {
-    texts.userPostsResponse = "现在，让我们从日常生活聊起。最近有什么趣事吗？您的想法和感受是？在您输入一段想法后请点击提交。（多条动态之间以中文分号或换行分隔）\n以下是一些仅供参考的例子：\n"
+    texts.userPostsResponse = "现在，让我们从日常生活聊起。最近有什么趣事吗？您的想法和感受是？在您输入一段想法后请点击提交。（多条动态之间以中文分号或换行分隔）\n以下是一些参考示例：\n"
     texts.userPostsExamples = [
-      "- *我喜欢与不同的人聊天，分享我的经历。我也喜欢听他们的家庭故事。与人交谈让我感到与社会接轨。*",
-      "- *在很多时候，我能够在一些实证性的工作中做得很好，比如成为一名医生或高中教师。起初我可能得不到很高的评分，但随着经验的增长，我变得越来越自信。熟悉和规律的工作帮助我发现了我的才能。*",
-      "- *小时候，我是一个饱读书籍和常常天马行空地想象的孩子。*",
-      "- *没有什么有趣的事情，或者说，一切事物都有趣味的一面。*",
+      "- *我喜欢与不同的人聊天，分享我的经历。我也喜欢听他们的故事。与人交谈让我能发现新乐趣。*",
+      "- *我经常在一些实证性的工作中做得很好，比如成为一名医生或老师。起初我可能得不到很高的评价，但随着经验的增长，我变得越来越自信。熟悉和规律的工作帮助我发现了我的才能。*",
+      "- *小时候，我是一个饱读书籍和常常天马行空地想象的孩子；今天是我的幸运日*",
+      "- *没有什么有趣的事情，或者说，任何事物都有趣味的一面。*",
+      "- *我觉得似乎没有人愿意谈论对我最重要的事情，或者似乎没有人关心这些事情。如果我最终谈论到我的兴趣，似乎对方会感到烦恼或无聊。*",
     ]
     texts.mbtiOptionResponse = "首先，我很好奇您对于视觉艺术的喜好。请在以下九张图片中选择您最喜欢的一张，并告诉我您选择的编号。" 
     texts.philosophyResponse = "著名的“电车难题”是一个富有争议的话题。我很想听听您的想法，请选择一项最符合的，或直接告诉我您的见解。"
@@ -38,6 +39,7 @@ if (lang === 'zh') {
         "- *In many cases, I can do well in some empirical work, such as being a doctor or a high school teacher. At first I may not get a high score, but as I gain experience, I become more and more confident. Familiar and regular work helps me discover my talents.*",
         "- *When I was a child, I was a child who read a lot of books and often imagined wildly.*",
         "- *There is nothing interesting, or rather, everything has an interesting side.*",
+        "- *I feel that no one seems to be willing to talk about the most important things to me, or that no one seems to care about them. If I eventually talk about my interests, it seems that the other party will feel annoyed or bored.*",
     ];
     texts.mbtiOptionResponse = "First, I am curious about your preferences for visual arts. Please choose your favorite one from the following nine pictures and tell me the number you choose."
     texts.philosophyResponse = "The famous 'trolley problem' is a controversial topic. I would like to hear your thoughts. Please choose the one that best suits you, or tell me your thoughts directly."
@@ -68,8 +70,8 @@ export async function POST(req: Request) {
 
   const turnCount = await agent.getTurnCount(userId)
   let streamDelay = 80
-  if (turnCount >= phase3StartTurnCount) {
-    streamDelay = 50
+  if (turnCount >= phase3StartTurnCount - 2) {
+    streamDelay = 30
   }
   const debug = process.env.DEBUG
 
@@ -180,6 +182,9 @@ export async function POST(req: Request) {
                 controller.close()
             } else {
                 if (finalText[index] === '!' && finalText[index + 1] === '[') {
+                    controller.enqueue(encoder.encode(finalText.slice(index)));
+                    index = finalText.length;
+                } else if (finalText[index] === '-' && finalText[index + 1] === ' ') {
                     controller.enqueue(encoder.encode(finalText.slice(index)));
                     index = finalText.length;
                 } else {
