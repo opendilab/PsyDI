@@ -39,6 +39,7 @@ var texts = {
   philosophyPlacehodler: '',
   blobTreePlaceholder: '',
   QAPlaceholder: '',
+  QAPlaceholderComplex: '',
   generate: '',
   stop: '',
   imgErrorInfo: '',
@@ -49,8 +50,8 @@ if (lang === 'zh') {
   texts.imgPlaceholder = '请选择您喜欢的图片选项。(1-9)'
   texts.philosophyPlacehodler = '请选择上面的选项 (ABCD) 或输入您自己的答案。'
   texts.blobTreePlaceholder = '请输入您的选择的 blob 数字（1-21）。'
-  //texts.QAPlaceholder = '选择上面的选项 (ABCD) 或输入您自己的答案。'
   texts.QAPlaceholder = '选择上面的选项 (ABCD) 。'
+  texts.QAPlaceholderComplex = '选择上面的选项 (ABCD) 或输入您自己的答案。'
   texts.generate = '重新生成回复'
   texts.stop = '停止生成'
   texts.imgErrorInfo = '格式错误，请仅输入 1-9 之间的数字。'
@@ -61,6 +62,7 @@ if (lang === 'zh') {
   texts.philosophyPlacehodler = 'Please select above options (ABCD) or enter your own answer.'
   texts.blobTreePlaceholder = 'Please enter the blob number of your choice (1-21).'
   texts.QAPlaceholder = 'Select above options or enter your own answer.'
+  texts.QAPlaceholderComplex = 'Select above options (ABCD) or enter your own answer.'
   texts.generate = 'Regenerate response'
   texts.stop = 'Stop generating'
   texts.imgErrorInfo = 'Answer format error, please enter only numbers between 1-9.'
@@ -140,7 +142,9 @@ export function ChatPanel({
 
   let placeholder = ''
   let enableOptionButtons = false
-  if (messages?.length === 0) {
+  if (isLoading) {
+    placeholder = ''
+  } else if (messages?.length === 0) {
     placeholder = ''
   } else if (messages?.length === 2) {  // start phase + ask for post
     placeholder = texts.initPlaceholder
@@ -150,6 +154,11 @@ export function ChatPanel({
     placeholder = texts.blobTreePlaceholder
   } else if (messages?.length > 7){ 
     placeholder = texts.QAPlaceholder
+    if (messages[messages.length - 1].role === 'assistant') {
+      enableOptionButtons = true
+    }
+  } else if (messages?.length > 11){ 
+    placeholder = texts.QAPlaceholderComplex
     if (messages[messages.length - 1].role === 'assistant') {
       enableOptionButtons = true
     }

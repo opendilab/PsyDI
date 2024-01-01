@@ -53,7 +53,6 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         }
         setChatDone(response.headers.get('chat-done') === 'true')
         setResponseStart(true)
-        console.log('responseStart', responseStart)
         setTimeout(() => {
           window.scrollTo({
             top: document.body.offsetHeight,

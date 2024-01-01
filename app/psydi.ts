@@ -10,6 +10,8 @@ export class PsyDI {
   private MBTIOptions: Record<string, string> = {};
   private BlobTreeOptions: Record<string, string> = {};
   private MBTIStatistics: Record<string, number> = {};
+  private phase2StartTurnCount: number = 1;
+  private phase3StartTurnCount: number = 5;
 
   constructor(apiUrl: string) {
     this.apiUrl = apiUrl;
@@ -118,7 +120,7 @@ export class PsyDI {
                 body: JSON.stringify({'uid': payload.uid, 'index': payload.turnCount - 1}),
             });
             const data = await response.json();
-            console.info(`[${payload.uid}]data`, data.ret)
+            console.info(`[${payload.uid}]get pre question data`, data.ret)
             const response_string = data.ret['Question'] + '\n(A) ' + data.ret['Option A'] + '\n(B) ' + data.ret['Option B'] + '\n(C) ' + data.ret['Option C'] + '\n(D) ' + data.ret['Option D'];
             return {'done': false, 'response_string': response_string};
         } catch (error) {
@@ -148,7 +150,7 @@ export class PsyDI {
                 body: JSON.stringify({'uid': payload.uid}),
             });
             const data = await response.json();
-            console.info(`[${payload.uid}]data`, data.ret)
+            console.info(`[${payload.uid}]get phase3 question data`, data.ret)
             let done = false
             if (!('done' in data.ret)) {
                 done = true 
@@ -198,14 +200,14 @@ export class PsyDI {
   async postPosts(payload: any): Promise<any> {
     const startTime: Date = new Date();
     let finalPayload: { [key: string]: any } = payload;
-    if (finalPayload.turnCount === 1) {
-        finalPayload = this.getPostsPayload(payload.uid, payload.messages, false);
-    } else if (finalPayload.turnCount === 5) {
-        finalPayload = this.getPostsPayload(payload.uid, payload.messages, true);
+    if (finalPayload.turnCount === this.phase2StartTurnCount) {
+        finalPayload = await this.getPostsPayload(payload.uid, payload.messages, false);
+    } else if (finalPayload.turnCount === this.phase3StartTurnCount) {
+        finalPayload = await this.getPostsPayload(payload.uid, payload.messages, true);
     } else {
       throw new Error('Invalid turn count' + finalPayload.turnCount);
     }
-    console.info(`[${finalPayload.uid}]payload:`, finalPayload);
+    console.info(`[${finalPayload.uid}]post posts payload:`, finalPayload);
     const url = `${this.apiUrl}/${finalPayload.endpoint}`;
 
     let code = -1;
@@ -227,57 +229,68 @@ export class PsyDI {
   }
 
   async getQuestions(payload: any): Promise<any> {
+    // post answer
     const startTime: Date = new Date();
-    let finalPayload: { [key: string]: any } = payload;
-    if (finalPayload.turnCount < 5) {
-        finalPayload.endpoint = 'post_user_pre_answer';
-        finalPayload.answer = finalPayload.messages[finalPayload.turnCount - 1].content;
-        finalPayload.index = finalPayload.turnCount - 1;
-        finalPayload.messages = [];
+    const uid = payload.uid;
+    const turnCount = payload.turnCount;
+    let endpoint = '';
+    let answer = '';
+    let index = -1;
+    if (turnCount < this.phase3StartTurnCount + 1) {
+        endpoint = 'post_user_pre_answer';
+        answer = payload.messages[turnCount - 1].content;
+        index = turnCount - 2;
     } else {
-        finalPayload.endpoint = 'post_user_answer';
-        finalPayload.answer = finalPayload.messages[finalPayload.turnCount - 1].content;
-        finalPayload.messages = [];
+        endpoint = 'post_user_answer';
+        answer = payload.messages[turnCount - 1].content;
     }
 
     let code = -1;
-    if (finalPayload.turnCount === 5) {  // skip post_user_answer when turnCount === 5
+    if (turnCount === (this.phase2StartTurnCount + 2)) {
       code = 0
     } else {
-      console.info(`[${finalPayload.uid}]payload:`, finalPayload);
-      const url = `${this.apiUrl}/${finalPayload.endpoint}`;
+      let finalPayload = {'uid': uid, 'answer': answer, 'index': index};
+      console.info(`[${uid}]post answer payload:`, finalPayload);
+      const url = `${this.apiUrl}/${endpoint}`;
       try {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
             },
-            body: JSON.stringify(finalPayload),
+            body: JSON.stringify(finalPayload)
         });
         const data = await response.json();
         code = data.code;
-        if (code === 0 && finalPayload.endpoint === 'post_user_pre_answer') {
-            console.log('post', data.ret.post)  // TODO
+        if (code === 0 && endpoint === 'post_user_pre_answer') {
+            console.log('post', turnCount, data.ret.post)  // TODO
+            await kv.hset(`ucount:${uid}chat:${turnCount}`, {post: data.ret.post}); 
         }
         } catch (error) {
-        console.error(`[${finalPayload.uid}]Comm Error:`, error);
+        console.error(`[${uid}]Comm Error:`, error);
         throw error;
       }
     }
 
     const endTime: Date = new Date();
     const elapsedTime: number = endTime.getTime() - startTime.getTime();
-    console.info(`[${finalPayload.uid}]${finalPayload.endpoint} elapsed time: ${elapsedTime}ms`);
+    console.info(`[${uid}]${endpoint} elapsed time: ${elapsedTime}ms`);
 
+    // post posts
+    if (turnCount === this.phase3StartTurnCount) {
+      await this.postPosts(payload);
+    }
+
+    // get question
     if (code === 0) {
-      if (finalPayload.turnCount < 5) {
-        return this.getPreQuestions(finalPayload);
+      if (turnCount < this.phase3StartTurnCount) {
+        return this.getPreQuestions(payload);
       } else {
-        return this.getPhase3Questions(finalPayload);
+        return this.getPhase3Questions(payload);
       }
     } else {
-      console.error(`[${finalPayload.uid}Sever Error:`);
+      console.error(`[${uid}Sever Error:`);
       throw new Error('Server Error');
     }
   }
@@ -316,13 +329,17 @@ export class PsyDI {
     }
   }
 
-  getPostsPayload(uid: string, messages: Record<string, string>[], additional: boolean): Record<string, any> {
+  async getPostsPayload(uid: string, messages: Record<string, string>[], additional: boolean): Promise<Record<string, any>> {
     const startTime: Date = new Date();
     const rawContent = messages.map((message) => message.content)
     if (additional) {
       let postList = rawContent.slice(1)
       postList[0] = this.getMBTIOptionAnswer(postList[0])
       postList[1] = this.getBlobTreeAnswer(postList[1])
+      const post4 = kv.hget(`ucount:${uid}chat:4`, 'post'); 
+      const post5 = kv.hget(`ucount:${uid}chat:5`, 'post');
+      postList[2] = await post4.toString()
+      postList[3] = await post5.toString()
       return {
         endpoint: 'post_additional_posts',
         uid: uid,

@@ -35,6 +35,8 @@ if (lang === 'zh') {
 export const runtime = 'nodejs'
 export const maxDuration = 300
 const encoder = new TextEncoder();
+const phase2StartTurnCount = 1
+const phase3StartTurnCount = 5
 
 export async function POST(req: Request) {
   const agent = getPsyDIAgent()
@@ -52,7 +54,7 @@ export async function POST(req: Request) {
 
   const turnCount = await agent.getTurnCount(userId)
   let streamDelay = 80
-  if (turnCount > 3) {
+  if (turnCount >= phase3StartTurnCount) {
     streamDelay = 50
   }
   const debug = process.env.DEBUG
@@ -63,7 +65,7 @@ export async function POST(req: Request) {
   let response_string = ''
 
   // post info
-  if (!(debug === 'true') && (turnCount === 1 || turnCount === 5)) {
+  if (!(debug === 'true') && (turnCount === phase2StartTurnCount)) {
     const messagesUser = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content !== 'start')
     await agent.postPosts({
       uid: userId,
@@ -75,11 +77,11 @@ export async function POST(req: Request) {
   // get next question
   if (turnCount === 0) {
     response_string = texts.userPostsResponse
-  } else if (turnCount === 1) {
+  } else if (turnCount === (phase2StartTurnCount)) {
     response_string = texts.mbtiOptionResponse
     response_string += `![alt text](${process.env.MBTI_OPTION_IMAGE_URL})`
     //await setTimeout(() => {}, 1500) // wait for async post user posts
-  } else if (turnCount === 2) {
+  } else if (turnCount === (phase2StartTurnCount + 1)) {
     response_string = texts.blobTreeResponse
     response_string += `![alt text](${process.env.BLOB_TREE_IMAGE_URL})`
     //await setTimeout(() => {}, 1500) // wait for async post user posts
@@ -107,7 +109,7 @@ export async function POST(req: Request) {
   console.info(response_string, `Total elapsed time: ${elapsedTime}ms`)
 
   var finalText = response_string.replace(/\n/g, "\n\n");
-  if (errorCode === 0 && turnCount > 2) {
+  if (errorCode === 0 && turnCount > (phase2StartTurnCount + 1)) {
     if (lang === 'zh') {
         try {
             const idx = finalText.indexOf("![final img")
