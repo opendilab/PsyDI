@@ -12,10 +12,10 @@ interface Session {
   }
 }
 
-export async function auth() {
+export async function auth(force: boolean = false) {
   const cookiesList = cookies()
   const hasCookie = cookiesList.has('userId')
-  if (hasCookie) {
+  if (!force && hasCookie) {
     const userId = cookiesList.get('userId')?.value
     return {user: {id: userId}}
   } else {
@@ -34,4 +34,5 @@ export async function clear() {
     console.info('clear session', userId);
     cookies().delete('userId')
   }
+  return true
 }

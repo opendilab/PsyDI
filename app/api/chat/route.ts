@@ -3,7 +3,7 @@ import { StreamingTextResponse } from 'ai'
 import { HttpResponse, http } from 'msw';
 import { translate } from '@vitalets/google-translate-api';
 
-import { auth } from '@/auth'
+import { auth, clear } from '@/auth'
 import { nanoid } from '@/lib/utils'
 import { getPsyDIAgent } from '@/app/psydi'
 
@@ -56,13 +56,11 @@ export async function POST(req: Request) {
   const agent = getPsyDIAgent()
   const json = await req.json()
   const { messages, _ } = json
+  if (messages.length <= 1) {
+    await auth(true)  // clear cookie for each new test
+  } 
   const user = (await auth())?.user
   const userId = user.id
-  if (!userId) {
-    return new Response('Unauthorized', {
-      status: 401
-    })
-  }
 
   await agent.registerUser(userId, messages.length <= 1)
 
