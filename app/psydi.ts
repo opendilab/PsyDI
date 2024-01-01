@@ -188,7 +188,7 @@ export class PsyDI {
                 var infoString = index < userPostsCount ? `> This problem is based on the ${index + 1}-th user post.` : `> This problem is based on the ${phase2Index}-th chat in the exploration phase. `
                 if (phase2Index >= 1) {
                   const choiceExplanation = await kv.hget(`ucount:${payload.uid}chat:${phase2Index + 1}`, 'post');
-                  infoString += `Your answer about this chat means that "${choiceExplanation}"`
+                  infoString += `Your answer about this chat means: **${choiceExplanation}**`
                 }
                 if (phase2Index === 1) {
                   infoString += `\n![alt text](${process.env.MBTI_OPTION_IMAGE_URL})`
