@@ -152,7 +152,7 @@ export function ChatPanel({
     placeholder = texts.imgPlaceholder
   } else if (messages?.length === 6){ 
     placeholder = texts.blobTreePlaceholder
-  } else if (messages?.length > 7){ 
+  } else if (messages?.length > 7 && messages?.length <= 11) { 
     placeholder = texts.QAPlaceholder
     if (messages[messages.length - 1].role === 'assistant') {
       enableOptionButtons = true
