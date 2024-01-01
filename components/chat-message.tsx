@@ -36,6 +36,15 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
     }
     return processedContent
   }
+
+  const processSystemContent = (content: string) => {
+    if (content.startsWith("(") || content.startsWith("（")) {
+      return '> ' + content.slice(1, content.length - 1)
+    } else {
+      return '> ### ' + content
+    }
+  }
+
   return (
     <div
       className={cn('group relative mb-4 flex items-start md:-ml-12')}
@@ -157,7 +166,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
             }
           }}
         >
-        { message.role === 'assistant' ? message.content : '> ### ' + message.content}
+        { message.role === 'assistant' ? message.content : processSystemContent(message.content)}
         </MemoizedReactMarkdown>
         { message.role === 'assistant' && (
           <ChatMessageActions message={message} />

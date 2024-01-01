@@ -18,7 +18,7 @@ export class PsyDI {
     this.MBTIOptions = {
         '1': 'I have a appreciation for the beauty of representational painting, especially when it evokes a sense of pleasantness. This preference hints at my inclination toward adventure, responsibility, and an agreeable nature.',
         '2': 'I have a appreciation for the beauty of representational painting. This preference hints at my inclination toward adventure, responsibility, and an agreeable nature.',
-        '3': 'I have a strong affinity for pop art, which might indicate that I lean towards a more neurotic temperament and am not as inherently agreeable.',
+        '3': 'I have a strong affinity for pop art, which might indicate that I have a sensitive and perceptive nature.',
         '4': 'I have a fondness for pleasing abstract paintings, which might suggest that I have a more neurotic disposition.',
         '5': 'I have a fondness for neutral abstract paintings, which might suggest that I have a more neurotic disposition.',
         '6': 'I have a fondness for unpleasing abstract paintings, which might suggest that I have a more neurotic disposition.',
@@ -173,6 +173,7 @@ export class PsyDI {
                 const processedResult = result.slice(1, result.length - 1)
                 const mbti = data.ret.mbti
                 const typeTable = data.ret.type_table
+                console.log('typeTable', typeTable)
                 const imageUrl = data.ret?.image_url
                 let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI tests.\n\nHere is some detailed description about your personality:\n ${processedResult}`
                 if (imageUrl !== 'null') {
