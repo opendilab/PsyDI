@@ -72,10 +72,12 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     })
   const appendWithScroll = (message: any): Promise<string | null | undefined> => {
     const ret = append(message)
-    window.scrollTo({
-      top: document.body.offsetHeight,
-      behavior: 'smooth'
-    })
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.offsetHeight,
+        behavior: 'smooth'
+      })
+    }, 10)
     return ret
   }
   return (
