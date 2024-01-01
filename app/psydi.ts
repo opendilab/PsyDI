@@ -8,6 +8,7 @@ type UserData = {
 export class PsyDI {
   private apiUrl: string;
   private MBTIOptions: Record<string, string> = {};
+  private MBTIOptionInfo: Record<string, string> = {};
   private BlobTreeOptions: Record<string, string> = {};
   private MBTIStatistics: Record<string, number> = {};
   private phase2StartTurnCount: number = 1;
@@ -26,6 +27,17 @@ export class PsyDI {
         '8': 'I have a deep appreciation for impressionist art, which suggests that I may tend to be more agreeable and conscientious while being somewhat less open in my approach.',
         '9': 'I have a strong affinity for cubism, which could be an indicator that I may be relatively younger and more extroverted in nature.'
     };
+    this.MBTIOptionInfo = {
+        '1': "这幅画是瑞士艺术家 Seline Burn 所创作的《Sweet daily life》，捕捉了日常生活中惬意而亲切的瞬间。",
+        '2': "这幅画是美国艺术家 Edward Hopper 于1942年创作的《Nighthawks》，从一家街边餐馆中描绘出一座大城市的孤独。",
+        '3': "这幅画是美国艺术家 Andy Warhol 于 1962 年创作的《Marilyn Monroe》，以梦露的肖像为基础，运用 Andy Warhol 独特的艺术手法，呈现出了独特的视觉效果，成为波普艺术运动中的经典之一。",
+        '4': "这幅画是荷兰艺术家 Mondrian 于1930年创作的抽象艺术作品《Composition II with Red, Blue and Yellow》，代表了 Mondrian 的新艺术风格，强调几何形状的纯净和构图的平衡。",
+        '5': "这幅画是俄罗斯艺术家 Kazimir Malevich 于1916年创作的《Suprematist composition》，是超现实主义的代表作之一，强调了形式和构图的重要性。",
+        '6': "这幅画是美国艺术家 George Condo 于1997 年创作的《The butcher's wife》，其中卡通化的特征既可爱又畸形，完美地诠释了 George Condo 的“人造现实主义”概念。",
+        '7': "这幅画是美国艺术家 George Tooker 于1956年创作的《Government Bureau》勾勒出一个充满隔间的阴冷室内，隔间内雇员茫然的眼神给人一种不安的疏远感。",
+        '8': "这幅画是法国艺术家 Alfred Sisley 于1872年创作的《Bridge at Villeneuve-la-Garenne》，是印象派绘画风格的代表之一。Alfred Sisley 以描绘自然光影和户外场景而闻名，他的作品展现了对自然环境的敏感和独特的艺术视角。",
+        '9': "这幅画是西班牙艺术家 Pablo Picasso 于1921年创作的油画《Nous autres musiciens (Three Musicians) 》，以明亮丰富的颜色、简化的形状和具象化的元素为特征，展现了 Pablo Picasso 在这一时期对于形式的大胆实验和对于主题的独特演绎。"
+    }
     this.BlobTreeOptions = {
         '1': 'Psychology test defines me as a self-confident person, happy with my life and optimistic. I\'m an intelligent person, able to see the great picture and to put things into perspective.',
         '2': 'Psychology test defines me as an ambitious and confident person. I know that I will succeed at all times and that there will always be convenient situations to help me in my evolution.',
@@ -175,7 +187,7 @@ export class PsyDI {
                 const typeTable = data.ret.type_table
                 console.log('typeTable', typeTable)
                 const imageUrl = data.ret?.image_url
-                let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI tests.\n\nHere is some detailed description about your personality:\n ${processedResult}`
+                let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the  MBTI  tests.\n\nHere is some detailed description about your personality:\n ${processedResult}`
                 if (imageUrl !== 'null') {
                   finalResult += `\n\nYour MBTI Personalized Characteristic Image: ![final img](${imageUrl})` 
                 }
@@ -186,10 +198,18 @@ export class PsyDI {
                 const index = data.ret.index
                 const userPostsCount = payload.messages[0].content.split(/[\n,;,；]/).length
                 const phase2Index = index + 1 - userPostsCount
-                var infoString = index < userPostsCount ? `> This problem is based on the ${index + 1}-th user post.` : `> This problem is based on the ${phase2Index}-th chat in the exploration phase. `
+                var infoString = index < userPostsCount ? `> Note: This problem is based on the ${index + 1}-th user 日常动态.` : `> Note: This problem is based on the ${phase2Index}-th dialogue in the exploration phase. `
                 if (phase2Index >= 1) {
                   const choiceExplanation = await kv.hget(`ucount:${payload.uid}chat:${phase2Index + 1}`, 'post');
-                  infoString += `Your answer about this chat means: **${choiceExplanation}**`
+                  infoString += `The results you selected/answered previously represent: `
+                  if (phase2Index === 1) {
+                    infoString += `**For visual art styles, ${choiceExplanation}**`
+                  } else if (phase2Index === 2) {
+                    // @ts-ignore
+                    infoString += `**For the 'blob tree' psychology test, it ${choiceExplanation.slice(16)}`  
+                  } else {
+                    infoString += `**${choiceExplanation}**`
+                  }
                 }
                 if (phase2Index === 1) {
                   infoString += `\n![alt text](${process.env.MBTI_OPTION_IMAGE_URL})`
@@ -308,13 +328,13 @@ export class PsyDI {
     }
   }
 
-  getMBTIOptionAnswer(answer: string): string {
+  getMBTIOptionAnswer(answer: string): string[] {
     try {
       const option = parseInt(answer).toString();
-      return this.MBTIOptions[option];
+      return [this.MBTIOptions[option], this.MBTIOptionInfo[option]];
     } catch (error) {
       // TODO error hints
-      return "none";
+      return ["none", "none"]
     }
   }
 
@@ -347,9 +367,11 @@ export class PsyDI {
     const rawContent = messages.map((message) => message.content)
     if (additional) {
       let postList = rawContent.slice(1)
-      postList[0] = this.getMBTIOptionAnswer(postList[0])
+      const mbtiOptionAnswer = this.getMBTIOptionAnswer(postList[0])
+      postList[0] = mbtiOptionAnswer[0]
+      const info = mbtiOptionAnswer[1]
       postList[1] = this.getBlobTreeAnswer(postList[1])
-      kv.hset(`ucount:${uid}chat:2`, {post: postList[0]});
+      kv.hset(`ucount:${uid}chat:2`, {post: '我所选的' + info + 'This choice means that ' + postList[0]});
       kv.hset(`ucount:${uid}chat:3`, {post: postList[1]});
       const post4 = kv.hget(`ucount:${uid}chat:4`, 'post') as Promise<string>;
       const post5 = kv.hget(`ucount:${uid}chat:5`, 'post') as Promise<string>;
