@@ -229,8 +229,8 @@ export class PsyDI {
                 let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
                 finalResult += "The detailed rating is: " + Object.keys(naiveAttr).map(key => `${key}: ${(naiveAttr[key]*100).toFixed(1)}%`).join(', ') + '\n'
                 finalResult += "Here is some detailed description about your personality:\n"
-                finalResult += `> 关键词 A：${description.keywords[0]}` + '\n' + `解释：${description.texts[0]}` + '\n'
-                finalResult += `> 关键词 B：${description.keywords[1]}` + '\n' + `解释：${description.texts[1]}` + '\n'
+                finalResult += `> Tag A: ${description.keywords[0]}` + '\n' + `Explanation: ${description.texts[0]}` + '\n'
+                finalResult += `> Tag B: ${description.keywords[1]}` + '\n' + `Explanation: ${description.texts[1]}` + '\n'
                 if (imageUrl !== 'null') {
                   finalResult += `\n\nYour MBTI Badge and Personalized Characteristic Image are as follows: ![final img](${headUrl}) \n ![final img](${imageUrl})` 
                 }
@@ -249,7 +249,7 @@ export class PsyDI {
                 const index = data.ret.index
                 const userPostsCount = payload.messages[0].content.split(/[\n,;,；]/).length
                 const phase2Index = index + 1 - userPostsCount
-                var infoString = index < userPostsCount ? `> Note: This problem is based on the ${index + 1}-th 日常动态 of you.` : `> Note: This problem is based on the ${phase2Index}-th dialogue in the exploration phase. `
+                var infoString = index < userPostsCount ? `> Tip: This problem is based on the ${index + 1}-th your 日常动态.` : `> Tip: This problem is based on the ${phase2Index}-th dialogue in the exploration phase. `
                 if (phase2Index >= 1) {
                   const choiceExplanation = await kv.hget(`ucount:${payload.uid}chat:${phase2Index + 1}`, 'post');
                   infoString += `The results you selected/answered previously represent: `

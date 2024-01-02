@@ -6,6 +6,7 @@ import { translate } from '@vitalets/google-translate-api';
 import { auth, clear } from '@/auth'
 import { nanoid } from '@/lib/utils'
 import { getPsyDIAgent } from '@/app/psydi'
+import { baiduTranslate } from '@/app/baidu_translate'
 
 
 const lang = process.env.LANG || 'zh' // default to zh
@@ -126,10 +127,12 @@ export async function POST(req: Request) {
         try {
             const idx = finalText.indexOf("![final img")
             if (idx !== -1) {
-                var { text } = await translate(finalText.substring(0, idx), {from: 'en', to: 'zh-CN'});
+                //var { text } = await translate(finalText.substring(0, idx), {from: 'en', to: 'zh-CN'});
+                var text = await baiduTranslate(finalText.substring(0, idx), 'en', 'zh')
                 finalText = text + finalText.substring(idx)
             } else {
-                var { text } = await translate(finalText, {from: 'en', to: 'zh-CN'});
+                //var { text } = await translate(finalText, {from: 'en', to: 'zh-CN'});
+                var text = await baiduTranslate(finalText, 'en', 'zh')
                 finalText = text
             }
         } catch (e: any) {
