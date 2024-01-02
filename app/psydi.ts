@@ -225,7 +225,6 @@ export class PsyDI {
                 const naiveAttr = this.getNaiveAttrValue(table, mbti)
                 const imageUrl = data.ret?.image_url
                 const headUrl = this.mbtiHeadUrls[mbti]
-                console.log('head', headUrl)
 
                 let finalResult = `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
                 finalResult += "The detailed rating is: " + Object.keys(naiveAttr).map(key => `${key}: ${(naiveAttr[key]*100).toFixed(1)}%`).join(', ') + '\n'
@@ -233,7 +232,7 @@ export class PsyDI {
                 finalResult += `> 关键词 A：${description.keywords[0]}` + '\n' + `解释：${description.texts[0]}` + '\n'
                 finalResult += `> 关键词 B：${description.keywords[1]}` + '\n' + `解释：${description.texts[1]}` + '\n'
                 if (imageUrl !== 'null') {
-                  finalResult += `\n\nYour MBTI Badge and Personalized Characteristic Image are as follows: ![final badge](${headUrl}) \n ![final img](${imageUrl})` 
+                  finalResult += `\n\nYour MBTI Badge and Personalized Characteristic Image are as follows: ![final img](${headUrl}) \n ![final img](${imageUrl})` 
                 }
                 console.info(`[${payload.uid}]QA test done, the result is: `, finalResult);
                 let resultExtras = {
