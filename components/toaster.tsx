@@ -15,7 +15,7 @@ export function errorToaster(message: string, duration: number = 2000) {
             color: '#713200',
             padding: '16px',
         },
-        position: "bottom-center",
+        position: "top-center",
         iconTheme: {
             primary: '#713200',
             secondary: '#FFFAEE',

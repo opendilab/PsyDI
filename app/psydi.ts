@@ -61,15 +61,15 @@ export class PsyDI {
         '9': 'I have a strong affinity for cubism, which could be an indicator that I may be relatively younger and more extroverted in nature.'
     };
     this.MBTIOptionInfo = {
-        '1': "这幅画是瑞士艺术家 Seline Burn 所创作的《Sweet daily life》，捕捉了日常生活中惬意而亲切的瞬间。",
-        '2': "这幅画是美国艺术家 Edward Hopper 于1942年创作的《Nighthawks》，从一家街边餐馆中描绘出一座大城市的孤独。",
-        '3': "这幅画是美国艺术家 Andy Warhol 于 1962 年创作的《Marilyn Monroe》，以梦露的肖像为基础，运用 Andy Warhol 独特的艺术手法，呈现出了独特的视觉效果，成为波普艺术运动中的经典之一。",
-        '4': "这幅画是荷兰艺术家 Mondrian 于1930年创作的抽象艺术作品《Composition II with Red, Blue and Yellow》，代表了 Mondrian 的新艺术风格，强调几何形状的纯净和构图的平衡。",
-        '5': "这幅画是俄罗斯艺术家 Kazimir Malevich 于1916年创作的《Suprematist composition》，是超现实主义的代表作之一，强调了形式和构图的重要性。",
-        '6': "这幅画是美国艺术家 George Condo 于1997 年创作的《The butcher's wife》，其中卡通化的特征既可爱又畸形，完美地诠释了 George Condo 的“人造现实主义”概念。",
-        '7': "这幅画是美国艺术家 George Tooker 于1956年创作的《Government Bureau》勾勒出一个充满隔间的阴冷室内，隔间内雇员茫然的眼神给人一种不安的疏远感。",
-        '8': "这幅画是法国艺术家 Alfred Sisley 于1872年创作的《Bridge at Villeneuve-la-Garenne》，是印象派绘画风格的代表之一。Alfred Sisley 以描绘自然光影和户外场景而闻名，他的作品展现了对自然环境的敏感和独特的艺术视角。",
-        '9': "这幅画是西班牙艺术家 Pablo Picasso 于1921年创作的油画《Nous autres musiciens (Three Musicians) 》，以明亮丰富的颜色、简化的形状和具象化的元素为特征，展现了 Pablo Picasso 在这一时期对于形式的大胆实验和对于主题的独特演绎。"
+        '1': "This painting I selected is \"Sweet daily life\" created by Swiss artist Seline Burn, capturing the pleasant and intimate moments of everyday life.",
+        '2': "This painting I selected is \"Nighthawks\" created by American artist Edward Hopper in 1942, depicting the loneliness of a big city from a street restaurant.",
+        '3': "This painting I selected is \"Marilyn Monroe\" created by American artist Andy Warhol in 1962. Based on the portrait of Marilyn Monroe, Andy Warhol's unique artistic techniques are used to present a unique visual effect, which has become one of the classics of the Pop Art movement.",
+        '4': "This painting I selected is \"Composition II with Red, Blue and Yellow\" created by Dutch artist Mondrian in 1930. It represents Mondrian's new artistic style, emphasizing the purity of geometric shapes and the balance of composition.",
+        '5': "This painting I selected is \"Suprematist composition\" created by Russian artist Kazimir Malevich in 1916. It is one of the representative works of surrealism, emphasizing the importance of form and composition.",
+        '6': "This painting I selected is \"The butcher's wife\" created by American artist George Condo in 1997. The cartoonish features are both cute and deformed, perfectly interpreting George Condo's concept of \"artificial realism\".",
+        '7': "This painting I selected is \"Government Bureau\" created by American artist George Tooker in 1956. It outlines a cold indoor space full of compartments, and the bewildered eyes of the employees in the compartments give people a sense of uneasiness and alienation.",
+        '8': "This painting I selected is \"Bridge at Villeneuve-la-Garenne\" created by French artist Alfred Sisley in 1872. It is one of the representatives of the Impressionist painting style. Alfred Sisley is known for depicting natural light and outdoor scenes. His works show sensitivity to the natural environment and a unique artistic perspective.",
+        '9': "This painting I selected is \"Three Musicians\" created by Spanish artist Pablo Picasso in 1921. It is characterized by bright and rich colors, simplified shapes and figurative elements. It shows Pablo Picasso's bold experiments with form and unique interpretation of the subject during this period."
     }
     this.BlobTreeOptions = {
         '1': 'Psychology test defines me as a self-confident person, happy with my life and optimistic. I\'m an intelligent person, able to see the great picture and to put things into perspective.',
@@ -213,7 +213,6 @@ export class PsyDI {
                     body: JSON.stringify({'uid': payload.uid}),
                 });
                 const data = await response.json();
-                // console.info(`[${finalPayload.uid}]final data`, data.ret)
                 const result = data.ret.result;
                 const processedResult = result.slice(1, result.length - 1)
                 const mbti = data.ret.mbti
@@ -232,11 +231,8 @@ export class PsyDI {
                 finalResult += "Here is some detailed description about your personality:\n"
                 finalResult += `> 关键词 A：${description.keywords[0]}` + '\n' + `解释：${description.texts[0]}` + '\n'
                 finalResult += `> 关键词 B：${description.keywords[1]}` + '\n' + `解释：${description.texts[1]}` + '\n'
-                if (headUrl !== 'null') {
-                  finalResult += `\n\nYour MBTI Badge: ![final badge](${headUrl})`
-                }
                 if (imageUrl !== 'null') {
-                  finalResult += `\n\nYour MBTI Personalized Characteristic Image: ![final img](${imageUrl})` 
+                  finalResult += `\n\nYour MBTI Badge Personalized Characteristic Image: ![final badge](${headUrl}) \n ![final img](${imageUrl})` 
                 }
                 console.info(`[${payload.uid}]QA test done, the result is: `, finalResult);
                 let resultExtras = {
@@ -253,7 +249,7 @@ export class PsyDI {
                 const index = data.ret.index
                 const userPostsCount = payload.messages[0].content.split(/[\n,;,；]/).length
                 const phase2Index = index + 1 - userPostsCount
-                var infoString = index < userPostsCount ? `> Note: This problem is based on the ${index + 1}-th user 日常动态.` : `> Note: This problem is based on the ${phase2Index}-th dialogue in the exploration phase. `
+                var infoString = index < userPostsCount ? `> Note: This problem is based on the ${index + 1}-th 日常动态 of you.` : `> Note: This problem is based on the ${phase2Index}-th dialogue in the exploration phase. `
                 if (phase2Index >= 1) {
                   const choiceExplanation = await kv.hget(`ucount:${payload.uid}chat:${phase2Index + 1}`, 'post');
                   infoString += `The results you selected/answered previously represent: `
@@ -450,7 +446,7 @@ export class PsyDI {
       postList[0] = mbtiOptionAnswer[0]
       const info = mbtiOptionAnswer[1]
       postList[1] = this.getBlobTreeAnswer(postList[1])
-      kv.hset(`ucount:${uid}chat:2`, {post: '我所选的' + info + 'This choice means that ' + postList[0]});
+      kv.hset(`ucount:${uid}chat:2`, {post: info + 'This choice means that ' + postList[0]});
       kv.hset(`ucount:${uid}chat:3`, {post: postList[1]});
       const post4 = kv.hget(`ucount:${uid}chat:4`, 'post') as Promise<string>;
       const post5 = kv.hget(`ucount:${uid}chat:5`, 'post') as Promise<string>;
@@ -467,7 +463,7 @@ export class PsyDI {
         endpoint: 'post_user_posts',
         uid: uid,
         post_list: postList,
-        record: false,
+        record: 'True',
       }
     }
   }
