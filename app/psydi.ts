@@ -450,8 +450,13 @@ export class PsyDI {
         const data = await response.json();
         code = data.code;
         if (code === 0 && endpoint === 'post_user_pre_answer') {
-            await kv.hset(`ucount:${uid}chat:${turnCount}`, {post: data.ret.post}); 
+            const newExplanation = await baiduTranslate(data.ret.post, lang, 'en')
+            await kv.hset(`ucount:${uid}chat:${turnCount}`, {post: newExplanation});
         }
+        //if (code === 0 && endpoint === 'post_user_answer') {
+        //   const newExplanation = await baiduTranslate(data.ret.post, lang, 'en')
+        //    await kv.hset(`ucount:${uid}chat:${turnCount}`, {post: newExplanation});
+        //}
         } catch (error) {
         console.error(`[${uid}]Comm Error:`, error);
         throw error;
