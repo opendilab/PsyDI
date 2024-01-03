@@ -123,7 +123,7 @@ export async function POST(req: Request) {
 
   var finalText = response_string.replace(/\n/g, "\n\n");
   if (errorCode === 0 && turnCount > (phase2StartTurnCount + 1)) {
-    if (lang === 'zh') {
+    if (false && lang === 'zh') {
         try {
             const idx = finalText.indexOf("![final img")
             if (idx !== -1) {
