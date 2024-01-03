@@ -229,8 +229,14 @@ export class PsyDI {
             });
             const data = await response.json();
             console.info(`[${payload.uid}]get pre question data`, data.ret)
-            const response_string = data.ret['Question'] + '\n(A) ' + data.ret['Option A'] + '\n(B) ' + data.ret['Option B'] + '\n(C) ' + data.ret['Option C'] + '\n(D) ' + data.ret['Option D'];
-            return {'done': false, 'response_string': response_string};
+            const q = data.ret
+            let responseString = ''
+            if (lang == "en" ) {
+                responseString += q['Question_EN'] + '\n(A) ' + q['Option A_EN'] + '\n(B) ' + q['Option B_EN'] + '\n(C) ' + q['Option C_EN'] + '\n(D) ' + q['Option D_EN'];
+            } else if (lang == "zh") {
+                responseString += q['Question_CN'] + '\n(A) ' + q['Option A_CN'] + '\n(B) ' + q['Option B_CN'] + '\n(C) ' + q['Option C_CN'] + '\n(D) ' + q['Option D_CN'];
+            }
+            return {'done': false, 'response_string': responseString};
         } catch (error) {
             // retry
             retryCount += 1
@@ -357,7 +363,12 @@ export class PsyDI {
                 } else if (phase2Index === 2) {
                   infoString += `\n![alt text](${process.env.BLOB_TREE_IMAGE_URL})`
                 }
-                const responseString = infoString + '\n' + q['Question'] + '\n(A) ' + q['Option A'] + '\n(B) ' + q['Option B'] + '\n(C) ' + q['Option C'] + '\n(D) ' + q['Option D'];
+                let responseString = ''
+                if (lang == "en" ) {
+                  responseString += infoString + '\n' + q['Question_EN'] + '\n(A) ' + q['Option A_EN'] + '\n(B) ' + q['Option B_EN'] + '\n(C) ' + q['Option C_EN'] + '\n(D) ' + q['Option D_EN'];
+                } else if (lang == "zh") {
+                  responseString += infoString + '\n' + q['Question_CN'] + '\n(A) ' + q['Option A_CN'] + '\n(B) ' + q['Option B_CN'] + '\n(C) ' + q['Option C_CN'] + '\n(D) ' + q['Option D_CN'];
+                }
                 return {'done': false, 'response_string': responseString};
             }
         } catch (error) {
