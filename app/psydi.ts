@@ -253,6 +253,7 @@ export class PsyDI {
   private async getPhase3Questions(payload: any): Promise<any> {
     const url = `${this.apiUrl}/get_question`;
     let retryCount = 0
+    let done = false
     while (true) {
         try {
             const response = await fetch(url, {
@@ -265,68 +266,13 @@ export class PsyDI {
             });
             const data = await response.json();
             console.info(`[${payload.uid}]get phase3 question data`, data.ret)
-            let done = false
             if (!('done' in data.ret)) {
                 done = true 
             } else {
                 done = data.ret.done;
             }
-            if (done) {
-                const url = `${this.apiUrl}/get_result`;
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
-                    },
-                    body: JSON.stringify({'uid': payload.uid}),
-                });
-                const data = await response.json();
-                const result = data.ret.result;
-                const processedResult = result.slice(1, result.length - 1)
-                const mbti = data.ret.mbti
-                const table = data.ret.table
-                const keyword1 = processedResult.split('"Keyword A": ')[1].split('"')[1]
-                const keyword2 = processedResult.split('"Keyword B": ')[1].split('"')[1]
-                const reason1 = processedResult.split('"Reason A": ')[1].split('"')[1]
-                const reason2 = processedResult.split('"Reason B": ')[1].split('"')[1]
-                const description = {keywords: [keyword1, keyword2], texts: [reason1, reason2]}
-                const naiveAttr = this.getNaiveAttrValue(table, mbti)
-                const imageUrl = data.ret?.image_url
-                const headUrl = this.mbtiHeadUrls[mbti]
 
-                let finalResult = ""
-                if (lang == 'en') {
-                    finalResult += `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
-                    finalResult += "The detailed rating is: " + Object.keys(naiveAttr).map(key => `${key}: ${(naiveAttr[key]*100).toFixed(1)}%`).join(', ') + '\n'
-                    finalResult += "Here is some detailed description about your personality:\n"
-                    finalResult += `> Tag A: ${description.keywords[0]}` + '\n' + `Explanation: ${description.texts[0]}` + '\n'
-                    finalResult += `> Tag B: ${description.keywords[1]}` + '\n' + `Explanation: ${description.texts[1]}` + '\n'
-                    if (imageUrl !== 'null') {
-                      finalResult += `\n\nYour MBTI Badge and Personalized Characteristic Image are as follows: ![final img](${headUrl}) \n ![final img](${imageUrl})` 
-                    }
-                } else if (lang == 'zh') {
-                    finalResult += `### 测试完成\n\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
-                    finalResult += "具体的各维度评分如下：" + Object.keys(naiveAttr).map(key => `${key}: ${(naiveAttr[key]*100).toFixed(1)}%`).join(', ') + '\n'
-                    finalResult += "以下是关于你的详细描述：\n"
-                    finalResult += `> 标签 A: ${description.keywords[0]}` + '\n' + `解释: ${description.texts[0]}` + '\n'
-                    finalResult += `> 标签 B: ${description.keywords[1]}` + '\n' + `解释: ${description.texts[1]}` + '\n'
-                    if (imageUrl !== 'null') {
-                      finalResult += `\n\n你的 MBTI 徽章和个性化形象图如下： ![final img](${headUrl}) \n ![final img](${imageUrl})` 
-                    }
-                }
-
-                console.info(`[${payload.uid}]QA test done, the result is: `, finalResult);
-                let resultExtras = {
-                  mbti: mbti, 
-                  headUrl: headUrl,
-                  imageUrl: imageUrl,
-                  description: description,
-                  naiveAttr: naiveAttr,
-                  // totalRatio: [], 
-                }
-                return {done: true, 'response_string': finalResult, 'result_extras': resultExtras};
-            } else {
+            if (!done) {
                 const q = data.ret.question
                 const index = data.ret.index
                 const userPostsCount = payload.messages[0].content.split(/[\n,;,；]/).length
@@ -370,6 +316,8 @@ export class PsyDI {
                   responseString += infoString + '\n' + q['Question_CN'] + '\n(A) ' + q['Option A_CN'] + '\n(B) ' + q['Option B_CN'] + '\n(C) ' + q['Option C_CN'] + '\n(D) ' + q['Option D_CN'];
                 }
                 return {'done': false, 'response_string': responseString};
+            } else {
+                break
             }
         } catch (error) {
             // retry
@@ -378,6 +326,75 @@ export class PsyDI {
                 throw error
             }
             console.error(`[${payload.uid}Comm Error:`, error);
+            await setTimeout(() => {}, 1000);
+        }
+    }
+    
+    let retryCount2 = 0
+    while (done) {
+        try {
+            const url = `${this.apiUrl}/get_result`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
+                },
+                body: JSON.stringify({'uid': payload.uid}),
+            });
+            const data = await response.json();
+            const result = data.ret.result;
+            const processedResult = result.slice(1, result.length - 1)
+            const mbti = data.ret.mbti
+            const table = data.ret.table
+            const keyword1 = processedResult.split('"Keyword A": ')[1].split('"')[1]
+            const keyword2 = processedResult.split('"Keyword B": ')[1].split('"')[1]
+            const reason1 = processedResult.split('"Reason A": ')[1].split('"')[1]
+            const reason2 = processedResult.split('"Reason B": ')[1].split('"')[1]
+            const description = {keywords: [keyword1, keyword2], texts: [reason1, reason2]}
+            const naiveAttr = this.getNaiveAttrValue(table, mbti)
+            const imageUrl = data.ret?.image_url
+            const headUrl = this.mbtiHeadUrls[mbti]
+
+            let finalResult = ""
+            if (lang == 'en') {
+                finalResult += `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
+                finalResult += "The detailed rating is: " + Object.keys(naiveAttr).map(key => `${key}: ${(naiveAttr[key]*100).toFixed(1)}%`).join(', ') + '\n'
+                finalResult += "Here is some detailed description about your personality:\n"
+                finalResult += `> Tag A: ${description.keywords[0]}` + '\n' + `Explanation: ${description.texts[0]}` + '\n'
+                finalResult += `> Tag B: ${description.keywords[1]}` + '\n' + `Explanation: ${description.texts[1]}` + '\n'
+                if (imageUrl !== 'null') {
+                    finalResult += `\n\nYour MBTI Badge and Personalized Characteristic Image are as follows: ![final img](${headUrl}) \n ![final img](${imageUrl})` 
+                }
+            } else if (lang == 'zh') {
+                finalResult += `### 测试完成\n\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
+                finalResult += "具体的各维度评分如下：" + Object.keys(naiveAttr).map(key => `${key}: ${(naiveAttr[key]*100).toFixed(1)}%`).join(', ') + '\n'
+                finalResult += "以下是关于你的详细描述：\n"
+                finalResult += `> 标签 A: ${description.keywords[0]}` + '\n' + `解释: ${description.texts[0]}` + '\n'
+                finalResult += `> 标签 B: ${description.keywords[1]}` + '\n' + `解释: ${description.texts[1]}` + '\n'
+                if (imageUrl !== 'null') {
+                    finalResult += `\n\n你的 MBTI 徽章和个性化形象图如下： ![final img](${headUrl}) \n ![final img](${imageUrl})` 
+                }
+                finalResult += "测试完成后有任何反馈和建议都可以填写问卷来和我们联系（支持多次填写），感谢参与！[传送门](https://www.wjx.cn/vm/mrpdkZw.aspx#)"
+            }
+
+            console.info(`[${payload.uid}]QA test done, the result is: `, finalResult);
+            let resultExtras = {
+                mbti: mbti, 
+                headUrl: headUrl,
+                imageUrl: imageUrl,
+                description: description,
+                naiveAttr: naiveAttr,
+                // totalRatio: [], 
+            }
+            return {done: true, 'response_string': finalResult, 'result_extras': resultExtras};
+        } catch (error) {
+            // retry
+            retryCount2 += 1
+            if (retryCount2 > 5) {
+                throw error
+            }
+            console.error(`[${payload.uid}Final Result Comm Error:`, error);
             await setTimeout(() => {}, 1000);
         }
     }

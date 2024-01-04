@@ -23,6 +23,7 @@ export interface ChatPanelProps
     | 'input'
     | 'setInput'
   > {
+  chatDone: boolean
   id?: string
 }
 
@@ -44,6 +45,7 @@ var texts = {
   stop: '',
   imgErrorInfo: '',
   blobTreeErrorInfo: '',
+  retest: '',
 };
 if (lang === 'zh') {
   texts.initPlaceholder = '请输入您的个人动态（以中文分号或换行符分隔）。'
@@ -56,6 +58,7 @@ if (lang === 'zh') {
   texts.stop = '停止生成'
   texts.imgErrorInfo = '格式错误，请仅输入 1-9 之间的数字。'
   texts.blobTreeErrorInfo = '格式错误，请仅输入 1-21 之间的数字。'
+  texts.retest = '重新评测'
 } else if (lang === 'en') {
   texts.initPlaceholder = 'Please enter your personal posts (separated by semicolons or newlines).'
   texts.imgPlaceholder = 'Please select your favourite images options (1-9).'
@@ -67,6 +70,7 @@ if (lang === 'zh') {
   texts.stop = 'Stop generating'
   texts.imgErrorInfo = 'Answer format error, please enter only numbers between 1-9.'
   texts.blobTreeErrorInfo = 'Answer format error, please enter only numbers between 1-21.'
+  texts.retest = 'Test again'
 }
 
 const ConfirmationDialog = ({ isOpen, onClose, onConfirm }: ConfirmationDialogProps) => {
@@ -105,7 +109,8 @@ export function ChatPanel({
   reload,
   input,
   setInput,
-  messages
+  messages,
+  chatDone
 }: ChatPanelProps) {
   const router = useRouter()
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -171,7 +176,16 @@ export function ChatPanel({
       <ButtonScrollToBottom />
       <div className="mx-auto sm:max-w-2xl sm:px-4">
         <div className="flex h-10 items-center justify-center">
-        {/* placeholder */}
+        { chatDone && (            
+            <Button
+              variant="outline"
+              onClick={handleConfirmNewChat}
+              className="bg-background"
+            >
+              <IconStop className="mr-2" />
+              {texts.retest}
+            </Button>
+        )}
         </div>
         <div className="space-y-4 border-t bg-background px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
             { isConfirmationOpen && (
