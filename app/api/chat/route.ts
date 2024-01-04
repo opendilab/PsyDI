@@ -66,9 +66,9 @@ export async function POST(req: Request) {
   await agent.registerUser(userId, messages.length <= 1)
 
   const turnCount = await agent.getTurnCount(userId)
-  let streamDelay = 80
+  let streamDelay = 60
   if (turnCount >= phase3StartTurnCount - 2) {
-    streamDelay = 40
+    streamDelay = 25
   }
   const debug = process.env.DEBUG
 
