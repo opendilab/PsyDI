@@ -275,7 +275,7 @@ export class PsyDI {
             if (!done) {
                 const q = data.ret.question
                 const index = data.ret.index
-                const userPostsCount = payload.messages[0].content.split(/[\n,;,；]/).length
+                const userPostsCount = payload.messages[0].content.split(/[\n|;|；]/).length
                 const phase2Index = index + 1 - userPostsCount
 
                 var infoString = ''
@@ -582,7 +582,7 @@ export class PsyDI {
         post_list: postList,
       }
     } else {
-      let postList = rawContent[0].split(/[\n,;,；]/)
+      let postList = rawContent[0].split(/[\n|;|；]/)
 
       for (let i = 0; i < postList.length; i++) {
         postList[i] = await baiduTranslate(postList[i], lang, 'en')

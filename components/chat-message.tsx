@@ -25,10 +25,10 @@ const userMarkdownFormatR = `
 
 export function ChatMessage({ message, ...props }: ChatMessageProps) {
   const processUserContent = (content: string) => {
-    const splitContent = content.split(/\n|；|;/g)
+    const splitContent = content.split(/\n|;|；/g)
     const maxLen = Math.max(...splitContent.map((item) => item.length))
     let processedContent = content
-    processedContent = processedContent.replace(/\n|；|;/g, "<br>")
+    processedContent = processedContent.replace(/\n|;|；/g, "<br>")
     if (maxLen > 16) {
       processedContent = userMarkdownFormatLComplex + processedContent + userMarkdownFormatR
     } else {
