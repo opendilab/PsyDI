@@ -101,7 +101,7 @@ if (lang === 'zh') {
   texts.discoveryPhaseTitle = "『发现篇章』"
   texts.endPhaseTitle = "『回响篇章』"
   texts.endDescription = "感谢您的回答！我已为您准备好一份专属个性报告，希望能帮助您更好地认识自我。这次轻松的对话不仅让我捕捉到了您的独特个性，也希望帮助您看清内心，接纳自我。每一个人都有属于自己的独特魅力，值得被认可与理解。如果日后您想要再次探索自我，欢迎随时来找我聊聊！我随时在这里等待您再次开启交流。"
-  texts.startIntro = "（本章节只有一道问答，主要是初步了解您的日常信息，帮助 Agent 定制您专属的 MBTI 问答和分析）"
+  texts.startIntro = "（本章节有两道问答，主要是初步了解您的日常信息，帮助 Agent 定制您专属的 MBTI 问答和分析）"
   texts.explorationIntro = "（本章节共有四道问答（前篇两道+后篇两道），结合经典心理学的相关知识和工具，系统性地收集您的人格特征信息，保证 Agent 能从多个不同的角度跟您交流。每道题约需要等待 3-10 秒。）"
   texts.discoveryIntro = "（基于之前收集的信息和您的回答，针对之前两个阶段的内容，在本章节 Agent 将会动态地跟您进行一系列的探讨和交互。每个问答约需要等待 8-15 秒。）"
   texts.endIntro = "（本章节将会综合前三个阶段的信息，为您生成专属人格分析和 MBTI 形象图。约需等待 25-45 秒。）"
@@ -128,7 +128,7 @@ if (lang === 'zh') {
   texts.discoveryPhaseTitle = "[Discovery Phase]"
   texts.endPhaseTitle = "[End Phase]"
   texts.endDescription = "Thank you for your answers! I have prepared a customized personality report for you, hoping to help you better understand yourself. This relaxed conversation not only allows me to capture your unique personality, but also hopes to help you see your heart and accept yourself. Everyone has their own unique charm, which deserves to be recognized and understood. If you want to explore yourself again in the future, please feel free to come to me! I am always here waiting for you to start a conversation again."
-  texts.startIntro = "(This chapter only has one question and answer, mainly to understand your daily information and help Agent customize your exclusive MBTI questions and analysis)"
+  texts.startIntro = "(There are two questions in this chapter, mainly to understand your daily information and help Agent customize your exclusive MBTI questions and analysis.)" 
   texts.explorationIntro = "(There are four questions in this chapter (two in the first part + two in the second part). Combined with the relevant knowledge and tools of classical psychology, your personality information will be collected systematically to ensure that Agent can communicate with you from different perspectives. Each question takes about 3-10 seconds to wait.)"
   texts.discoveryIntro = "(According to the information collected before and your answers, Agent will dynamically discuss and interact with you based on the content of the previous two stages. Each question takes about 8-15 seconds to wait.)"
   texts.endIntro = "(This chapter will integrate the information of the previous three stages and generate a personalized personality analysis and MBTI image for you. It takes about 25-45 seconds to wait.)"
@@ -145,14 +145,14 @@ export function ChatList({ messages, chatDone, isLoading }: ChatList) {
     modifiedMessages.splice(0, 0, {id: chatID, content: texts.startPhaseTitle, role: "system"}); // insert system message
     modifiedMessages.splice(1, 0, {id: chatID, content: texts.startIntro, role: "system"}); // insert system message
   }
-  if (messages.length >= 2) {  // ask for user posts + user posts
+  if (messages.length >= 4) {  // ask for user posts + user posts + 2
     modifiedMessages.splice(4, 0, {id: chatID, content: texts.explorationPhaseTitle1, role: "system"}); // insert system message
     modifiedMessages.splice(5, 0, {id: chatID, content: texts.explorationIntro, role: "system"}); // insert system message
   }
-  if (messages.length >= 6) {  // ask for user posts + user posts + 4
+  if (messages.length >= 8) {  // ask for user posts + user posts + 6
     modifiedMessages.splice(10, 0, {id: chatID, content: texts.explorationPhaseTitle2, role: "system"}); // insert system message
   }
-  if (messages.length >= 10) {
+  if (messages.length >= 12) {
     modifiedMessages.splice(15, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
     modifiedMessages.splice(16, 0, {id: chatID, content: texts.discoveryIntro, role: "system"}); // insert system message
   }

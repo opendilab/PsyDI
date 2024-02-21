@@ -1,5 +1,6 @@
 import { kv } from '@vercel/kv'
 import { baiduTranslate } from '@/app/baidu_translate'
+import { NeteaseCloud } from '@/lib/neteasecloud'
 
 const lang = process.env.LANG || 'zh' // default to zh
 const assert = require('assert');
@@ -14,11 +15,12 @@ export class PsyDI {
   private MBTIOptionsInfoTrans: Record<string, string> = {};
   private BlobTreeOptionsTrans: Record<string, string> = {};
   private MBTIStatistics: Record<string, number> = {};
-  private phase2StartTurnCount: number = 1;
-  private phase3StartTurnCount: number = 5;
+  private phase2StartTurnCount: number = 2;
+  private phase3StartTurnCount: number = 6;
   private visualArtPrefix: string = '';
   private explanationPrefix: string = '';
   private visualArtChoicePrefix: string = '';
+  private musicProxy: NeteaseCloud;
   private mbtiHeadUrls: Record<string, string> = {
     'ISTJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fistj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=92BfIcC0qlWv7JX3c%2BEnyZD9CMQ%3D",
 
@@ -51,7 +53,22 @@ export class PsyDI {
     'ENFJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fenfj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=97u1MQr1RCDsN1msfXeTo204RSk%3D",
 
     'ENTJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fentj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=WJB49ZObC7bgL03sId%2F2DZZ8riA%3D",
-  }
+  };
+  private musicLabelExample: Record<string, string> = {
+    '曲名': '愿与愁',
+    '歌手': '林俊杰',
+    '曲风': '华语流行',
+    '推荐标签': '抒情，紧张，悲伤，抑郁，快乐，爱情，思念，浪漫，苦情，放松，憧憬，治愈，遗憾，感人',
+    '语种': '国语',
+    'BPM': '72',
+  };
+  private userLabelExample: Record<string, string> = {
+    "年龄": "00后",
+    "地区": "沿海地区",
+    "职业": "学生",
+    "爱好": "游戏，二次元",
+    "对待科技态度": "技术保守者",
+  };
 
   constructor(apiUrl: string) {
     this.apiUrl = apiUrl;
@@ -175,6 +192,7 @@ export class PsyDI {
         'ESTP': 3.20,
         'ESFP': 6.81,
     }
+    this.musicProxy = new NeteaseCloud();
   }
 
   async registerUser(userId: string, isEmpty: boolean) {
@@ -229,7 +247,7 @@ export class PsyDI {
             });
             const data = await response.json();
             console.info(`[${payload.uid}]get pre question data`, data.ret)
-            const q = data.ret
+            const q = data.ret.question
             let responseString = ''
             if (lang == "en" ) {
                 responseString += q['Question_EN'] + '\n(A) ' + q['Option A_EN'] + '\n(B) ' + q['Option B_EN'] + '\n(C) ' + q['Option C_EN'] + '\n(D) ' + q['Option D_EN'];
@@ -426,7 +444,7 @@ export class PsyDI {
       const data = await response.json();
       code = data.code;
     } catch (error) {
-      console.error(`[${finalPayload.uid}]Comm Error:`, error);
+      console.error(`[${finalPayload.uid}] Post User Posts Comm Error:`, error);
       throw error;
     }
   }
@@ -564,7 +582,7 @@ export class PsyDI {
     const startTime: Date = new Date();
     const rawContent = messages.map((message) => message.content)
     if (additional) {
-      let postList = rawContent.slice(1)
+      let postList = rawContent.slice(2)
       const mbtiOptionAnswer = this.getMBTIOptionAnswer(postList[0])
       const blobTreeAnswer = this.getBlobTreeAnswer(postList[1])
       postList[0] = mbtiOptionAnswer[0]
@@ -582,7 +600,12 @@ export class PsyDI {
         post_list: postList,
       }
     } else {
-      let postList = rawContent[0].split(/[\n|;|；]/)
+      let musicLabel = null
+      const songList = await this.musicProxy.searchMusic(rawContent[0])
+      if (songList.length > 0) {
+          musicLabel = await this.musicProxy.getSongInfo(songList[0].songID, songList[0].songName, songList[0].artistName)
+      }
+      let postList = rawContent[1].split(/[\n|;|；]/)
 
       for (let i = 0; i < postList.length; i++) {
         postList[i] = await baiduTranslate(postList[i], lang, 'en')
@@ -591,6 +614,8 @@ export class PsyDI {
         endpoint: 'post_user_posts',
         uid: uid,
         post_list: postList,
+        music_label: musicLabel,
+        label: this.userLabelExample,  // TODO
         record: 'True',
       }
     }

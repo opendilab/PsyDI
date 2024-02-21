@@ -35,7 +35,8 @@ type ConfirmationDialogProps = {
 
 const lang = process.env.LANG || 'zh' // default to zh
 var texts = {
-  initPlaceholder: '',
+  musicPlaceholder: '',
+  postPlaceholder: '',
   imgPlaceholder: '',
   philosophyPlacehodler: '',
   blobTreePlaceholder: '',
@@ -48,7 +49,8 @@ var texts = {
   retest: '',
 };
 if (lang === 'zh') {
-  texts.initPlaceholder = '请输入您的个人动态（以中文分号或换行符分隔）。'
+  texts.musicPlaceholder = '请输入一首您喜欢的歌曲名。'
+  texts.postPlaceholder = '请输入您的个人动态（以中文分号或换行符分隔）。'
   texts.imgPlaceholder = '请选择您喜欢的图片选项。(1-9)'
   texts.philosophyPlacehodler = '请选择上面的选项 (ABCD) 或输入您自己的答案。'
   texts.blobTreePlaceholder = '请输入您的选择的 blob 数字（1-21）。'
@@ -60,7 +62,8 @@ if (lang === 'zh') {
   texts.blobTreeErrorInfo = '格式错误，请仅输入 1-21 之间的数字。'
   texts.retest = '重新评测'
 } else if (lang === 'en') {
-  texts.initPlaceholder = 'Please enter your personal posts (separated by semicolons or newlines).'
+  texts.musicPlaceholder = 'Please enter the name of a song you like.'
+  texts.postPlaceholder = 'Please enter your personal posts (separated by semicolons or newlines).'
   texts.imgPlaceholder = 'Please select your favourite images options (1-9).'
   texts.philosophyPlacehodler = 'Please select above options (ABCD) or enter your own answer.'
   texts.blobTreePlaceholder = 'Please enter the blob number of your choice (1-21).'
@@ -129,13 +132,13 @@ export function ChatPanel({
   };
 
   const checkValue = (value: string) => {
-    if (messages?.length === 4) {
+    if (messages?.length === 6) {
       const intValue = parseInt(value)
       if (isNaN(intValue) || intValue < 1 || intValue > 9) {
         errorToaster(texts.imgErrorInfo)
         return false
       }
-    } else if (messages?.length === 6) {
+    } else if (messages?.length === 8) {
       const intValue = parseInt(value)
       if (isNaN(intValue) || intValue < 1 || intValue > 21) {
         errorToaster(texts.blobTreeErrorInfo)
@@ -152,17 +155,19 @@ export function ChatPanel({
   } else if (messages?.length === 0) {
     placeholder = ''
   } else if (messages?.length === 2) {  // start phase + ask for post
-    placeholder = texts.initPlaceholder
+    placeholder = texts.musicPlaceholder
   } else if (messages?.length === 4) {
+    placeholder = texts.postPlaceholder
+  } else if (messages?.length === 6) {
     placeholder = texts.imgPlaceholder
-  } else if (messages?.length === 6){ 
+  } else if (messages?.length === 8){ 
     placeholder = texts.blobTreePlaceholder
-  } else if (messages?.length > 7 && messages?.length <= 11) { 
+  } else if (messages?.length > 9 && messages?.length <= 13) { 
     placeholder = texts.QAPlaceholder
     if (messages[messages.length - 1].role === 'assistant') {
       enableOptionButtons = true
     }
-  } else if (messages?.length > 11){ 
+  } else if (messages?.length > 13){ 
     placeholder = texts.QAPlaceholderComplex
     if (messages[messages.length - 1].role === 'assistant') {
       enableOptionButtons = true
