@@ -588,12 +588,12 @@ export class PsyDI {
       postList[0] = mbtiOptionAnswer[0]
       postList[1] = blobTreeAnswer[0]
 
-      kv.hset(`ucount:${uid}chat:2`, {post: mbtiOptionAnswer[2] + this.visualArtChoicePrefix + mbtiOptionAnswer[1]});
-      kv.hset(`ucount:${uid}chat:3`, {post: blobTreeAnswer[1]});
-      const post4 = kv.hget(`ucount:${uid}chat:4`, 'post') as Promise<string>;
+      kv.hset(`ucount:${uid}chat:3`, {post: mbtiOptionAnswer[2] + this.visualArtChoicePrefix + mbtiOptionAnswer[1]});
+      kv.hset(`ucount:${uid}chat:4`, {post: blobTreeAnswer[1]});
       const post5 = kv.hget(`ucount:${uid}chat:5`, 'post') as Promise<string>;
-      postList[2] = (await post4).toString()
-      postList[3] = (await post5).toString()
+      const post6 = kv.hget(`ucount:${uid}chat:6`, 'post') as Promise<string>;
+      postList[2] = (await post5).toString()
+      postList[3] = (await post6).toString()
       return {
         endpoint: 'post_additional_posts',
         uid: uid,

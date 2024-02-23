@@ -118,8 +118,9 @@ export async function POST(req: Request) {
             })
             done = response.done
             response_string = response.response_string
-        } catch {
+        } catch (error) {
           errorCode = -1
+          console.error(`[${userId}]get question internal error: ${error}`)
         }
     }
   }
