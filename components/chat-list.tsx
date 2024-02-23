@@ -146,15 +146,15 @@ export function ChatList({ messages, chatDone, isLoading }: ChatList) {
     modifiedMessages.splice(1, 0, {id: chatID, content: texts.startIntro, role: "system"}); // insert system message
   }
   if (messages.length >= 4) {  // ask for user posts + user posts + 2
-    modifiedMessages.splice(4, 0, {id: chatID, content: texts.explorationPhaseTitle1, role: "system"}); // insert system message
-    modifiedMessages.splice(5, 0, {id: chatID, content: texts.explorationIntro, role: "system"}); // insert system message
+    modifiedMessages.splice(6, 0, {id: chatID, content: texts.explorationPhaseTitle1, role: "system"}); // insert system message
+    modifiedMessages.splice(7, 0, {id: chatID, content: texts.explorationIntro, role: "system"}); // insert system message
   }
   if (messages.length >= 8) {  // ask for user posts + user posts + 6
-    modifiedMessages.splice(10, 0, {id: chatID, content: texts.explorationPhaseTitle2, role: "system"}); // insert system message
+    modifiedMessages.splice(12, 0, {id: chatID, content: texts.explorationPhaseTitle2, role: "system"}); // insert system message
   }
   if (messages.length >= 12) {
-    modifiedMessages.splice(15, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
-    modifiedMessages.splice(16, 0, {id: chatID, content: texts.discoveryIntro, role: "system"}); // insert system message
+    modifiedMessages.splice(17, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
+    modifiedMessages.splice(18, 0, {id: chatID, content: texts.discoveryIntro, role: "system"}); // insert system message
   }
   if (chatDone) {
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endPhaseTitle, role: "system"}); // insert system message

@@ -243,7 +243,7 @@ export class PsyDI {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
                 },
-                body: JSON.stringify({'uid': payload.uid, 'index': payload.turnCount - 1}),
+                body: JSON.stringify({'uid': payload.uid, 'index': payload.turnCount - 2}),
             });
             const data = await response.json();
             console.info(`[${payload.uid}]get pre question data`, data.ret)
@@ -261,7 +261,7 @@ export class PsyDI {
             if (retryCount > 5) {
                 throw error
             }
-            console.error(`[${payload.uid}Comm Error:`, error);
+            console.error(`[${payload.uid}]Comm Error:`, error);
             await setTimeout(() => {}, 1000);
         }
     }
@@ -460,7 +460,7 @@ export class PsyDI {
     if (turnCount < this.phase3StartTurnCount + 1) {
         endpoint = 'post_user_pre_answer';
         answer = payload.messages[turnCount - 1].content;
-        index = turnCount - 2;
+        index = turnCount - 3;
     } else {
         endpoint = 'post_user_answer';
         answer = payload.messages[turnCount - 1].content;
