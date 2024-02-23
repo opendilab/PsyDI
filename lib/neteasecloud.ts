@@ -76,6 +76,7 @@ export class NeteaseCloud {
           // comment: comment.join('\n')
         }
       }
+      return null
       // const res2 = await comment_music({
       //   id: songID,
       // })

@@ -603,7 +603,17 @@ export class PsyDI {
       let musicLabel = null
       const songList = await this.musicProxy.searchMusic(rawContent[0])
       if (songList.length > 0) {
-          musicLabel = await this.musicProxy.getSongInfo(songList[0].songID, songList[0].songName, songList[0].artistName)
+          const songInfo = await this.musicProxy.getSongInfo(songList[0].songID, songList[0].songName, songList[0].artistName)
+          if (songInfo) {
+            musicLabel = {
+              '曲名': songInfo.songName,
+              '歌手': songInfo.artistName,
+              '曲风': songInfo.style,
+              '推荐标签': songInfo.tags,
+              '语种': songInfo.language,
+              'BPM': songInfo.bpm,
+            }
+          }
       }
       let postList = rawContent[1].split(/[\n|;|；]/)
 
