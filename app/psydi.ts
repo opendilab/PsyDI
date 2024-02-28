@@ -294,10 +294,16 @@ export class PsyDI {
                 const q = data.ret.question
                 const index = data.ret.index
                 const userPostsCount = payload.messages[0].content.split(/[\n|;|；]/).length
-                const phase2Index = index + 1 - userPostsCount
+                const phase2Index = index + 1 - userPostsCount - 1
 
                 var infoString = ''
-                if (index < userPostsCount) {
+                if (index == 0) {
+                    if (lang == 'en') {
+                      infoString = `> Tip: This problem is based on the song you shared.`
+                    } else if (lang == 'zh') {
+                      infoString += `> 注意：这个问题是基于你分享的歌曲定制设计的。`
+                    }
+                } else if (index < userPostsCount) {
                     if (lang == 'en') {
                       infoString += `> Tip: This problem is based on the ${index + 1}-th your daily post.`
                     } else if (lang == 'zh') {
@@ -312,7 +318,7 @@ export class PsyDI {
                 }
 
                 if (phase2Index >= 1) {
-                  const choiceExplanation = await kv.hget(`ucount:${payload.uid}chat:${phase2Index + 1}`, 'post');
+                  const choiceExplanation = await kv.hget(`ucount:${payload.uid}chat:${phase2Index + 2}`, 'post');
                   infoString += this.explanationPrefix
                   if (phase2Index === 1) {
                     infoString += `**${this.visualArtPrefix} ${choiceExplanation}**`
@@ -327,12 +333,7 @@ export class PsyDI {
                 } else if (phase2Index === 2) {
                   infoString += `\n![alt text](${process.env.BLOB_TREE_IMAGE_URL})`
                 }
-                let responseString = ''
-                if (lang == "en" ) {
-                  responseString += infoString + '\n' + q['Question_EN'] + '\n(A) ' + q['Option A_EN'] + '\n(B) ' + q['Option B_EN'] + '\n(C) ' + q['Option C_EN'] + '\n(D) ' + q['Option D_EN'];
-                } else if (lang == "zh") {
-                  responseString += infoString + '\n' + q['Question_CN'] + '\n(A) ' + q['Option A_CN'] + '\n(B) ' + q['Option B_CN'] + '\n(C) ' + q['Option C_CN'] + '\n(D) ' + q['Option D_CN'];
-                }
+                let responseString = infoString + '\n' + q
                 return {'done': false, 'response_string': responseString};
             } else {
                 break
