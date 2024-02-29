@@ -293,6 +293,11 @@ export class PsyDI {
             if (!done) {
                 const q = data.ret.question
                 const index = data.ret.index
+                const startOfModule = data.ret.start_of_module
+                if (!startOfModule) {
+                  return {'done': false, 'response_string': q}
+                }
+
                 const userPostsCount = payload.messages[0].content.split(/[\n|;|；]/).length
                 const phase2Index = index + 1 - userPostsCount - 1
 
