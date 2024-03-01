@@ -46,6 +46,7 @@ var texts = {
   stop: '',
   imgErrorInfo: '',
   blobTreeErrorInfo: '',
+  singleSelectErrorInfo: '',
   retest: '',
 };
 if (lang === 'zh') {
@@ -54,12 +55,13 @@ if (lang === 'zh') {
   texts.imgPlaceholder = '请选择您喜欢的图片选项。(1-9)'
   texts.philosophyPlacehodler = '请选择上面的选项 (ABCD) 或输入您自己的答案。'
   texts.blobTreePlaceholder = '请输入您的选择的 blob 数字（1-21）。'
-  texts.QAPlaceholder = '选择上面的选项 (ABCD) 。'
-  texts.QAPlaceholderComplex = '选择上面的选项 (ABCD) 或输入您自己的答案。'
+  texts.QAPlaceholder = '（单选）选择上面的选项 (ABCD) 。'
+  texts.QAPlaceholderComplex = '（多选/问答）选择上面的选项 (ABCD) 或输入您自己的答案。'
   texts.generate = '重新生成回复'
   texts.stop = '停止生成'
   texts.imgErrorInfo = '格式错误，请仅输入 1-9 之间的数字。'
   texts.blobTreeErrorInfo = '格式错误，请仅输入 1-21 之间的数字。'
+  texts.singleSelectErrorInfo = '单选题只能选择一个预设选项。'
   texts.retest = '重新评测'
 } else if (lang === 'en') {
   texts.musicPlaceholder = 'Please enter the name of a song you like.'
@@ -73,6 +75,7 @@ if (lang === 'zh') {
   texts.stop = 'Stop generating'
   texts.imgErrorInfo = 'Answer format error, please enter only numbers between 1-9.'
   texts.blobTreeErrorInfo = 'Answer format error, please enter only numbers between 1-21.'
+  texts.singleSelectErrorInfo = 'Single select question can only select one of the preset options.'
   texts.retest = 'Test again'
 }
 
@@ -117,6 +120,10 @@ export function ChatPanel({
 }: ChatPanelProps) {
   const router = useRouter()
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isButtonASelected, setIsButtonASelected] = useState(false);
+  const [isButtonBSelected, setIsButtonBSelected] = useState(false);
+  const [isButtonCSelected, setIsButtonCSelected] = useState(false);
+  const [isButtonDSelected, setIsButtonDSelected] = useState(false);
 
   const handleCloseConfirmation = () => {
     setIsConfirmationOpen(false);
@@ -147,6 +154,67 @@ export function ChatPanel({
     }
     return true
   };
+
+
+  const getQuestionOptionText = (originalInput: string, prefix: string) => {
+    if (messages?.length === 0) {
+      return ""
+    }
+    
+    const question = messages[messages.length - 1].content
+    const isMultiSelect = messages?.length > 13
+    let escapedPrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    let buttonPrefix = {
+      '(A)': [isButtonASelected, setIsButtonASelected],
+      '(B)': [isButtonBSelected, setIsButtonBSelected],
+      '(C)': [isButtonCSelected, setIsButtonCSelected],
+      '(D)': [isButtonDSelected, setIsButtonDSelected]
+    } 
+
+    if (!isMultiSelect) {
+      // check if any button is selected
+      const isButtonSelected = Object.values(buttonPrefix).some(([isSelected, _]) => isSelected)
+      // check if the prefix is the same as the selected button
+      // @ts-ignore
+      const isPrefixSelected = prefix in buttonPrefix && buttonPrefix[prefix][0]
+      if (isButtonSelected && !isPrefixSelected) {
+        errorToaster(texts.singleSelectErrorInfo)
+        return originalInput
+      }
+    }
+    
+    if (prefix in buttonPrefix) {
+        // @ts-ignore
+        let [isButtonSelected, setIsButtonSelected] = buttonPrefix[prefix]
+        console.log('pre', prefix, isButtonASelected, isButtonBSelected, isButtonCSelected, isButtonDSelected)
+
+        if (isButtonSelected) {
+          let regex = new RegExp(`^${escapedPrefix}.*`, 'm');
+          let newStr = originalInput.replace(regex, '');
+          newStr = newStr.replace(/^\n/, '');
+          newStr = newStr.replace(/\n\n/, '\n');
+          setIsButtonSelected(false)
+          return newStr
+        } else {
+          setIsButtonSelected(true)
+        }
+    }
+    // case: prefix not in isButtonSelected or isButtonSelected[prefix] is false
+    let regex = new RegExp(`^${escapedPrefix}.*$`, 'gm');
+    let matches = question.match(regex);
+    if (matches === null) {
+      return originalInput
+    }
+    if (originalInput.length === 0) {
+      return matches[0]
+    } else {
+      if (originalInput.endsWith('\n')) {
+        return originalInput + matches[0]
+      } else {
+        return originalInput + '\n' + matches[0]
+      }
+    }
+  }
 
   let placeholder = ''
   let enableOptionButtons = false
@@ -212,33 +280,41 @@ export function ChatPanel({
                     gridTemplateColumns: 'repeat(2, 1fr)',
                 }}
             >
-            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} disabled={isLoading} onClick={() => {
-              append({
-                id,
-                content: '(A)',
-                role: 'user'
-              })
+            <MuiButton variant={'outlined'} sx={{
+              m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))', backgroundColor: isButtonASelected ? "#a5a8ac" : "transparent",
+              '&:hover': {
+                backgroundColor: isButtonASelected ? "#a5a8ac" : "transparent",
+                border: '1px solid #000000'
+              }
+            }} disabled={isLoading} onClick={() => {
+              setInput(getQuestionOptionText(input, '(A)'))
             }} startIcon={<CatchingPokemonSharpIcon />}>A</MuiButton>
-            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} disabled={isLoading} onClick={() => {
-              append({
-                id,
-                content: '(B)',
-                role: 'user'
-              })
+            <MuiButton variant={'outlined'} sx={{
+              m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))', backgroundColor: isButtonBSelected ? "#a5a8ac" : "transparent",
+              '&:hover': {
+                backgroundColor: isButtonBSelected ? "#a5a8ac" : "transparent",
+                border: '1px solid #000000'
+              }
+            }} disabled={isLoading} onClick={() => {
+              setInput(getQuestionOptionText(input, '(B)'))
             }} startIcon={<CatchingPokemonSharpIcon />}>B</MuiButton>
-            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} disabled={isLoading} onClick={() => {
-              append({
-                id,
-                content: '(C)',
-                role: 'user'
-              })
+            <MuiButton variant={'outlined'} sx={{
+              m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))', backgroundColor: isButtonCSelected ? "#a5a8ac" : "transparent",
+              '&:hover': {
+                backgroundColor: isButtonCSelected ? "#a5a8ac" : "transparent",
+                border: '1px solid #000000'
+              }
+            }} disabled={isLoading} onClick={() => {
+              setInput(getQuestionOptionText(input, '(C)'))
             }} startIcon={<CatchingPokemonSharpIcon />}>C</MuiButton>
-            <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} disabled={isLoading} onClick={() => {
-              append({
-                id,
-                content: '(D)',
-                role: 'user'
-              })
+            <MuiButton variant={'outlined'} sx={{
+              m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))', backgroundColor: isButtonDSelected ? "#a5a8ac" : "transparent",
+              '&:hover': {
+                backgroundColor: isButtonDSelected ? "#a5a8ac" : "transparent",
+                border: '1px solid #000000'
+              }
+            }} disabled={isLoading} onClick={() => {
+              setInput(getQuestionOptionText(input, '(D)'))
             }} startIcon={<CatchingPokemonSharpIcon />}>D</MuiButton>
             </Box>
             )}
@@ -250,6 +326,10 @@ export function ChatPanel({
                   content: value,
                   role: 'user'
                 })
+                setIsButtonASelected(false)
+                setIsButtonBSelected(false)
+                setIsButtonCSelected(false)
+                setIsButtonDSelected(false)
               }
             }}
             input={input}
