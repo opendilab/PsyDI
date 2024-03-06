@@ -3,7 +3,7 @@ export class NeteaseCloud {
   private utilsCookie: string;
   constructor() {
     this.url = process.env.NETEASE_SERVICE_URL || ""
-    this.utilsCookie = ""
+    this.utilsCookie = "placeholder"
     this.login()
   }
   async login() {
@@ -27,10 +27,10 @@ export class NeteaseCloud {
       console.error('error', err)
     }
   }
-  async searchMusic(keywords: string) {
+  async searchMusic(keywords: string, limit: number = 4) {
     try {
       // type: 1 song
-      const url = `${this.url}/search?keywords=${keywords}&limit=8&offset=0&type=1`
+      const url = `${this.url}/search?keywords=${keywords}&limit=${limit}&offset=0&type=1`
       const res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -53,9 +53,41 @@ export class NeteaseCloud {
       return null
     }
   }
+  async searchMusicWithDetails(details: string, limit: number = 4) {
+    try {
+      const spiltDetails = details.split(' - ')
+      const keywords = spiltDetails[0]
+      const url = `${this.url}/search?keywords=${keywords}&limit=${limit}&offset=0&type=1`
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      })
+      if (res.status === 200) {
+        const data = await res.json()
+        const result = data.result.songs.map((item: any) => {
+          return {
+            songID: item.id,
+            songName: item.name,
+            artistName: item.artists.map((a: any) => a.name).join(','), 
+            albumName: item.album.name
+          } 
+        })
+        if (spiltDetails.length > 1) {
+          return result.filter((item: any) => ((item.artistName === spiltDetails[1]) && (item.albumName === spiltDetails[2])))
+        } else {
+          return result
+        }
+      }
+    } catch (err) {
+      console.error('search music error', err)
+      return null
+    }
+  }
   async getSongInfo(songID: number, songName: string, artistName: string) {
     try {
-      const url = `${this.url}//song/wiki/summary?id=${songID}`
+      const url = `${this.url}/song/wiki/summary?id=${songID}`
       const res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -73,6 +105,7 @@ export class NeteaseCloud {
           tags: data[1].resources.map((item: any) => item.uiElement.mainTitle.title).join(','),
           language: data[2].uiElement.textLinks[0].text,
           bpm: data[3].uiElement.textLinks[0].text,
+          imageUrl: ret.data.blocks[1].uiElement.images[0].imageUrl,
           // comment: comment.join('\n')
         }
       }

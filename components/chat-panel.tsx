@@ -243,6 +243,7 @@ export function ChatPanel({
   } else {
     placeholder = ''
   }
+  const isSearch = messages?.length === 2
 
   return (
     <div className="fixed inset-x-0 bottom-0 bg-gradient-to-b from-muted/10 from-10% to-muted/30 to-50%">
@@ -337,6 +338,7 @@ export function ChatPanel({
             isLoading={isLoading}
             placeholder={placeholder}
             handleNewChat={handleNewChat}
+            isSearch={isSearch}
           />
           <FooterText className="hidden sm:block" />
         </div>

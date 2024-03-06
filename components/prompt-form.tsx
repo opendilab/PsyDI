@@ -25,6 +25,18 @@ if (lang === 'zh') {
   texts.sendMessage = "Send Message"
 }
 
+let debounceTimer: NodeJS.Timeout;
+
+function debounce(func: Function, delay: number) {
+  return function() {
+    //@ts-ignore
+    const context = this;
+    //@ts-ignore
+    const args = arguments;
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => func.apply(context, args), delay);
+  };
+}
 
 export interface PromptProps
   extends Pick<UseChatHelpers, 'input' | 'setInput'> {
@@ -32,7 +44,13 @@ export interface PromptProps
   isLoading: boolean
   placeholder: string
   handleNewChat: () => void
+  isSearch: boolean
 }
+
+type ListItem = {
+  id: number;
+  name: string;
+};
 
 export function PromptForm({
   onSubmit,
@@ -41,6 +59,7 @@ export function PromptForm({
   isLoading,
   placeholder,
   handleNewChat,
+  isSearch,
 }: PromptProps) {
   const { formRef, onKeyDown } = useEnterSubmit()
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
@@ -50,6 +69,29 @@ export function PromptForm({
       inputRef.current.focus()
     }
   }, [])
+  const [results, setResults] = React.useState<ListItem[]>([]);
+  
+  const handleInputChange = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = event.target.value;
+    if (!isSearch) {
+      setInput(value)
+      return
+    } else {
+      setInput(value)
+      if (value.length > 0) {
+        debounce(async () => {
+          const res = await fetch(`/api/music_search?q=${value}`);
+          const data = await res.json()
+          const songResults = data.map((item: any) => {
+            return {id: item.songID, name: `${item.songName} - ${item.artistName} - ${item.albumName}`}
+          })
+          setResults(songResults);
+        }, 500)();
+        return
+      }
+    }
+    setResults([]);
+  };
 
   return (
     <form
@@ -85,11 +127,46 @@ export function PromptForm({
           onKeyDown={onKeyDown}
           rows={1}
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={handleInputChange}
           placeholder={placeholder}
           spellCheck={false}
           className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
         />
+        {results.length > 0 && (
+          <ul className="results-list">
+            {results.map(result => (
+            <li key={result.id} className="result-item">
+              <a onClick={() => { setInput(result.name); setResults([]); }} href="#">
+                {result.name}
+              </a>
+            </li>
+            ))}
+          </ul>
+        )}
+       <style jsx>{`
+        .results-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          border: 1px solid #ccc;
+        }
+        
+        .result-item {
+          padding: 2px;
+          cursor: pointer;
+        }
+        
+        .result-item a {
+          text-decoration: none;
+          display: block;
+          font-size: 10pt;
+        }
+        
+        .result-item a:hover {
+          background-color: #ccc;
+          color: #2642fa;
+        }
+      `}</style>
         <div className="absolute right-0 top-4 sm:right-4">
           <Tooltip>
             <TooltipTrigger asChild>

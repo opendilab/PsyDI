@@ -584,6 +584,10 @@ export class PsyDI {
     }
   }
 
+  async searchMusic(value: string) {
+    return await this.musicProxy.searchMusic(value)
+  }
+
   async getPostsPayload(uid: string, messages: Record<string, string>[], additional: boolean): Promise<Record<string, any>> {
     const startTime: Date = new Date();
     const rawContent = messages.map((message) => message.content)
@@ -607,7 +611,7 @@ export class PsyDI {
       }
     } else {
       let musicLabel = null
-      const songList = await this.musicProxy.searchMusic(rawContent[0])
+      const songList = await this.musicProxy.searchMusicWithDetails(rawContent[0])
       if (songList.length > 0) {
           const songInfo = await this.musicProxy.getSongInfo(songList[0].songID, songList[0].songName, songList[0].artistName)
           if (songInfo) {
@@ -619,6 +623,8 @@ export class PsyDI {
               '语种': songInfo.language,
               'BPM': songInfo.bpm,
             }
+          } else {
+            console.log('no song info', songList)
           }
       }
       let postList = rawContent[1].split(/[\n|;|；]/)
