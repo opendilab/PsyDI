@@ -298,21 +298,25 @@ export class PsyDI {
                   return {'done': false, 'response_string': q}
                 }
 
-                const userPostsCount = payload.messages[0].content.split(/[\n|;|；]/).length
+                const userPosts = payload.messages[1].content.split(/[\n|;|；]/)
+                const userPostsCount = userPosts.length
                 const phase2Index = index + 1 - userPostsCount - 1
 
                 var infoString = ''
                 if (index == 0) {
+                    const songImage = await kv.hget(`ucount:${payload.uid}songImage`, 'songImage');
                     if (lang == 'en') {
                       infoString = `> Tip: This problem is based on the song you shared.`
                     } else if (lang == 'zh') {
                       infoString += `> 注意：这个问题是基于你分享的歌曲定制设计的。`
                     }
-                } else if (index < userPostsCount) {
+                    infoString += `\n![alt text](${songImage})`
+                } else if (index < userPostsCount + 1) {
+                    const post = userPosts[index - 1]
                     if (lang == 'en') {
-                      infoString += `> Tip: This problem is based on the ${index + 1}-th your daily post.`
+                      infoString += `> Tip: This problem is based on the ${index}-th your daily post: ${post}.`
                     } else if (lang == 'zh') {
-                      infoString += `> 注意：这个问题是基于你的第${index + 1}条日常动态。`
+                      infoString += `> 注意：这个问题是基于你的第${index}条日常动态：${post}。`
                     }
                 } else {
                     if (lang == 'en') {
@@ -644,6 +648,7 @@ export class PsyDI {
               '语种': songInfo.language,
               'BPM': songInfo.bpm,
             }
+            kv.hset(`ucount:${uid}songImage`, {songImage: songInfo.imageUrl});
           } else {
             console.log('no song info', songList)
           }
