@@ -22,6 +22,7 @@ export interface ChatPanelProps
     | 'stop'
     | 'input'
     | 'setInput'
+    | 'setMessages'
   > {
   chatDone: boolean
   id?: string
@@ -48,6 +49,7 @@ var texts = {
   blobTreeErrorInfo: '',
   singleSelectErrorInfo: '',
   retest: '',
+  reanswer: ''
 };
 if (lang === 'zh') {
   texts.musicPlaceholder = '请输入一首您喜欢的歌曲名。'
@@ -63,6 +65,7 @@ if (lang === 'zh') {
   texts.blobTreeErrorInfo = '格式错误，请仅输入 1-21 之间的数字。'
   texts.singleSelectErrorInfo = '单选题只能选择一个预设选项。'
   texts.retest = '重新评测'
+  texts.reanswer = '重新回答上个问题'
 } else if (lang === 'en') {
   texts.musicPlaceholder = 'Please enter the name of a song you like.'
   texts.postPlaceholder = 'Please enter your personal posts (separated by semicolons or newlines).'
@@ -77,6 +80,7 @@ if (lang === 'zh') {
   texts.blobTreeErrorInfo = 'Answer format error, please enter only numbers between 1-21.'
   texts.singleSelectErrorInfo = 'Single select question can only select one of the preset options.'
   texts.retest = 'Test again'
+  texts.reanswer = 'Reanswer the previous question'
 }
 
 const ConfirmationDialog = ({ isOpen, onClose, onConfirm }: ConfirmationDialogProps) => {
@@ -116,6 +120,7 @@ export function ChatPanel({
   input,
   setInput,
   messages,
+  setMessages,
   chatDone
 }: ChatPanelProps) {
   const router = useRouter()
@@ -136,6 +141,14 @@ export function ChatPanel({
   const handleConfirmNewChat = () => {
     router.refresh()
     router.push('/')
+  };
+
+  const handleReanswer = () => {
+    if (isLoading) {
+      stop()
+    } else {
+      setMessages(messages.slice(0, -2))
+    }
   };
 
   const checkValue = (value: string) => {
@@ -186,7 +199,6 @@ export function ChatPanel({
     if (prefix in buttonPrefix) {
         // @ts-ignore
         let [isButtonSelected, setIsButtonSelected] = buttonPrefix[prefix]
-        console.log('pre', prefix, isButtonASelected, isButtonBSelected, isButtonCSelected, isButtonDSelected)
 
         if (isButtonSelected) {
           let regex = new RegExp(`^${escapedPrefix}.*`, 'm');
@@ -244,13 +256,15 @@ export function ChatPanel({
     placeholder = ''
   }
   const isSearch = messages?.length === 2
+  // TODO: add backstep when isLoading
+  const isAvailableReanswer = !isLoading && !chatDone && ((messages?.length > 6 && messages?.length < 13) || (messages?.length > 14))
 
   return (
     <div className="fixed inset-x-0 bottom-0 bg-gradient-to-b from-muted/10 from-10% to-muted/30 to-50%">
       <ButtonScrollToBottom />
       <div className="mx-auto sm:max-w-2xl sm:px-4">
         <div className="flex h-10 items-center justify-center">
-        { chatDone && (            
+        { chatDone && (
             <Button
               variant="outline"
               onClick={handleConfirmNewChat}
@@ -258,6 +272,17 @@ export function ChatPanel({
             >
               <IconStop className="mr-2" />
               {texts.retest}
+            </Button>
+          )
+        }
+        { isAvailableReanswer && (
+            <Button
+              variant="outline"
+              onClick={handleReanswer}
+              className="bg-background"
+            >
+              <IconStop className="mr-2" />
+              {texts.reanswer}
             </Button>
         )}
         </div>

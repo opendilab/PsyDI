@@ -69,7 +69,13 @@ export async function POST(req: Request) {
 
   await agent.registerUser(userId, messages.length <= 1)
 
-  const turnCount = await agent.getTurnCount(userId)
+  const turnCountAgent = await agent.getTurnCount(userId)
+  const turnCountMessage = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content !== 'start').length
+  if (turnCountAgent !== turnCountMessage) {  // reanswer case
+    await agent.returnLastQuestion(userId)
+    await agent.setTurnCount(userId, turnCountMessage)
+  }
+  const turnCount = turnCountMessage
   let streamDelay = 60
   if (turnCount >= phase3StartTurnCount - 2) {
     streamDelay = 25
@@ -119,7 +125,7 @@ export async function POST(req: Request) {
             done = response.done
             response_string = response.response_string
         } catch (error) {
-          errorCode = -1
+          //errorCode = -1
           console.error(`[${userId}]get question internal error: ${error}`)
         }
     }

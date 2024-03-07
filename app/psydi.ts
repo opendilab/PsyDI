@@ -455,6 +455,27 @@ export class PsyDI {
     }
   }
 
+  async returnLastQuestion(uid: string): Promise<boolean> {
+      const finalPayload = {'uid': uid};
+      console.info(`[${uid}]post user backstep payload:`, finalPayload);
+      const url = `${this.apiUrl}/post_user_backstep`;
+      try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
+            },
+            body: JSON.stringify(finalPayload)
+        });
+          const data = await response.json();
+        } catch (error) {
+          console.error(`[${uid}]Backstep Comm Error:`, error);
+          throw error;
+      }
+      return true;
+  }
+
   async getQuestions(payload: any): Promise<any> {
     // post answer
     const startTime: Date = new Date();

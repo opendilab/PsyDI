@@ -75,6 +75,7 @@ export function PromptForm({
     const value = event.target.value;
     if (!isSearch) {
       setInput(value)
+      setResults([]);
       return
     } else {
       setInput(value)
@@ -96,6 +97,7 @@ export function PromptForm({
   return (
     <form
       onSubmit={async e => {
+        setResults([]);  // clear last search results
         e.preventDefault()
         if (!input?.trim()) {
           return
@@ -136,7 +138,7 @@ export function PromptForm({
           <ul className="results-list">
             {results.map(result => (
             <li key={result.id} className="result-item">
-              <a onClick={() => { setInput(result.name); setResults([]); }} href="#">
+              <a onClick={() => { setInput(result.name); setResults([]); }}>
                 {result.name}
               </a>
             </li>
