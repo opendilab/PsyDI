@@ -1,9 +1,11 @@
 import { UseChatHelpers } from 'ai/react'
 import * as React from 'react'
 import Textarea from 'react-textarea-autosize'
+import { BeatLoader } from 'react-spinners'
 
 import { Button, buttonVariants } from '@/components/ui/button'
 import { IconArrowElbow, IconPlus } from '@/components/ui/icons'
+import { GetThemeColor } from '@/components/theme-toggle'
 import {
   Tooltip,
   TooltipContent,
@@ -70,30 +72,34 @@ export function PromptForm({
     }
   }, [])
   const [results, setResults] = React.useState<ListItem[]>([]);
+  const [isTyping, setIsTyping] = React.useState(false);
   
+  const isSearching = isSearch && isTyping && (results.length === 0)
   const handleInputChange = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value;
-    if (!isSearch) {
-      setInput(value)
-      setResults([]);
-      return
-    } else {
-      setInput(value)
+    setResults([]);
+    setIsTyping(false);
+    setInput(value)
+    
+    if (isSearch) {
       if (value.length > 0) {
+        setIsTyping(true);
         debounce(async () => {
           const res = await fetch(`/api/music_search?q=${value}`);
           const data = await res.json()
           const songResults = data.map((item: any) => {
             return {id: item.songID, name: `${item.songName} - ${item.artistName} - ${item.albumName}`}
           })
-          setResults(songResults);
-        }, 500)();
+          if (isSearch && isTyping) {
+            setResults(songResults);
+          }
+        }, 600)();
         return
       }
     }
-    setResults([]);
   };
 
+  // <li className="result-item"><BeatLoader color={GetThemeColor().antiPrimary} loading={results.length === 0} size={8} /></li>
   return (
     <form
       onSubmit={async e => {
@@ -134,8 +140,9 @@ export function PromptForm({
           spellCheck={false}
           className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
         />
-        {results.length > 0 && (
+        {isTyping && (
           <ul className="results-list">
+            { results.length === 0 && <li className="result-item flex items-center justify-center">Loading...</li>}
             {results.map(result => (
             <li key={result.id} className="result-item">
               <a onClick={() => { setInput(result.name); setResults([]); }}>
