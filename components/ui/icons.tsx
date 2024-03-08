@@ -172,6 +172,29 @@ function IconSeparator({ className, ...props }: React.ComponentProps<'svg'>) {
   )
 }
 
+function IconTablerArrowLeft({ className, ...props }: React.ComponentProps<'svg'>) {
+  // https://tabler.io/icons/icon/arrow-left
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.25" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M5 12l14 0" />
+      <path d="M5 12l6 6" />
+      <path d="M5 12l6 -6" />
+    </svg>
+  )
+}
+
+function IconTablerArrowRight({ className, ...props }: React.ComponentProps<'svg'>) {
+  return (
+  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-right" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.25" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M5 12l14 0" />
+    <path d="M13 18l6 -6" />
+    <path d="M13 6l6 6" />
+  </svg>
+  )
+}
+
 function IconArrowDown({ className, ...props }: React.ComponentProps<'svg'>) {
   return (
     <svg
@@ -569,5 +592,7 @@ export {
   IconShare,
   IconUsers,
   IconExternalLink,
-  IconChevronUpDown
+  IconChevronUpDown,
+  IconTablerArrowLeft,
+  IconTablerArrowRight,
 }

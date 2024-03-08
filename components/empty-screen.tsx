@@ -56,8 +56,9 @@ export interface EmptyScreenProps
     | 'setInput'
   > {
   id?: string
+  setStartTest?: (startTest: boolean) => void
 }
-export function EmptyScreen({ setInput, append, id }: EmptyScreenProps) {
+export function EmptyScreen({ setInput, append, id, setStartTest }: EmptyScreenProps) {
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="rounded-lg border bg-background p-8">
@@ -76,12 +77,7 @@ export function EmptyScreen({ setInput, append, id }: EmptyScreenProps) {
         <div className="mt-4 flex flex-col items-start space-y-2">
           <Button variant="link" className="h-auto p-0 text-base" onClick={
             async () => {
-              console.info("send start message")
-              await append({
-                id,
-                content: "start",
-                role: 'user'
-              })
+              setStartTest && setStartTest(true)
             }
           }>
               <IconArrowRight className="mr-2 text-muted-foreground" />

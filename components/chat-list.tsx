@@ -139,7 +139,7 @@ export function ChatList({ messages, chatDone, isLoading }: ChatList) {
     return null
   }
   const chatID = messages[0].id;
-  messages = messages.filter((message: Message) => message.role !== 'user' || message.content !== 'start')
+  messages = messages.filter((message: Message) => message.role !== 'user' || !message.content.startsWith('start---'))
   var modifiedMessages = deepCopy(messages);
   if (messages.length >= 0) {
     modifiedMessages.splice(0, 0, {id: chatID, content: texts.startPhaseTitle, role: "system"}); // insert system message

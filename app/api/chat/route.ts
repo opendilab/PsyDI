@@ -70,7 +70,8 @@ export async function POST(req: Request) {
   await agent.registerUser(userId, messages.length <= 1)
 
   const turnCountAgent = await agent.getTurnCount(userId)
-  const turnCountMessage = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content !== 'start').length
+  const messagesUser = messages.filter((message: {[key: string]: string}) => message.role === 'user' && !message.content.startsWith('start---'))
+  const turnCountMessage = messagesUser.length
   if (turnCountAgent !== turnCountMessage) {  // reanswer case
     await agent.returnLastQuestion(userId)
     await agent.setTurnCount(userId, turnCountMessage)
@@ -89,11 +90,13 @@ export async function POST(req: Request) {
 
   // post info
   if (!(debug === 'true') && (turnCount === phase2StartTurnCount)) {
-    const messagesUser = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content !== 'start')
+    const messagesUserStart = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content.startsWith('start---'))
+    const startInfo = messagesUserStart[0].content
     await agent.postPosts({
       uid: userId,
       turnCount: turnCount,
       messages: messagesUser,
+      startInfo: startInfo,
     })
   }
 
@@ -115,7 +118,6 @@ export async function POST(req: Request) {
       response_string = `hello world\n`
       done = true
     } else { 
-        const messagesUser = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content !== 'start')
         try {
             const response = await agent.getQuestions({
                 uid: userId,

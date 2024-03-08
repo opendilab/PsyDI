@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import { ChatList } from '@/components/chat-list'
 import { ChatPanel } from '@/components/chat-panel'
 import { EmptyScreen } from '@/components/empty-screen'
+import { UserPortrait } from '@/components/user-portrait'
 import { ChatScrollAnchor } from '@/components/chat-scroll-anchor'
 import { useLocalStorage } from '@/lib/hooks/use-local-storage'
 import {
@@ -36,6 +37,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   const [previewTokenInput, setPreviewTokenInput] = useState(previewToken ?? '')
   const [chatDone, setChatDone] = useState(false)
   const [responseStart, setResponseStart] = useState(false)
+  const [startTest, setStartTest] = useState(false)
   const { messages, append, reload, stop, setMessages, isLoading, input, setInput} =
     useChat({
       initialMessages,
@@ -89,7 +91,11 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             <ChatScrollAnchor trackVisibility={isLoading} />
           </>
         ) : (
-          <EmptyScreen setInput={setInput} id={id} append={append} />
+          startTest ? (
+              <UserPortrait append={append} id={id} />
+            ) : (
+              <EmptyScreen setInput={setInput} id={id} append={append} setStartTest={setStartTest}/>
+          )
         )}
       </div>
       <ChatPanel

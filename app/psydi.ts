@@ -432,9 +432,9 @@ export class PsyDI {
     const startTime: Date = new Date();
     let finalPayload: { [key: string]: any } = payload;
     if (finalPayload.turnCount === this.phase2StartTurnCount) {
-        finalPayload = await this.getPostsPayload(payload.uid, payload.messages, false);
+        finalPayload = await this.getPostsPayload(payload.uid, payload.messages, payload.startInfo, false);
     } else if (finalPayload.turnCount === this.phase3StartTurnCount) {
-        finalPayload = await this.getPostsPayload(payload.uid, payload.messages, true);
+        finalPayload = await this.getPostsPayload(payload.uid, payload.messages, "", true);
     } else {
       throw new Error('Invalid turn count' + finalPayload.turnCount);
     }
@@ -613,7 +613,7 @@ export class PsyDI {
     return await this.musicProxy.searchMusic(value)
   }
 
-  async getPostsPayload(uid: string, messages: Record<string, string>[], additional: boolean): Promise<Record<string, any>> {
+  async getPostsPayload(uid: string, messages: Record<string, string>[], startInfo: string, additional: boolean): Promise<Record<string, any>> {
     const startTime: Date = new Date();
     const rawContent = messages.map((message) => message.content)
     if (additional) {
@@ -653,6 +653,17 @@ export class PsyDI {
             console.log('no song info', songList)
           }
       }
+      let userLabel: Record<string, string> = {}
+      if (startInfo != "") {
+        const tmp = startInfo.split('start---')[1].split(';')
+        for (let i = 0; i < tmp.length; i++) {
+          const [key, value] = tmp[i].split(': ')
+          if (value.length > 0) {
+            userLabel[key] = value
+          }
+        } 
+      }
+      console.log('userLabel', userLabel)
       let postList = rawContent[1].split(/[\n|;|；]/)
 
       for (let i = 0; i < postList.length; i++) {
@@ -663,7 +674,7 @@ export class PsyDI {
         uid: uid,
         post_list: postList,
         music_label: musicLabel,
-        label: this.userLabelExample,  // TODO
+        label: userLabel,
         record: 'True',
       }
     }
