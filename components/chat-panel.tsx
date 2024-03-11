@@ -155,15 +155,19 @@ export function ChatPanel({
   };
 
   const checkValue = (value: string) => {
+    console.log(messages, value)
     if (messages?.length === 6) {
       const intValue = parseInt(value)
-      if (isNaN(intValue) || intValue < 1 || intValue > 9) {
+      // use value rather than IntValue in isNaN to check if it's a number
+      // @ts-ignore
+      if (isNaN(value) || intValue < 1 || intValue > 9) {
         errorToaster(texts.imgErrorInfo)
         return false
       }
     } else if (messages?.length === 8) {
       const intValue = parseInt(value)
-      if (isNaN(intValue) || intValue < 1 || intValue > 21) {
+      // @ts-ignore
+      if (isNaN(value) || intValue < 1 || intValue > 21) {
         errorToaster(texts.blobTreeErrorInfo)
         return false
       }

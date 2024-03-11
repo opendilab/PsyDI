@@ -403,7 +403,7 @@ export class PsyDI {
                 finalResult += `### 测试完成\n\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
                 const finalIndex = (Object.keys(table).length - 1).toString()
                 console.log('finalIndex', finalIndex, table)
-                finalResult += "具体的各个 MBTI 类型评分变化情况可视化如下：\n" + table[finalIndex] + '\n'
+                finalResult += "具体的各个 MBTI 类型评分变化情况可视化如下：\n" + table[finalIndex].toString() + '\n'
                 finalResult += "以下是关于你的详细描述：\n"
                 finalResult += `> 标签 A: ${description.keywords[0]}` + '\n' + `解释: ${description.texts[0]}` + '\n'
                 finalResult += `> 标签 B: ${description.keywords[1]}` + '\n' + `解释: ${description.texts[1]}` + '\n'
