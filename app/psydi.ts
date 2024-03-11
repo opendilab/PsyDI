@@ -303,6 +303,12 @@ export class PsyDI {
                 const phase2Index = index + 1 - userPostsCount - 1
 
                 var infoString = ''
+
+                if (lang == 'en') {
+                    infoString += "Thank you for your answer. Let's move on to the next stage.\n"
+                } else if (lang == 'zh') {
+                    infoString += "感谢您的回答。让我们进入下一个阶段。\n"
+                }
                 if (index == 0) {
                     const songImage = await kv.hget(`ucount:${payload.uid}songImage`, 'songImage');
                     if (lang == 'en') {
@@ -387,7 +393,6 @@ export class PsyDI {
             let finalResult = ""
             if (lang == 'en') {
                 finalResult += `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
-                finalResult += "The detailed rating is: " + Object.keys(naiveAttr).map(key => `${key}: ${(naiveAttr[key]*100).toFixed(1)}%`).join(', ') + '\n'
                 finalResult += "Here is some detailed description about your personality:\n"
                 finalResult += `> Tag A: ${description.keywords[0]}` + '\n' + `Explanation: ${description.texts[0]}` + '\n'
                 finalResult += `> Tag B: ${description.keywords[1]}` + '\n' + `Explanation: ${description.texts[1]}` + '\n'
@@ -396,14 +401,16 @@ export class PsyDI {
                 }
             } else if (lang == 'zh') {
                 finalResult += `### 测试完成\n\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
-                finalResult += "具体的各维度评分如下：" + Object.keys(naiveAttr).map(key => `${key}: ${(naiveAttr[key]*100).toFixed(1)}%`).join(', ') + '\n'
+                const finalIndex = (Object.keys(table).length - 1).toString()
+                console.log('finalIndex', finalIndex, table)
+                finalResult += "具体的各个 MBTI 类型评分变化情况可视化如下：\n" + table[finalIndex] + '\n'
                 finalResult += "以下是关于你的详细描述：\n"
                 finalResult += `> 标签 A: ${description.keywords[0]}` + '\n' + `解释: ${description.texts[0]}` + '\n'
                 finalResult += `> 标签 B: ${description.keywords[1]}` + '\n' + `解释: ${description.texts[1]}` + '\n'
                 if (imageUrl !== 'null') {
                     finalResult += `\n\n你的 MBTI 徽章和个性化形象图如下： ![final img](${headUrl}) \n ![final img](${imageUrl})` 
                 }
-                finalResult += "测试完成后有任何反馈和建议都可以填写问卷来和我们联系（支持多次填写），感谢参与！[传送门](https://www.wjx.cn/vm/mrpdkZw.aspx#)"
+                //finalResult += "测试完成后有任何反馈和建议都可以填写问卷来和我们联系（支持多次填写），感谢参与！[传送门](https://www.wjx.cn/vm/mrpdkZw.aspx#)"
             }
 
             console.info(`[${payload.uid}]QA test done, the result is: `, finalResult);
@@ -637,7 +644,7 @@ export class PsyDI {
     } else {
       let musicLabel = null
       const songList = await this.musicProxy.searchMusicWithDetails(rawContent[0])
-      if (songList.length > 0) {
+      if (songList?.length > 0) {
           const songInfo = await this.musicProxy.getSongInfo(songList[0].songID, songList[0].songName, songList[0].artistName)
           if (songInfo) {
             musicLabel = {
@@ -656,14 +663,13 @@ export class PsyDI {
       let userLabel: Record<string, string> = {}
       if (startInfo != "") {
         const tmp = startInfo.split('start---')[1].split(';')
-        for (let i = 0; i < tmp.length; i++) {
+        for (let i = 0; i < tmp?.length; i++) {
           const [key, value] = tmp[i].split(': ')
-          if (value.length > 0) {
+          if (value?.length > 0) {
             userLabel[key] = value
           }
         } 
       }
-      console.log('userLabel', userLabel)
       let postList = rawContent[1].split(/[\n|;|；]/)
 
       for (let i = 0; i < postList.length; i++) {

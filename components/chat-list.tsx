@@ -49,6 +49,8 @@ interface Texts {
   philosophyFreeAnswer: string;
   philosophyRatio: string[];
   blobTreeAnswer: string;
+  blobTreeOptionInfo: Record<string, any>;
+  blobTreeOptionAnswer: string;
   discoveryPhaseTitle: string;
   endPhaseTitle: string;
   endDescription: string;
@@ -69,6 +71,8 @@ var texts: Texts = {
   philosophyFixedAnswerPart2: "",
   philosophyRatio: ["8.4", "51.9", "15.1", "21.6"],
   blobTreeAnswer: "",
+  blobTreeOptionInfo: {},
+  blobTreeOptionAnswer: "",
   discoveryPhaseTitle: "",
   endPhaseTitle: "",
   endDescription: "",
@@ -97,7 +101,31 @@ if (lang === 'zh') {
   texts.philosophyFixedAnswer = "非常有意思的观点！我想应该会有很多人与您持相似看法。据不完全统计，有"
   texts.philosophyFreeAnswer = "您独特的见解令我眼前一亮！"
   texts.philosophyFixedAnswerPart2 = "的用户和您选择了相同的选项。"
-  texts.blobTreeAnswer = "原来如此！经过刚才的互动，我已对您有了一定了解啦。接下来的问题会更深入，希望您放松心情，选择与您最相近的选项。（请稍等 15-25 秒为您生成定制化测试问题）"
+  texts.blobTreeAnswer = "刚才这道题是经典的 blob tree 心理投射测试。"
+  texts.blobTreeOptionInfo = {
+    '1': '您的选择可能表明您是一个自信、生活幸福、乐观的人。您是一个聪明的人，能够看到事物宏观的愿景，把事情放到适当的角度。',
+    '2': '您的选择可能表明您是一个雄心勃勃、自信的人。您知道自己在任何时候都会成功，总会有幸运且恰当的情况帮我您进步',
+    '3': '您的选择可能表明您是一个雄心勃勃、自信的人。您知道自己在任何时候都会成功，总会有幸运且恰当的情况帮我您进步',
+    '4': '您的选择可能表明您是一个不合群、猜疑和不信任的人。您放弃得太快，不相信自己非凡的潜力。',
+    '5': '您的选择可能表明您是一个富有创造力、热爱生活、享受每一刻、热爱和知道感恩周围所有美好事物的人。这有助于您保持积极的态度，所以您总是对最好的敞开大门！',
+    '6': '您的选择可能表明您有需要感受被爱、被保护、被安全的需求。您是那种总是爱上错误的人，因为您对爱和感情的无穷需求。您需要学会更仔细地寻找那些能帮助您在您的进化中的人，而不是那些不理解您的脆弱的人。',
+    '7': '您的选择可能表明您是一个善于沟通、懂得给朋友支持的人。您以高情商为特点，这有助于您成功地应对生活中的各种情况。您有团队精神，看到杯子的满面和总是找到解决方案。',
+    '8': '您的选择可能表明您是一个梦幻和浪漫的人。您喜欢有一些时间只属于自己。这样，您就能够恢复精力和对生活和社交的热情。对于所爱的人来说，理解您对隔离的需求，不要误解它，理解它，并给您需要的空间是很好的。',
+    '9': '您的选择可能表明您是一个不合群、猜疑和不信任的人。您会为了证明自己也是了不起的，但是更容易远离别人，独自站着，因为这样您就可以证明您对别人的不信任。',
+    '10': '您的选择可能表明您是一个雄心勃勃，但也非常谨慎的人。您是一个勤劳和坚定的人，所以您几乎在您设定的任何事情上都会成功。您的想法总是脱颖而出，您在任何环境中都受到赞赏。',
+    '11': '您的选择可能表明您是一个善于沟通、懂得给朋友支持的人。您以高情商为特点，这有助于您成功地应对生活中的各种情况。您有团队精神，看到事物的各个方面，总是找到解决方案。',
+    '12': '您的选择可能表明您是一个善于沟通、懂得给朋友支持的人。您以高情商为特点，这有助于您成功地应对生活中的各种情况。您有团队精神，看到事物的各个方面，总是找到解决方案。',
+    '13': '您的选择可能表明您充满绝望和失去希望。您必须尽力在生命树上重新校准自己，最简单的方法是重新获得自信，寻求所爱的人的支持！',
+    '14': '您的选择可能表明您是一个灵魂伴侣、慈善家，愿意为他人做任何事。您以高度的同理心为特点，通常是“大灵魂”。但是您应该学会好好照顾自己，而不仅仅是他人。',
+    '15': '您的选择可能表明您是被成功之路的美丽所激励而不是成功本身。您好奇学习新事物，有新的经历，遇见人，从每个人那里学到一些东西。',
+    '16': '您的选择可能表明您是乐观、充满生活的人，具有团队精神，您在任何领域都表现出色，对挑战看得很淡。',
+    '17': '您的选择可能表明您是乐观、充满生活的人，具有团队精神，您在任何领域都表现出色，对挑战看得很淡。',
+    '18': '您的选择可能表明您是乐观、充满生活的人，具有团队精神，您在任何领域都表现出色，对挑战看得很淡。而且您喜欢感受被爱和被赏识。',
+    '19': '您的选择可能表明您是一个不合群、猜疑和不信任的人。您可能有自恋倾向，对他人的成功感到嫉妒。',
+    '20': '您的选择可能表明您是雄心勃勃、自信、充满生活的人，您是创新者，不怕冒险。您的超然和激情给您带来了许多成功和满足。',
+    '21': '您的选择可能表明您是一个试图但不知道如何为自己的生活找到最好解决方案的人。您是一个必须学会向周围的人寻求帮助，放弃您的猜疑本性的人。'
+  }
+  texts.blobTreeOptionAnswer = "经过刚才的互动，我已对您有了一定了解啦。接下来的问题会更深入，希望您放松心情，选择与您最相近的选项。"
   texts.discoveryPhaseTitle = "『发现篇章』"
   texts.endPhaseTitle = "『回响篇章』"
   texts.endDescription = "感谢您的回答！我已为您准备好一份专属个性报告，希望能帮助您更好地认识自我。这次轻松的对话不仅让我捕捉到了您的独特个性，也希望帮助您看清内心，接纳自我。每一个人都有属于自己的独特魅力，值得被认可与理解。如果日后您想要再次探索自我，欢迎随时来找我聊聊！我随时在这里等待您再次开启交流。"
@@ -124,7 +152,31 @@ if (lang === 'zh') {
   texts.mbtiOptionAnswer = "You resonate with the master!"
   texts.philosophyFixedAnswer = "Very interesting point of view! I think many people should have similar views with you."
   texts.philosophyFreeAnswer = "Your unique insights are refreshing!"
-  texts.blobTreeAnswer = "I see! After our interaction, I have a better understanding of you. The following questions will be more in-depth. Please relax and choose the option that is closest to you. (Please wait 15-25 seconds for your customized test questions to be generated)"
+  texts.blobTreeAnswer = "The previous question is a classic blob tree psychological projection test."
+  texts.blobTreeOptionInfo = {
+    '1': 'Your selection shows you are a self-confident person, happy with your life and optimistic. You are an intelligent person, able to see the great picture and to put things into perspective.',
+    '2': 'Your selection shows you are an ambitious and confident person. You know that you will succeed at all times and that there will always be convenient situations to help you in your evolution.',
+    '3': 'Your selection shows you are an ambitious and confident person. You know that you will succeed at all times and that there will always be convenient situations to help you in your evolution.',
+    '4': 'Your selection shows you are an unsociable, suspicious and distrustful person. You give up too quickly and not trust your extraordinary potential.',
+    '5': 'Your selection shows you are creative, loves life, enjoys every moment, of love and knows how to be grateful for all the good things around you. This helps you maintain a positive outlook and so uou always have your doors open to the best!',
+    '6': 'Your selection shows you are having needs to feel loved, protected, and safe. You are the kind of person who always falls in love with the wrong person, because of your inexhaustible need for affection and love. You need to learn to look more closely for those people who can help him in your evolution, and not for those who do not understand your vulnerability.',
+    '7': 'Your selection shows you are communicative people who know how to offer support to your friends. You are characterized by high emotional intelligence, which helps you cope successfully with life situations. You have a team spirit, see the full side of the glass and always find solutions',
+    '8': 'Your selection shows you are dreamy and romantic. You like to have some moments just for yourself. In this way, You regain your energy and zest for life and socialization. It is good for loved ones to understand your need for isolation and not misinterpret it, to understand it, and to give you the space You need.',
+    '9': 'Your selection shows you are an unsociable, suspicious and distrustful person. You would do anything to prove that You are also wonderful, but it is easier to keep away from others and stand alone because in this way You justify your distrust of others.',
+    '10': 'Your selection shows you are ambitious, but also very cautious. You are hardworking and determined, that’s why You succeed in almost anything You set out to do. your ideas always stand out and You are appreciated in any environment.',
+    '11': 'Your selection shows you are communicative people who know how to offer support to your friends. You are characterized by high emotional intelligence, which helps you cope successfully with life situations. You have a team spirit, see the full side of the glass and always find solutions',
+    '12': 'Your selection shows you are communicative people who know how to offer support to your friends. You are characterized by high emotional intelligence, which helps you cope successfully with life situations. You have a team spirit, see the full side of the glass and always find solutions',
+    '13': 'Your selection shows you are filled with despair and loss of hope. You have to do your best to recalibrate yourselves in the tree of life and the easiest way is to regain your self-confidence, seeking the support of loved ones!',
+    '14': 'Your selection shows you are a soulmate, a philanthropist, would do anything to help others. You are characterized by much empathy and are usually a “great soul.” But You should learn to take great care of yourself, not just others.',
+    '15': 'Your selection shows you are motivated by the beauty of the road to success rather than the success itself. You are curious to learn new things, to have new experiences, to meet people, and to learn something from each one.',
+    '16': 'Your selection shows you are optimistic, full of life, with a team spirit, You perform in any field and look at the challenges with detachment.',
+    '17': 'Your selection shows you are optimistic, full of life, with a team spirit, You perform in any field and look at the challenges with detachment.',
+    '18': 'Your selection shows you are optimistic, full of life, with a team spirit, You perform in any field and look at the challenges with detachment. And You like to feel loved and appreciated.',
+    '19': 'Your selection shows you are an unsociable, suspicious and distrustful person. You may have narcissistic inclinations and is envious of the success of others.',
+    '20': 'Your selection shows you are ambitious, confident, and full of life, You are innovator and not afraid to take risks. your detachment and passion bring you many successes and satisfactions.',
+    '21': 'Your selection shows you are a person who tries but does not know how to find the best solutions for your life. You are a person who must learn to ask for help from those around you and give up your suspicious nature.'
+  }
+  texts.blobTreeOptionAnswer = "After the interaction just now, I have a certain understanding of you. The next question will be more in-depth. I hope you can relax and choose the option that is closest to you."
   texts.discoveryPhaseTitle = "[Discovery Phase]"
   texts.endPhaseTitle = "[End Phase]"
   texts.endDescription = "Thank you for your answers! I have prepared a customized personality report for you, hoping to help you better understand yourself. This relaxed conversation not only allows me to capture your unique personality, but also hopes to help you see your heart and accept yourself. Everyone has their own unique charm, which deserves to be recognized and understood. If you want to explore yourself again in the future, please feel free to come to me! I am always here waiting for you to start a conversation again."
@@ -149,12 +201,18 @@ export function ChatList({ messages, chatDone, isLoading }: ChatList) {
     modifiedMessages.splice(6, 0, {id: chatID, content: texts.explorationPhaseTitle1, role: "system"}); // insert system message
     modifiedMessages.splice(7, 0, {id: chatID, content: texts.explorationIntro, role: "system"}); // insert system message
   }
+  if (messages.length >= 6) {  // ask for user posts + user posts + 4
+    const mbtiAnswer = texts.mbtiOptionAnswer + " " + texts.mbtiOptionInfo[messages[5].content];
+    modifiedMessages.splice(10, 0, {id: chatID, content: mbtiAnswer, role: "assistant"}); // insert assistant message
+  }
   if (messages.length >= 8) {  // ask for user posts + user posts + 6
-    modifiedMessages.splice(12, 0, {id: chatID, content: texts.explorationPhaseTitle2, role: "system"}); // insert system message
+    const blobTreeAnswer = texts.blobTreeAnswer + " " + texts.blobTreeOptionInfo[messages[7].content] + texts.blobTreeOptionAnswer;
+    modifiedMessages.splice(13, 0, {id: chatID, content: blobTreeAnswer, role: "assistant"}); // insert assistant message
+    modifiedMessages.splice(14, 0, {id: chatID, content: texts.explorationPhaseTitle2, role: "system"}); // insert system message
   }
   if (messages.length >= 12) {
-    modifiedMessages.splice(17, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
-    modifiedMessages.splice(18, 0, {id: chatID, content: texts.discoveryIntro, role: "system"}); // insert system message
+    modifiedMessages.splice(19, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
+    modifiedMessages.splice(20, 0, {id: chatID, content: texts.discoveryIntro, role: "system"}); // insert system message
   }
   if (chatDone) {
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endPhaseTitle, role: "system"}); // insert system message

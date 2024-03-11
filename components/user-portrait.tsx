@@ -5,7 +5,7 @@ import * as React from 'react'
 import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
-import { IconTablerArrowLeft, IconTablerArrowRight } from '@/components/ui/icons'
+import { IconTablerArrowLeft, IconTablerArrowRight, IconArrowRight } from '@/components/ui/icons'
 
 const lang = process.env.LANG || 'zh' // default to zh
 
@@ -13,21 +13,25 @@ interface Texts {
   title: string;
   sectionNames: string[];
   backendSectionNames: string[];
+  skip: string;
 }
 
 var texts: Texts = {
   title: '',
   sectionNames: [],
-  backendSectionNames: []
+  backendSectionNames: [],
+  skip: ''
 }
 if (lang === 'zh') {
     texts.title = "在进入测试之前，PsyDI 将先为您构筑一个简明的人格画像，请尽可能选择更多与您相符的标签。（可多选或不选）"
     texts.sectionNames = ["年龄段", "地区", "职业", "兴趣爱好", "生活态度", "科技态度", "您的标签"]
     texts.backendSectionNames = ["年龄", "地区", "职业", "爱好", "生活态度", "对待科技态度"]
+    texts.skip = "跳过该章节，直接进入测试。（低定制化）"
 } else if (lang === 'en') {
     texts.title = "Before the test, PsyDI will first build a brief personality portrait for you. Please select as many tags as possible that match you. (Multiple choice or no choice)"
     texts.sectionNames = ["Age", "Region", "Occupation", "Hobbies", "Life Attitude", "Technology Attitude", "Your Tags"]
     texts.backendSectionNames = ["Age", "Region", "Occupation", "Hobbies", "Life Attitude", "Technology Attitude"]
+    texts.skip = "Skip this section and go directly to the test. (The customization level of the test will be reduced)"
 }
 
 type Tag = {
@@ -119,9 +123,25 @@ export function UserPortrait({ append, id }: UserPortraitProps) {
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="rounded-lg border bg-background p-8">
-        <h1 className="mb-8 text-muted-foreground">
-          {texts.title}
+        <h1 className="mb-2 text-muted-foreground font-semibold">
+          <span style={{ color: borderColor }}>{texts.title}</span> 
         </h1>
+          <Button variant="link" className="h-auto p-0 mb-8 text-muted-foreground" onClick={
+            async () => {
+              await append({
+                id,
+                content: "start---",
+                role: 'user'
+              })
+            }
+          }>
+            { currentSection === 0 && ( 
+              <IconArrowRight className="mr-2 text-muted-foreground" />
+            )}
+            { currentSection === 0 && ( 
+              <span className="text-muted-foreground">{texts.skip}</span>
+            )}
+          </Button>
         <p className="mb-2 leading-normal text-lg font-semibold" style={{ color: borderColor, fontSize: '1.5rem'}}>
           {texts.sectionNames[currentSection]}
         </p>
