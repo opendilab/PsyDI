@@ -109,6 +109,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         setInput={setInput}
         setMessages={setMessages}
         chatDone={chatDone}
+        setStartTest={setStartTest}
       />
 
       <Dialog open={previewTokenDialog} onOpenChange={setPreviewTokenDialog}>

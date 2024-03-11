@@ -73,18 +73,20 @@ export function PromptForm({
   }, [])
   const [results, setResults] = React.useState<ListItem[]>([]);
   const [isTyping, setIsTyping] = React.useState(false);
+  const [isSearching, setIsSearching] = React.useState(false);
   
-  const isSearching = isSearch && isTyping && (results.length === 0)
   const handleInputChange = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value;
     setResults([]);
     setIsTyping(false);
     setInput(value)
+    setIsSearching(false);
     
     if (isSearch) {
       if (value.length > 0) {
         setIsTyping(true);
         debounce(async () => {
+          setIsSearching(true);
           const res = await fetch(`/api/music_search?q=${value}`);
           const data = await res.json()
           const songResults = data.map((item: any) => {
@@ -142,10 +144,10 @@ export function PromptForm({
         />
         {isTyping && (
           <ul className="results-list">
-            { results.length === 0 && <li className="result-item flex items-center justify-center">Loading...</li>}
-            {results.map(result => (
+            { (results.length == 0) && isSearching && <li className="result-item flex items-center justify-center">Loading...</li>}
+            { results.map(result => (
             <li key={result.id} className="result-item">
-              <a onClick={() => { setInput(result.name); setResults([]); }}>
+              <a onClick={() => { setInput(result.name); setResults([]); setIsSearching(false); setIsTyping(false) }}>
                 {result.name}
               </a>
             </li>

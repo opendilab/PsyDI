@@ -26,6 +26,7 @@ export interface ChatPanelProps
   > {
   chatDone: boolean
   id?: string
+  setStartTest: (value: boolean) => void
 }
 
 type ConfirmationDialogProps = {
@@ -121,7 +122,8 @@ export function ChatPanel({
   setInput,
   messages,
   setMessages,
-  chatDone
+  chatDone,
+  setStartTest
 }: ChatPanelProps) {
   const router = useRouter()
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -139,6 +141,7 @@ export function ChatPanel({
   };
 
   const handleConfirmNewChat = () => {
+    setStartTest(false)
     router.refresh()
     router.push('/')
   };
