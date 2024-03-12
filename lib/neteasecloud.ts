@@ -97,15 +97,16 @@ export class NeteaseCloud {
       if (res.status === 200) {
         const ret = await res.json()
         const data = ret.data.blocks[1].creatives
+        const imageUrl = ret.data.blocks[1].uiElement.images?.[0].imageUrl || null
         return {
           songID: songID,
           songName: songName,
           artistName: artistName,
           style: data[0].resources[0].uiElement.mainTitle.title,
           tags: data[1].resources.map((item: any) => item.uiElement.mainTitle.title).join(','),
-          language: data[2].uiElement.textLinks[0].text,
-          bpm: data[3].uiElement.textLinks[0].text,
-          imageUrl: ret.data.blocks[1].uiElement.images[0].imageUrl,
+          language: data[2].uiElement.textLinks?.[0].text || null,
+          bpm: data[3].uiElement.textLinks?.[0].text || null,
+          imageUrl: imageUrl,
           // comment: comment.join('\n')
         }
       }

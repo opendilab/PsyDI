@@ -6,6 +6,17 @@ const lang = process.env.LANG || 'zh' // default to zh
 const assert = require('assert');
 assert(lang == 'zh' || lang == 'en')
 
+function printSortedFormattedObjectStats(obj: Record<string, number>) {
+  const entries = Object.entries(obj);
+  entries.sort((a, b) => b[1] - a[1]);
+  const topEntries = entries.slice(0, 6);
+  let output = '';
+  for (const [key, value] of topEntries) {
+    output += `MBTI 类型: ${key} - 倾向: ${value.toFixed(2)}\n`;
+  }
+  return output;
+}
+
 export class PsyDI {
   private apiUrl: string;
   private MBTIOptions: Record<string, string> = {};
@@ -405,8 +416,7 @@ export class PsyDI {
             } else if (lang == 'zh') {
                 finalResult += `### 测试完成\n\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
                 const finalIndex = (Object.keys(table).length).toString()
-                console.log('finalIndex', finalIndex, table, table[finalIndex], table['1'])
-                finalResult += "具体的各个 MBTI 类型评分变化情况可视化如下：\n" + table[finalIndex].toString() + '\n'
+                finalResult += `具体的各个 MBTI 类型评分变化情况可视化如下：\n${printSortedFormattedObjectStats(table[finalIndex])}\n`
                 finalResult += "以下是关于你的详细描述：\n"
                 finalResult += `> 标签 A: ${description.keywords[0]}` + '\n' + `解释: ${description.texts[0]}` + '\n'
                 finalResult += `> 标签 B: ${description.keywords[1]}` + '\n' + `解释: ${description.texts[1]}` + '\n'
@@ -675,9 +685,6 @@ export class PsyDI {
       }
       let postList = rawContent[1].split(/[\n|;|；]/)
 
-      for (let i = 0; i < postList.length; i++) {
-        postList[i] = await baiduTranslate(postList[i], lang, 'en')
-      }
       return {
         endpoint: 'post_user_posts',
         uid: uid,
