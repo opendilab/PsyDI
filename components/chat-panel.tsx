@@ -58,8 +58,8 @@ if (lang === 'zh') {
   texts.imgPlaceholder = '请选择您喜欢的图片选项。(1-9)'
   texts.philosophyPlacehodler = '请选择上面的选项 (ABCD) 或输入您自己的答案。'
   texts.blobTreePlaceholder = '请输入您的选择的 blob 数字（1-21）。'
-  texts.QAPlaceholder = '（单选）选择上面的选项 (ABCD) 。'
-  texts.QAPlaceholderComplex = '（多选/问答）选择上面的选项 (ABCD) 或输入您自己的答案。'
+  texts.QAPlaceholder = '（单选）选择上面的选项 (ABCD) ，并点击发送。'
+  texts.QAPlaceholderComplex = '（多选/问答）选择上面的选项 (ABCD) 或输入您自己的答案，并点击发送'
   texts.generate = '重新生成回复'
   texts.stop = '停止生成'
   texts.imgErrorInfo = '格式错误，请仅输入 1-9 之间的数字。'
@@ -73,8 +73,8 @@ if (lang === 'zh') {
   texts.imgPlaceholder = 'Please select your favourite images options (1-9).'
   texts.philosophyPlacehodler = 'Please select above options (ABCD) or enter your own answer.'
   texts.blobTreePlaceholder = 'Please enter the blob number of your choice (1-21).'
-  texts.QAPlaceholder = 'Select above options or enter your own answer.'
-  texts.QAPlaceholderComplex = 'Select above options (ABCD) or enter your own answer.'
+  texts.QAPlaceholder = '(Single select) Select above options (ABCD) and click send.' 
+  texts.QAPlaceholderComplex = '(Multi-select/Free text) Select above options (ABCD) or enter your own answer and click send.'
   texts.generate = 'Regenerate response'
   texts.stop = 'Stop generating'
   texts.imgErrorInfo = 'Answer format error, please enter only numbers between 1-9.'
@@ -155,7 +155,6 @@ export function ChatPanel({
   };
 
   const checkValue = (value: string) => {
-    console.log(messages, value)
     if (messages?.length === 6) {
       const intValue = parseInt(value)
       // use value rather than IntValue in isNaN to check if it's a number

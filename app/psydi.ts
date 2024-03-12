@@ -291,25 +291,28 @@ export class PsyDI {
             }
 
             if (!done) {
-                const q = data.ret.question
+                const question = data.ret.question
+                const q = lang == 'en' ? "(Multi Select/Free Text) " + question : "（多选/自由回答）" + question
                 const index = data.ret.index
                 const startOfModule = data.ret.start_of_module
+                const hasMusic = data.ret?.has_music
                 if (!startOfModule) {
                   return {'done': false, 'response_string': q}
                 }
 
                 const userPosts = payload.messages[1].content.split(/[\n|;|；]/)
                 const userPostsCount = userPosts.length
-                const phase2Index = index + 1 - userPostsCount - 1
+                const prefixIndex = hasMusic ? 1 : 0
+                const phase2Index = index + 1 - userPostsCount - prefixIndex
 
                 var infoString = ''
 
                 if (lang == 'en') {
                     infoString += "Thank you for your answer. Let's move on to the next stage.\n"
                 } else if (lang == 'zh') {
-                    infoString += "感谢您的回答。让我们进入下一个阶段。\n"
+                    infoString += "感谢您的回答。让我们进入下一阶段。\n"
                 }
-                if (index == 0) {
+                if (hasMusic && (index == 0)) {
                     const songImage = await kv.hget(`ucount:${payload.uid}songImage`, 'songImage');
                     if (lang == 'en') {
                       infoString = `> Tip: This problem is based on the song you shared.`
@@ -317,12 +320,12 @@ export class PsyDI {
                       infoString += `> 注意：这个问题是基于你分享的歌曲定制设计的。`
                     }
                     infoString += `\n![alt text](${songImage})`
-                } else if (index < userPostsCount + 1) {
-                    const post = userPosts[index - 1]
+                } else if (index < (userPostsCount + prefixIndex)) {
+                    const post = userPosts[index - prefixIndex]
                     if (lang == 'en') {
-                      infoString += `> Tip: This problem is based on the ${index}-th your daily post: ${post}.`
+                      infoString += `> Tip: This problem is based on the ${index - prefixIndex + 1}-th your daily post: ${post}.`
                     } else if (lang == 'zh') {
-                      infoString += `> 注意：这个问题是基于你的第${index}条日常动态：${post}。`
+                      infoString += `> 注意：这个问题是基于你的第${index - prefixIndex + 1}条日常动态：${post}。`
                     }
                 } else {
                     if (lang == 'en') {
@@ -401,8 +404,8 @@ export class PsyDI {
                 }
             } else if (lang == 'zh') {
                 finalResult += `### 测试完成\n\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
-                const finalIndex = (Object.keys(table).length - 1).toString()
-                console.log('finalIndex', finalIndex, table)
+                const finalIndex = (Object.keys(table).length).toString()
+                console.log('finalIndex', finalIndex, table, table[finalIndex], table['1'])
                 finalResult += "具体的各个 MBTI 类型评分变化情况可视化如下：\n" + table[finalIndex].toString() + '\n'
                 finalResult += "以下是关于你的详细描述：\n"
                 finalResult += `> 标签 A: ${description.keywords[0]}` + '\n' + `解释: ${description.texts[0]}` + '\n'

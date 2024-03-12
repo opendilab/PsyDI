@@ -202,11 +202,11 @@ export function ChatList({ messages, chatDone, isLoading }: ChatList) {
     modifiedMessages.splice(7, 0, {id: chatID, content: texts.explorationIntro, role: "system"}); // insert system message
   }
   if (messages.length >= 6) {  // ask for user posts + user posts + 4
-    const mbtiAnswer = texts.mbtiOptionAnswer + " " + texts.mbtiOptionInfo[messages[5].content];
+    const mbtiAnswer = texts.mbtiOptionAnswer + " **" + texts.mbtiOptionInfo[messages[5].content] + "**";
     modifiedMessages.splice(10, 0, {id: chatID, content: mbtiAnswer, role: "assistant"}); // insert assistant message
   }
   if (messages.length >= 8) {  // ask for user posts + user posts + 6
-    const blobTreeAnswer = texts.blobTreeAnswer + " " + texts.blobTreeOptionInfo[messages[7].content] + texts.blobTreeOptionAnswer;
+    const blobTreeAnswer = texts.blobTreeAnswer + " **" + texts.blobTreeOptionInfo[messages[7].content] + "** " + texts.blobTreeOptionAnswer;
     modifiedMessages.splice(13, 0, {id: chatID, content: blobTreeAnswer, role: "assistant"}); // insert assistant message
     modifiedMessages.splice(14, 0, {id: chatID, content: texts.explorationPhaseTitle2, role: "system"}); // insert system message
   }

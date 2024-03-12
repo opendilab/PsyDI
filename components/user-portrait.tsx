@@ -14,24 +14,28 @@ interface Texts {
   sectionNames: string[];
   backendSectionNames: string[];
   skip: string;
+  finalHint: string;
 }
 
 var texts: Texts = {
   title: '',
   sectionNames: [],
   backendSectionNames: [],
-  skip: ''
+  skip: '',
+  finalHint: ''
 }
 if (lang === 'zh') {
     texts.title = "在进入测试之前，PsyDI 将先为您构筑一个简明的人格画像，请尽可能选择更多与您相符的标签。（可多选或不选）"
     texts.sectionNames = ["年龄段", "地区", "职业", "兴趣爱好", "生活态度", "科技态度", "您的标签"]
     texts.backendSectionNames = ["年龄", "地区", "职业", "爱好", "生活态度", "对待科技态度"]
-    texts.skip = "跳过该章节，直接进入测试。（低定制化）"
+    texts.skip = "跳过该章节，直接进入测试（低定制化）"
+    texts.finalHint = "再次点击标签以取消选择，点击右下角箭头进入下一章节"
 } else if (lang === 'en') {
     texts.title = "Before the test, PsyDI will first build a brief personality portrait for you. Please select as many tags as possible that match you. (Multiple choice or no choice)"
     texts.sectionNames = ["Age", "Region", "Occupation", "Hobbies", "Life Attitude", "Technology Attitude", "Your Tags"]
     texts.backendSectionNames = ["Age", "Region", "Occupation", "Hobbies", "Life Attitude", "Technology Attitude"]
     texts.skip = "Skip this section and go directly to the test. (The customization level of the test will be reduced)"
+    texts.finalHint = "Click the tag again to cancel the selection, and click the arrow in the lower right corner to enter the next section"
 }
 
 type Tag = {
@@ -87,9 +91,10 @@ const initialTags: Tag[][] = [
 ]
 
 function getSelectedTags(tags: Tag[][]) {
-  const sections = tags.map((section) => section.filter((tag) => tag.selected).map((tag) => tag.name))
-  const sectionWithNames = texts.backendSectionNames.map((name, index) => ({ name, tags: sections[index] }))
-  const pureTags = sections.reduce((acc, val) => acc.concat(val), [])
+  const sections = tags.map((section) => section.filter((tag) => tag.selected).map((tag) => ({ id: tag.id, name: tag.name }) ))
+  const sectionWithNames = texts.backendSectionNames.map((name, index) => ({ name, tags: sections[index].map((tag) => tag.name)}))
+  const unrepeatedSections = texts.backendSectionNames.map((name, index) => sections[index].map((tag) => ({ name: (tag.name == '其他' ? name + "-" + tag.name : tag.name), id: tag.id, sectionIndex: index }) ))
+  const pureTags = unrepeatedSections.reduce((acc, val) => acc.concat(val), [])
   const stringTags = sectionWithNames.map((section) => `${section.name}: ${section.tags.join(', ')}`).join(';')
   return {'stringTags': stringTags, 'tags': pureTags}
 }
@@ -116,6 +121,16 @@ export function UserPortrait({ append, id }: UserPortraitProps) {
     );
     const updatedSection = tags.map((section, index) => 
       currentSection === index ? updatedTags : section
+    )
+    setTags(updatedSection);
+  };
+
+  const handleFinalTagClick = (clickedTagId: number, sectionIndex: number) => {
+    const updatedTags = tags[sectionIndex].map((tag) =>
+      tag.id === clickedTagId ? { ...tag, selected: !tag.selected } : tag
+    );
+    const updatedSection = tags.map((section, index) => 
+      sectionIndex === index ? updatedTags : section
     )
     setTags(updatedSection);
   };
@@ -149,11 +164,12 @@ export function UserPortrait({ append, id }: UserPortraitProps) {
       { currentSection === tags.length ? (
         getSelectedTags(tags).tags.map((tag) => (
           <button
-            key={tag}
+            key={`${tag.id}-${tag.sectionIndex}`}
+            onClick={() => handleFinalTagClick(tag.id, tag.sectionIndex)}
             style={{ margin: '8px', marginLeft: '0px', backgroundColor: antiBgColor, border: `1px solid ${antiBgColor}`, borderRadius: '10px', padding: '5px', paddingLeft: '15px', paddingRight: '15px'}}
             className="text-base"
           >
-            <span style={{ color: antiBorderColor}}>{tag}</span>
+            <span style={{ color: antiBorderColor}}>{tag.name}</span>
           </button>
         ))
       ) : (
@@ -177,7 +193,7 @@ export function UserPortrait({ append, id }: UserPortraitProps) {
           }>
               <IconTablerArrowLeft className="mr-2 text-muted-foreground" />
           </Button>
-          {currentSection == tags.length ? "" : `${currentSection + 1}/${tags.length}`}
+          {currentSection == tags.length ? texts.finalHint : `${currentSection + 1}/${tags.length}`}
           <Button variant="link" className="h-auto p-0 text-base items-end" onClick={
             async () => {
               if (currentSection === tags.length) {
