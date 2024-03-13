@@ -259,7 +259,7 @@ export class PsyDI {
             const data = await response.json();
             console.info(`[${payload.uid}]get pre question data`, data.ret)
             const q = data.ret.question
-            let responseString = ''
+            let responseString = lang == 'en' ? "(Single Select) " : "（单选）"
             if (lang == "en" ) {
                 responseString += q['Question_EN'] + '\n(A) ' + q['Option A_EN'] + '\n(B) ' + q['Option B_EN'] + '\n(C) ' + q['Option C_EN'] + '\n(D) ' + q['Option D_EN'];
             } else if (lang == "zh") {

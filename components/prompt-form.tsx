@@ -175,7 +175,6 @@ export function PromptForm({
         
         .result-item a:hover {
           background-color: #ccc;
-          color: #2642fa;
         }
       `}</style>
         <div className="absolute right-0 top-4 sm:right-4">
