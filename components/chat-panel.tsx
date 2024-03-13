@@ -171,7 +171,7 @@ export function ChatPanel({
         return false
       }
     } else if (messages?.length === 10 || messages?.length === 12) {
-      if (false && !value.match(/$A$.*|$B$.*|$C$.*|$D$.*/)) {
+      if (!value.match(/^\(A|B|C|D\).*$/)) {
         errorToaster(texts.singleSelectErrorInfo)
         return false
       }
