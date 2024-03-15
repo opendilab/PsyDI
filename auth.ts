@@ -9,8 +9,11 @@ interface Session {
   user: {
       /** The user's id. */
     id: string
+    turnCount?: number
   }
 }
+
+const expireTime = 1 * 60 * 60 * 1000  // 1 hour
 
 export async function auth(force: boolean = false) {
   const cookiesList = cookies()
@@ -20,11 +23,34 @@ export async function auth(force: boolean = false) {
     return {user: {id: userId}}
   } else {
     const userId = uuidv4()
-    cookiesList.set('userId', userId)
+    cookiesList.set('userId', userId, { expires: Date.now() + expireTime })
+    cookiesList.set('turnCount', '0', { expires: Date.now() + expireTime })
     console.info('create session', userId);
     return {user: {id: userId}}
   }
 }
+
+export async function setTurnCount(turnCount: number) {
+  const cookiesList = cookies()
+  const hasCookie = cookiesList.has('userId')
+  if (hasCookie) {
+    const userId = cookiesList.get('userId')?.value
+    cookiesList.set('turnCount', turnCount.toString(), { expires: Date.now() + expireTime })
+    console.log('set turn count', userId, turnCount);
+  }
+  return true
+};
+
+export async function getTurnCount() {
+  const cookiesList = cookies()
+  const hasCookie = cookiesList.has('userId')
+  if (hasCookie) {
+    const turnCount = parseInt(cookiesList.get('turnCount')?.value || '0')
+    const userId = cookiesList.get('userId')?.value
+    console.log('get turn count', userId, turnCount);
+    return turnCount
+  }
+};
 
 export async function clear() {
   const cookiesList = cookies()

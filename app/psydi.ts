@@ -1,4 +1,5 @@
 import { kv } from '@vercel/kv'
+import { auth, clear, getTurnCount, setTurnCount } from '@/auth'
 import { baiduTranslate } from '@/app/baidu_translate'
 import { NeteaseCloud } from '@/lib/neteasecloud'
 
@@ -206,40 +207,35 @@ export class PsyDI {
     this.musicProxy = new NeteaseCloud();
   }
 
-  async registerUser(userId: string, isEmpty: boolean) {
+  async registerUser(isEmpty: boolean) {
     try {
-      const turnCount = await kv.hget(`ucount:${userId}`, 'turnCount');
-      if (!(turnCount)) {
-        await kv.hset(`ucount:${userId}`, {turnCount: 0});
-      } else {
-        if (isEmpty && (typeof turnCount === 'number') && turnCount > 0) {
-          await kv.hset(`ucount:${userId}`, {turnCount: 0});
-        }
-      }
+      const session = await auth(isEmpty);
+      const userId = session.user.id;
+      const turnCount = await getTurnCount();
+      return [userId, turnCount]
     } catch (e) {
-      throw new Error('User not registered or kv error', e || '');
+      throw new Error('User not registered or cookie error', e || '');
     }
-    return true;
   }
 
   async getTurnCount(userId: string): Promise<number> {
     try {
-      const turnCount = await kv.hget(`ucount:${userId}`, 'turnCount');
+      const turnCount = await getTurnCount();
       if (typeof turnCount === 'number') {
         return turnCount;
       } else {
         throw new Error('User not registered');
       }
     } catch (e) {
-      throw new Error('User not registered or kv error', e || '');
+      throw new Error('User not registered or cookie error', e || '');
     }
   }
 
   async setTurnCount(userId: string, turnCount: number) {
     try {
-      await kv.hset(`ucount:${userId}`, {turnCount: turnCount}); 
+      await setTurnCount(turnCount);
     } catch (e) {
-      throw new Error('User not registered or kv error', e || '');
+      throw new Error('User not registered or cookie error', e || '');
     }
   }
 
@@ -392,6 +388,7 @@ export class PsyDI {
             });
             const data = await response.json();
             const result = data.ret.result;
+            console.log('result', result)
             const processedResult = result.slice(1, result.length - 1)
             const mbti = data.ret.mbti
             const table = data.ret.table
@@ -555,7 +552,7 @@ export class PsyDI {
 
     // post posts
     if (turnCount === this.phase3StartTurnCount) {
-      await this.postPosts(payload);
+      this.postPosts(payload);
     }
 
     // get question

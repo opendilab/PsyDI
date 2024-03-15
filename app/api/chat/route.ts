@@ -61,15 +61,10 @@ export async function POST(req: Request) {
   const agent = getPsyDIAgent()
   const json = await req.json()
   const { messages, _ } = json
-  if (messages.length <= 1) {
-    await auth(true)  // clear cookie for each new test
-  } 
-  const user = (await auth())?.user
-  const userId = user.id
 
-  await agent.registerUser(userId, messages.length <= 1)
 
-  const turnCountAgent = await agent.getTurnCount(userId)
+  const [userId, turnCountAgent] = await agent.registerUser(messages.length <= 1)
+
   const messagesUser = messages.filter((message: {[key: string]: string}) => message.role === 'user' && !message.content.startsWith('start---'))
   const turnCountMessage = messagesUser.length
   if (turnCountAgent !== turnCountMessage) {  // reanswer case
@@ -92,7 +87,7 @@ export async function POST(req: Request) {
   if (!(debug === 'true') && (turnCount === phase2StartTurnCount)) {
     const messagesUserStart = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content.startsWith('start---'))
     const startInfo = messagesUserStart[0].content
-    await agent.postPosts({
+    agent.postPosts({
       uid: userId,
       turnCount: turnCount,
       messages: messagesUser,
@@ -135,6 +130,7 @@ export async function POST(req: Request) {
   const endTime: Date = new Date();
   const elapsedTime: number = endTime.getTime() - startTime.getTime();
   console.info(response_string, `Total elapsed time: ${elapsedTime}ms`)
+
 
   var finalText = response_string.replace(/\n/g, "\n\n");
   if (errorCode === 0 && turnCount > (phase2StartTurnCount + 1)) {
