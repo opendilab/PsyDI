@@ -389,14 +389,8 @@ export class PsyDI {
             const data = await response.json();
             const result = data.ret.result;
             console.log('result', result)
-            const processedResult = result.slice(1, result.length - 1)
             const mbti = data.ret.mbti
             const table = data.ret.table
-            const keyword1 = processedResult.split('"Keyword A": ')[1].split('"')[1]
-            const keyword2 = processedResult.split('"Keyword B": ')[1].split('"')[1]
-            const reason1 = processedResult.split('"Reason A": ')[1].split('"')[1]
-            const reason2 = processedResult.split('"Reason B": ')[1].split('"')[1]
-            const description = {keywords: [keyword1, keyword2], texts: [reason1, reason2]}
             const naiveAttr = this.getNaiveAttrValue(table, mbti)
             const imageUrl = data.ret?.image_url
             const headUrl = this.mbtiHeadUrls[mbti]
@@ -404,9 +398,7 @@ export class PsyDI {
             let finalResult = ""
             if (lang == 'en') {
                 finalResult += `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
-                finalResult += "Here is some detailed description about your personality:\n"
-                finalResult += `> Tag A: ${description.keywords[0]}` + '\n' + `Explanation: ${description.texts[0]}` + '\n'
-                finalResult += `> Tag B: ${description.keywords[1]}` + '\n' + `Explanation: ${description.texts[1]}` + '\n'
+                finalResult += "Here is some detailed description about your personality:\n" + result
                 if (imageUrl !== 'null') {
                     finalResult += `\n\nYour MBTI Badge and Personalized Characteristic Image are as follows: ![final img](${headUrl}) \n ![final img](${imageUrl})` 
                 }
@@ -414,9 +406,7 @@ export class PsyDI {
                 finalResult += `### 测试完成\n\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
                 const finalIndex = (Object.keys(table).length).toString()
                 finalResult += `具体的各个 MBTI 类型评分变化情况可视化如下：\n${printSortedFormattedObjectStats(table[finalIndex])}\n`
-                finalResult += "以下是关于你的详细描述：\n"
-                finalResult += `> 标签 A: ${description.keywords[0]}` + '\n' + `解释: ${description.texts[0]}` + '\n'
-                finalResult += `> 标签 B: ${description.keywords[1]}` + '\n' + `解释: ${description.texts[1]}` + '\n'
+                finalResult += "以下是关于你的详细描述：\n" + result
                 if (imageUrl !== 'null') {
                     finalResult += `\n\n你的 MBTI 徽章和个性化形象图如下： ![final img](${headUrl}) \n ![final img](${imageUrl})` 
                 }
@@ -428,7 +418,6 @@ export class PsyDI {
                 mbti: mbti, 
                 headUrl: headUrl,
                 imageUrl: imageUrl,
-                description: description,
                 naiveAttr: naiveAttr,
                 // totalRatio: [], 
             }
