@@ -11,51 +11,11 @@ import { baiduTranslate } from '@/app/baidu_translate'
 
 const lang = process.env.LANG || 'zh' // default to zh
 const streamFlag = process.env.STREAM_FLAG == 'true' || false
-var texts = {
-  userMusicResponse: "",
-  userPostsResponse: "",
-  userPostsExamples: [] as string[], 
-  explorationPhaseResponse: "",
-  mbtiOptionResponse: "",
-  philosophyResponse: "",
-  philosophyAnswers: "",
-  blobTreeResponse: "",
-};
-if (lang === 'zh') {
-    texts.userMusicResponse = "音乐是一种普适的语言，无论你来自何方，它都能让我们的心灵沟通无阻。作为沟通的第一步，您可以分享一首您最喜欢的音乐，或者您最近听的一首歌曲。"
-    texts.userPostsResponse = "接下来，让我们从日常生活聊起。最近有什么趣事吗？您的想法和感受是？在您输入一段想法后请点击提交。（多条动态之间以中文分号分隔）\n以下是一些参考示例：\n"
-    texts.userPostsExamples = [
-      "> 我喜欢与不同的人聊天，分享我的经历。我也喜欢听他们的故事。与人交谈让我能发现新乐趣。",
-      "> 小时候，我是一个饱读书籍和常常天马行空地想象的孩子；今天是我的幸运日",
-      "> 没有什么有趣的事情，或者说，任何事物都有趣味的一面。",
-      "> 我觉得似乎没有人愿意谈论对我最重要的事情，或者似乎没有人关心这些事情。如果我最终谈论到我的兴趣，似乎对方会感到烦恼或无聊。",
-    ]
-    texts.mbtiOptionResponse = "首先，我很好奇您对于视觉艺术的喜好。请在以下九张图片中选择您最喜欢的一张，并告诉我您选择的编号。" 
-    texts.philosophyResponse = "著名的“电车难题”是一个富有争议的话题。我很想听听您的想法，请选择一项最符合的，或直接告诉我您的见解。"
-    texts.philosophyAnswers = "(A) 什么也不做，让列车按照正常路线碾压过这五个人。\n(B) 拉下操纵杆，改变为另一条轨道，使列车压过另一条轨道上的那个人。\n(C) 冲向轨道用肉身拦住电车救下六个人。\n(D) 什么都不做，因为没有任何一种选择本质上是好的还是坏的。"
-    texts.blobTreeResponse = "然后，请在以下图片中选择一个让您感到最舒适安心的场景，并告知我对应的编号。"
-} else if (lang === 'en') {
-    texts.userMusicResponse = "Music is a universal language that allows our hearts to communicate without barriers, no matter where you come from. As a first step in communication, you can share a song you like the most, or a song you have recently listened to."
-    texts.userPostsResponse = "Then, let's start with your daily life. What's new? What are your thoughts and feelings? Please submit your thoughts after you type them in (separate multiple posts with a semicolon or new line).\nHere are some examples for your reference:\n"
-    texts.userPostsExamples = [
-        "> I like to talk to different people and share my experiences. I also like to hear their family stories. Talking to people makes me feel connected to society.",
-        "> When I was a child, I was a child who read a lot of books and often imagined wildly.",
-        "> There is nothing interesting, or rather, everything has an interesting side.",
-        "> I feel that no one seems to be willing to talk about the most important things to me, or that no one seems to care about them. If I eventually talk about my interests, it seems that the other party will feel annoyed or bored.",
-    ];
-    texts.mbtiOptionResponse = "First, I am curious about your preferences for visual arts. Please choose your favorite one from the following nine pictures and tell me the number you choose."
-    texts.philosophyResponse = "The famous 'trolley problem' is a controversial topic. I would like to hear your thoughts. Please choose the one that best suits you, or tell me your thoughts directly."
-    texts.philosophyAnswers = "(A) Do nothing and let the train run over the five people on the normal route. (B) Pull the lever and change to another track, so that the train runs over the person on the other track. (C) Rush to the track and stop the train with your body to save the six people. (D) Do nothing, because no choice is inherently good or bad."
-    texts.blobTreeResponse = "Then, please choose a scene from the following pictures that makes you feel most comfortable and tell me the corresponding number."
-}
 
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
 const encoder = new TextEncoder();
-const postTurnCount = 1
-const phase2StartTurnCount = 2
-const phase3StartTurnCount = 6
 
 export async function POST(req: Request) {
   const agent = getPsyDIAgent()
@@ -68,12 +28,13 @@ export async function POST(req: Request) {
   const messagesUser = messages.filter((message: {[key: string]: string}) => message.role === 'user' && !message.content.startsWith('start---'))
   const turnCountMessage = messagesUser.length
   if (turnCountAgent !== turnCountMessage) {  // reanswer case
+    console.log('back to last question', userId, turnCountMessage, turnCountAgent)
     await agent.returnLastQuestion(userId)
     await agent.setTurnCount(userId, turnCountMessage)
   }
   const turnCount = turnCountMessage
   let streamDelay = 60
-  if (turnCount >= phase3StartTurnCount - 2) {
+  if (turnCount >= agent.phase3StartTurnCount - 2) {
     streamDelay = 25
   }
   const debug = process.env.DEBUG
@@ -83,48 +44,25 @@ export async function POST(req: Request) {
   var errorCode = 0;
   let response_string = ''
 
-  // post info
-  if (!(debug === 'true') && (turnCount === phase2StartTurnCount)) {
-    const messagesUserStart = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content.startsWith('start---'))
-    const startInfo = messagesUserStart[0].content
-    agent.postPosts({
-      uid: userId,
-      turnCount: turnCount,
-      messages: messagesUser,
-      startInfo: startInfo,
-    })
-  }
-
   // get next question
-  if (turnCount === 0) {
-    response_string = texts.userMusicResponse
-  } else if (turnCount === postTurnCount) {
-    response_string = texts.userPostsResponse + texts.userPostsExamples.join('\n')
-  } else if (turnCount === (phase2StartTurnCount)) {
-    response_string = texts.mbtiOptionResponse
-    response_string += `![alt text](${process.env.MBTI_OPTION_IMAGE_URL})`
-    //await setTimeout(() => {}, 1500) // wait for async post user posts
-  } else if (turnCount === (phase2StartTurnCount + 1)) {
-    response_string = texts.blobTreeResponse
-    response_string += `![alt text](${process.env.BLOB_TREE_IMAGE_URL})`
-    //await setTimeout(() => {}, 1500) // wait for async post user posts
-  } else {
-    if (debug === 'true') {
-      response_string = `hello world\n`
-      done = true
-    } else { 
-        try {
-            const response = await agent.getQuestions({
-                uid: userId,
-                turnCount: turnCount,
-                messages: messagesUser,
-            })
-            done = response.done
-            response_string = response.response_string
-        } catch (error) {
-          //errorCode = -1
-          console.error(`[${userId}]get question internal error: ${error}`)
-        }
+  if (debug === 'true') {
+    response_string = `hello world\n`
+    done = true
+  } else { 
+    try {
+      const messagesUserStart = messages.filter((message: {[key: string]: string}) => message.role === 'user' && message.content.startsWith('start---'))
+      const startInfo = messagesUserStart[0].content
+      const response = await agent.getQuestions({
+        uid: userId,
+        turnCount: turnCount,
+        messages: messagesUser,
+        startInfo: startInfo,
+      })
+      done = response.done
+      response_string = response.response_string
+    } catch (error) {
+      //errorCode = -1
+      console.error(`[${userId}]get question internal error: ${error}`)
     }
   }
   const endTime: Date = new Date();
@@ -133,7 +71,7 @@ export async function POST(req: Request) {
 
 
   var finalText = response_string.replace(/\n/g, "\n\n");
-  if (errorCode === 0 && turnCount > (phase2StartTurnCount + 1)) {
+  if (errorCode === 0 && turnCount > (agent.phase2StartTurnCount + 1)) {
     if (false && lang === 'zh') {
         try {
             const idx = finalText.indexOf("![final img")
