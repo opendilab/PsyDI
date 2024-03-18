@@ -13,7 +13,10 @@ function printSortedFormattedObjectStats(obj: Record<string, number>) {
   const topEntries = entries.slice(0, 6);
   let output = '';
   for (const [key, value] of topEntries) {
-    output += `MBTI 类型: ${key} - 倾向: ${value.toFixed(2)}\n`;
+    // first item or items whose value is greater than 70
+    if (output?.length === 0 || value >= 70 ) {
+      output += `MBTI 类型: ${key} - 倾向: ${value.toFixed(2)}\n`;
+    }
   }
   return output;
 }
@@ -299,7 +302,9 @@ export class PsyDI {
 
             if (!done) {
                 const question = data.ret.question
-                const q = lang == 'en' ? "(Multi Select/Free Text) " + question : "（多选/自由回答）" + question
+                const enPrefix = question.includes('C)') || question.includes('(C') ? "(Multi Select/Free Text) " : "(Single Select)"
+                const zhPrefix = question.includes('C)') || question.includes('C)') ? "（多选/自由回答）" : "（单选）" 
+                const q = lang == 'en' ? enPrefix + question : zhPrefix + question
                 const index = data.ret.index
                 const startOfModule = data.ret.start_of_module
                 const hasMusic = data.ret?.has_music

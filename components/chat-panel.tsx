@@ -178,6 +178,9 @@ export function ChatPanel({
     }
     return true
   };
+  const question = messages[messages.length - 1]?.content
+  // only two options means it's a single select question
+  const isMultiSelect = messages?.length > 13 && (question) && (question.includes('(C') || question.includes('C)'))
 
 
   const getQuestionOptionText = (originalInput: string, prefix: string) => {
@@ -185,8 +188,6 @@ export function ChatPanel({
       return ""
     }
     
-    const question = messages[messages.length - 1].content
-    const isMultiSelect = messages?.length > 13
     let escapedPrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     let buttonPrefix = {
       '(A)': [isButtonASelected, setIsButtonASelected],
@@ -239,6 +240,14 @@ export function ChatPanel({
     }
   }
 
+  const checkExistingOption = (prefix: string) => { 
+    if (messages?.length === 0) {
+      return false
+    }
+    
+    return question.includes(prefix)
+  }
+
   let placeholder = ''
   let enableOptionButtons = false
   if (isLoading) {
@@ -259,7 +268,11 @@ export function ChatPanel({
       enableOptionButtons = true
     }
   } else if (messages?.length > 13){ 
-    placeholder = texts.QAPlaceholderComplex
+    if (isMultiSelect) {
+      placeholder = texts.QAPlaceholderComplex
+    } else {
+      placeholder = texts.QAPlaceholder
+    }
     if (messages[messages.length - 1].role === 'assistant') {
       enableOptionButtons = true
     }
@@ -337,6 +350,7 @@ export function ChatPanel({
             }} startIcon={<CatchingPokemonSharpIcon />}>B</MuiButton>
             <MuiButton variant={'outlined'} sx={{
               m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))', backgroundColor: isButtonCSelected ? "#a5a8ac" : "transparent",
+              visibility: (checkExistingOption('(C') || checkExistingOption('C)')) ? 'visible' : 'hidden',
               '&:hover': {
                 backgroundColor: isButtonCSelected ? "#a5a8ac" : "transparent",
                 border: '1px solid #000000'
@@ -346,6 +360,7 @@ export function ChatPanel({
             }} startIcon={<CatchingPokemonSharpIcon />}>C</MuiButton>
             <MuiButton variant={'outlined'} sx={{
               m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))', backgroundColor: isButtonDSelected ? "#a5a8ac" : "transparent",
+              visibility: (checkExistingOption('(D') || checkExistingOption('D)')) ? 'visible' : 'hidden',
               '&:hover': {
                 backgroundColor: isButtonDSelected ? "#a5a8ac" : "transparent",
                 border: '1px solid #000000'
