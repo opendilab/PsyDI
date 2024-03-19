@@ -30,6 +30,7 @@ var texts = {
   intro2: '',
   intro3: '',
   start: '',
+  examples: '',
 }
 if (lang === 'zh') {
     texts.welcome = '欢迎来到 PsyDI！'
@@ -37,6 +38,7 @@ if (lang === 'zh') {
     texts.intro2 = "开发的 MBTI 测评 AI 智能体，希望通过轻松的对话，共同探索您独特的个性和倾向。"
     texts.intro3 = "为了更好地了解您，我会先询问您最近的一些想法，然后邀请您完成一个简单有趣的测试。这将帮助我捕捉到您珍贵的内在世界。基于对您的了解，我会进一步提出问题来探寻您内在的动机，您只需要放松地选出最让您感到舒适的选项。最终，我们将一起解读测试结果，帮助您更好地发现自我。"
     texts.start = "现在开始测试"
+    texts.examples = "经典人物测试样例"
 } else if (lang === 'en') {
     texts.welcome = 'Welcome to PsyDI!'
     texts.intro1 = "Hi, I am an MBTI Agent developed by "
@@ -55,7 +57,7 @@ const exampleMessages = [
     },
     {
       heading: '约尔 福杰 ESFJ',
-      subheading: '嗯，这可能听起来有点傻。但最近，我对自己作为妻子和母亲的能力感到有些不安。',
+      subheading: '嗯，这可能听起来有点傻。但最近，我对自己作为妻子和母亲的能力有点不安。',
       image: 'https://bkmksh.oss-accelerate.aliyuncs.com/8a7c0d9d-099a-473d-b114-c6dcdaa33c18-0_00000_raw.jpg?OSSAccessKeyId=LTAI5t8GmQec8vxNsiGKcYBT&Expires=317070824999&Signature=A%2BP6I6cMfG%2BPEZqcGzOlfuYDKoE%3D',
     },
 ]
@@ -96,18 +98,20 @@ export function EmptyScreen({ setInput, append, id, setStartTest }: EmptyScreenP
           </Button>
         </div>
       </div>
-      <div className="mt-3 grid grid-cols-2 gap-2 px-1 sm:px-0">
+      <div className="mt-2 grid grid-cols-2 gap-2 sm:px-0 p-2 border bg-white rounded-lg dark:bg-zinc-950">
+        <span className="ml-1 text-base font-semibold">{texts.examples}</span>
+        <span className="text-sm text-muted-foreground"></span>
           { exampleMessages.map((example, index) => (
               <div
                 key={example.heading}
-                className={`cursor-pointer rounded-lg border bg-white p-4 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 ${
+                className={`cursor-pointer rounded-lg border bg-white p-3 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 shadow-md mb-8 ${
                   index > 1 && 'hidden md:block'
                 }`}
                 onClick={async () => {
                 }}
               >
-                <div className="text-sm font-semibold">{example.heading}</div>
-                <div className="text-sm text-zinc-600">
+                <div className="text-sm font-semibold italic text-zinc-800 dark:text-zinc-200">{example.heading}</div>
+                <div className="text-sm text-zinc-600 dark:text-zinc-400">
                   {example.subheading}
                 </div>
                 <img src={example.image} alt="" className="w-full h-32 object-cover rounded-lg mt-2" />
