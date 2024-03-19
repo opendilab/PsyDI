@@ -25,15 +25,15 @@ var texts: Texts = {
   finalHint: ''
 }
 if (lang === 'zh') {
-    texts.title = "在进入测试之前，PsyDI 将先为您构筑一个简明的人格画像，请尽可能选择更多与您相符的标签。（可多选或不选）"
-    texts.sectionNames = ["年龄段", "地区", "职业", "兴趣爱好", "生活态度", "科技态度", "您的标签"]
-    texts.backendSectionNames = ["年龄", "地区", "职业", "爱好", "生活态度", "对待科技态度"]
+    texts.title = "在进入测试之前，PsyDI 将先为您构筑一个简明的人格画像，请尽可能选择与您相符的标签。（默认单选，兴趣爱好可多选）"
+    texts.sectionNames = ["年龄段", "地区", "职业", "生活态度", "科技态度", "兴趣爱好（多选）", "您的标签"]
+    texts.backendSectionNames = ["年龄", "地区", "职业", "生活态度", "对待科技态度", "爱好"]
     texts.skip = "跳过本章节（低定制化）"
-    texts.finalHint = "再次点击标签以取消选择，点击右下角箭头进入下一章节"
+    texts.finalHint = "再次点击标签以取消选择，点击右下箭头进入对话"
 } else if (lang === 'en') {
-    texts.title = "Before the test, PsyDI will first build a brief personality portrait for you. Please select as many tags as possible that match you. (Multiple choice or no choice)"
-    texts.sectionNames = ["Age", "Region", "Occupation", "Hobbies", "Life Attitude", "Technology Attitude", "Your Tags"]
-    texts.backendSectionNames = ["Age", "Region", "Occupation", "Hobbies", "Life Attitude", "Technology Attitude"]
+    texts.title = "Before the test, PsyDI will first build a brief personality portrait for you. Please select as many tags as possible that match you. (Default single choice, multiple choices for hobbies)"
+    texts.sectionNames = ["Age", "Region", "Occupation", "Life Attitude", "Attitude Towards Technology", "Hobbies (Multiple Choices)", "Your Tags"]
+    texts.backendSectionNames = ["Age", "Region", "Occupation", "Life Attitude", "Attitude Towards Technology", "Hobbies"]
     texts.skip = "Skip this section and go directly to the test (The customization level of the test will be reduced)"
     texts.finalHint = "Click the tag again to cancel the selection. Click the arrow in the lower right corner to enter the next section"
 }
@@ -65,6 +65,15 @@ const initialTags: Tag[][] = [
     { id: 5, name: '其他', selected: false},
   ],
   [
+    { id: 1, name: '环保主义者', selected: false},
+    { id: 2, name: '极简主义', selected: false},
+    { id: 3, name: '极繁主义', selected: false},
+  ],
+  [
+    { id: 1, name: '科技爱好者', selected: false},
+    { id: 2, name: '科技保守者', selected: false},
+  ],
+  [
     { id: 1, name: 'MBTI发烧友', selected: false},
     { id: 2, name: '二次元', selected: false},
     { id: 3, name: '游戏', selected: false},
@@ -78,15 +87,6 @@ const initialTags: Tag[][] = [
     { id: 11, name: '时尚', selected: false},
     { id: 12, name: '养生', selected: false},
     { id: 13, name: '历史', selected: false},
-  ],
-  [
-    { id: 1, name: '环保主义者', selected: false},
-    { id: 2, name: '极简主义', selected: false},
-    { id: 3, name: '极繁主义', selected: false},
-  ],
-  [
-    { id: 1, name: '科技爱好者', selected: false},
-    { id: 2, name: '科技保守者', selected: false},
   ],
 ]
 
@@ -116,6 +116,7 @@ export function UserPortrait({ append, id }: UserPortraitProps) {
   const antiBorderColor = theme === 'light' ? '#ffffff' : '#212121';
 
   const handleTagClick = (clickedTagId: number) => {
+    const isSelected = tags[currentSection].find((tag) => tag.id === clickedTagId)?.selected;
     const updatedTags = tags[currentSection].map((tag) =>
       tag.id === clickedTagId ? { ...tag, selected: !tag.selected } : tag
     );
@@ -123,6 +124,11 @@ export function UserPortrait({ append, id }: UserPortraitProps) {
       currentSection === index ? updatedTags : section
     )
     setTags(updatedSection);
+    if (!isSelected && currentSection < tags.length - 1) {  // single select mode will auto go to next section
+      setTimeout(() => {
+        setCurrentSection(Math.min(tags.length, currentSection + 1))
+      }, 500)
+    }
   };
 
   const handleFinalTagClick = (clickedTagId: number, sectionIndex: number) => {
