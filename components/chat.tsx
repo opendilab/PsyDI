@@ -28,6 +28,28 @@ export interface ChatProps extends React.ComponentProps<'div'> {
   id?: string
 }
 
+import html2canvas from 'html2canvas';
+
+const takeFullPageScreenshot = () => {
+  html2canvas(document.getElementById('chat-list') || document.body, {
+    logging: true,
+    allowTaint: true,
+    useCORS: true,
+    scale: 1,
+    //foreignObjectRendering: true,
+    //letterRendering: true,
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL('image/png');
+
+    const link = document.createElement('a');
+    link.download = 'full-page-screenshot.png';
+    link.href = imgData;
+    link.click();
+  }).catch((error) => {
+    console.error('takeFullPageScreenshot failed', error);
+  });
+};
+
 export function Chat({ id, initialMessages, className }: ChatProps) {
   const [previewToken, setPreviewToken] = useLocalStorage<string | null>(
     'ai-token',
@@ -110,6 +132,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         setMessages={setMessages}
         chatDone={chatDone}
         setStartTest={setStartTest}
+        takeFullPageScreenshot={takeFullPageScreenshot}
       />
 
       <Dialog open={previewTokenDialog} onOpenChange={setPreviewTokenDialog}>

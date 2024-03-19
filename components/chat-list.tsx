@@ -221,7 +221,7 @@ export function ChatList({ messages, chatDone, isLoading }: ChatList) {
   }
 
   return (
-    <div className="relative mx-auto max-w-2xl px-4">
+    <div className="relative mx-auto max-w-2xl px-4" id="chat-list">
       {modifiedMessages.map((message: Message, index: number) => (
         <div key={index}>
           <ChatMessage message={message} />

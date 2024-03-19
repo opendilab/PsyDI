@@ -36,6 +36,7 @@
     "clsx": "^1.2.1",
     "encoding": "^0.1.13",
     "focus-trap-react": "^10.1.1",
+    "html2canvas": "^1.4.1",
     "msw": "^2.0.9",
     "nanoid": "^4.0.2",
     "next": "13.5",

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import Box from '@mui/material/Box';
 import { Button as MuiButton } from '@mui/material';
 import CatchingPokemonSharpIcon from '@mui/icons-material/CatchingPokemonSharp';
+import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 
 import { Button } from '@/components/ui/button'
 import { PromptForm } from '@/components/prompt-form'
@@ -27,6 +28,7 @@ export interface ChatPanelProps
   chatDone: boolean
   id?: string
   setStartTest: (value: boolean) => void
+  takeFullPageScreenshot: () => void
 }
 
 type ConfirmationDialogProps = {
@@ -50,7 +52,8 @@ var texts = {
   blobTreeErrorInfo: '',
   singleSelectErrorInfo: '',
   retest: '',
-  reanswer: ''
+  reanswer: '',
+  snapshot: ''
 };
 if (lang === 'zh') {
   texts.musicPlaceholder = '请输入一首您喜欢的歌曲名。'
@@ -67,6 +70,7 @@ if (lang === 'zh') {
   texts.singleSelectErrorInfo = '单选题只能选择一个预设选项。'
   texts.retest = '重新评测'
   texts.reanswer = '重新回答上个问题'
+  texts.snapshot = '截长图保存'
 } else if (lang === 'en') {
   texts.musicPlaceholder = 'Please enter the name of a song you like.'
   texts.postPlaceholder = 'Please enter your personal posts (separated by semicolons or newlines).'
@@ -82,6 +86,7 @@ if (lang === 'zh') {
   texts.singleSelectErrorInfo = 'Single select question can only select one of the preset options.'
   texts.retest = 'Test again'
   texts.reanswer = 'Reanswer the previous question'
+  texts.snapshot = 'Save the snapshot'
 }
 
 const ConfirmationDialog = ({ isOpen, onClose, onConfirm }: ConfirmationDialogProps) => {
@@ -89,6 +94,9 @@ const ConfirmationDialog = ({ isOpen, onClose, onConfirm }: ConfirmationDialogPr
     onConfirm();
     onClose();
   };
+  // <Button onClick={takeFullPageScreenshot} variant="outline" size="icon">
+  //   <CameraAltOutlinedIcon fontSize="small"/>
+  // </Button>
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none'}}>
@@ -123,7 +131,8 @@ export function ChatPanel({
   messages,
   setMessages,
   chatDone,
-  setStartTest
+  setStartTest,
+  takeFullPageScreenshot
 }: ChatPanelProps) {
   const router = useRouter()
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -296,6 +305,17 @@ export function ChatPanel({
             >
               <IconStop className="mr-2" />
               {texts.retest}
+            </Button>
+          )
+        }
+        { chatDone && (
+            <Button
+              variant="outline"
+              onClick={takeFullPageScreenshot}
+              className="bg-background"
+            >
+              <CameraAltOutlinedIcon fontSize="small" className="mr-2"/>
+              {texts.snapshot}
             </Button>
           )
         }
