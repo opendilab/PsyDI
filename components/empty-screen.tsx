@@ -24,7 +24,6 @@ type Message = {
   heading: string;
   message: string;
 };
-const exampleMessages: Message[] = []
 var texts = {
   welcome: '',
   intro1: '',
@@ -48,6 +47,18 @@ if (lang === 'zh') {
   // raise error  
   throw new Error('Language not supported: ' + lang)
 }
+const exampleMessages = [
+    {
+      heading: '秦始皇 ENTJ',
+      subheading: '世间纷扰，唯有横扫宇内，统一六国，求得长生不老，方可保我大秦万世基业。',
+      image: 'https://bkmksh.oss-accelerate.aliyuncs.com/ac706ae2-67b1-4803-a0db-de14cfdbe414-0_00000_raw.jpg?OSSAccessKeyId=LTAI5t8GmQec8vxNsiGKcYBT&Expires=317070829988&Signature=eO0hFL1jNebi3iOtWToePlDlMyk%3D',
+    },
+    {
+      heading: '约尔 福杰 ESFJ',
+      subheading: '嗯，这可能听起来有点傻。但最近，我对自己作为妻子和母亲的能力感到有些不安。',
+      image: 'https://bkmksh.oss-accelerate.aliyuncs.com/8a7c0d9d-099a-473d-b114-c6dcdaa33c18-0_00000_raw.jpg?OSSAccessKeyId=LTAI5t8GmQec8vxNsiGKcYBT&Expires=317070824999&Signature=A%2BP6I6cMfG%2BPEZqcGzOlfuYDKoE%3D',
+    },
+]
 
 export interface EmptyScreenProps
   extends Pick<
@@ -83,20 +94,26 @@ export function EmptyScreen({ setInput, append, id, setStartTest }: EmptyScreenP
               <IconArrowRight className="mr-2 text-muted-foreground" />
           {texts.start}
           </Button>
-          {/* examples */}
-          {exampleMessages.map((message, index) => (
-            <Button
-              key={index}
-              variant="link"
-              className="h-auto p-0 text-base"
-              onClick={() => setInput(message.message)}
-            >
-              <IconArrowRight className="mr-2 text-muted-foreground" />
-              {message.heading}
-            </Button>
-          ))}
         </div>
       </div>
+      <div className="mt-3 grid grid-cols-2 gap-2 px-1 sm:px-0">
+          { exampleMessages.map((example, index) => (
+              <div
+                key={example.heading}
+                className={`cursor-pointer rounded-lg border bg-white p-4 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 ${
+                  index > 1 && 'hidden md:block'
+                }`}
+                onClick={async () => {
+                }}
+              >
+                <div className="text-sm font-semibold">{example.heading}</div>
+                <div className="text-sm text-zinc-600">
+                  {example.subheading}
+                </div>
+                <img src={example.image} alt="" className="w-full h-32 object-cover rounded-lg mt-2" />
+              </div>
+            ))}
+        </div>
     </div>
   )
 }
