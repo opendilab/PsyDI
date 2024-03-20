@@ -226,7 +226,7 @@ export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
     <div className="relative mx-auto max-w-2xl px-4" id="chat-list">
       {modifiedMessages.map((message: Message, index: number) => (
         <div key={index}>
-          <ChatMessage message={message} />
+          <ChatMessage message={message} chatDone={chatDone}/>
           {index < modifiedMessages.length - 1 && (
             <Separator className="my-4 md:my-8" />
           )}
@@ -235,9 +235,11 @@ export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
       {isLoading && (
         <Separator className="my-4 md:my-8" />
       )}
-      <div className="flex items-center justify-center h-16">
-        <BeatLoader color={GetThemeColor().antiPrimary} loading={isLoading} size={10} />
-      </div>
+      { !chatDone && ( 
+        <div className="flex items-center justify-center h-16">
+          <BeatLoader color={GetThemeColor().antiPrimary} loading={isLoading} size={10} />
+        </div>
+      )}
       { chatDone && table && <EChartsComponent table={table}/>}
     </div>
   )

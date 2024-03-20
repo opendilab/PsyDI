@@ -81,7 +81,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         const table = response.headers.get('table')
         if (table !== 'null') {
           // @ts-ignore
-          setTable(JSON.parse(table).table)
+          setTable(JSON.parse(table))
         }
         setResponseStart(true)
         setTimeout(() => {

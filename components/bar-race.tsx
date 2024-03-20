@@ -27,7 +27,10 @@ const mbtiColors: Record<string, string> = {
 };
 
 
-export const EChartsComponent = (table: Record<string, Record<string, number>>) => {
+interface EChartsComponentProps {
+  table: Record<string, Record<string, number>>;
+};
+export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChartsComponentProps) => {
   const chartRef = useRef(null);
   const updateFrequency = 1500;
   const [clicks, setClicks] = useState(0);
@@ -78,7 +81,7 @@ export const EChartsComponent = (table: Record<string, Record<string, number>>) 
         right: 20
       },
       xAxis: {
-        max: 85,
+        max: 90,
         axisLabel: {
           formatter: function (n: number | string) {
             if (typeof n === 'number') {

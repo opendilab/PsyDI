@@ -14,6 +14,7 @@ import { ChatMessageActions } from '@/components/chat-message-actions'
 
 export interface ChatMessageProps {
   message: Message
+  chatDone: boolean
 }
 
 const userMarkdownFormatLComplex = `<div style='text-align: left;text-align-last: left;'>
@@ -23,7 +24,7 @@ const userMarkdownFormatLSimple = `<div style='text-align: right;'>
 const userMarkdownFormatR = `
 </div>`
 
-export function ChatMessage({ message, ...props }: ChatMessageProps) {
+export function ChatMessage({ message, chatDone, ...props }: ChatMessageProps) {
   const processUserContent = (content: string) => {
     const splitContent = content.split(/\n|;|；/g)
     const maxLen = Math.max(...splitContent.map((item) => item.length))
@@ -168,7 +169,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
         >
         { message.role === 'assistant' ? message.content : processSystemContent(message.content)}
         </MemoizedReactMarkdown>
-        { message.role === 'assistant' && (
+        { message.role === 'assistant' && (!chatDone) && (
           <ChatMessageActions message={message} />
         )}
       </div>
