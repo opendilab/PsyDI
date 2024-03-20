@@ -43,6 +43,7 @@ export async function POST(req: Request) {
   var done = false;
   var errorCode = 0;
   let response_string = ''
+  let table = null
 
   // get next question
   if (debug === 'true') {
@@ -60,6 +61,9 @@ export async function POST(req: Request) {
       })
       done = response.done
       response_string = response.response_string
+      if (done) {
+        table = response.result_extras.table
+      }
     } catch (error) {
       //errorCode = -1
       console.error(`[${userId}]get question internal error: ${error}`)
@@ -148,7 +152,13 @@ export async function POST(req: Request) {
   await agent.setTurnCount(userId, turnCount + 1)
   console.info(`[${userId}]return done`, done, turnCount)
 
-  return new StreamingTextResponse(dataStream, {
-    headers: { 'CHAT-DONE': done.toString(), 'CHAT-ERRORCODE': errorCode.toString()},
-  });
+  if ((debug !== 'true') && done) {
+    return new StreamingTextResponse(dataStream, {
+      headers: { 'CHAT-DONE': done.toString(), 'CHAT-ERRORCODE': errorCode.toString(), 'TABLE': JSON.stringify(table)},
+    });
+  } else {
+    return new StreamingTextResponse(dataStream, {
+      headers: { 'CHAT-DONE': done.toString(), 'CHAT-ERRORCODE': errorCode.toString(), 'TABLE': 'null'},
+    });
+  }
 }

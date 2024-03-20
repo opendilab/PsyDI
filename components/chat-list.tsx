@@ -4,10 +4,12 @@ import { BeatLoader } from 'react-spinners'
 import { Separator } from '@/components/ui/separator'
 import { ChatMessage } from '@/components/chat-message'
 import { GetThemeColor } from '@/components/theme-toggle'
+import { EChartsComponent } from '@/components/bar-race'
 
 export interface ChatList {
   messages: Message[]
   chatDone: boolean
+  table: Record<string, any> | null
   isLoading: boolean
 }
 
@@ -186,7 +188,7 @@ if (lang === 'zh') {
   texts.endIntro = "(This chapter will integrate the information of the previous three stages and generate a personalized personality analysis and MBTI image for you. It takes about 25-35 seconds to wait.)"
 }
 
-export function ChatList({ messages, chatDone, isLoading }: ChatList) {
+export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
   if (!messages.length) {
     return null
   }
@@ -236,6 +238,7 @@ export function ChatList({ messages, chatDone, isLoading }: ChatList) {
       <div className="flex items-center justify-center h-16">
         <BeatLoader color={GetThemeColor().antiPrimary} loading={isLoading} size={10} />
       </div>
+      { chatDone && table && <EChartsComponent table={table}/>}
     </div>
   )
 }

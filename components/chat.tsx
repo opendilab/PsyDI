@@ -58,6 +58,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   const [previewTokenDialog, setPreviewTokenDialog] = useState(IS_PREVIEW)
   const [previewTokenInput, setPreviewTokenInput] = useState(previewToken ?? '')
   const [chatDone, setChatDone] = useState(false)
+  const [table, setTable] = useState(null)
   const [responseStart, setResponseStart] = useState(false)
   const [startTest, setStartTest] = useState(false)
   const { messages, append, reload, stop, setMessages, isLoading, input, setInput} =
@@ -76,6 +77,12 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             errorToaster("服务器超时错误，请点击左下角'加号'按钮重启评测，并稍后再试", 10000)
         }
         setChatDone(response.headers.get('chat-done') === 'true')
+        // @ts-ignore
+        const table = response.headers.get('table')
+        if (table !== 'null') {
+          // @ts-ignore
+          setTable(JSON.parse(table).table)
+        }
         setResponseStart(true)
         setTimeout(() => {
           window.scrollTo({
@@ -109,7 +116,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>
         {messages.length ? (
           <>
-            <ChatList messages={messages} chatDone={chatDone} isLoading={isLoading && (!responseStart)}/>
+            <ChatList messages={messages} chatDone={chatDone} table={table} isLoading={isLoading && (!responseStart)}/>
             <ChatScrollAnchor trackVisibility={isLoading} />
           </>
         ) : (

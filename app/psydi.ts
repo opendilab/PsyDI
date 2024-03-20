@@ -345,8 +345,8 @@ export class PsyDI {
 
             if (!done) {
                 const question = data.ret.question
-                const enPrefix = question.includes('C)') || question.includes('(C') ? "(Multi Select/Free Text) " : "(Single Select)"
-                const zhPrefix = question.includes('C)') || question.includes('C)') ? "（多选/自由回答）" : "（单选）" 
+                const enPrefix = question.includes('D)') || question.includes('(D') ? "(Multi Select/Free Text) " : (question.includes('A)') || question.includes('(A') ? "(Single Select)" : "(Free Text)")
+                const zhPrefix = question.includes('D)') || question.includes('D)') ? "（多选/自由回答）" : (question.includes('A)') || question.includes('(A') ? "（单选）" : "（自由回答）") 
                 const q = lang == 'en' ? enPrefix + question : zhPrefix + question
                 const index = data.ret.index
                 const startOfModule = data.ret.start_of_module
@@ -417,7 +417,7 @@ export class PsyDI {
             if (retryCount > 5) {
                 throw error
             }
-            console.error(`[${payload.uid}Comm Error:`, error);
+            console.error(`[${payload.uid}Get Question Comm Error:`, error);
             await sleep(1000);
         }
     }
@@ -436,7 +436,6 @@ export class PsyDI {
             });
             const data = await response.json();
             const result = data.ret.result;
-            console.log('result', result)
             const mbti = data.ret.mbti
             const table = data.ret.table
             const naiveAttr = this.getNaiveAttrValue(table, mbti)
@@ -467,7 +466,7 @@ export class PsyDI {
                 headUrl: headUrl,
                 imageUrl: imageUrl,
                 naiveAttr: naiveAttr,
-                // totalRatio: [], 
+                table: table,
             }
             return {done: true, 'response_string': finalResult, 'result_extras': resultExtras};
         } catch (error) {

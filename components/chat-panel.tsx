@@ -46,6 +46,7 @@ var texts = {
   blobTreePlaceholder: '',
   QAPlaceholder: '',
   QAPlaceholderComplex: '',
+  QAPlaceholderFree: '',
   generate: '',
   stop: '',
   imgErrorInfo: '',
@@ -63,6 +64,7 @@ if (lang === 'zh') {
   texts.blobTreePlaceholder = '请输入您的选择的 blob 数字（1-21）。'
   texts.QAPlaceholder = '（单选）选择上面的选项 (ABCD) ，并点击发送。'
   texts.QAPlaceholderComplex = '（多选/问答）选择上面的选项 (ABCD) 或输入您自己的答案，并点击发送'
+  texts.QAPlaceholderFree = '（问答）输入您自己的答案，并点击发送'
   texts.generate = '重新生成回复'
   texts.stop = '停止生成'
   texts.imgErrorInfo = '格式错误，请仅输入 1-9 之间的数字。'
@@ -79,6 +81,7 @@ if (lang === 'zh') {
   texts.blobTreePlaceholder = 'Please enter the blob number of your choice (1-21).'
   texts.QAPlaceholder = '(Single select) Select above options (ABCD) and click send.' 
   texts.QAPlaceholderComplex = '(Multi-select/Free text) Select above options (ABCD) or enter your own answer and click send.'
+  texts.QAPlaceholderFree = '(Free text) Enter your own answer and click send.'
   texts.generate = 'Regenerate response'
   texts.stop = 'Stop generating'
   texts.imgErrorInfo = 'Answer format error, please enter only numbers between 1-9.'
@@ -189,7 +192,8 @@ export function ChatPanel({
   };
   const question = messages[messages.length - 1]?.content
   // only two options means it's a single select question
-  const isMultiSelect = messages?.length > 13 && (question) && (question.includes('(C') || question.includes('C)'))
+  const isMultiSelect = messages?.length > 13 && (question) && (question.includes('(D') || question.includes('D)'))
+  const isFree = !isMultiSelect && (question) && (!question.includes('(A') && !question.includes('A)'))
 
 
   const getQuestionOptionText = (originalInput: string, prefix: string) => {
@@ -280,7 +284,11 @@ export function ChatPanel({
     if (isMultiSelect) {
       placeholder = texts.QAPlaceholderComplex
     } else {
-      placeholder = texts.QAPlaceholder
+      if (isFree) {
+        placeholder = texts.QAPlaceholderFree
+      } else {
+        placeholder = texts.QAPlaceholder
+      }
     }
     if (messages[messages.length - 1].role === 'assistant') {
       enableOptionButtons = true
@@ -338,7 +346,7 @@ export function ChatPanel({
                 onConfirm={handleConfirmNewChat}
                 />
             )}
-            { enableOptionButtons && !isLoading && (
+            { enableOptionButtons && !isLoading && (checkExistingOption('(A') || checkExistingOption('A)')) && (
             <Box
                 sx={{
                     display: 'grid',
@@ -352,6 +360,7 @@ export function ChatPanel({
             >
             <MuiButton variant={'outlined'} sx={{
               m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))', backgroundColor: isButtonASelected ? "#a5a8ac" : "transparent",
+              visibility: (checkExistingOption('(A') || checkExistingOption('A)')) ? 'visible' : 'hidden',
               '&:hover': {
                 backgroundColor: isButtonASelected ? "#a5a8ac" : "transparent",
                 border: '1px solid #000000'
@@ -361,6 +370,7 @@ export function ChatPanel({
             }} startIcon={<CatchingPokemonSharpIcon />}>A</MuiButton>
             <MuiButton variant={'outlined'} sx={{
               m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))', backgroundColor: isButtonBSelected ? "#a5a8ac" : "transparent",
+              visibility: (checkExistingOption('(B') || checkExistingOption('B)')) ? 'visible' : 'hidden',
               '&:hover': {
                 backgroundColor: isButtonBSelected ? "#a5a8ac" : "transparent",
                 border: '1px solid #000000'

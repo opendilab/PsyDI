@@ -65,6 +65,9 @@ dependencies:
   clsx:
     specifier: ^1.2.1
     version: registry.npmmirror.com/clsx@1.2.1
+  echarts:
+    specifier: ^5.5.0
+    version: 5.5.0
   encoding:
     specifier: ^0.1.13
     version: 0.1.13
@@ -542,6 +545,13 @@ packages:
     engines: {node: '>=0.3.1'}
     dev: false
 
+  /echarts@5.5.0:
+    resolution: {integrity: sha512-rNYnNCzqDAPCr4m/fqyUFv7fD9qIsd50S6GDFgO1DxZhncCsNsG7IfUlAlvZe5oSEQxtsjnHiUuppzccry93Xw==}
+    dependencies:
+      tslib: 2.3.0
+      zrender: 5.5.0
+    dev: false
+
   /encoding@0.1.13:
     resolution: {integrity: sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==, tarball: https://registry.npmmirror.com/encoding/-/encoding-0.1.13.tgz}
     dependencies:
@@ -782,6 +792,18 @@ packages:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
+  /tslib@1.14.1:
+    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+    dev: true
+
+  /tslib@2.3.0:
+    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
+    dev: false
+
+  /tslib@2.6.2:
+    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+    dev: false
+
   /utrie@1.0.2:
     resolution: {integrity: sha512-1MLa5ouZiOmQzUbjbu9VmjLzn1QLXBhwpUa7kdLUQK+KQ5KA9I1vk5U4YHe/X2Ch7PYnJfWuWT+VbuxbGwljhw==}
     dependencies:
@@ -810,6 +832,12 @@ packages:
   /yn@3.1.1:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==, tarball: https://registry.npmmirror.com/yn/-/yn-3.1.1.tgz}
     engines: {node: '>=6'}
+
+  /zrender@5.5.0:
+    resolution: {integrity: sha512-O3MilSi/9mwoovx77m6ROZM7sXShR/O/JIanvzTwjN3FORfLSr81PsUGd7jlaYOeds9d8tw82oP44+3YucVo+w==}
+    dependencies:
+      tslib: 2.3.0
+    dev: false
 
   registry.npmmirror.com/@aashutoshrathi/word-wrap@1.2.6:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz}
@@ -2444,7 +2472,7 @@ packages:
     name: '@swc/helpers'
     version: 0.5.2
     dependencies:
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/@tailwindcss/typography@0.5.10(tailwindcss@3.3.6):
@@ -2867,7 +2895,7 @@ packages:
     version: 1.2.3
     engines: {node: '>=10'}
     dependencies:
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/aria-query@5.3.0:
@@ -6677,7 +6705,7 @@ packages:
       '@types/react': registry.npmmirror.com/@types/react@18.2.42
       react: registry.npmmirror.com/react@18.2.0
       react-style-singleton: registry.npmmirror.com/react-style-singleton@2.2.1(@types/react@18.2.42)(react@18.2.0)
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/react-remove-scroll@2.5.5(@types/react@18.2.42)(react@18.2.0):
@@ -6697,7 +6725,7 @@ packages:
       react: registry.npmmirror.com/react@18.2.0
       react-remove-scroll-bar: registry.npmmirror.com/react-remove-scroll-bar@2.3.4(@types/react@18.2.42)(react@18.2.0)
       react-style-singleton: registry.npmmirror.com/react-style-singleton@2.2.1(@types/react@18.2.42)(react@18.2.0)
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
       use-callback-ref: registry.npmmirror.com/use-callback-ref@1.3.0(@types/react@18.2.42)(react@18.2.0)
       use-sidecar: registry.npmmirror.com/use-sidecar@1.1.2(@types/react@18.2.42)(react@18.2.0)
     dev: false
@@ -6719,7 +6747,7 @@ packages:
       get-nonce: registry.npmmirror.com/get-nonce@1.0.1
       invariant: registry.npmmirror.com/invariant@2.2.4
       react: registry.npmmirror.com/react@18.2.0
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/react-syntax-highlighter@15.5.0(react@18.2.0):
@@ -6991,7 +7019,7 @@ packages:
     name: rxjs
     version: 7.8.1
     dependencies:
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/sade@1.8.1:
@@ -7589,18 +7617,6 @@ packages:
       strip-bom: registry.npmmirror.com/strip-bom@3.0.0
     dev: true
 
-  registry.npmmirror.com/tslib@1.14.1:
-    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tslib/-/tslib-1.14.1.tgz}
-    name: tslib
-    version: 1.14.1
-    dev: true
-
-  registry.npmmirror.com/tslib@2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tslib/-/tslib-2.6.2.tgz}
-    name: tslib
-    version: 2.6.2
-    dev: false
-
   registry.npmmirror.com/tsutils@3.21.0(typescript@5.3.3):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tsutils/-/tsutils-3.21.0.tgz}
     id: registry.npmmirror.com/tsutils/3.21.0
@@ -7610,7 +7626,7 @@ packages:
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     dependencies:
-      tslib: registry.npmmirror.com/tslib@1.14.1
+      tslib: 1.14.1
       typescript: registry.npmmirror.com/typescript@5.3.3
     dev: true
 
@@ -7860,7 +7876,7 @@ packages:
     dependencies:
       '@types/react': registry.npmmirror.com/@types/react@18.2.42
       react: registry.npmmirror.com/react@18.2.0
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/use-composed-ref@1.3.0(react@18.2.0):
@@ -7923,7 +7939,7 @@ packages:
       '@types/react': registry.npmmirror.com/@types/react@18.2.42
       detect-node-es: registry.npmmirror.com/detect-node-es@1.1.0
       react: registry.npmmirror.com/react@18.2.0
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/use-sync-external-store@1.2.0(react@18.2.0):
