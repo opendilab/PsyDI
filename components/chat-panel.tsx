@@ -169,16 +169,16 @@ export function ChatPanel({
   const checkValue = (value: string) => {
     if (messages?.length === 6) {
       const intValue = parseInt(value)
-      // use value rather than IntValue in isNaN to check if it's a number
+      // use value rather than IntValue in Number.isInteger to check if it's a number
       // @ts-ignore
-      if (isNaN(value) || intValue < 1 || intValue > 9) {
+      if (!Number.isInteger(Number(value)) || intValue < 1 || intValue > 9) {
         errorToaster(texts.imgErrorInfo)
         return false
       }
     } else if (messages?.length === 8) {
       const intValue = parseInt(value)
       // @ts-ignore
-      if (isNaN(value) || intValue < 1 || intValue > 21) {
+      if (!Number.isInteger(Number(value)) || intValue < 1 || intValue > 21) {
         errorToaster(texts.blobTreeErrorInfo)
         return false
       }

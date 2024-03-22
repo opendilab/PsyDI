@@ -53,12 +53,12 @@ const exampleMessages = [
     {
       heading: '秦始皇 ENTJ',
       subheading: '世间纷扰，唯有横扫宇内，统一六国，求得长生不老，方可保我大秦万世基业。',
-      image: 'https://bkmksh.oss-accelerate.aliyuncs.com/ac706ae2-67b1-4803-a0db-de14cfdbe414-0_00000_raw.jpg?OSSAccessKeyId=LTAI5t8GmQec8vxNsiGKcYBT&Expires=317070829988&Signature=eO0hFL1jNebi3iOtWToePlDlMyk%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qinshihuang.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1718888821&Signature=UdqxHZsodmRtjaoYfktc4Iw45W8%3D'
     },
     {
       heading: '约尔 福杰 ESFJ',
       subheading: '嗯，这可能听起来有点傻。但最近，我对自己作为妻子和母亲的能力有点不安。',
-      image: 'https://bkmksh.oss-accelerate.aliyuncs.com/8a7c0d9d-099a-473d-b114-c6dcdaa33c18-0_00000_raw.jpg?OSSAccessKeyId=LTAI5t8GmQec8vxNsiGKcYBT&Expires=317070824999&Signature=A%2BP6I6cMfG%2BPEZqcGzOlfuYDKoE%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_yueer.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1718888929&Signature=Orh4pM3CW0vlvgJBg%2F9y5aoodAk%3D'
     },
 ]
 

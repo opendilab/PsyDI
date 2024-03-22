@@ -110,30 +110,30 @@ if (lang === 'zh') {
     '3': '您的选择可能表明您是一个雄心勃勃、自信的人。您知道自己在任何时候都会成功，总会有幸运且恰当的情况帮我您进步',
     '4': '您的选择可能表明您是一个不合群、猜疑和不信任的人。您放弃得太快，不相信自己非凡的潜力。',
     '5': '您的选择可能表明您是一个富有创造力、热爱生活、享受每一刻、热爱和知道感恩周围所有美好事物的人。这有助于您保持积极的态度，所以您总是对最好的敞开大门！',
-    '6': '您的选择可能表明您有需要感受被爱、被保护、被安全的需求。您是那种总是爱上错误的人，因为您对爱和感情的无穷需求。您需要学会更仔细地寻找那些能帮助您在您的进化中的人，而不是那些不理解您的脆弱的人。',
+    '6': '您的选择可能表明您有需要感受被爱、被保护、被安全的需求。您总是爱上错误的人，因为您对爱和感情的无穷需求。您需要学会更仔细地寻找那些能帮助您在您的进化中的人，而不是那些不理解您的脆弱的人。',
     '7': '您的选择可能表明您是一个善于沟通、懂得给朋友支持的人。您以高情商为特点，这有助于您成功地应对生活中的各种情况。您有团队精神，看到事物的各个方面，总是找到解决方案。',
     '8': '您的选择可能表明您是一个梦幻和浪漫的人。您喜欢有一些时间只属于自己。这样，您就能够恢复精力和对生活和社交的热情。对于所爱的人来说，理解您对隔离的需求，不要误解它，理解它，并给您需要的空间是很好的。',
-    '9': '您的选择可能表明您是一个不合群、猜疑和不信任的人。您会为了证明自己也是了不起的，但是更容易远离别人，独自站着，因为这样您就可以证明您对别人的不信任。',
+    '9': '您的选择可能表明您是一个不合群、猜疑和不信任的人。您会为了证明自己是了不起的，而更容易远离别人，独自站着，因为这也可以证明您对别人的不信任是合理的。',
     '10': '您的选择可能表明您是一个雄心勃勃，但也非常谨慎的人。您是一个勤劳和坚定的人，所以您几乎在您设定的任何事情上都会成功。您的想法总是脱颖而出，您在任何环境中都受到赞赏。',
     '11': '您的选择可能表明您是一个善于沟通、懂得给朋友支持的人。您以高情商为特点，这有助于您成功地应对生活中的各种情况。您有团队精神，看到事物的各个方面，总是找到解决方案。',
     '12': '您的选择可能表明您是一个善于沟通、懂得给朋友支持的人。您以高情商为特点，这有助于您成功地应对生活中的各种情况。您有团队精神，看到事物的各个方面，总是找到解决方案。',
-    '13': '您的选择可能表明您充满绝望和失去希望。您必须尽力在生命树上重新校准自己，最简单的方法是重新获得自信，寻求所爱的人的支持！',
+    '13': '您的选择可能表明您现在充满绝望或正在失去希望。您必须尽力在生命树上重新校准自己，最简单的方法是重新获得自信，寻求所爱的人的支持！',
     '14': '您的选择可能表明您是一个灵魂伴侣、慈善家，愿意为他人做任何事。您以高度的同理心为特点，通常是“大灵魂”。但是您应该学会好好照顾自己，而不仅仅是他人。',
-    '15': '您的选择可能表明您是被成功之路的美丽所激励而不是成功本身。您好奇学习新事物，有新的经历，遇见人，从每个人那里学到一些东西。',
+    '15': '您的选择可能表明您总是被通向成功的过程所吸引而不是成功本身。您好奇学习新事物，期待有新的经历，会因为遇见新的人，从每个人那里学到一些东西而高兴。',
     '16': '您的选择可能表明您是乐观、充满生活的人，具有团队精神，您在任何领域都表现出色，对挑战看得很淡。',
     '17': '您的选择可能表明您是乐观、充满生活的人，具有团队精神，您在任何领域都表现出色，对挑战看得很淡。',
     '18': '您的选择可能表明您是乐观、充满生活的人，具有团队精神，您在任何领域都表现出色，对挑战看得很淡。而且您喜欢感受被爱和被赏识。',
     '19': '您的选择可能表明您是一个不合群、猜疑和不信任的人。您可能有自恋倾向，对他人的成功感到嫉妒。',
     '20': '您的选择可能表明您是雄心勃勃、自信、充满生活的人，您是创新者，不怕冒险。您的超然和激情给您带来了许多成功和满足。',
-    '21': '您的选择可能表明您是一个试图但不知道如何为自己的生活找到最好解决方案的人。您是一个必须学会向周围的人寻求帮助，放弃您的猜疑本性的人。'
+    '21': '您的选择可能表明您是一个试图找到好好生活的解决方案却不知道如何是好的人。您也许可以尝试向周围的人寻求帮助，放弃您的猜疑本性，信任别人。',
   }
-  texts.blobTreeOptionAnswer = "经过刚才的互动，我已对您有了一定了解啦。接下来的问题会更深入，希望您放松心情，选择与您最相近的选项。"
+  texts.blobTreeOptionAnswer = "经过刚才的互动，我已对您有了一定了解啦。接下来的问题会更深入，希望您放松心情，选择与您的想法最相近的选项。"
   texts.discoveryPhaseTitle = "『发现篇章』"
   texts.endPhaseTitle = "『回响篇章』"
   texts.endDescription = "感谢您的回答！我已为您准备好一份专属个性报告，希望能帮助您更好地认识自我。这次轻松的对话不仅让我捕捉到了您的独特个性，也希望帮助您看清内心，接纳自我。每一个人都有属于自己的独特魅力，值得被认可与理解。如果日后您想要再次探索自我，欢迎随时来找我聊聊！我随时在这里等待您再次开启交流。"
   texts.startIntro = "（本章节有两道问答，主要是初步了解您的日常信息，帮助 Agent 定制您专属的 MBTI 问答和分析）"
   texts.explorationIntro = "（本章节共有四道问答（前篇两道+后篇两道），结合经典心理学的相关知识和工具，系统性地收集您的人格特征信息，保证 Agent 能从多个不同的角度跟您交流。每道题约需要等待 4-6 秒。）"
-  texts.discoveryIntro = "（基于之前收集的信息和您的回答，针对之前两个阶段的内容，在本章节 Agent 将会动态地跟您进行一系列多模块的探讨和交互。每个问答约需要等待 3-6 秒。）"
+  texts.discoveryIntro = "（基于之前收集的信息和您的回答，在本章节 Agent 将会动态地跟您进行一系列多模块的探讨和交互。每个问答约需要等待 3-6 秒。）"
   texts.endIntro = "（本章节将会综合前三个阶段的信息，为您生成专属人格分析和 MBTI 形象图。约需等待 25-35 秒。）"
 } else if (lang === 'en') {
   texts.startPhaseTitle = "[Start Phase]"
@@ -184,7 +184,7 @@ if (lang === 'zh') {
   texts.endDescription = "Thank you for your answers! I have prepared a customized personality report for you, hoping to help you better understand yourself. This relaxed conversation not only allows me to capture your unique personality, but also hopes to help you see your heart and accept yourself. Everyone has their own unique charm, which deserves to be recognized and understood. If you want to explore yourself again in the future, please feel free to come to me! I am always here waiting for you to start a conversation again."
   texts.startIntro = "(There are two questions in this chapter, mainly to understand your daily information and help Agent customize your exclusive MBTI questions and analysis.)" 
   texts.explorationIntro = "(There are four questions in this chapter (two in the first part + two in the second part). Combined with the relevant knowledge and tools of classical psychology, your personality information will be collected systematically to ensure that Agent can communicate with you from different perspectives. Each question takes about 4-6 seconds to wait.)"
-  texts.discoveryIntro = "(According to the information collected before and your answers, Agent will dynamically discuss and interact with you based on the content of the previous two stages. Each question takes about 3-6 seconds to wait.)"
+  texts.discoveryIntro = "(Based on the information collected earlier and your answers, in this chapter, Agent will dynamically interact with you through a series of multi-module discussions. Each question takes about 3-6 seconds to wait.)"
   texts.endIntro = "(This chapter will integrate the information of the previous three stages and generate a personalized personality analysis and MBTI image for you. It takes about 25-35 seconds to wait.)"
 }
 
