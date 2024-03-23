@@ -93,7 +93,7 @@ export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChar
       grid: {
         top: 10,
         bottom: 20,
-        left: 35,
+        left: 40,
         right: 20
       },
       xAxis: {

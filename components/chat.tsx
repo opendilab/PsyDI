@@ -89,7 +89,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             top: document.body.offsetHeight,
             behavior: 'smooth'
           }) 
-        }, 100)
+        }, 400)
       },
       onFinish() {
         setTimeout(() => {
@@ -97,7 +97,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             top: document.body.offsetHeight,
             behavior: 'smooth'
           }) 
-        }, 10)
+        }, 100)
         setResponseStart(false)
       }
     })
