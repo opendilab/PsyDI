@@ -7,7 +7,7 @@ import { BeatLoader } from 'react-spinners'
 import { Separator } from '@/components/ui/separator'
 import { ChatMessage } from '@/components/chat-message'
 import { GetThemeColor } from '@/components/theme-toggle'
-import { EChartsComponent } from '@/components/bar-race'
+import { FinalResult } from '@/components/final-result'
 
 export interface ChatList {
   messages: Message[]
@@ -192,7 +192,6 @@ if (lang === 'zh') {
 }
 
 export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
-  const [finalResults, setFinalResults] = useState(null);
   if (!messages.length) {
     return null
   }
@@ -225,11 +224,6 @@ export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endPhaseTitle, role: "system"}); // insert system message
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endIntro, role: "system"}); // insert system message
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endDescription, role: "assistant"}); // insert assistant message
-    setTimeout(async () => {
-      const res = await fetch('/api/final_results?q=result');
-      const data = await res.json()
-      setFinalResults(data.ret.result);
-    }, 3000);
   }
 
   return (
@@ -250,18 +244,7 @@ export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
           <BeatLoader color={GetThemeColor().antiPrimary} loading={isLoading} size={10} />
         </div>
       )}
-      { chatDone && table && <EChartsComponent table={table}/>}
-      { chatDone && (finalResults === null) && ( 
-        <div className="flex items-center justify-center h-16">
-          <BeatLoader color={GetThemeColor().antiPrimary} loading={isLoading} size={10} />
-        </div>
-      )}
-      { chatDone && finalResults && (
-        <div key={"finalResults"}>
-          <Separator className="my-4 md:my-8" />
-          <ChatMessage message={{id: chatID, role: 'assistant', 'content': finalResults}} chatDone={chatDone}/>
-        </div>
-      )}
+      { chatDone && (<FinalResult chatID={chatID} chatDone={chatDone} table={table} /> )}
     </div>
   )
 }

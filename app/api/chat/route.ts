@@ -3,7 +3,6 @@ import { StreamingTextResponse } from 'ai'
 import { HttpResponse, http } from 'msw';
 import { translate } from '@vitalets/google-translate-api';
 
-import { auth, clear } from '@/auth'
 import { nanoid } from '@/lib/utils'
 import { getPsyDIAgent } from '@/app/psydi'
 import { baiduTranslate } from '@/app/baidu_translate'

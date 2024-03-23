@@ -56,6 +56,7 @@ export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChar
 
   useEffect(() => {
     myChart = echarts.init(chartRef.current);
+
     let startPhase = 1
 
 //    var table = {
@@ -86,11 +87,13 @@ export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChar
       data.push([key, newTable[startPhase.toString()][key].toString()])
     };
 
+    myChart.clear()
+
     const option = {
       grid: {
         top: 10,
         bottom: 20,
-        left: 20,
+        left: 35,
         right: 20
       },
       xAxis: {
@@ -158,7 +161,7 @@ export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChar
             style: {
               text: `Phase ${startPhase}`,
               font: 'bolder 40px monospace',
-              fill: 'rgba(100, 100, 100, 0.25)'
+              fill: 'rgba(100, 100, 100, 0.5)'
             },
             z: 100
           }

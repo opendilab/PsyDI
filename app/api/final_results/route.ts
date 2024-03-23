@@ -4,7 +4,14 @@ import { getPsyDIAgent } from '@/app/psydi'
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const q = searchParams.get('q') || ""
-  const task = 'analysis'  // figure
+  let task = ''
+  if (q == 'analysis') {
+    task = 'analysis'
+  } else if (q == 'figure') {
+    task = 'figure'
+  } else {
+    return NextResponse.json({error: 'invalid query'})
+  }
   const agent = getPsyDIAgent()
   const [userId, _] = await agent.registerUser(false)
 

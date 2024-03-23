@@ -443,11 +443,11 @@ export class PsyDI {
             let finalResult = ""
             const finalIndex = (Object.keys(table).length).toString()
             if (lang == 'en') {
-                finalResult += `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
-                finalResult += `The specific changes in the scores of each MBTI type are visualized as follows: \n![head img](${headUrl}) ${printSortedFormattedObjectStats(table[finalIndex])}\n`
+                finalResult += `### Test Completed\n![head img](${headUrl}) \nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
+                finalResult += `The high propensity personality types, as well as the changes in MBTI personality type scores across various assessment stages, are as follows: ${printSortedFormattedObjectStats(table[finalIndex])}\n`
             } else if (lang == 'zh') {
-                finalResult += `### 测试完成\n\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
-                finalResult += `具体的各个 MBTI 类型评分变化情况可视化如下：\n![head img](${headUrl}) ${printSortedFormattedObjectStats(table[finalIndex])}\n`
+                finalResult += `### 测试完成\n![head img](${headUrl}) \n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
+                finalResult += `其中的高倾向人格类型，以及测评各阶段的 MBTI 人格类型评分变化情况如下：${printSortedFormattedObjectStats(table[finalIndex])}\n`
             }
 
             console.info(`[${payload.uid}]QA test done, the result is: `, finalResult);
