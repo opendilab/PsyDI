@@ -32,13 +32,26 @@ interface EChartsComponentProps {
 };
 export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChartsComponentProps) => {
   const chartRef = useRef(null);
-  const updateFrequency = 1500;
+  const updateFrequency = 1700;
   const [clicks, setClicks] = useState(0);
   // @ts-ignore
   let myChart = null;
 
   const handleDivClick = () => {
     setClicks(clicks + 1);
+  }
+  // select the top 8 types in table
+  const phaseNum = Object.keys(table).length;
+  const finalTable = table[phaseNum.toString()];
+  const topMBTI = Object.entries(finalTable).sort((a, b) => b[1] - a[1]).slice(0, 8).map((x) => x[0]);
+  const newTable: Record<string, Record<string, number>> = {};
+  for (let i = 1; i <= phaseNum; ++i) {
+    newTable[i.toString()] = {};
+    for (const [key, value] of Object.entries(table[i.toString()])) {
+      if (topMBTI.includes(key)) {
+        newTable[i.toString()][key] = value;
+      }
+    }
   }
 
   useEffect(() => {
@@ -69,15 +82,15 @@ export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChar
     let data = [
       ['MBTI type'].concat([`Phase ${startPhase}`]),
     ]
-    for (const [key, _] of Object.entries(mbtiColors)) {
-      data.push([key, table[startPhase.toString()][key].toString()])
+    for (const key of topMBTI) {
+      data.push([key, newTable[startPhase.toString()][key].toString()])
     };
 
     const option = {
       grid: {
         top: 10,
         bottom: 20,
-        left: 30,
+        left: 20,
         right: 20
       },
       xAxis: {
@@ -97,7 +110,7 @@ export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChar
         inverse: true,
         axisLabel: {
           show: true,
-          fontSize: 8,
+          fontSize: 12,
           formatter: function (value: any) {
             return value
           },
@@ -129,7 +142,7 @@ export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChar
             position: 'right',
             valueAnimation: true,
             fontFamily: 'monospace',
-            fontSize: 8,
+            fontSize: 12,
           }
         }
       ],
@@ -144,7 +157,7 @@ export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChar
             bottom: 20,
             style: {
               text: `Phase ${startPhase}`,
-              font: 'bolder 32px monospace',
+              font: 'bolder 40px monospace',
               fill: 'rgba(100, 100, 100, 0.25)'
             },
             z: 100
@@ -156,7 +169,7 @@ export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChar
     // @ts-ignore
     myChart.setOption(option);
 
-    for (let i = startPhase; i <= Object.keys(table).length; ++i) {
+    for (let i = startPhase; i <= Object.keys(newTable).length; ++i) {
       (function (i) {
         setTimeout(function () {
           updatePhase(i);
@@ -168,8 +181,8 @@ export const EChartsComponent: React.FC<EChartsComponentProps> = ({table}: EChar
       let source = [
         ['MBTI type'].concat([`Phase ${phase}`]),
       ]
-      for (const [key, _] of Object.entries(mbtiColors)) {
-        source.push([key, table[phase.toString()][key].toString()])
+      for (const key of topMBTI) {
+        source.push([key, newTable[phase.toString()][key].toString()])
       };
       (option as any).series[0].data = source.slice(1);
       (option as any).graphic.elements[0].style.text = `Phase ${phase}`;

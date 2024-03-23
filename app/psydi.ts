@@ -432,40 +432,28 @@ export class PsyDI {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
                 },
-                body: JSON.stringify({'uid': payload.uid}),
+                body: JSON.stringify({'uid': payload.uid, 'task': 'mbti'}),
             });
             const data = await response.json();
             const result = data.ret.result;
             const mbti = data.ret.mbti
             const table = data.ret.table
-            const naiveAttr = this.getNaiveAttrValue(table, mbti)
-            const imageUrl = data.ret?.image_url
             const headUrl = this.mbtiHeadUrls[mbti]
 
             let finalResult = ""
+            const finalIndex = (Object.keys(table).length).toString()
             if (lang == 'en') {
                 finalResult += `### Test Completed\n\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
-                finalResult += "Here is some detailed description about your personality:\n" + result
-                if (imageUrl !== 'null') {
-                    finalResult += `\n\nYour MBTI Badge and Personalized Characteristic Image are as follows: ![final img](${headUrl}) \n ![final img](${imageUrl})` 
-                }
+                finalResult += `The specific changes in the scores of each MBTI type are visualized as follows: \n![head img](${headUrl}) ${printSortedFormattedObjectStats(table[finalIndex])}\n`
             } else if (lang == 'zh') {
                 finalResult += `### 测试完成\n\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
-                const finalIndex = (Object.keys(table).length).toString()
-                finalResult += `具体的各个 MBTI 类型评分变化情况可视化如下：\n${printSortedFormattedObjectStats(table[finalIndex])}\n`
-                finalResult += "以下是关于你的详细描述：\n" + result
-                if (imageUrl !== 'null') {
-                    finalResult += `\n\n你的 MBTI 徽章和个性化形象图如下： ![final img](${headUrl}) \n ![final img](${imageUrl})` 
-                }
-                //finalResult += "测试完成后有任何反馈和建议都可以填写问卷来和我们联系（支持多次填写），感谢参与！[传送门](https://www.wjx.cn/vm/mrpdkZw.aspx#)"
+                finalResult += `具体的各个 MBTI 类型评分变化情况可视化如下：\n![head img](${headUrl}) ${printSortedFormattedObjectStats(table[finalIndex])}\n`
             }
 
             console.info(`[${payload.uid}]QA test done, the result is: `, finalResult);
             let resultExtras = {
                 mbti: mbti, 
                 headUrl: headUrl,
-                imageUrl: imageUrl,
-                naiveAttr: naiveAttr,
                 table: table,
             }
             return {done: true, 'response_string': finalResult, 'result_extras': resultExtras};

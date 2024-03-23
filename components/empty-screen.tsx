@@ -56,10 +56,20 @@ const exampleMessages = [
       image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qinshihuang.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1718888821&Signature=UdqxHZsodmRtjaoYfktc4Iw45W8%3D'
     },
     {
-      heading: '约尔 福杰 ESFJ',
+      heading: '约尔·福杰 ESFJ',
       subheading: '嗯，这可能听起来有点傻。但最近，我对自己作为妻子和母亲的能力有点不安。',
       image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_yueer.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1718888929&Signature=Orh4pM3CW0vlvgJBg%2F9y5aoodAk%3D'
     },
+    {
+      heading: '约翰·华生 ISFJ',
+      subheading: '无论多么艰难，我们都不能放弃追求真相。我总觉得这件事情背后隐藏着更大的秘密。',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huasheng.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1718904593&Signature=GNTT%2FXP7%2FuGg55rcVbHBxaxU4js%3D'
+    },
+    {
+      heading: '芙莉莲 INTP',
+      subheading: '作为一个几千岁的精灵，我的日常就是如此，我对人类不断变化和变老的过程感到惊讶。',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_fulilian.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1718905384&Signature=ENaqItkEs%2B5ksq18RxV48cfeNoM%3D',
+    }
 ]
 
 export interface EmptyScreenProps
@@ -104,7 +114,7 @@ export function EmptyScreen({ setInput, append, id, setStartTest }: EmptyScreenP
           { exampleMessages.map((example, index) => (
               <div
                 key={example.heading}
-                className={`cursor-pointer rounded-lg border bg-white p-3 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 shadow-md mb-8 ${
+                className={`cursor-pointer rounded-lg border bg-white p-3 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 shadow-md mb-1 ${
                   index > 1 && 'hidden md:block'
                 }`}
                 onClick={async () => {

@@ -1,4 +1,7 @@
+'use client'
+
 import { type Message } from 'ai'
+import { useState } from 'react'
 import { BeatLoader } from 'react-spinners'
 
 import { Separator } from '@/components/ui/separator'
@@ -189,9 +192,11 @@ if (lang === 'zh') {
 }
 
 export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
+  const [finalResults, setFinalResults] = useState(null);
   if (!messages.length) {
     return null
   }
+
   const chatID = messages[0].id;
   messages = messages.filter((message: Message) => message.role !== 'user' || !message.content.startsWith('start---'))
   var modifiedMessages = deepCopy(messages);
@@ -220,6 +225,11 @@ export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endPhaseTitle, role: "system"}); // insert system message
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endIntro, role: "system"}); // insert system message
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endDescription, role: "assistant"}); // insert assistant message
+    setTimeout(async () => {
+      const res = await fetch('/api/final_results?q=result');
+      const data = await res.json()
+      setFinalResults(data.ret.result);
+    }, 3000);
   }
 
   return (
@@ -241,6 +251,17 @@ export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
         </div>
       )}
       { chatDone && table && <EChartsComponent table={table}/>}
+      { chatDone && (finalResults === null) && ( 
+        <div className="flex items-center justify-center h-16">
+          <BeatLoader color={GetThemeColor().antiPrimary} loading={isLoading} size={10} />
+        </div>
+      )}
+      { chatDone && finalResults && (
+        <div key={"finalResults"}>
+          <Separator className="my-4 md:my-8" />
+          <ChatMessage message={{id: chatID, role: 'assistant', 'content': finalResults}} chatDone={chatDone}/>
+        </div>
+      )}
     </div>
   )
 }
