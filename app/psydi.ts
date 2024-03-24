@@ -13,12 +13,14 @@ var texts = {
   userPostsExamples: [] as string[], 
   explorationPhaseResponse: "",
   mbtiOptionResponse: "",
+  mbtiOptionResponseSupp: "",
   philosophyResponse: "",
   philosophyAnswers: "",
   blobTreeResponse: "",
+  blobTreeResponseSupp: "",
 };
 if (lang === 'zh') {
-    texts.userMusicResponse = "音乐是一种表达情感的通用语言，无论你来自何方，它都能让我们的心灵沟通无阻。作为沟通的第一步，您可以分享一首您最喜欢的音乐，或者您最近常听的一首歌。"
+    texts.userMusicResponse = "音乐是一种表达情感的通用语言，无论你来自何方，它都能让我们的心灵沟通无阻。作为沟通的第一步，您可以分享一首您最喜欢的音乐，或者您最近常听的一首歌。（系统会尝试结合曲库搜素，您可直接输入发送或等待智能搜索结果再确认）"
     texts.userPostsResponse = "接下来，让我们从日常生活聊起。最近有什么趣事吗？您有什么想法和感受？在您输入一段想法后请点击提交。（多条动态之间以中文分号分隔）\n以下是一些参考示例：\n"
     texts.userPostsExamples = [
       "> 我喜欢与不同的人聊天，分享我的经历。我也喜欢听他们的故事。与人交谈让我能发现新乐趣。",
@@ -27,9 +29,11 @@ if (lang === 'zh') {
       "> 我觉得似乎没有人愿意谈论对我最重要的事情，或者似乎没有人关心这些事情。如果我最终谈论到我的兴趣，似乎对方会感到烦恼或无聊。",
     ]
     texts.mbtiOptionResponse = "首先，我很好奇您对于视觉艺术的喜好。请在以下九张图片中选择您最喜欢的一张，并告诉我您选择的编号。" 
+    texts.mbtiOptionResponseSupp = "（在下方输入对应的图片编号 1-9 ）"
     texts.philosophyResponse = "著名的“电车难题”是一个富有争议的话题。我很想听听您的想法，请选择一项最符合的，或直接告诉我您的见解。"
     texts.philosophyAnswers = "(A) 什么也不做，让列车按照正常路线碾压过这五个人。\n(B) 拉下操纵杆，改变为另一条轨道，使列车压过另一条轨道上的那个人。\n(C) 冲向轨道用肉身拦住电车救下六个人。\n(D) 什么都不做，因为没有任何一种选择本质上是好的还是坏的。"
     texts.blobTreeResponse = "然后，请在以下图片中选择一个让您感到最舒适安心的位置，并告知我对应的编号。"
+    texts.blobTreeResponseSupp = "（在下方输入对应的 blob 编号 1-21 ）"
 } else if (lang === 'en') {
     texts.userMusicResponse = "Music is a universal language that expresses emotions. No matter where you come from, it can help our hearts communicate without barriers. As the first step of communication, you can share a song you like the most, or a song you often listen to recently."
     texts.userPostsResponse = "Then, let's start with your daily life. What's new? What are your thoughts and feelings? Please submit your thoughts after you type them in (separate multiple posts with a semicolon or new line).\nHere are some examples for your reference:\n"
@@ -532,10 +536,10 @@ export class PsyDI {
       // post user posts
       this.postPosts(payload);
       await sleep(Math.floor(Math.random() * 1000) + 1500);
-      return {'done': false, 'response_string': texts.mbtiOptionResponse + `![alt text](${process.env.MBTI_OPTION_IMAGE_URL})`};
+      return {'done': false, 'response_string': texts.mbtiOptionResponse + `![alt text](${process.env.MBTI_OPTION_IMAGE_URL})${texts.mbtiOptionResponseSupp}`};
     } else if (turnCount === (this.phase2StartTurnCount + 1)) {
       await sleep(Math.floor(Math.random() * 1000) + 500);
-      return {'done': false, 'response_string': texts.blobTreeResponse + `![alt text](${process.env.BLOB_TREE_IMAGE_URL})`};
+      return {'done': false, 'response_string': texts.blobTreeResponse + `![alt text](${process.env.BLOB_TREE_IMAGE_URL})${texts.blobTreeResponseSupp}`};
     }
 
     // 2. generated questions

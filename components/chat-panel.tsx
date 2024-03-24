@@ -195,7 +195,6 @@ export function ChatPanel({
   const isMultiSelect = messages?.length > 13 && (question) && (question.includes('(D') || question.includes('D)'))
   const isFree = !isMultiSelect && (question) && (!question.includes('(A') && !question.includes('A)'))
 
-
   const getQuestionOptionText = (originalInput: string, prefix: string) => {
     if (messages?.length === 0) {
       return ""
@@ -261,6 +260,7 @@ export function ChatPanel({
     return question.includes(prefix)
   }
 
+  const disableSubmit = messages?.length < 2
   let placeholder = ''
   let enableOptionButtons = false
   if (isLoading) {
@@ -420,6 +420,7 @@ export function ChatPanel({
             placeholder={placeholder}
             handleNewChat={handleNewChat}
             isSearch={isSearch}
+            disableSubmit={disableSubmit}
           />
           <FooterText className="hidden sm:block" />
         </div>

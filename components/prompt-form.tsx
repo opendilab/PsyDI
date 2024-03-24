@@ -47,6 +47,7 @@ export interface PromptProps
   placeholder: string
   handleNewChat: () => void
   isSearch: boolean
+  disableSubmit: boolean
 }
 
 type ListItem = {
@@ -62,6 +63,7 @@ export function PromptForm({
   placeholder,
   handleNewChat,
   isSearch,
+  disableSubmit,
 }: PromptProps) {
   const { formRef, onKeyDown } = useEnterSubmit()
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
@@ -100,12 +102,21 @@ export function PromptForm({
       }
     }
   };
+  const specialOnKeyDown = (
+    event: React.KeyboardEvent<HTMLTextAreaElement>
+  ): void => {
+    if (!(isLoading || input === '' || disableSubmit)) {
+      onKeyDown(event)
+    }
+  }
 
   // <li className="result-item"><BeatLoader color={GetThemeColor().antiPrimary} loading={results.length === 0} size={8} /></li>
   return (
     <form
       onSubmit={async e => {
         setResults([]);  // clear last search results
+        setIsTyping(false);
+        setIsSearching(false);
         e.preventDefault()
         if (!input?.trim()) {
           return
@@ -134,7 +145,7 @@ export function PromptForm({
         <Textarea
           ref={inputRef}
           tabIndex={0}
-          onKeyDown={onKeyDown}
+          onKeyDown={specialOnKeyDown}
           rows={1}
           value={input}
           onChange={handleInputChange}
@@ -183,7 +194,7 @@ export function PromptForm({
               <Button
                 type="submit"
                 size="icon"
-                disabled={isLoading || input === ''}
+                disabled={isLoading || input === '' || disableSubmit}
               >
                 <IconArrowElbow />
                 <span className="sr-only">{texts.sendMessage}</span>
