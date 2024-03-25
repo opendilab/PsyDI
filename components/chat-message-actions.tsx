@@ -46,12 +46,12 @@ export function ChatMessageActions({
     >
      {message.role !== 'user' ? (
       <Button variant="ghost" size="icon" onClick={onThumb}>
-        {isThumbed ? <ThumbUpIcon fontSize="small" /> : <ThumbUpAltOutlinedIcon fontSize="small"/>}
+        {isThumbed ? <ThumbUpIcon sx={{ fontSize: 16 }} /> : <ThumbUpAltOutlinedIcon sx={{ fontSize: 16 }}/>}
         <span className="sr-only">Thumb agent question</span>
       </Button>
      ): null}
       <Button variant="ghost" size="icon" onClick={onCopy}>
-        {isCopied ? <IconCheck /> : <ContentCopyOutlinedIcon fontSize="small"/>}
+        {isCopied ? <IconCheck /> : <ContentCopyOutlinedIcon sx={{ fontSize: 16 }}/>}
         <span className="sr-only">Copy message</span>
       </Button>
     </div>
