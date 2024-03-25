@@ -37,14 +37,14 @@ if (lang === 'zh') {
     texts.intro1 = "您好，我是由 "
     texts.intro2 = "开发的 MBTI 测评 AI 智能体，希望通过轻松的对话，共同探索您独特的个性和倾向。"
     texts.intro3 = "为了更好地了解您，我会先询问您最近的一些想法，然后邀请您完成一个简单有趣的测试。这将帮助我捕捉到您珍贵的内在世界。基于对您的了解，我会进一步提出问题来探寻您内在的动机，您只需要放松地选出最让您感到舒适的选项。最终，我们将一起解读测试结果，生成定制虚拟人格形象，帮助您更好地发现自我。"
-    texts.start = "现在开始测试"
+    texts.start = "现在开始测试（入口）"
     texts.examples = "经典人物测试样例"
 } else if (lang === 'en') {
     texts.welcome = 'Welcome to PsyDI!'
     texts.intro1 = "Hi, I am an MBTI Agent developed by "
     texts.intro2 = ". I hope to explore your unique personality and tendencies through a relaxed conversation."
     texts.intro3 = "You can start a MBTI exploration with your posts or try the following examples:"
-    texts.start = "Start the test now"
+    texts.start = "Start the test now (Entry)"
 } else {
   // raise error  
   throw new Error('Language not supported: ' + lang)
@@ -85,7 +85,7 @@ export function EmptyScreen({ setInput, append, id, setStartTest }: EmptyScreenP
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="rounded-lg border bg-background p-8">
-        <h1 className="mb-2 text-lg font-semibold">
+        <h1 className="mb-2 text-xl font-semibold">
           {texts.welcome}
         </h1>
         <p className="mb-2 leading-normal text-muted-foreground">
@@ -98,7 +98,7 @@ export function EmptyScreen({ setInput, append, id, setStartTest }: EmptyScreenP
           {texts.intro3}
         </p>
         <div className="mt-4 flex flex-col items-start space-y-2">
-          <Button variant="link" className="h-auto p-0 text-base" onClick={
+          <Button variant="link" className="h-auto p-0 text-lg" onClick={
             async () => {
               setStartTest && setStartTest(true)
             }

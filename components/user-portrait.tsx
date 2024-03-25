@@ -26,9 +26,9 @@ var texts: Texts = {
 }
 if (lang === 'zh') {
     texts.title = "在进入测试之前，PsyDI 将先为您构筑一个简明的人格画像，请尽可能选择与您相符的标签。（默认单选，兴趣爱好可多选）"
-    texts.sectionNames = ["年龄段", "地区", "职业", "生活态度", "科技态度", "兴趣爱好（多选）", "您的标签"]
+    texts.sectionNames = ["年龄段（单选）", "地区（单选）", "职业（单选）", "生活态度（单选）", "科技态度（单选）", "兴趣爱好（多选）", "您的标签"]
     texts.backendSectionNames = ["年龄", "地区", "职业", "生活态度", "对待科技态度", "爱好"]
-    texts.skip = "跳过本章节（低定制化）"
+    texts.skip = "跳过【个性化标签】章节"
     texts.finalHint = "再次点击标签以取消选择，点击右下箭头进入对话"
 } else if (lang === 'en') {
     texts.title = "Before the test, PsyDI will first build a brief personality portrait for you. Please select as many tags as possible that match you. (Default single choice, multiple choices for hobbies)"
