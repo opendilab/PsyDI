@@ -18,7 +18,6 @@ interface FinalResultProps {
 export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table}: FinalResultProps) => {
   const [finalResults, setFinalResults] = useState(null);
   const [userImgUrl, setUserImgUrl] = useState(null);
-  console.log('loaderd')
   
   useEffect(() => {
     setTimeout(async () => {

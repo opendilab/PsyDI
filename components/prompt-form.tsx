@@ -113,6 +113,7 @@ export function PromptForm({
   // <li className="result-item"><BeatLoader color={GetThemeColor().antiPrimary} loading={results.length === 0} size={8} /></li>
   return (
     <form
+      style={{ marginTop: '1px' }}
       onSubmit={async e => {
         setResults([]);  // clear last search results
         setIsTyping(false);
@@ -151,7 +152,7 @@ export function PromptForm({
           onChange={handleInputChange}
           placeholder={placeholder}
           spellCheck={false}
-          className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
+          className="min-h-[60px] max-h-[90px] overflow-auto w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
         />
         {isTyping && (
           <ul className="results-list">
