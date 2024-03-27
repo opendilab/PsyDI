@@ -27,7 +27,7 @@ export interface ChatPanelProps
   > {
   chatDone: boolean
   id?: string
-  setStartTest: (value: boolean) => void
+  handleReset: () => void
   takeFullPageScreenshot: () => void
 }
 
@@ -134,7 +134,7 @@ export function ChatPanel({
   messages,
   setMessages,
   chatDone,
-  setStartTest,
+  handleReset,
   takeFullPageScreenshot
 }: ChatPanelProps) {
   const router = useRouter()
@@ -153,7 +153,7 @@ export function ChatPanel({
   };
 
   const handleConfirmNewChat = () => {
-    setStartTest(false)
+    handleReset()
     router.refresh()
     router.push('/')
   };

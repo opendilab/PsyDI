@@ -61,7 +61,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   const [table, setTable] = useState(null)
   const [responseStart, setResponseStart] = useState(false)
   const [startTest, setStartTest] = useState(false)
-  const { messages, append, reload, stop, setMessages, isLoading, input, setInput} =
+  const { messages, append, reload, stop, setMessages, isLoading, input, setInput } =
     useChat({
       initialMessages,
       id,
@@ -111,6 +111,11 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     }, 10)
     return ret
   }
+
+  const handleReset = () => {
+    setStartTest(false)
+    setChatDone(false)
+  }
   return (
     <>
       <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>
@@ -138,7 +143,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         setInput={setInput}
         setMessages={setMessages}
         chatDone={chatDone}
-        setStartTest={setStartTest}
+        handleReset={handleReset}
         takeFullPageScreenshot={takeFullPageScreenshot}
       />
 

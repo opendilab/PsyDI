@@ -25,15 +25,15 @@ var texts: Texts = {
   finalHint: ''
 }
 if (lang === 'zh') {
-    texts.title = "在进入测试之前，PsyDI 将先为您构筑一个简明的人格画像，请尽可能选择与您相符的标签。（默认单选，兴趣爱好可多选）"
-    texts.sectionNames = ["年龄段（单选）", "地区（单选）", "职业（单选）", "生活态度（单选）", "科技态度（单选）", "兴趣爱好（多选）", "您的标签"]
-    texts.backendSectionNames = ["年龄", "地区", "职业", "生活态度", "对待科技态度", "爱好"]
+    texts.title = "在进入测试之前，PsyDI 将先为您构筑一个简明的人格画像，请尽可能选择与您相符的标签。（默认单选，兴趣爱好和个性标签可多选）"
+    texts.sectionNames = ["年龄段（单选）", "地区（单选）", "职业（单选）", "生活态度（单选）", "科技态度（单选）", "兴趣爱好（多选）", "个性标签（多选）", "您的标签"]
+    texts.backendSectionNames = ["年龄", "地区", "职业", "生活态度", "对待科技态度", "爱好", "个性标签"]
     texts.skip = "跳过【个性化标签】章节"
     texts.finalHint = "再次点击标签以取消选择，点击右下箭头进入对话"
 } else if (lang === 'en') {
-    texts.title = "Before the test, PsyDI will first build a brief personality portrait for you. Please select as many tags as possible that match you. (Default single choice, multiple choices for hobbies)"
-    texts.sectionNames = ["Age", "Region", "Occupation", "Life Attitude", "Attitude Towards Technology", "Hobbies (Multiple Choices)", "Your Tags"]
-    texts.backendSectionNames = ["Age", "Region", "Occupation", "Life Attitude", "Attitude Towards Technology", "Hobbies"]
+    texts.title = "Before entering the test, PsyDI will first build a concise personality portrait for you. Please select the tags that match you as much as possible. (Default single selection, multiple choices for hobbies and personality tags)" 
+    texts.sectionNames = ["Age group (single selection)", "Region (single selection)", "Occupation (single selection)", "Life attitude (single selection)", "Attitude towards technology (single selection)", "Hobbies (multiple selection)", "Personality tags (multiple selection)", "Your tags"]
+    texts.backendSectionNames = ["Age", "Region", "Occupation", "Life attitude", "Attitude towards technology", "Hobbies", "Personality tags"]
     texts.skip = "Skip this section and go directly to the test (The customization level of the test will be reduced)"
     texts.finalHint = "Click the tag again to cancel the selection. Click the arrow in the lower right corner to enter the next section"
 }
@@ -42,6 +42,7 @@ type Tag = {
   id: number;
   name: string;
   selected: boolean;
+  backendName?: string;
 };
 
 // TODO other language tags
@@ -88,13 +89,41 @@ const initialTags: Tag[][] = [
     { id: 12, name: '养生', selected: false},
     { id: 13, name: '历史', selected: false},
   ],
+  [
+    { id: 1, name: '跳舞', selected: false},
+    { id: 2, name: '吃货', selected: false, backendName: '探索美食'},
+    { id: 3, name: '钢琴', selected: false},
+    { id: 4, name: '篮球', selected: false},
+    { id: 5, name: '铲屎官', selected: false, backendName: '养宠物'},
+    { id: 6, name: '聚会', selected: false},
+    { id: 7, name: '吉他', selected: false},
+    { id: 8, name: '手工', selected: false},
+    { id: 9, name: 'K歌', selected: false},
+    { id: 10, name: '桌游', selected: false},
+    { id: 11, name: '背包客', selected: false, backendName: '户外探险旅行'},
+    { id: 12, name: '摄影', selected: false},
+    { id: 13, name: '写作', selected: false},
+    { id: 14, name: '技术宅', selected: false, backendName: '编程工作，极客精神'},
+    { id: 15, name: '绘画', selected: false},
+    { id: 16, name: '夜猫子', selected: false, backendName: '熬夜'},
+    { id: 17, name: '烹饪', selected: false},
+    { id: 18, name: '选择恐惧症', selected: false, backendName: '纠结选择的场景'},
+    { id: 19, name: '运动达人', selected: false},
+    { id: 20, name: '美妆达人', selected: false},
+    { id: 21, name: '逛街', selected: false},
+    { id: 22, name: '追剧', selected: false, backendName: '看电视剧'},
+    { id: 23, name: '泡吧', selected: false, backendName: '去酒吧'},
+    { id: 24, name: 'ACG', selected: false, backendName: '喜欢动漫、漫画、游戏'},
+  ],
 ]
 
 function getSelectedTags(tags: Tag[][]) {
   const sections = tags.map((section) => section.filter((tag) => tag.selected).map((tag) => ({ id: tag.id, name: tag.name }) ))
-  const sectionWithNames = texts.backendSectionNames.map((name, index) => ({ name, tags: sections[index].map((tag) => tag.name)}))
   const unrepeatedSections = texts.backendSectionNames.map((name, index) => sections[index].map((tag) => ({ name: (tag.name == '其他' ? name + "-" + tag.name : tag.name), id: tag.id, sectionIndex: index }) ))
   const pureTags = unrepeatedSections.reduce((acc, val) => acc.concat(val), [])
+  
+  const sectionsBackend = tags.map((section) => section.filter((tag) => tag.selected).map((tag) => ({ id: tag.id, name: tag?.backendName || tag.name }) ))
+  const sectionWithNames = texts.backendSectionNames.map((name, index) => ({ name, tags: sectionsBackend[index].map((tag) => tag.name)}))
   const stringTags = sectionWithNames.map((section) => `${section.name}: ${section.tags.join(', ')}`).join(';')
   return {'stringTags': stringTags, 'tags': pureTags}
 }
@@ -124,7 +153,7 @@ export function UserPortrait({ append, id }: UserPortraitProps) {
       currentSection === index ? updatedTags : section
     )
     setTags(updatedSection);
-    if (!isSelected && currentSection < tags.length - 1) {  // single select mode will auto go to next section
+    if (!isSelected && currentSection < tags.length - 2) {  // single select mode will auto go to next section
       setTimeout(() => {
         setCurrentSection(Math.min(tags.length, currentSection + 1))
       }, 500)
