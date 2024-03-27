@@ -1,6 +1,5 @@
 import { kv } from '@vercel/kv'
 import { auth, clear, getTurnCount, setTurnCount } from '@/auth'
-import { baiduTranslate } from '@/app/baidu_translate'
 import { NeteaseCloud } from '@/lib/neteasecloud'
 
 const lang = process.env.LANG || 'zh' // default to zh
@@ -592,16 +591,11 @@ export class PsyDI {
         const data = await response.json();
         code = data.code;
         if (code === 0 && endpoint === 'post_user_pre_answer') {
-            const newExplanation = await baiduTranslate(data.ret.post, 'en', 'zh')
-            await kv.hset(`ucount:${uid}chat:${turnCount}`, {post: newExplanation});
+            await kv.hset(`ucount:${uid}chat:${turnCount}`, {post: data.ret.post});
         }
-        //if (code === 0 && endpoint === 'post_user_answer') {
-        //   const newExplanation = await baiduTranslate(data.ret.post, lang, 'en')
-        //    await kv.hset(`ucount:${uid}chat:${turnCount}`, {post: newExplanation});
-        //}
         } catch (error) {
-        console.error(`[${uid}]Comm Error:`, error);
-        throw error;
+          console.error(`[${uid}]Comm Error:`, error);
+          throw error;
       }
     }
 

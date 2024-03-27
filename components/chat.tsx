@@ -1,6 +1,9 @@
 'use client'
 
 import { useChat, type Message } from 'ai/react'
+import { useState } from 'react'
+import html2canvas from 'html2canvas';
+import Box from '@mui/material/Box';
 
 import { cn } from '@/lib/utils'
 import { ChatList } from '@/components/chat-list'
@@ -17,10 +20,10 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
-import { useState } from 'react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { errorToaster } from './toaster'
+import { LinearProgressWithLabel } from '@/components/progress-bar'
 
 const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
 export interface ChatProps extends React.ComponentProps<'div'> {
@@ -28,7 +31,6 @@ export interface ChatProps extends React.ComponentProps<'div'> {
   id?: string
 }
 
-import html2canvas from 'html2canvas';
 
 const takeFullPageScreenshot = () => {
   html2canvas(document.getElementById('chat-list') || document.body, {
@@ -61,6 +63,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   const [table, setTable] = useState(null)
   const [responseStart, setResponseStart] = useState(false)
   const [startTest, setStartTest] = useState(false)
+  const [percent, setPercent] = useState(0)
   const { messages, append, reload, stop, setMessages, isLoading, input, setInput } =
     useChat({
       initialMessages,
@@ -103,6 +106,8 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     })
   const appendWithScroll = (message: any): Promise<string | null | undefined> => {
     const ret = append(message)
+    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 2.3 + Math.random() * 2
+    setPercent(currentPercent)
     setTimeout(() => {
       window.scrollTo({
         top: document.body.offsetHeight,
@@ -115,9 +120,13 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   const handleReset = () => {
     setStartTest(false)
     setChatDone(false)
+    setPercent(0)
   }
   return (
     <>
+      <Box sx={{ width: '100%' }} className="fixed">
+        <LinearProgressWithLabel value={percent} />
+      </Box>
       <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>
         {messages.length ? (
           <>
