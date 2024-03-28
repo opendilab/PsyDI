@@ -41,12 +41,22 @@ const takeFullPageScreenshot = () => {
     //foreignObjectRendering: true,
     //letterRendering: true,
   }).then((canvas) => {
-    const imgData = canvas.toDataURL('image/png');
+    const data = canvas.toDataURL('image/png');
+    //const blob = canvas.toBlob(blob => blob, 'image/png');
+    //if (blob === null) {
+    //  console.error('Failed to convert canvas to blob');
+    //  return;
+    //}
+    // @ts-ignore
+    //const data = URL.createObjectURL(blob);
 
     const link = document.createElement('a');
-    link.download = 'full-page-screenshot.png';
-    link.href = imgData;
+    link.download = 'psydi_final_full.png';
+    link.href = data;
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(data);
   }).catch((error) => {
     console.error('takeFullPageScreenshot failed', error);
   });
@@ -106,7 +116,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     })
   const appendWithScroll = (message: any): Promise<string | null | undefined> => {
     const ret = append(message)
-    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 2.3 + Math.random() * 2
+    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 2.1 + Math.random() * 1.9
     setPercent(currentPercent)
     setTimeout(() => {
       window.scrollTo({
