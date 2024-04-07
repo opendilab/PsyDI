@@ -172,6 +172,7 @@ export function PromptForm({
           margin: 0;
           padding: 0;
           border: 1px solid #ccc;
+          border-radius: 4px;
         }
         
         .result-item {

@@ -90,6 +90,9 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             errorToaster("服务器超时错误，请点击左下角'加号'按钮重启评测，并稍后再试", 10000)
         }
         setChatDone(response.headers.get('chat-done') === 'true')
+        if (chatDone) {
+           setPercent(100)
+        }
         // @ts-ignore
         const table = response.headers.get('table')
         if (table !== 'null') {
@@ -116,7 +119,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     })
   const appendWithScroll = (message: any): Promise<string | null | undefined> => {
     const ret = append(message)
-    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 2.1 + Math.random() * 1.9
+    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 1.9 + Math.random() * 1.8
     setPercent(currentPercent)
     setTimeout(() => {
       window.scrollTo({
@@ -134,7 +137,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   }
   return (
     <>
-      <Box sx={{ width: '100%' }} className="fixed">
+      <Box sx={{ width: '100%' }} className="fixed z-50">
         <LinearProgressWithLabel value={percent} />
       </Box>
       <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>
@@ -151,7 +154,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
           )
         )}
       </div>
-      <ChatPanel
+      { startTest && messages?.length >= 1 && (<ChatPanel
         id={id}
         isLoading={isLoading || chatDone}
         stop={stop}
@@ -165,6 +168,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         handleReset={handleReset}
         takeFullPageScreenshot={takeFullPageScreenshot}
       />
+      )}
 
       <Dialog open={previewTokenDialog} onOpenChange={setPreviewTokenDialog}>
         <DialogContent>

@@ -98,37 +98,22 @@ export class PsyDI {
   private visualArtChoicePrefix: string = '';
   private musicProxy: NeteaseCloud;
   private mbtiHeadUrls: Record<string, string> = {
-    'ISTJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fistj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=92BfIcC0qlWv7JX3c%2BEnyZD9CMQ%3D",
-
-    'ISFJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fisfj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=Y1AWQpn13hxRo1LDzPD1OKZ0xf0%3D",
-
-    'INFJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Finfj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=OJmvjJWiyRCRrwSPXTeD7vEYeEc%3D",
-
-    'INTJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fintj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=Fkq1YRUJWHMkXPUS2whNm%2BhatjA%3D",
-
-    'ISTP': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fistp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=NA65XH4Xg%2F3z0Bv7t1xARq329QI%3D",
-
-    'ISFP': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fisfp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=MNIVTjj%2B8fU0YXpdFR8TxQ%2BDNl8%3D",
-
-    'INFP': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Finfp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=738Oo393hwiNBIiciFEKbZ74uZI%3D",
-
-    'INTP': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fintp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=7uH%2F5%2BRU%2B%2Beqnt2ryeDyrvJ9%2FC0%3D",
-
-    'ESTP': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Festp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=aLHC6U4tRqLOlj%2BdoEzkPUPUyTI%3D",
-
-    'ESFP': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fesfp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=34TzshsZTsxStL2fDeMBd8faxPA%3D",
-
-    'ENFP': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fenfp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=gt3gmvZMxbdxvNwtm099IRF00vU%3D",
-
-    'ENTP': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fentp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=sa4NMevLmGK5ksWozxkwuokX2j8%3D",
-
-    'ESTJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Festj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=ubXcrS5D%2BtlUbP%2B7y6ETXqwgPSo%3D",
-
-    'ESFJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fesfj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=p9J2gZr3F8b5EXpqlobJuuDgW00%3D",
-
-    'ENFJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fenfj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=97u1MQr1RCDsN1msfXeTo204RSk%3D",
-
-    'ENTJ': "https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fentj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1711908537&Signature=WJB49ZObC7bgL03sId%2F2DZZ8riA%3D",
+    'ISTJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fistj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=%2FxkXEFlDVYXFVYK5oLWwVOWID6w%3D',
+    'ISFJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fisfj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=nqqHJBSys7rJqohJ0jr9gmt4BYU%3D',
+    'INFJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Finfj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=K5yFV4v7X6%2F0lpKL%2BX35QV88RdI%3D',
+    'INTJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fintj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=Qxgoz9Dy2XdjOZ%2FBviDSCRA%2FfEs%3D',
+    'ISTP': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fistp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=fbbhzhc2k7EUMFhR4FwKtNmtjEM%3D',
+    'ISFP': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fisfp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=cxzYjOgkc4iCL7lGtjNjt%2BaH%2FfY%3D',
+    'INFP': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Finfp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=M6Hhj4QlxXblH7bp4opRelI3i6w%3D',
+    'INTP': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fintp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=dsnX3g10Lkcj5rjID%2BwFGp2sr%2Bo%3D',
+    'ESTP': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Festp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=m%2BWkXERFFkk%2FW6lYHdhJ%2FZnd6s4%3D',
+    'ESFP': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fesfp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=YoKruBiMadzo%2FXoY2sXlLpJtKTM%3D',
+    'ENFP': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fenfp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=e3Hk53UBhh4Sv%2FLWMGESUxHLO60%3D',
+    'ENTP': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fentp.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=M4WZHVZ5THJ%2FHNSSrBuuVJyECbc%3D',
+    'ESTJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Festj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=jhaqUg4XkqHPn%2FKn%2BlAnFM7pAQA%3D',
+    'ESFJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fesfj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=kFCHWhGQYgbktY8Yr5nAEyCwRpU%3D',
+    'ENFJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fenfj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=jKimGeWuMSjmntLgaitris1y%2FXw%3D',
+    'ENTJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fentj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=knO6vixIEvrodg2EFaOncl31VSY%3D',
   };
   private musicLabelExample: Record<string, string> = {
     '曲名': '愿与愁',
