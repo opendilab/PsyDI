@@ -1,6 +1,7 @@
 import { kv } from '@vercel/kv'
 import { auth, clear, getTurnCount, setTurnCount } from '@/auth'
 import { NeteaseCloud } from '@/lib/neteasecloud'
+import { mbtiExplanation } from '@/app/mbti-explanation'
 
 const lang = process.env.LANG || 'zh' // default to zh
 const assert = require('assert');
@@ -481,6 +482,8 @@ export class PsyDI {
                 finalResult += `The high propensity personality types, as well as the changes in MBTI personality type scores across various assessment stages, are as follows: \n${printSortedFormattedObjectStats(table[finalIndex])}\n`
             } else if (lang == 'zh') {
                 finalResult += `### 测试完成\n![head img](${headUrl}) \n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
+                // @ts-ignore
+                finalResult += mbtiExplanation[mbti] + '\n'
                 finalResult += `其中的高倾向人格类型，以及测评各阶段的 MBTI 人格类型评分变化情况如下：\n${printSortedFormattedObjectStats(table[finalIndex])}\n`
             }
 
