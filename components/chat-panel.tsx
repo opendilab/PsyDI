@@ -42,6 +42,7 @@ var texts = {
   musicPlaceholder: '',
   postPlaceholder: '',
   imgPlaceholder: '',
+  imgExtensionPlaceholder: '',
   philosophyPlacehodler: '',
   blobTreePlaceholder: '',
   QAPlaceholder: '',
@@ -50,6 +51,7 @@ var texts = {
   generate: '',
   stop: '',
   imgErrorInfo: '',
+  imgExtensionErrorInfo: '',
   blobTreeErrorInfo: '',
   singleSelectErrorInfo: '',
   retest: '',
@@ -60,6 +62,7 @@ if (lang === 'zh') {
   texts.musicPlaceholder = '请输入一首您喜欢的歌曲名。'
   texts.postPlaceholder = '请输入您的个人动态（以中文分号或换行符分隔）。'
   texts.imgPlaceholder = '请选择您喜欢的图片选项。(1-9)'
+  texts.imgExtensionPlaceholder = '请选择您喜欢的图片选项。(1-5)'
   texts.philosophyPlacehodler = '请选择上面的选项 (ABCD) 或输入您自己的答案。'
   texts.blobTreePlaceholder = '请输入您的选择的 blob 数字（1-21）。'
   texts.QAPlaceholder = '（单选）选择上面的选项 (ABCD) ，并点击发送。'
@@ -68,6 +71,7 @@ if (lang === 'zh') {
   texts.generate = '重新生成回复'
   texts.stop = '停止生成'
   texts.imgErrorInfo = '格式错误，请仅输入 1-9 之间的数字。'
+  texts.imgExtensionErrorInfo = '格式错误，请仅输入 1-5 之间的数字。'
   texts.blobTreeErrorInfo = '格式错误，请仅输入 1-21 之间的数字。'
   texts.singleSelectErrorInfo = '单选题只能选择一个预设选项。'
   texts.retest = '重新评测'
@@ -77,6 +81,7 @@ if (lang === 'zh') {
   texts.musicPlaceholder = 'Please enter the name of a song you like.'
   texts.postPlaceholder = 'Please enter your personal posts (separated by semicolons or newlines).'
   texts.imgPlaceholder = 'Please select your favourite images options (1-9).'
+  texts.imgExtensionPlaceholder = 'Please select your favourite images options (1-5).'
   texts.philosophyPlacehodler = 'Please select above options (ABCD) or enter your own answer.'
   texts.blobTreePlaceholder = 'Please enter the blob number of your choice (1-21).'
   texts.QAPlaceholder = '(Single select) Select above options (ABCD) and click send.' 
@@ -85,6 +90,7 @@ if (lang === 'zh') {
   texts.generate = 'Regenerate response'
   texts.stop = 'Stop generating'
   texts.imgErrorInfo = 'Answer format error, please enter only numbers between 1-9.'
+  texts.imgExtensionErrorInfo = 'Answer format error, please enter only numbers between 1-5.'
   texts.blobTreeErrorInfo = 'Answer format error, please enter only numbers between 1-21.'
   texts.singleSelectErrorInfo = 'Single select question can only select one of the preset options.'
   texts.retest = 'Test again'
@@ -178,11 +184,18 @@ export function ChatPanel({
     } else if (messages?.length === 8) {
       const intValue = parseInt(value)
       // @ts-ignore
+      if (!Number.isInteger(Number(value)) || intValue < 1 || intValue > 5) {
+        errorToaster(texts.imgExtensionErrorInfo)
+        return false
+      }
+    } else if (messages?.length === 10) {
+      const intValue = parseInt(value)
+      // @ts-ignore
       if (!Number.isInteger(Number(value)) || intValue < 1 || intValue > 21) {
         errorToaster(texts.blobTreeErrorInfo)
         return false
       }
-    } else if (messages?.length === 10 || messages?.length === 12) {
+    } else if (messages?.length === 12 || messages?.length === 14) {
       if (!value.match(/^\(A|B|C|D\).*$/)) {
         errorToaster(texts.singleSelectErrorInfo)
         return false
@@ -192,7 +205,7 @@ export function ChatPanel({
   };
   const question = messages[messages.length - 1]?.content
   // only two options means it's a single select question
-  const isMultiSelect = messages?.length > 13 && (question) && (question.includes('(D') || question.includes('D)'))
+  const isMultiSelect = messages?.length > 15 && (question) && (question.includes('(D') || question.includes('D)'))
   const isFree = !isMultiSelect && (question) && (!question.includes('(A') && !question.includes('A)'))
 
   const getQuestionOptionText = (originalInput: string, prefix: string) => {
@@ -273,14 +286,16 @@ export function ChatPanel({
     placeholder = texts.postPlaceholder
   } else if (messages?.length === 6) {
     placeholder = texts.imgPlaceholder
-  } else if (messages?.length === 8){ 
+  } else if (messages?.length === 8) {
+    placeholder = texts.imgExtensionPlaceholder
+  } else if (messages?.length === 10){ 
     placeholder = texts.blobTreePlaceholder
-  } else if (messages?.length > 9 && messages?.length <= 13) { 
+  } else if (messages?.length > 11 && messages?.length <= 15) { 
     placeholder = texts.QAPlaceholder
     if (messages[messages.length - 1].role === 'assistant') {
       enableOptionButtons = true
     }
-  } else if (messages?.length > 13){ 
+  } else if (messages?.length > 15){ 
     if (isMultiSelect) {
       placeholder = texts.QAPlaceholderComplex
     } else {
@@ -298,7 +313,7 @@ export function ChatPanel({
   }
   const isSearch = messages?.length === 2
   // TODO: add backstep when isLoading
-  const isAvailableReanswer = !isLoading && !chatDone && ((messages?.length > 6 && messages?.length < 13) || (messages?.length > 14))
+  const isAvailableReanswer = !isLoading && !chatDone && ((messages?.length > 6 && messages?.length < 15) || (messages?.length > 16))
 
   return (
     <div className="fixed inset-x-0 bottom-0">

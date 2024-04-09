@@ -119,7 +119,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     })
   const appendWithScroll = (message: any): Promise<string | null | undefined> => {
     const ret = append(message)
-    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 1.9 + Math.random() * 1.8
+    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 1.85 + Math.random() * 1.8
     setPercent(currentPercent)
     setTimeout(() => {
       window.scrollTo({

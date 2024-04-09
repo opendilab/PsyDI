@@ -13,6 +13,8 @@ var texts = {
   explorationPhaseResponse: "",
   mbtiOptionResponse: "",
   mbtiOptionResponseSupp: "",
+  mbtiOptionExtensionResponse: "",
+  mbtiOptionExtensionResponseSupp: "",
   philosophyResponse: "",
   philosophyAnswers: "",
   blobTreeResponse: "",
@@ -29,6 +31,8 @@ if (lang === 'zh') {
     ]
     texts.mbtiOptionResponse = "首先，我很好奇您对于视觉艺术的喜好。请在以下九张图片中选择您最喜欢的一张，并告诉我您选择的编号。" 
     texts.mbtiOptionResponseSupp = "（输入对应的图片编号 1-9）"
+    texts.mbtiOptionExtensionResponse = "基于您上一轮的选择，请在**以下五张延伸图片**中选择一张最符合您的，告诉我对应的编号。"
+    texts.mbtiOptionExtensionResponseSupp = "（输入对应的图片编号 1-5）"
     texts.philosophyResponse = "著名的“电车难题”是一个富有争议的话题。我很想听听您的想法，请选择一项最符合的，或直接告诉我您的见解。"
     texts.philosophyAnswers = "(A) 什么也不做，让列车按照正常路线碾压过这五个人。\n(B) 拉下操纵杆，改变为另一条轨道，使列车压过另一条轨道上的那个人。\n(C) 冲向轨道用肉身拦住电车救下六个人。\n(D) 什么都不做，因为没有任何一种选择本质上是好的还是坏的。"
     texts.blobTreeResponse = "然后，请在以下图片中选择一个让您感到最舒适安心的位置（blob），并告知我对应的 blob 编号。"
@@ -43,11 +47,26 @@ if (lang === 'zh') {
         "> I feel that no one seems to be willing to talk about the most important things to me, or that no one seems to care about them. If I eventually talk about my interests, it seems that the other party will feel annoyed or bored.",
     ];
     texts.mbtiOptionResponse = "First, I am curious about your preferences for visual arts. Please choose your favorite one from the following nine pictures and tell me the number you choose."
+    texts.mbtiOptionResponseSupp = "(Enter the corresponding picture number 1-9)"
+    texts.mbtiOptionExtensionResponse = "Based on your previous choice, please choose the one that best suits you from the **following five extended pictures** and tell me the corresponding picture number."
+    texts.mbtiOptionExtensionResponseSupp = "(Enter the corresponding picture number 1-5)"
     texts.philosophyResponse = "The famous 'trolley problem' is a controversial topic. I would like to hear your thoughts. Please choose the one that best suits you, or tell me your thoughts directly."
     texts.philosophyAnswers = "(A) Do nothing and let the train run over the five people on the normal route. (B) Pull the lever and change to another track, so that the train runs over the person on the other track. (C) Rush to the track and stop the train with your body to save the six people. (D) Do nothing, because no choice is inherently good or bad."
     texts.blobTreeResponse = "Then, please choose a blob position from the following pictures that makes you feel most comfortable and at ease, and tell me the corresponding blob number."
     texts.blobTreeResponseSupp = "(Enter the corresponding blob number 1-21)"
 }
+
+const mbtiOptionExtensionStyles = [
+	['Expressionism', 'Fauvism', 'GothicSurrealism', 'InkIllustration', 'Cubism'],
+	['ByzantinePaintingStyle', 'Cubism', 'EnlightenmentEra', 'Expressionism', 'Impressionism'],
+	['Anime', 'ChineseTraditionalPainting', 'Cubism', 'PopArt', 'RococoRevival'],
+	['ChineseTraditionalPainting', 'Cubism', 'Fauvism', 'Ink', 'PostImpressionism'],
+	['ChineseTraditionalPainting', 'Cubism', 'GraphicDesign', 'VectorIllustration', 'WatercolorIllustration'],
+	['AbstractExpressionism', 'Fauvism', 'InkIllustration', 'Naturalism', 'WatercolorIllustration'],
+	['AncientEgyptianPaintingStyle', 'AncientRomanPaintingStyle', 'Cubism', 'Pointillism', 'Romanticism'],
+	['AncientRomanPaintingStyle', 'Anime', 'Cubism', 'Cyberpunk', 'Rococo'],
+	['AncientEgyptianPaintingStyle', 'ByzantinePaintingStyle', 'Cubism', 'PostImpressionism', 'RococoRevival'],
+]
 
 function printSortedFormattedObjectStats(obj: Record<string, number>) {
   const entries = Object.entries(obj);
@@ -84,7 +103,7 @@ const sleep = (ms: number) => {
 export class PsyDI {
   public postTurnCount: number = 1;
   public phase2StartTurnCount: number = 2;
-  public phase3StartTurnCount: number = 6;
+  public phase3StartTurnCount: number = 7;
   private apiUrl: string;
   private MBTIOptions: Record<string, string> = {};
   private MBTIOptionsInfo: Record<string, string> = {};
@@ -115,6 +134,17 @@ export class PsyDI {
     'ENFJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fenfj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=jKimGeWuMSjmntLgaitris1y%2FXw%3D',
     'ENTJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fentj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=knO6vixIEvrodg2EFaOncl31VSY%3D',
   };
+  private mbtiOptionExtensionUrls: Record<string, string> = {
+    '1': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F1.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=ayPQw%2BUrijINL46f6jzKX22VszM%3D',
+    '2': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=Rj7NS82Ew2KfPMdMUMQuqeRjrzQ%3D',
+    '3': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F3.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=TdxxWxKPM3GWHDxTDUOa0taxJqM%3D',
+    '4': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F4.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=nKKNWyK8YH%2FtLMOK1NfGhg5LpD0%3D',
+    '5': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F5.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=MYQebGHUGKNysuFLnmYi2ekcxJY%3D',
+    '6': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F6.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=gsiKLRK8oOT%2F%2FADOdbMz1e7qFl8%3D',
+    '7': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F7.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=gUCc%2Bf1rPQk%2B4oLFOXrfUjFZ16s%3D',
+    '8': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F8.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=nkRCCULTXeZU83sL2GEktSx91a0%3D',
+    '9': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F9.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=0Bbo1EIG0DfUM9kBOASOEAoyGaY%3D',
+  }
   private musicLabelExample: Record<string, string> = {
     '曲名': '愿与愁',
     '歌手': '林俊杰',
@@ -299,7 +329,7 @@ export class PsyDI {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${process.env.PSYDI_API_KEY || ''}`,
                 },
-                body: JSON.stringify({'uid': payload.uid, 'index': payload.turnCount - 2}),
+                body: JSON.stringify({'uid': payload.uid, 'index': payload.turnCount - 3}),
             });
             const data = await response.json();
             console.info(`[${payload.uid}]get pre question data`, data.ret)
@@ -539,6 +569,11 @@ export class PsyDI {
       return {'done': false, 'response_string': texts.mbtiOptionResponse + `![alt text](${process.env.MBTI_OPTION_IMAGE_URL})${texts.mbtiOptionResponseSupp}`};
     } else if (turnCount === (this.phase2StartTurnCount + 1)) {
       await sleep(Math.floor(Math.random() * 1000) + 500);
+      const selectedImageNum = payload.messages[turnCount - 1].content;
+      const imgUrl = this.mbtiOptionExtensionUrls[selectedImageNum]
+      return {'done': false, 'response_string': texts.mbtiOptionExtensionResponse + `![alt text](${imgUrl})${texts.mbtiOptionExtensionResponseSupp}`};
+    } else if (turnCount === (this.phase2StartTurnCount + 2)) {
+      await sleep(Math.floor(Math.random() * 1000) + 500);
       return {'done': false, 'response_string': texts.blobTreeResponse + `![alt text](${process.env.BLOB_TREE_IMAGE_URL})${texts.blobTreeResponseSupp}`};
     }
 
@@ -552,14 +587,14 @@ export class PsyDI {
     if (turnCount < this.phase3StartTurnCount + 1) {
         endpoint = 'post_user_pre_answer';
         answer = payload.messages[turnCount - 1].content;
-        index = turnCount - 3;
+        index = turnCount - 4;
     } else {
         endpoint = 'post_user_answer';
         answer = payload.messages[turnCount - 1].content;
     }
 
     let code = -1;
-    if (turnCount === (this.phase2StartTurnCount + 2)) {
+    if (turnCount === (this.phase2StartTurnCount + 3)) {
       code = 0
     } else {
       let finalPayload = {'uid': uid, 'answer': answer, 'index': index};
@@ -577,7 +612,7 @@ export class PsyDI {
         const data = await response.json();
         code = data.code;
         if (code === 0 && endpoint === 'post_user_pre_answer') {
-            await kv.hset(`ucount:${uid}chat:${turnCount}`, {post: data.ret.post});
+            await kv.hset(`ucount:${uid}chat:${turnCount - 1}`, {post: data.ret.post});
         }
         } catch (error) {
           console.error(`[${uid}]Comm Error:`, error);
@@ -631,10 +666,12 @@ export class PsyDI {
     return naiveAttrValue
   }
 
-  getMBTIOptionAnswer(answer: string): string[] {
+  getMBTIOptionAnswer(answer: string, answerExtension: string): string[] {
     try {
       const option = parseInt(answer).toString();
-      return [this.MBTIOptions[option], this.MBTIOptionsTrans[option], this.MBTIOptionsInfoTrans[option]];
+      const style = mbtiOptionExtensionStyles[parseInt(option) - 1][parseInt(answerExtension) - 1];
+      const backendOption = this.MBTIOptions[option] + `style: ${style}`;
+      return [backendOption, this.MBTIOptionsTrans[option], this.MBTIOptionsInfoTrans[option]];
     } catch (error) {
       // TODO error hints
       return ["none", "none", "none"]
@@ -673,18 +710,20 @@ export class PsyDI {
     const startTime: Date = new Date();
     const rawContent = messages.map((message) => message.content)
     if (additional) {
-      let postList = rawContent.slice(2)
-      const mbtiOptionAnswer = this.getMBTIOptionAnswer(postList[0])
-      const blobTreeAnswer = this.getBlobTreeAnswer(postList[1])
-      postList[0] = mbtiOptionAnswer[0]
-      postList[1] = blobTreeAnswer[0]
+      let postList = []
+      const prefix2 = rawContent.slice(2)
+      const mbtiOptionAnswer = this.getMBTIOptionAnswer(prefix2[0], prefix2[1])
+      const blobTreeAnswer = this.getBlobTreeAnswer(prefix2[2])
+      postList.push(mbtiOptionAnswer[0])
+      postList.push(blobTreeAnswer[0])
 
+      // here set the kv to provide more details for the user
       kv.hset(`ucount:${uid}chat:3`, {post: mbtiOptionAnswer[2] + this.visualArtChoicePrefix + mbtiOptionAnswer[1]});
       kv.hset(`ucount:${uid}chat:4`, {post: blobTreeAnswer[1]});
       const post5 = kv.hget(`ucount:${uid}chat:5`, 'post') as Promise<string>;
       const post6 = kv.hget(`ucount:${uid}chat:6`, 'post') as Promise<string>;
-      postList[2] = (await post5).toString()
-      postList[3] = (await post6).toString()
+      postList.push((await post5).toString())
+      postList.push((await post6).toString())
       return {
         endpoint: 'post_additional_posts',
         uid: uid,
@@ -727,7 +766,6 @@ export class PsyDI {
         post_list: postList,
         music_label: musicLabel,
         label: userLabel,
-        record: 'True',
       }
     }
   }

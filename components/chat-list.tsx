@@ -211,14 +211,14 @@ export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
     const mbtiAnswer = texts.mbtiOptionAnswer + " **" + texts.mbtiOptionInfo[messages[5].content] + "**";
     modifiedMessages.splice(10, 0, {id: chatID, content: mbtiAnswer, role: "assistant"}); // insert assistant message
   }
-  if (messages.length >= 8) {  // ask for user posts + user posts + 6
+  if (messages.length >= 10) {  // ask for user posts + user posts + 6
     const blobTreeAnswer = texts.blobTreeAnswer + " **" + texts.blobTreeOptionInfo[messages[7].content] + "** " + texts.blobTreeOptionAnswer;
-    modifiedMessages.splice(13, 0, {id: chatID, content: blobTreeAnswer, role: "assistant"}); // insert assistant message
-    modifiedMessages.splice(14, 0, {id: chatID, content: texts.explorationPhaseTitle2, role: "system"}); // insert system message
+    modifiedMessages.splice(15, 0, {id: chatID, content: blobTreeAnswer, role: "assistant"}); // insert assistant message
+    modifiedMessages.splice(16, 0, {id: chatID, content: texts.explorationPhaseTitle2, role: "system"}); // insert system message
   }
-  if (messages.length >= 12) {
-    modifiedMessages.splice(19, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
-    modifiedMessages.splice(20, 0, {id: chatID, content: texts.discoveryIntro, role: "system"}); // insert system message
+  if (messages.length >= 14) {
+    modifiedMessages.splice(21, 0, {id: chatID, content: texts.discoveryPhaseTitle, role: "system"}); // insert system message
+    modifiedMessages.splice(22, 0, {id: chatID, content: texts.discoveryIntro, role: "system"}); // insert system message
   }
   if (chatDone) {
     modifiedMessages.splice(modifiedMessages.length - 1, 0, {id: chatID, content: texts.endPhaseTitle, role: "system"}); // insert system message
