@@ -14,6 +14,7 @@ export interface ChatList {
   chatDone: boolean
   table: Record<string, any> | null
   isLoading: boolean
+  isMessageFinished: boolean
 }
 
 function deepCopy(obj: any): any {
@@ -191,7 +192,7 @@ if (lang === 'zh') {
   texts.endIntro = "(This chapter will integrate the information of the previous three stages and generate a personalized personality analysis and MBTI image for you. It takes about 25-35 seconds to wait.)"
 }
 
-export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
+export function ChatList({ messages, chatDone, table, isLoading, isMessageFinished }: ChatList) {
   if (!messages.length) {
     return null
   }
@@ -244,7 +245,7 @@ export function ChatList({ messages, chatDone, table, isLoading }: ChatList) {
           <BeatLoader color={GetThemeColor().antiPrimary} loading={isLoading} size={10} />
         </div>
       )}
-      { chatDone && (<FinalResult chatID={chatID} chatDone={chatDone} table={table} /> )}
+      { chatDone && isMessageFinished && (<FinalResult chatID={chatID} chatDone={chatDone} table={table} /> )}
     </div>
   )
 }

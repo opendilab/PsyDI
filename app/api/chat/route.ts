@@ -32,10 +32,6 @@ export async function POST(req: Request) {
     await agent.setTurnCount(userId, turnCountMessage)
   }
   const turnCount = turnCountMessage
-  let streamDelay = 60
-  if (turnCount >= agent.phase3StartTurnCount - 2) {
-    streamDelay = 25
-  }
   const debug = process.env.DEBUG
 
   const startTime: Date = new Date();
@@ -119,6 +115,13 @@ export async function POST(req: Request) {
   //      score: createdAt,
   //      member: `chat:${id}`
   //})
+  let streamDelay = 60
+  if (turnCount >= agent.phase3StartTurnCount - 2) {
+    streamDelay = 25
+  }
+  if (done) {
+    streamDelay = 10
+  }
 
   const dataStream = new ReadableStream({
     start(controller) {

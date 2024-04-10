@@ -673,7 +673,7 @@ export class PsyDI {
     try {
       const option = parseInt(answer).toString();
       const style = mbtiOptionExtensionStyles[parseInt(option) - 1][parseInt(answerExtension) - 1];
-      const backendOption = this.MBTIOptions[option] + `style: ${style}`;
+      const backendOption = this.MBTIOptionsTrans[option] + `style: ${style}`;
       return [backendOption, this.MBTIOptionsTrans[option], this.MBTIOptionsInfoTrans[option]];
     } catch (error) {
       // TODO error hints
@@ -684,7 +684,7 @@ export class PsyDI {
   getBlobTreeAnswer(answer: string): string[] {
     try {
       const option = parseInt(answer).toString();
-      return [this.BlobTreeOptions[option], this.BlobTreeOptionsTrans[option]];
+      return [this.BlobTreeOptionsTrans[option], this.BlobTreeOptionsTrans[option]];
     } catch (error) {
       // TODO error hints
       return ["none", "none"];

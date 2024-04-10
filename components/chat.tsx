@@ -73,6 +73,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   const [table, setTable] = useState(null)
   const [responseStart, setResponseStart] = useState(false)
   const [startTest, setStartTest] = useState(false)
+  const [isMessageFinished, setIsMessageFinished] = useState(false)
   const [percent, setPercent] = useState(0)
   const { messages, append, reload, stop, setMessages, isLoading, input, setInput } =
     useChat({
@@ -89,6 +90,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         if (response.headers.get('chat-errorcode') !== '0') {
             errorToaster("服务器超时错误，请点击左下角'加号'按钮重启评测，并稍后再试", 10000)
         }
+        setIsMessageFinished(false)
         setChatDone(response.headers.get('chat-done') === 'true')
         if (chatDone) {
            setPercent(100)
@@ -108,6 +110,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         }, 400)
       },
       onFinish() {
+        setIsMessageFinished(true)
         setTimeout(() => {
           window.scrollTo({
             top: document.body.offsetHeight,
@@ -119,7 +122,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     })
   const appendWithScroll = (message: any): Promise<string | null | undefined> => {
     const ret = append(message)
-    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 1.85 + Math.random() * 1.8
+    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 2 + Math.random() * 1.8
     setPercent(currentPercent)
     setTimeout(() => {
       window.scrollTo({
@@ -143,7 +146,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>
         {messages.length ? (
           <>
-            <ChatList messages={messages} chatDone={chatDone} table={table} isLoading={isLoading && (!responseStart)}/>
+            <ChatList messages={messages} chatDone={chatDone} table={table} isLoading={isLoading && (!responseStart)} isMessageFinished={isMessageFinished}/>
             <ChatScrollAnchor trackVisibility={isLoading} />
           </>
         ) : (
