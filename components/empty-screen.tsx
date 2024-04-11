@@ -56,9 +56,19 @@ const exampleMessages = [
       image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qinshihuang.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1718888821&Signature=UdqxHZsodmRtjaoYfktc4Iw45W8%3D'
     },
     {
+      heading: '金克斯 ESFP',    
+      subheading: '哈！谁需要什么理由？拜托，做我的对手强一点好嘛？不然我真的要无聊到打哈欠了。',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_jinx.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720600262&Signature=dgqkYxhSFgXXP044v9zET1CAh4k%3D'
+    },
+    {
       heading: '约尔·福杰 ISFJ',
       subheading: '嗯，这可能听起来有点傻。但最近，我对自己作为妻子和母亲的能力有点不安。',
       image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_yueer2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1719067271&Signature=%2FtSA5JQUh92GOhDc7vkN1TQzS0U%3D'
+    },
+    {
+      heading: '阿尼亚·福杰 ENFP',
+      subheading: '哇库哇库！我能读懂爸爸和妈妈的心思，他们在想什么我都知道！真的很有趣！',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_aniya.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720599129&Signature=MoSOq8%2B8YHmBpchh5rkfBmzIwEE%3D',
     },
     {
       heading: '约翰·华生 ISFJ',
@@ -69,7 +79,7 @@ const exampleMessages = [
       heading: '芙莉莲 INTP',
       subheading: '作为一个几千岁的精灵，我的日常就是如此，我对人类不断变化和变老的过程感到惊讶。',
       image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_fulilian.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1718905384&Signature=ENaqItkEs%2B5ksq18RxV48cfeNoM%3D',
-    }
+    },
 ]
 
 export interface EmptyScreenProps

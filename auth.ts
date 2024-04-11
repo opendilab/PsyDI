@@ -13,7 +13,7 @@ interface Session {
   }
 }
 
-const expireTime = 1 * 60 * 60 * 1000  // 1 hour
+const expireTime = 3 * 60 * 60 * 1000  // 3 hour
 
 export async function auth(force: boolean = false) {
   const cookiesList = cookies()
