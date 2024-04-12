@@ -91,7 +91,12 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             errorToaster("服务器超时错误，请点击左下角'加号'按钮重启评测，并稍后再试", 10000)
         }
         setIsMessageFinished(false)
-        setChatDone(response.headers.get('chat-done') === 'true')
+        
+        const currentChatDone = response.headers.get('chat-done') === 'true'
+        if (currentChatDone) {
+          setChatDone(true)
+        }
+
         if (chatDone) {
            setPercent(100)
         }
@@ -122,7 +127,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     })
   const appendWithScroll = (message: any): Promise<string | null | undefined> => {
     const ret = append(message)
-    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 2 + Math.random() * 1.8
+    const currentPercent = chatDone ? 100 : ((messages?.length || 0) - 1) * 2.05 + Math.random() * 2
     setPercent(currentPercent)
     setTimeout(() => {
       window.scrollTo({
