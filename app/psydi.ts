@@ -381,6 +381,11 @@ export class PsyDI {
                 const question = data.ret.question
                 const enPrefix = question.includes('D)') || question.includes('(D') ? "(Multi Select/Free Text) " : (question.includes('A)') || question.includes('(A') ? "(Single Select)" : "(Free Text)")
                 const zhPrefix = question.includes('D)') || question.includes('D)') ? "（多选/自由回答）" : (question.includes('A)') || question.includes('(A') ? "（单选）" : "（自由回答）") 
+                
+                const freeText = question.includes('D)') || question.includes('(D')
+                if (freeText) {
+                  console.log('free text check: ', question.includes('MBTI'))
+                }
                 const formattedQuestion = replaceOptionOutsideParentheses(question)
                 const q = lang == 'en' ? enPrefix + formattedQuestion : zhPrefix + formattedQuestion
                 const index = data.ret.index
