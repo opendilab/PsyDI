@@ -1,6 +1,10 @@
 # PsyDI
+English | 简体中文
+<div align="center">
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/banner.png"></a>
+</div>
 
-PsyDI: A MBTI agent that helps you understand your personality type through a relaxed multi-modal interaction.
+PsyDI is a multi-modal and interactive chatbot for psychological assessments. Its objective is to explore users' potential cognitive styles through interactive analysis of their multimodal inputs, finally determining their Myers-Briggs Type Indicator (MBTI). Additionally, PsyDI offers feedback in the form of customized figures and detailed analysis for each user. We are continuously improving PsyDI, with upcoming features such as an MBTI gallery. Your feedback is valuable to us!
 
 ## Running locally
 
