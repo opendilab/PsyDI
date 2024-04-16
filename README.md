@@ -10,31 +10,51 @@ PsyDI is a multi-modal and interactive chatbot for psychological assessments. It
 
 Getting started with PsyDI is easy! Follow these simple steps to begin your journey of self-discovery:
 
-1. **Accessing PsyDI Online:** Visit our [[website](https://psydi.opendilab.org.cn/)] to access PsyDI directly online. No downloads or installations required!
+:rocket: **Accessing PsyDI Online:** Visit our [[website](https://psydi.opendilab.org.cn/)] to access PsyDI directly online. No downloads or installations required!
 
-2. **Beginning the Quiz:**
+:memo: **Beginning the Quiz:**
    - Upon entering the quiz, you'll be prompted to choose a label that best represents you. This helps PsyDI tailor the assessment to your personality.
    - Next, you'll be asked to share one of your recent favorite songs and your most recent thoughts. This information provides valuable insights into your current mindset and preferences.
 
-3. **Exploring Your Personality:**
+:bulb: **Exploring Your Personality:**
    - In the Explore chapter, PsyDI will ask you a series of questions to gain a basic understanding of who you are based on your provided tags. This initial interaction sets the stage for deeper exploration.
 
-4. **Interactive Chatting:**
+:speech_balloon: **Interactive Chatting:**
    - PsyDI will chat with you to delve deeper into topics mentioned earlier. This interactive process typically consists of 12-15 questions, allowing PsyDI to get to know you better.
 
-5. **Detailed Analysis:**
+:sparkles: **Detailed Analysis:**
    - Finally, PsyDI will provide you with a comprehensive analysis of your Myers-Briggs Type Indicator (MBTI) and characteristics. This analysis offers valuable insights into your personality traits and tendencies.
    - Additionally, you'll receive a generator image that matches your temperament, adding a visual element to your understanding of yourself.
 
 Now that you know the basics, dive in and start your journey with PsyDI today!
 
-## Introduction
+## :books: Introduction
 
 <div align="center">
     <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/psydi_pipeline.jpg"></a>
 </div>
+PsyDI operates on the principle that understanding a user's expressed thoughts involves delving deeper into the underlying cognitive processes. By uncovering these cognitive processes, PsyDI can identify the user's commonly used cognitive styles and ultimately determine their Myers-Briggs Type Indicator (MBTI).
 
+### Evaluation Framework
 
+At the core of PsyDI's evaluation process is the table of MBTI scores, following established psychological testing methods. Each row of this table represents the probability of the current user being assigned to a specific MBTI type, ranging from 0 to 100.
+
+### Process Description
+
+PsyDI first converts the user's multimodal information into text form. The score model then evaluates these textual expressions, providing probabilities for each sentence being associated with any MBTI type. PsyDI iterates through the following three steps until determining the user's MBTI:
+
+1. **Dynamic Selection:**
+    - PsyDI selects the post with the highest scores under both of the two MBTI types with the Top-2 probabilities. This step aims to pinpoint the most ambiguous information and prompt further questions to clarify.
+
+2. **Dialog Interaction:**
+    - PsyDI engages the user in multiple rounds of dialog, utilizing three interaction formats: multiple choice, forced choice, and free question and answer. All the question and answer pairs are integrated into a new post.
+
+3. **Table Update:**
+    - PsyDI updates the MBTI score table with the new post, incorporating the insights gained from the dialog interaction.
+
+### Iterative Refinement
+
+PsyDI iterates through these steps until it reaches a confident determination of the user's MBTI, continually refining its understanding through each interaction.
 
 ## Running locally
 
