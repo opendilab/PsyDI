@@ -95,7 +95,7 @@ if (lang === 'zh') {
   texts.mbtiOptionInfo = {
     '1': "这是瑞士艺术家 Seline Burn 所创作的《Sweet daily life》，捕捉了日常生活中惬意而亲切的瞬间。",
     '2': "这是美国艺术家 Edward Hopper 于1942年创作的《Nighthawks》，从一家街边餐馆中描绘出一座大城市的孤独。",
-    '3': "这是美国艺术家 Andy Warhol 于 1962 年创作的《Marilyn Monroe》，以梦露的肖像为基础，运用 Andy Warhol 独特的艺术手法，呈现出了独特的视觉效果，成为波普艺术运动中的经典之一。",
+    '3': "这是日本艺术家 Surat Tomornsak 的作品，这是一位喜欢孩子们的简单、天真、新鲜的插画家。他主要创作日本 kawaii 风格的作品。",
     '4': "这是荷兰艺术家 Mondrian 于1930年创作的抽象艺术作品《Composition II with Red, Blue and Yellow》，代表了 Mondrian 的新艺术风格，强调几何形状的纯净和构图的平衡。",
     '5': "这是俄罗斯艺术家 Kazimir Malevich 于1916年创作的《Suprematist composition》，是超现实主义的代表作之一，强调了形式和构图的重要性。",
     '6': "这是美国艺术家 George Condo 于1997 年创作的《The butcher's wife》，其中卡通化的特征既可爱又畸形，完美地诠释了 George Condo 的“人造现实主义”概念。",
@@ -147,7 +147,7 @@ if (lang === 'zh') {
   texts.mbtiOptionInfo = {
     '1': "This is Sweet daily life by Swiss artist Seline Burn, capturing the cozy and intimate moments in daily life.",
     '2': "This is Nighthawks by American artist Edward Hopper, depicting the loneliness of a big city from a street restaurant.",
-    '3': "This is Marilyn Monroe by American artist Andy Warhol, based on Marilyn Monroe's portrait, using Andy Warhol's unique artistic techniques to present a unique visual effect, becoming one of the classics of the Pop Art movement.",
+    '3': "This painting I selected is the work of Japanese artist Surat Tomornsak, who is an illustrator who likes the simple, naive, and fresh children. He mainly creates works in the Japanese kawaii style.", 
     '4': "This is Composition II with Red, Blue and Yellow by Dutch artist Mondrian in 1930, which represents Mondrian's new artistic style, emphasizing the purity of geometric shapes and the balance of composition.",
     '5': "This is Suprematist composition by Russian artist Kazimir Malevich in 1916, which is one of the representative works of surrealism, emphasizing the importance of form and composition.",
     '6': "This is The butcher's wife by American artist George Condo in 1997, in which the cartoonish features are both cute and deformed, perfectly interpreting George Condo's concept of 'artificial realism'.",

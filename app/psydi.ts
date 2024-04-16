@@ -32,8 +32,8 @@ if (lang === 'zh') {
     ]
     texts.mbtiOptionResponse = "首先，我很好奇您对于视觉艺术的喜好。请在以下九张图片中选择您最喜欢的一张，并告诉我您选择的编号。" 
     texts.mbtiOptionResponseSupp = "（输入对应的图片编号 1-9）"
-    texts.mbtiOptionExtensionResponse = "基于您上一轮的选择，请在**以下五张延伸图片**中选择一张最符合您的，告诉我对应的编号。"
-    texts.mbtiOptionExtensionResponseSupp = "（输入对应的图片编号 1-5）"
+    texts.mbtiOptionExtensionResponse = "基于您上一轮的选择，请在**以下六张延伸图片**中选择一张最符合您的，告诉我对应的编号。"
+    texts.mbtiOptionExtensionResponseSupp = "（输入对应的图片编号 1-6）"
     texts.philosophyResponse = "著名的“电车难题”是一个富有争议的话题。我很想听听您的想法，请选择一项最符合的，或直接告诉我您的见解。"
     texts.philosophyAnswers = "(A) 什么也不做，让列车按照正常路线碾压过这五个人。\n(B) 拉下操纵杆，改变为另一条轨道，使列车压过另一条轨道上的那个人。\n(C) 冲向轨道用肉身拦住电车救下六个人。\n(D) 什么都不做，因为没有任何一种选择本质上是好的还是坏的。"
     texts.blobTreeResponse = "然后，请在以下图片中选择一个让您感到最舒适安心的位置（blob），并告知我对应的 blob 编号。"
@@ -49,8 +49,8 @@ if (lang === 'zh') {
     ];
     texts.mbtiOptionResponse = "First, I am curious about your preferences for visual arts. Please choose your favorite one from the following nine pictures and tell me the number you choose."
     texts.mbtiOptionResponseSupp = "(Enter the corresponding picture number 1-9)"
-    texts.mbtiOptionExtensionResponse = "Based on your previous choice, please choose the one that best suits you from the **following five extended pictures** and tell me the corresponding picture number."
-    texts.mbtiOptionExtensionResponseSupp = "(Enter the corresponding picture number 1-5)"
+    texts.mbtiOptionExtensionResponse = "Based on your previous choice, please choose the one that best suits you from the **following six extended pictures** and tell me the corresponding picture number."
+    texts.mbtiOptionExtensionResponseSupp = "(Enter the corresponding picture number 1-6)"
     texts.philosophyResponse = "The famous 'trolley problem' is a controversial topic. I would like to hear your thoughts. Please choose the one that best suits you, or tell me your thoughts directly."
     texts.philosophyAnswers = "(A) Do nothing and let the train run over the five people on the normal route. (B) Pull the lever and change to another track, so that the train runs over the person on the other track. (C) Rush to the track and stop the train with your body to save the six people. (D) Do nothing, because no choice is inherently good or bad."
     texts.blobTreeResponse = "Then, please choose a blob position from the following pictures that makes you feel most comfortable and at ease, and tell me the corresponding blob number."
@@ -58,15 +58,15 @@ if (lang === 'zh') {
 }
 
 const mbtiOptionExtensionStyles = [
-	['Expressionism', 'Fauvism', 'GothicSurrealism', 'InkIllustration', 'Cubism'],
-	['ByzantinePaintingStyle', 'Cubism', 'EnlightenmentEra', 'Expressionism', 'Impressionism'],
-	['Anime', 'ChineseTraditionalPainting', 'Cubism', 'PopArt', 'RococoRevival'],
-	['ChineseTraditionalPainting', 'Cubism', 'Fauvism', 'Ink', 'PostImpressionism'],
-	['ChineseTraditionalPainting', 'Cubism', 'GraphicDesign', 'VectorIllustration', 'WatercolorIllustration'],
-	['AbstractExpressionism', 'Fauvism', 'InkIllustration', 'Naturalism', 'WatercolorIllustration'],
-	['AncientEgyptianPaintingStyle', 'AncientRomanPaintingStyle', 'Cubism', 'Pointillism', 'Romanticism'],
-	['AncientRomanPaintingStyle', 'Anime', 'Cubism', 'Cyberpunk', 'Rococo'],
-	['AncientEgyptianPaintingStyle', 'ByzantinePaintingStyle', 'Cubism', 'PostImpressionism', 'RococoRevival'],
+	['Representational', 'Expressionism', 'Fauvism', 'GothicSurrealism', 'InkIllustration', 'Cubism'],
+	['Representational', 'ByzantinePaintingStyle', 'Cubism', 'EnlightenmentEra', 'Expressionism', 'Impressionism'],
+	['Popart', 'Anime', 'ChineseTraditionalPainting', 'Cubism', 'PopArt', 'RococoRevival'],
+	['Abstract', 'ChineseTraditionalPainting', 'Cubism', 'Fauvism', 'Ink', 'PostImpressionism'],
+	['Abstract', 'ChineseTraditionalPainting', 'Cubism', 'GraphicDesign', 'VectorIllustration', 'WatercolorIllustration'],
+	['Abstract', 'AbstractExpressionism', 'Fauvism', 'InkIllustration', 'Naturalism', 'WatercolorIllustration'],
+	['Representational', 'AncientEgyptianPaintingStyle', 'AncientRomanPaintingStyle', 'Cubism', 'Pointillism', 'Romanticism'],
+	['Impressionist', 'AncientRomanPaintingStyle', 'Anime', 'Cubism', 'Cyberpunk', 'Rococo'],
+	['Cubism', 'AncientEgyptianPaintingStyle', 'ByzantinePaintingStyle', 'Cubism', 'PostImpressionism', 'RococoRevival'],
 ]
 
 function printSortedFormattedObjectStats(obj: Record<string, number>) {
@@ -136,15 +136,15 @@ export class PsyDI {
     'ENTJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fentj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720254910&Signature=knO6vixIEvrodg2EFaOncl31VSY%3D',
   };
   private mbtiOptionExtensionUrls: Record<string, string> = {
-    '1': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F1.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=ayPQw%2BUrijINL46f6jzKX22VszM%3D',
-    '2': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=Rj7NS82Ew2KfPMdMUMQuqeRjrzQ%3D',
-    '3': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F3.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=TdxxWxKPM3GWHDxTDUOa0taxJqM%3D',
-    '4': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F4.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=nKKNWyK8YH%2FtLMOK1NfGhg5LpD0%3D',
-    '5': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F5.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=MYQebGHUGKNysuFLnmYi2ekcxJY%3D',
-    '6': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F6.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=gsiKLRK8oOT%2F%2FADOdbMz1e7qFl8%3D',
-    '7': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F7.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=gUCc%2Bf1rPQk%2B4oLFOXrfUjFZ16s%3D',
-    '8': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F8.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=nkRCCULTXeZU83sL2GEktSx91a0%3D',
-    '9': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F9.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720452960&Signature=0Bbo1EIG0DfUM9kBOASOEAoyGaY%3D',
+    '1': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F1.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1721055788&Signature=X8vmj%2FtOtToaw0XL14ArYbTLa0Y%3D',
+    '2': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1721055788&Signature=%2BVmbMDg%2BDBST%2BNEdcIyIf9xx7w4%3D',
+    '3': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F3.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1721055788&Signature=G0v0pODfKVln%2F9YWmS9zLOCoA6g%3D',
+    '4': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F4.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1721055788&Signature=wNyxppoGufvzHdPA1L4gasCgKQ0%3D',
+    '5': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F5.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1721055788&Signature=P9J7h4vDD%2FrNqqXPJMzZAPTbwqs%3D',
+    '6': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F6.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1721055788&Signature=%2FM8PqYXxyhEYtDUoyIMNl9Hm2Js%3D',
+    '7': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F7.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1721055788&Signature=2BkbDWEyhZoU0cCWP%2B7NJjOsvn4%3D',
+    '8': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F8.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1721055788&Signature=8rWpbw2SnJ%2B3gfK01QH3U6RINwQ%3D',
+    '9': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F9.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1721055788&Signature=C1Vh4Hhry0Q8DlF5s%2Fwv%2FREt%2BbM%3D',
   }
   private musicLabelExample: Record<string, string> = {
     '曲名': '愿与愁',
@@ -178,7 +178,7 @@ export class PsyDI {
     this.MBTIOptionsInfo = {
         '1': "This painting I selected is \"Sweet daily life\" created by Swiss artist Seline Burn, capturing the pleasant and intimate moments of everyday life.",
         '2': "This painting I selected is \"Nighthawks\" created by American artist Edward Hopper in 1942, depicting the loneliness of a big city from a street restaurant.",
-        '3': "This painting I selected is \"Marilyn Monroe\" created by American artist Andy Warhol in 1962. Based on the portrait of Marilyn Monroe, Andy Warhol's unique artistic techniques are used to present a unique visual effect, which has become one of the classics of the Pop Art movement.",
+        '3': "This painting I selected is the work of Japanese artist Surat Tomornsak, who is an illustrator who likes the simple, naive, and fresh children. He mainly creates works in the Japanese kawaii style.", 
         '4': "This painting I selected is \"Composition II with Red, Blue and Yellow\" created by Dutch artist Mondrian in 1930. It represents Mondrian's new artistic style, emphasizing the purity of geometric shapes and the balance of composition.",
         '5': "This painting I selected is \"Suprematist composition\" created by Russian artist Kazimir Malevich in 1916. It is one of the representative works of surrealism, emphasizing the importance of form and composition.",
         '6': "This painting I selected is \"The butcher's wife\" created by American artist George Condo in 1997. The cartoonish features are both cute and deformed, perfectly interpreting George Condo's concept of \"artificial realism\".",
@@ -234,7 +234,7 @@ export class PsyDI {
         this.MBTIOptionsInfoTrans = {
             '1': "这是瑞士艺术家 Seline Burn 所创作的《Sweet daily life》，捕捉了日常生活中惬意而亲切的瞬间。",
             '2': "这是美国艺术家 Edward Hopper 于1942年创作的《Nighthawks》，从一家街边餐馆中描绘出一座大城市的孤独。",
-            '3': "这是美国艺术家 Andy Warhol 于 1962 年创作的《Marilyn Monroe》，以梦露的肖像为基础，运用 Andy Warhol 独特的艺术手法，呈现出了独特的视觉效果，成为波普艺术运动中的经典之一。",
+            '3': "这是日本艺术家 Surat Tomornsak 的作品，这是一位喜欢孩子们的简单、天真、新鲜的插画家。他主要创作日本 kawaii 风格的作品。",
             '4': "这是荷兰艺术家 Mondrian 于1930年创作的抽象艺术作品《Composition II with Red, Blue and Yellow》，代表了 Mondrian 的新艺术风格，强调几何形状的纯净和构图的平衡。",
             '5': "这是俄罗斯艺术家 Kazimir Malevich 于1916年创作的《Suprematist composition》，是超现实主义的代表作之一，强调了形式和构图的重要性。",
             '6': "这是美国艺术家 George Condo 于1997 年创作的《The butcher's wife》，其中卡通化的特征既可爱又畸形，完美地诠释了 George Condo 的“人造现实主义”概念。",
