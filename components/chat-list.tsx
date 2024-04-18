@@ -213,7 +213,7 @@ export function ChatList({ messages, chatDone, table, isLoading, isMessageFinish
     modifiedMessages.splice(10, 0, {id: chatID, content: mbtiAnswer, role: "assistant"}); // insert assistant message
   }
   if (messages.length >= 10) {  // ask for user posts + user posts + 6
-    const blobTreeAnswer = texts.blobTreeAnswer + " **" + texts.blobTreeOptionInfo[messages[7].content] + "** " + texts.blobTreeOptionAnswer;
+    const blobTreeAnswer = texts.blobTreeAnswer + " **" + texts.blobTreeOptionInfo[messages[9].content] + "** " + texts.blobTreeOptionAnswer;
     modifiedMessages.splice(15, 0, {id: chatID, content: blobTreeAnswer, role: "assistant"}); // insert assistant message
     modifiedMessages.splice(16, 0, {id: chatID, content: texts.explorationPhaseTitle2, role: "system"}); // insert system message
   }
