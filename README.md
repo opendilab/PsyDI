@@ -18,9 +18,9 @@ PsyDI is a multi-modal and interactive chatbot for psychological assessments. It
 
 | Character                  | MBTI | Figure |
 |----------------------------| -------- | ------ |
-| [Yor Forger (SPY×FAMILY)](http://xhslink.com/13YTRE) | ISFJ   | <img width="250px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/yor.png"></a>     |
-| [Anya Forger (SPY×FAMILY)](http://xhslink.com/Z929fF) |ENFP       | <img width="250px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anya.png"></a>      |
-| [Jinx (League of Legends)](http://xhslink.com/Bpt45F) |ESFP     | <img width="250px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/jinx.png"></a>      |
+| [Yor Forger (SPY×FAMILY)](http://xhslink.com/13YTRE) | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/yor.png"></a>     |
+| [Anya Forger (SPY×FAMILY)](http://xhslink.com/Z929fF) |ENFP       | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anya.png"></a>      |
+| [Jinx (League of Legends)](http://xhslink.com/Bpt45F) |ESFP     | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/jinx.png"></a>      |
 | Viktor (League of Legends) |TODO         | TODO |
 
 
