@@ -4,31 +4,44 @@ English | 简体中文
     <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/banner.png"></a>
 </div>
 
+## Introduction to PsyDI
+
 PsyDI is a multi-modal and interactive chatbot for psychological assessments. Its objective is to explore users' potential cognitive styles through interactive analysis of their multimodal inputs, finally determining their Myers-Briggs Type Indicator (MBTI). Additionally, PsyDI offers feedback in the form of customized figures and detailed analysis for each user. We are continuously improving PsyDI, with upcoming features such as an MBTI gallery. Your feedback is valuable to us!
+
+PsyDI can now be accessed directly via our [web link](https://psydi.opendilab.org.cn/).
 
 ## :boom: News!
 
 - We've recently refreshed our collection of classical character galleries:
 
-    - [Yor Forger (SPY×FAMILY)](http://xhslink.com/13YTRE)
+| Character                  | Introduction                | MBTI   | Figure |
+|----------------------------| --------------------------- | ------ | ------ |
+| [Yor Forger (SPY×FAMILY)](http://xhslink.com/13YTRE) | Yor Forger is a skilled assassin with a gentle heart, who disguises herself as a government official and becomes an integral part of the makeshift family in the "SPY×FAMILY" series. | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/yor.png"></a>     |
+| [Anya Forger (SPY×FAMILY)](http://xhslink.com/Z929fF) | Anya Forger is a telepathic schoolgirl with a mischievous streak, who unknowingly plays a pivotal role in her adoptive family's covert activities in the "SPY×FAMILY" narrative. |ENFP       | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anya.png"></a>      |
+| [Jinx (League of Legends)](http://xhslink.com/Bpt45F) | Jinx is an anarchic and explosively playful marksman in "League of Legends," known for her chaotic streak and dual-wielding firearms that unleash a hailstorm of chaos on the battlefield. |ESFP     | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/jinx.png"></a>      |
+| Viktor (League of Legends) | Victor is a brilliant and relentless inventor in "League of Legends," who wields his advanced Hex Core technology to manipulate the battlefield and eradicate his enemies with a blend of strategic disintegration and relentless augmentation. |TBD         | TBD |
 
-    - [Anya Forger (SPY×FAMILY)](http://xhslink.com/Z929fF)
 
-    - [Jinx (League of Legends)](http://xhslink.com/Bpt45F)
+## Outline
 
-| Character                  | MBTI | Figure |
-|----------------------------| -------- | ------ |
-| [Yor Forger (SPY×FAMILY)](http://xhslink.com/13YTRE) | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/yor.png"></a>     |
-| [Anya Forger (SPY×FAMILY)](http://xhslink.com/Z929fF) |ENFP       | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anya.png"></a>      |
-| [Jinx (League of Legends)](http://xhslink.com/Bpt45F) |ESFP     | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/jinx.png"></a>      |
-| Viktor (League of Legends) |TODO         | TODO |
+- [Introduction to PsyDI](#introduction-to-psydi)
+- [News](#:boom:-news!)
+- [Outline](#outline)
+- [Quick Start](#:star_struck:-quick-start)
+- [Introduction](:books:-introduction)
+  - [Evaluation Framework](#evaluation-framework)
+  - [Process Description](#process-description)
+  - [Iterative Refinement](#iterative-refinement)
+- [Running Locally](#running-locally)
+- [Acnowledgements](#acnowledgements)
+- [License](#license)
 
 
 ## :star_struck: Quick Start
 
 Getting started with PsyDI is easy! Follow these simple steps to begin your journey of self-discovery:
 
-:rocket: **Accessing PsyDI Online:** Visit our [[website](https://psydi.opendilab.org.cn/)] to access PsyDI directly online. No downloads or installations required!
+:rocket: **Accessing PsyDI Online:** Visit our [website](https://psydi.opendilab.org.cn/) to access PsyDI directly online. No downloads or installations required!
 
 :memo: **Beginning the Quiz:**
    - Upon entering the quiz, you'll be prompted to choose a label that best represents you. This helps PsyDI tailor the assessment to your personality.
@@ -82,7 +95,7 @@ PsyDI first converts the user's multimodal information into text form. The score
 
 PsyDI iterates through these steps until it reaches a confident determination of the user's MBTI, continually refining its understanding through each interaction.
 
-## Running locally
+## Running Locally
 
 You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js AI Chatbot. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
 
