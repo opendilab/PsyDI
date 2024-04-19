@@ -25,10 +25,10 @@ PsyDI can now be accessed directly via our [web link](https://psydi.opendilab.or
 ## Outline
 
 - [Introduction to PsyDI](#introduction-to-psydi)
-- [News](#:boom:-news!)
+- [News](#boom-news)
 - [Outline](#outline)
-- [Quick Start](#:star_struck:-quick-start)
-- [Introduction](:books:-introduction)
+- [Quick Start](#star_struck-quick-start)
+- [Introduction](#books-introduction)
   - [Evaluation Framework](#evaluation-framework)
   - [Process Description](#process-description)
   - [Iterative Refinement](#iterative-refinement)
