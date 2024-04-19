@@ -16,6 +16,13 @@ PsyDI is a multi-modal and interactive chatbot for psychological assessments. It
 
     - [Jinx (League of Legends)](http://xhslink.com/Bpt45F)
 
+| Character                  | Figure | MuZero | EfficientZero | Sampled EfficientZero | Gumbel MuZero | Stochastic MuZero | 
+|----------------------------| -------- | ------ |-------------| ------------------ | ---------- |----------------|
+| [Yor Forger (SPY×FAMILY)](http://xhslink.com/13YTRE)    | <img width="auto" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/yor.png"></a>     |
+| [Anya Forger (SPY×FAMILY)](http://xhslink.com/Z929fF)        | <img width="auto" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anya.png"></a>      |
+| [Jinx (League of Legends)](http://xhslink.com/Bpt45F)      | <img width="auto" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/jinx.png"></a>      |
+| Viktor (League of Legends)          | TODO |
+
 
 ## :star_struck: Quick Start
 
@@ -44,10 +51,6 @@ Getting started with PsyDI is easy! Follow these simple steps to begin your jour
 :sparkles: **Detailed Analysis:**
    - Finally, PsyDI will provide you with a comprehensive analysis of your Myers-Briggs Type Indicator (MBTI) and characteristics. This analysis offers valuable insights into your personality traits and tendencies.
    - Additionally, you'll receive a generated image that matches your temperament, adding a visual element to your understanding of yourself.
-
-<div align="center">
-    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/final_part.png"></a>
-</div>
 
 Now that you know the basics, dive in and start your journey with PsyDI today!
 
