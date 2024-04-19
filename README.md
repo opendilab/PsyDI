@@ -16,8 +16,8 @@ PsyDI is a multi-modal and interactive chatbot for psychological assessments. It
 
     - [Jinx (League of Legends)](http://xhslink.com/Bpt45F)
 
-| Character                  | Figure | MuZero | EfficientZero | Sampled EfficientZero | Gumbel MuZero | Stochastic MuZero | 
-|----------------------------| -------- | ------ |-------------| ------------------ | ---------- |----------------|
+| Character                  | Figure |
+|----------------------------| -------- |
 | [Yor Forger (SPY×FAMILY)](http://xhslink.com/13YTRE)    | <img width="auto" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/yor.png"></a>     |
 | [Anya Forger (SPY×FAMILY)](http://xhslink.com/Z929fF)        | <img width="auto" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anya.png"></a>      |
 | [Jinx (League of Legends)](http://xhslink.com/Bpt45F)      | <img width="auto" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/jinx.png"></a>      |
