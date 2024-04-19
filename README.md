@@ -6,15 +6,15 @@ English | 简体中文
 
 PsyDI is a multi-modal and interactive chatbot for psychological assessments. Its objective is to explore users' potential cognitive styles through interactive analysis of their multimodal inputs, finally determining their Myers-Briggs Type Indicator (MBTI). Additionally, PsyDI offers feedback in the form of customized figures and detailed analysis for each user. We are continuously improving PsyDI, with upcoming features such as an MBTI gallery. Your feedback is valuable to us!
 
-## :bomb: News!
+## :boom: News!
 
-We've recently refreshed our collection of classical character galleries:
+- We've recently refreshed our collection of classical character galleries:
 
-[[Yor Forger (SPY×FAMILY)](http://xhslink.com/13YTRE)]
+    - [Yor Forger (SPY×FAMILY)](http://xhslink.com/13YTRE)
 
-[[Anya Forger (SPY×FAMILY)](http://xhslink.com/Z929fF)]
+    - [Anya Forger (SPY×FAMILY)](http://xhslink.com/Z929fF)
 
-[[Jinx (League of Legends)](http://xhslink.com/Bpt45F)]
+    - [Jinx (League of Legends)](http://xhslink.com/Bpt45F)
 
 
 ## :star_struck: Quick Start
