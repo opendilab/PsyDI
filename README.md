@@ -6,6 +6,17 @@ English | 简体中文
 
 PsyDI is a multi-modal and interactive chatbot for psychological assessments. Its objective is to explore users' potential cognitive styles through interactive analysis of their multimodal inputs, finally determining their Myers-Briggs Type Indicator (MBTI). Additionally, PsyDI offers feedback in the form of customized figures and detailed analysis for each user. We are continuously improving PsyDI, with upcoming features such as an MBTI gallery. Your feedback is valuable to us!
 
+## :bomb: News!
+
+We've recently refreshed our collection of classical character galleries:
+
+[[Yor Forger (SPY×FAMILY)](http://xhslink.com/13YTRE)]
+
+[[Anya Forger (SPY×FAMILY)](http://xhslink.com/Z929fF)]
+
+[[Jinx (League of Legends)](http://xhslink.com/Bpt45F)]
+
+
 ## :star_struck: Quick Start
 
 Getting started with PsyDI is easy! Follow these simple steps to begin your journey of self-discovery:
@@ -16,15 +27,27 @@ Getting started with PsyDI is easy! Follow these simple steps to begin your jour
    - Upon entering the quiz, you'll be prompted to choose a label that best represents you. This helps PsyDI tailor the assessment to your personality.
    - Next, you'll be asked to share one of your recent favorite songs and your most recent thoughts. This information provides valuable insights into your current mindset and preferences.
 
+<div align="center">
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/init_part.png"></a>
+</div>
+
 :bulb: **Exploring Your Personality:**
    - In the Explore chapter, PsyDI will ask you a series of questions to gain a basic understanding of who you are based on your provided tags. This initial interaction sets the stage for deeper exploration.
 
 :speech_balloon: **Interactive Chatting:**
    - PsyDI will chat with you to delve deeper into topics mentioned earlier. This interactive process typically consists of 12-15 questions, allowing PsyDI to get to know you better.
 
+<div align="center">
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/choose_part.png"></a>
+</div>
+
 :sparkles: **Detailed Analysis:**
    - Finally, PsyDI will provide you with a comprehensive analysis of your Myers-Briggs Type Indicator (MBTI) and characteristics. This analysis offers valuable insights into your personality traits and tendencies.
-   - Additionally, you'll receive a generator image that matches your temperament, adding a visual element to your understanding of yourself.
+   - Additionally, you'll receive a generated image that matches your temperament, adding a visual element to your understanding of yourself.
+
+<div align="center">
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/final_part.png"></a>
+</div>
 
 Now that you know the basics, dive in and start your journey with PsyDI today!
 
@@ -44,13 +67,13 @@ At the core of PsyDI's evaluation process is the table of MBTI scores, following
 PsyDI first converts the user's multimodal information into text form. The score model then evaluates these textual expressions, providing probabilities for each sentence being associated with any MBTI type. PsyDI iterates through the following three steps until determining the user's MBTI:
 
 1. **Dynamic Selection:**
-    - PsyDI selects the post with the highest scores under both of the two MBTI types with the Top-2 probabilities. This step aims to pinpoint the most ambiguous information and prompt further questions to clarify.
+    PsyDI selects the post with the highest scores under both of the two MBTI types with the Top-2 probabilities. This step aims to pinpoint the most ambiguous information and prompt further questions to clarify.
 
 2. **Dialog Interaction:**
-    - PsyDI engages the user in multiple rounds of dialog, utilizing three interaction formats: multiple choice, forced choice, and free question and answer. All the question and answer pairs are integrated into a new post.
+    PsyDI engages the user in multiple rounds of dialog, utilizing three interaction formats: multiple choice, forced choice, and free question and answer. All the question and answer pairs are integrated into a new post.
 
 3. **Table Update:**
-    - PsyDI updates the MBTI score table with the new post, incorporating the insights gained from the dialog interaction.
+    PsyDI updates the MBTI score table with the new post, incorporating the insights gained from the dialog interaction.
 
 ### Iterative Refinement
 
