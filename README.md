@@ -32,8 +32,10 @@ PsyDI can now be accessed directly via our [web link](https://psydi.opendilab.or
   - [Evaluation Framework](#evaluation-framework)
   - [Process Description](#process-description)
   - [Iterative Refinement](#iterative-refinement)
-- [Running Locally](#running-locally)
+- [Roadmap](#roadmap)
+- [Running Frontend Locally](#running-frontend-locally)
 - [Acnowledgements](#acnowledgements)
+- [Citation](#citation)
 - [License](#license)
 
 
@@ -95,17 +97,27 @@ PsyDI first converts the user's multimodal information into text form. The score
 
 PsyDI iterates through these steps until it reaches a confident determination of the user's MBTI, continually refining its understanding through each interaction.
 
-## Running Locally
+## Roadmap
+- [x] Online deployment of PsyDI
+- [x] Release all the frontend code and deployment scripts
+- [x] MBTI evaluation gallery
+- [ ] Other language support (English/Korean/Japanese)
+- [ ] Release the backend code examples and prompts
+- [ ] Release the generated datasets and the trained reward model
+- [ ] Technical report arxiv link
+- [ ] More multi-modal and interactive questions and examples
 
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js AI Chatbot. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
+## Running Frontend Locally
+
+You will first need to use the environment variables [defined in `.env.example`](.env.example) to run PsyDI agent.
 
 > Note: You should not commit your `.env` file or it will expose secrets that will allow others to control access to your various OpenAI and authentication provider accounts.
 
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
-3. Download your environment variables: `vercel env pull`
+Then you need to install node.js (v18.17.0 is recommended) and npm on your machine. 
 
+After setting up all the prerequisites, you can run the following commands to start the frontend:
 ```bash
+npm install -g pnpm
 pnpm install
 pnpm dev --port 3001
 ```
@@ -115,6 +127,18 @@ Your app template should now be running on [localhost:3001](http://localhost:300
 ## Acnowledgements
 
 - [vercel/ai-chatbot](https://github.com/vercel/ai-chatbot)
+
+## Citation
+
+```latex
+@misc{psydi,
+    title={Psydi: A MBTI agent that helps you understand your personality type through a relaxed multi-modal interaction.},
+    author={PsyDI Contributors},
+    publisher={GitHub},
+    howpublished={\url{https://github.com/opendilab/PsyDI}},
+    year={2024},
+}
+```
 
 ## License
 
