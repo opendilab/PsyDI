@@ -128,6 +128,17 @@ Your app template should now be running on [localhost:3001](http://localhost:300
 
 - [vercel/ai-chatbot](https://github.com/vercel/ai-chatbot)
 
+## Feedback and Contribution
+
+- [File an issue](https://github.com/opendilab/PsyDI/issues/new) on Github
+- Open or participate in our [forum](https://github.com/opendilab/PsyDI/discussions)
+- Discuss on PsyDI's WeChat group (i.e. add us on WeChat: ding314assist)
+
+  <img src=https://github.com/opendilab/PsyDI/blob/main/assets/wechat.jpeg width=35% />
+- Contact our email (opendilab@pjlab.org.cn)
+
+We appreciate all the feedbacks and contributions to improve PsyDI, both algorithms and system designs.
+
 ## Citation
 
 ```latex
