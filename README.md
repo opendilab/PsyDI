@@ -1,5 +1,5 @@
 # PsyDI
-English | 简体中文
+English | [简体中文(Simplified Chinese)](https://github.com/opendilab/PsyDI/blob/main/README.zh.md)
 <div align="center">
     <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/banner.png"></a>
 </div>
@@ -35,6 +35,7 @@ PsyDI can now be accessed directly via our [web link](https://psydi.opendilab.or
 - [Roadmap](#roadmap)
 - [Running Frontend Locally](#running-frontend-locally)
 - [Acnowledgements](#acnowledgements)
+- [Feedback and Contribution](#feedback-and-contribution)
 - [Citation](#citation)
 - [License](#license)
 
@@ -78,13 +79,13 @@ PsyDI operates on the principle that understanding a user's expressed thoughts i
 
 ### Evaluation Framework
 
-At the core of PsyDI's evaluation process is the table of MBTI scores, following established psychological testing methods. Each row of this table represents the probability of the current user being assigned to a specific MBTI type, ranging from 0 to 100.
+At the core of PsyDI's evaluation process is a table of MBTI scores, following established psychological testing methods. Each row of this table represents the probability of the current user being assigned to a specific MBTI type, ranging from 0 to 100.
 
 ### Process Description
 
 PsyDI first converts the user's multimodal information into text form. The score model then evaluates these textual expressions, providing probabilities for each sentence being associated with any MBTI type. PsyDI iterates through the following three steps until determining the user's MBTI:
 
-1. **Dynamic Selection:**
+1. **Post Selection:**
     PsyDI selects the post with the highest scores under both of the two MBTI types with the Top-2 probabilities. This step aims to pinpoint the most ambiguous information and prompt further questions to clarify.
 
 2. **Dialog Interaction:**
