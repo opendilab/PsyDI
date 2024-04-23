@@ -18,7 +18,7 @@ interface FinalResultProps {
 export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table}: FinalResultProps) => {
   const [finalResults, setFinalResults] = useState(null);
   const [userImgUrl, setUserImgUrl] = useState(null);
-  const qrcodeImgUrl = process.env.QRCODE_IMAGE_URL
+  const [qrcodeImgurl, setQrcodeImgUrl] = useState(null);
   
   useEffect(() => {
     setTimeout(async () => {
@@ -30,6 +30,7 @@ export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table
       const resImg = await fetch('/api/final_results?q=figure');
       const dataImg = await resImg.json()
       setUserImgUrl(dataImg.ret.image_url);
+      setQrcodeImgUrl(dataImg.ret.qrcode_image_url);
     }, 6000);
   }, []);
 
@@ -61,7 +62,7 @@ export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table
       { userImgUrl && (
         <div key={"userImgUrl"}>
           <Separator className="my-4 md:my-8" />
-          <ChatMessage message={{id: chatID, role: 'assistant', 'content': `**你的 MBTI 个性化定制形象图如下：** ![final img](${userImgUrl})![qrcode](${qrcodeImgUrl})`}} chatDone={chatDone}/>
+          <ChatMessage message={{id: chatID, role: 'assistant', 'content': `**你的 MBTI 个性化定制形象图如下：** ![final img](${userImgUrl})\n![qrcode](${qrcodeImgurl})`}} chatDone={chatDone}/>
         </div>
       )}
     </div>

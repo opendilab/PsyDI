@@ -69,7 +69,7 @@ const exampleMessages = [
     //},
     {
       heading: '金克斯 ESFP',    
-      subheading: '哈！谁需要什么理由？拜托，做我的对手强一点好嘛？不然我真的要无聊到打哈欠了。',
+      subheading: '哈！谁需要什么理由？拜托，做我的对手强一点？不然我真的要无聊到打哈欠。',
       image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_jinx.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1720600262&Signature=dgqkYxhSFgXXP044v9zET1CAh4k%3D',
       outsideLink: 'http://xhslink.com/Bpt45F',
     },

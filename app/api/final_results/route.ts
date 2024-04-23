@@ -25,8 +25,8 @@ export async function GET(req: NextRequest) {
     },
     body: JSON.stringify({'uid': userId, 'task': task}),
   });
-  const data = await response.json();
-  console.log('fetched', data, q)
+  let data = await response.json();
+  data['ret']['qrcode_image_url'] = process.env.QRCODE_IMAGE_URL
 
   return NextResponse.json(data);
 }
