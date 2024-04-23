@@ -18,6 +18,7 @@ interface FinalResultProps {
 export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table}: FinalResultProps) => {
   const [finalResults, setFinalResults] = useState(null);
   const [userImgUrl, setUserImgUrl] = useState(null);
+  const qrcodeImgUrl = process.env.QRCODE_IMAGE_URL
   
   useEffect(() => {
     setTimeout(async () => {
@@ -33,7 +34,7 @@ export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table
   }, []);
 
   return (
-    <div>
+    <div id="final-result">
       {table && <EChartsComponent table={table}/>}
       { (finalResults === null) && ( 
           <Separator className="my-4 md:my-8" />
@@ -60,7 +61,7 @@ export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table
       { userImgUrl && (
         <div key={"userImgUrl"}>
           <Separator className="my-4 md:my-8" />
-          <ChatMessage message={{id: chatID, role: 'assistant', 'content': `**你的 MBTI 个性化定制形象图如下：** ![final img](${userImgUrl})`}} chatDone={chatDone}/>
+          <ChatMessage message={{id: chatID, role: 'assistant', 'content': `**你的 MBTI 个性化定制形象图如下：** ![final img](${userImgUrl})![qrcode](${qrcodeImgUrl})`}} chatDone={chatDone}/>
         </div>
       )}
     </div>

@@ -29,6 +29,7 @@ export interface ChatPanelProps
   id?: string
   handleReset: () => void
   takeFullPageScreenshot: () => void
+  takeFinalPageScreenshot: () => void
 }
 
 type ConfirmationDialogProps = {
@@ -56,7 +57,8 @@ var texts = {
   singleSelectErrorInfo: '',
   retest: '',
   reanswer: '',
-  snapshot: ''
+  snapshot: '',
+  finalSnapshot: '',
 };
 if (lang === 'zh') {
   texts.musicPlaceholder = '请输入一首您喜欢的歌曲名。'
@@ -77,6 +79,7 @@ if (lang === 'zh') {
   texts.retest = '重新评测'
   texts.reanswer = '重新回答上个问题'
   texts.snapshot = '截长图保存'
+  texts.finalSnapshot = '保存最终结果图'
 } else if (lang === 'en') {
   texts.musicPlaceholder = 'Please enter the name of a song you like.'
   texts.postPlaceholder = 'Please enter your personal posts (separated by semicolons or newlines).'
@@ -96,6 +99,7 @@ if (lang === 'zh') {
   texts.retest = 'Test again'
   texts.reanswer = 'Reanswer the previous question'
   texts.snapshot = 'Save the snapshot'
+  texts.finalSnapshot = 'Save the final result'
 }
 
 const ConfirmationDialog = ({ isOpen, onClose, onConfirm }: ConfirmationDialogProps) => {
@@ -141,7 +145,8 @@ export function ChatPanel({
   setMessages,
   chatDone,
   handleReset,
-  takeFullPageScreenshot
+  takeFullPageScreenshot,
+  takeFinalPageScreenshot
 }: ChatPanelProps) {
   const router = useRouter()
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -332,6 +337,17 @@ export function ChatPanel({
           )
         }
         { chatDone && (
+            <Button
+              variant="outline"
+              onClick={takeFinalPageScreenshot}
+              className="bg-background"
+            >
+              <CameraAltOutlinedIcon fontSize="small" className="mr-2"/>
+              {texts.finalSnapshot}
+            </Button>
+          )
+        }
+        { false && chatDone && (
             <Button
               variant="outline"
               onClick={takeFullPageScreenshot}

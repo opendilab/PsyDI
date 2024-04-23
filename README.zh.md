@@ -19,7 +19,7 @@ PsyDI 是一款多模态，交互式的心理测评聊天机器人，旨在对�
 | [约尔·福杰（间谍过家家）](http://xhslink.com/13YTRE) | 约尔·福杰是一名身怀绝技，但心地善良的杀手。她伪装成政府官员，机缘巧合下成为了《间谍过家家》中临时家庭不可或缺的一员。 | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/yor.png"></a>     |
 | [阿尼亚·福杰（间谍过家家）](http://xhslink.com/Z929fF) | 在《间谍过家家》中，阿尼亚·福杰是一个具有读心能力的小女孩。她发现了黄昏的真实身份，并用读心能力被黄昏收养，组建了临时家庭，在临时家庭的一番秘密活动中扮演了关键角色。 |ENFP       | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anya.png"></a>      |
 | [金克斯（英雄联盟）](http://xhslink.com/Bpt45F) | 金克丝是《英雄联盟》中的一名无政府主义者，也是一名热爱爆炸的神射手。她以混乱的风格和双持枪械在战场上释放冰雹风暴而闻名。 |ESFP     | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/jinx.png"></a>      |
-| 维克托（英雄联盟） | 维克多是《英雄联盟》中一位才华横溢、毫不留情的发明家，他利用先进的海克斯技术操纵战场，无情地消灭敌人。 |待续         | 待续 |
+| [维克托（英雄联盟）](http://xhslink.com/4VaTbH) | 维克多是《英雄联盟》中一位才华横溢、毫不留情的发明家，他利用先进的海克斯技术操纵战场，无情地消灭敌人。 | INTJ |  <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/viktor.png"></a>      |
 
 
 ## 导航

@@ -62,6 +62,36 @@ const takeFullPageScreenshot = () => {
   });
 };
 
+const takeFinalPageScreenshot = () => {
+  html2canvas(document.getElementById('final-result') || document.body, {
+    logging: true,
+    allowTaint: true,
+    useCORS: true,
+    scale: 1,
+    //foreignObjectRendering: true,
+    //letterRendering: true,
+  }).then((canvas) => {
+    const data = canvas.toDataURL('image/png');
+    //const blob = canvas.toBlob(blob => blob, 'image/png');
+    //if (blob === null) {
+    //  console.error('Failed to convert canvas to blob');
+    //  return;
+    //}
+    // @ts-ignore
+    //const data = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.download = 'psydi_final.png';
+    link.href = data;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(data);
+  }).catch((error) => {
+    console.error('takeFinalPageScreenshot failed', error);
+  });
+};
+
 export function Chat({ id, initialMessages, className }: ChatProps) {
   const [previewToken, setPreviewToken] = useLocalStorage<string | null>(
     'ai-token',
@@ -95,11 +125,9 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         const currentChatDone = response.headers.get('chat-done') === 'true'
         if (currentChatDone) {
           setChatDone(true)
+          setPercent(100)
         }
 
-        if (chatDone) {
-           setPercent(100)
-        }
         // @ts-ignore
         const table = response.headers.get('table')
         if (table !== 'null') {
@@ -175,6 +203,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         chatDone={chatDone}
         handleReset={handleReset}
         takeFullPageScreenshot={takeFullPageScreenshot}
+        takeFinalPageScreenshot={takeFinalPageScreenshot}
       />
       )}
 
