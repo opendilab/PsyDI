@@ -23,7 +23,7 @@ var texts = {
 };
 if (lang === 'zh') {
     texts.userMusicResponse = "音乐是一种表达情感的通用语言，无论你来自何方，它都能让我们的心灵沟通无阻。作为沟通的第一步，您可以分享一首您最喜欢的音乐，或者您最近常听的一首歌。（系统会尝试结合曲库搜索，您可直接输入发送或等待智能搜索结果再确认）"
-    texts.userPostsResponse = "接下来，让我们从日常生活聊起。最近有什么趣事吗？您有什么想法和感受？在您输入一段想法后请点击提交。（**单条或多条动态均可**，多条动态之间以中文分号分隔）\n以下是一些参考示例：\n"
+    texts.userPostsResponse = "接下来，让我们从日常生活聊起。最近有什么趣事吗？您有什么想法和感受？在您输入一段想法后请点击提交。（**单条或多条想法均可**，多条想法之间以中文分号分隔）\n以下是一些参考示例：\n"
     texts.userPostsExamples = [
       "> 我喜欢与不同的人聊天，分享我的经历。我也喜欢听他们的故事。与人交谈让我能发现新乐趣。",
       "> 小时候，我是一个饱读书籍和常常天马行空地想象的孩子；今天是我的幸运日",
@@ -32,7 +32,7 @@ if (lang === 'zh') {
     ]
     texts.mbtiOptionResponse = "首先，我很好奇您对于视觉艺术的喜好。请在以下九张图片中选择您最喜欢的一张，并告诉我您选择的编号。" 
     texts.mbtiOptionResponseSupp = "（输入对应的图片编号 1-9）"
-    texts.mbtiOptionExtensionResponse = "基于您上一轮的选择，请在**以下六张延伸图片**中选择一张最符合您的，告诉我对应的编号。"
+    texts.mbtiOptionExtensionResponse = "基于您上一轮的选择，请在**以下六张延伸图片**中选择一张您最欣赏的，告诉我对应的编号。"
     texts.mbtiOptionExtensionResponseSupp = "（输入对应的图片编号 1-6）"
     texts.philosophyResponse = "著名的“电车难题”是一个富有争议的话题。我很想听听您的想法，请选择一项最符合的，或直接告诉我您的见解。"
     texts.philosophyAnswers = "(A) 什么也不做，让列车按照正常路线碾压过这五个人。\n(B) 拉下操纵杆，改变为另一条轨道，使列车压过另一条轨道上的那个人。\n(C) 冲向轨道用肉身拦住电车救下六个人。\n(D) 什么都不做，因为没有任何一种选择本质上是好的还是坏的。"
@@ -49,7 +49,7 @@ if (lang === 'zh') {
     ];
     texts.mbtiOptionResponse = "First, I am curious about your preferences for visual arts. Please choose your favorite one from the following nine pictures and tell me the number you choose."
     texts.mbtiOptionResponseSupp = "(Enter the corresponding picture number 1-9)"
-    texts.mbtiOptionExtensionResponse = "Based on your previous choice, please choose the one that best suits you from the **following six extended pictures** and tell me the corresponding picture number."
+    texts.mbtiOptionExtensionResponse = "Based on your previous choice, please choose the one that you appreciate the most from the **following six extended pictures** and tell me the corresponding picture number." 
     texts.mbtiOptionExtensionResponseSupp = "(Enter the corresponding picture number 1-6)"
     texts.philosophyResponse = "The famous 'trolley problem' is a controversial topic. I would like to hear your thoughts. Please choose the one that best suits you, or tell me your thoughts directly."
     texts.philosophyAnswers = "(A) Do nothing and let the train run over the five people on the normal route. (B) Pull the lever and change to another track, so that the train runs over the person on the other track. (C) Rush to the track and stop the train with your body to save the six people. (D) Do nothing, because no choice is inherently good or bad."
@@ -412,7 +412,7 @@ export class PsyDI {
                     if (lang == 'en') {
                       infoString = `> Tip: This problem is based on the song you shared.`
                     } else if (lang == 'zh') {
-                      infoString += `> 注意：这个问题是基于你分享的歌曲定制设计的。`
+                      infoString += `> 下个阶段的问题是基于你分享的歌曲定制设计的。`
                     }
                     infoString += `\n![alt text](${songImage})`
                 } else if (index < (userPostsCount + prefixIndex)) {
@@ -420,13 +420,13 @@ export class PsyDI {
                     if (lang == 'en') {
                       infoString += `> Tip: This problem is based on the ${index - prefixIndex + 1}-th your daily post: ${post}.`
                     } else if (lang == 'zh') {
-                      infoString += `> 注意：这个问题是基于你的第${index - prefixIndex + 1}条日常动态：${post}。`
+                      infoString += `> 下个阶段的问题是基于你的第${index - prefixIndex + 1}条日常想法：${post}。`
                     }
                 } else {
                     if (lang == 'en') {
                       infoString += `> Tip: This problem is based on the ${phase2Index}-th dialogue in the exploration phase.`
                     } else if (lang == 'zh') {
-                      infoString += `> 注意：这个问题是基于你在探索阶段的第${phase2Index}条对话定制设计的。`
+                      infoString += `> 下个阶段的问题是基于你在探索阶段的第${phase2Index}条对话定制设计的。`
                     }
                 }
 

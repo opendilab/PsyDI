@@ -136,9 +136,9 @@ if (lang === 'zh') {
   texts.endPhaseTitle = "『回响篇章』"
   texts.endDescription = "感谢您的回答！我已为您准备好一份专属个性报告，希望能帮助您更好地认识自我。这次轻松的对话不仅让我捕捉到了您的独特个性，也希望帮助您看清内心，接纳自我。每一个人都有属于自己的独特魅力，值得被认可与理解。如果日后您想要再次探索自我，欢迎随时来找我聊聊！我随时在这里等待您再次开启交流。"
   texts.startIntro = "（本章节有两道问答，主要是初步了解您的日常信息，帮助 Agent 定制您专属的 MBTI 问答和分析）"
-  texts.explorationIntro = "（本章节共有四道问答（前篇两道+后篇两道），结合经典心理学的相关知识和工具，系统性地收集您的人格特征信息，保证 Agent 能从多个不同的角度跟您交流。每道题约需要等待 4-6 秒。）"
-  texts.discoveryIntro = "（基于之前收集的信息和您的回答，在本章节 Agent 将会动态地跟您进行一系列多模块的探讨和交互。每个问答约需要等待 3-6 秒。另外，您也可以通过每道问题的赞同按钮来表达您的反馈，这会帮助我们进一步改进测评智能体。）"
-  texts.endIntro = "（本章节将会综合前三个阶段的信息，为您生成专属人格分析和 MBTI 形象图。约需等待 25-35 秒。）"
+  texts.explorationIntro = "（本章节共有四道问答（前篇两道+后篇两道），结合经典心理学的相关知识和工具，系统性地收集您的人格特征信息，保证 Agent 能从多个不同的角度跟您交流。每道题约需要等待 2-4 秒。）"
+  texts.discoveryIntro = "（基于之前收集的信息和您的回答，在本章节 Agent 将会跟您进行一系列多阶段的探讨和交互。每个阶段 Agent 将会基于特定的话题尝试分析您的部分人格信息，根据您的回答动态生成 2-4 个问答。每个问答约需要等待 3-6 秒。另外，您也可以通过 **每道问题的赞同按钮来表达您的反馈**，这会帮助我们进一步改进测评智能体。）"
+  texts.endIntro = "（本章节将会综合前三个阶段的信息，为您生成专属人格分析和 MBTI 形象图。约需等待 10-20 秒。）"
 } else if (lang === 'en') {
   texts.startPhaseTitle = "[Start Phase]"
   texts.userPostsAnswer = "Thanks for your sharing. It helps me to know you better. Now, let's explore your unique personality through some interesting questions."
@@ -187,9 +187,9 @@ if (lang === 'zh') {
   texts.endPhaseTitle = "[End Phase]"
   texts.endDescription = "Thank you for your answers! I have prepared a customized personality report for you, hoping to help you better understand yourself. This relaxed conversation not only allows me to capture your unique personality, but also hopes to help you see your heart and accept yourself. Everyone has their own unique charm, which deserves to be recognized and understood. If you want to explore yourself again in the future, please feel free to come to me! I am always here waiting for you to start a conversation again."
   texts.startIntro = "(There are two questions in this chapter, mainly to understand your daily information and help Agent customize your exclusive MBTI questions and analysis.)" 
-  texts.explorationIntro = "(There are four questions in this chapter (two in the first part + two in the second part). Combined with the relevant knowledge and tools of classical psychology, your personality information will be collected systematically to ensure that Agent can communicate with you from different perspectives. Each question takes about 4-6 seconds to wait.)"
-  texts.discoveryIntro = "(Based on the information collected earlier and your answers, in this chapter, Agent will dynamically interact with you through a series of multi-module discussions. Each question takes about 3-6 seconds to wait. In addition, you can express your feedback through the agree button of each question, which will help us further improve the evaluation agent.)"
-  texts.endIntro = "(This chapter will integrate the information of the previous three stages and generate a personalized personality analysis and MBTI image for you. It takes about 25-35 seconds to wait.)"
+  texts.explorationIntro = "(There are four questions in this chapter (two in the first part + two in the second part). Combined with the relevant knowledge and tools of classical psychology, your personality information will be collected systematically to ensure that Agent can communicate with you from different perspectives. Each question takes about 2-4 seconds to wait.)"
+  texts.discoveryIntro = "(Based on the information collected earlier and your answers, in this chapter, Agent will conduct a series of multi-stage discussions and interactions with you. In each stage, Agent will try to analyze your partial personality information based on specific topics and generate 2-4 questions dynamically according to your answers. Each question takes about 3-6 seconds to wait. In addition, you can express your feedback by **agreeing with each question**, which will help us further improve the evaluation intelligence.)"
+  texts.endIntro = "(This chapter will integrate the information of the previous three stages and generate a personalized personality analysis and MBTI image for you. It takes about 10-20 seconds to wait.)"
 }
 
 export function ChatList({ messages, chatDone, table, isLoading, isMessageFinished }: ChatList) {

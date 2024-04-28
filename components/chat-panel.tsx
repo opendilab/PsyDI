@@ -62,7 +62,7 @@ var texts = {
 };
 if (lang === 'zh') {
   texts.musicPlaceholder = '请输入一首您喜欢的歌曲名。'
-  texts.postPlaceholder = '请输入您的个人动态（以中文分号或换行符分隔）。'
+  texts.postPlaceholder = '请输入您的个人想法（以中文分号或换行符分隔）。'
   texts.imgPlaceholder = '请选择您喜欢的图片选项。(1-9)'
   texts.imgExtensionPlaceholder = '请选择您喜欢的图片选项。(1-6)'
   texts.philosophyPlacehodler = '请选择上面的选项 (ABCD) 或输入您自己的答案。'
