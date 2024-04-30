@@ -127,6 +127,7 @@ Your app template should now be running on [localhost:3001](http://localhost:300
 
 ## Acnowledgements
 
+- Thanks JAAAAACKKKKKY for her contributions to the UI/UX design and artistic materials for this project."
 - [vercel/ai-chatbot](https://github.com/vercel/ai-chatbot)
 
 ## Feedback and Contribution

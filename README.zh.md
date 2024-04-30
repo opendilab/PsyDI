@@ -126,6 +126,7 @@ pnpm dev --port 3001
 
 ## 致谢
 
+- 感谢 JAAAAACKKKKKY 对于本项目 UI/UX 设计和美术素材的贡献。
 - [vercel/ai-chatbot](https://github.com/vercel/ai-chatbot)
 
 ## 反馈与贡献
