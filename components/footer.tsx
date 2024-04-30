@@ -15,7 +15,16 @@ export function FooterText({ className, ...props }: React.ComponentProps<'p'>) {
       <ExternalLink href="https://github.com/opendilab">
         OpenDILab
       </ExternalLink>
-      出品，版权所有 © 2023
+      出品，版权所有 © 2024
+      <br />
+      对话内容由 AI 大模型生成，请仔细甄别。如有任何问题和建议，请联系
+      <ExternalLink href="mailto:opendilab@pjlab.org.cn">
+      邮箱
+      </ExternalLink>
+      或访问
+      <ExternalLink href="https://github.com/opendilab/PsyDI">
+      GitHub 主页
+      </ExternalLink>
     </p>
   )
 }
