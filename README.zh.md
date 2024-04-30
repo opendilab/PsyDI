@@ -72,7 +72,7 @@ PsyDI 的使用方式很简单！按照以下步骤，您就可以开始自我�
 ## :books: 介绍
 
 <div align="center">
-    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/psydi_pipeline_v2.jpg"></a>
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/psydi_pipeline.jpg"></a>
 </div>
 PsyDI 的基本原理是在与用户交流的过程中逐步挖掘用户底层的认知过程。通过发掘这些认知过程，PsyDI 能够识别用户习惯的认知模式，最终确定其迈尔斯-布里格斯类型指标（MBTI）。
 
