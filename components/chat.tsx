@@ -72,13 +72,6 @@ const takeFinalPageScreenshot = () => {
     //letterRendering: true,
   }).then((canvas) => {
     const data = canvas.toDataURL('image/png');
-    //const blob = canvas.toBlob(blob => blob, 'image/png');
-    //if (blob === null) {
-    //  console.error('Failed to convert canvas to blob');
-    //  return;
-    //}
-    // @ts-ignore
-    //const data = URL.createObjectURL(blob);
 
     const link = document.createElement('a');
     link.download = 'psydi_final.png';

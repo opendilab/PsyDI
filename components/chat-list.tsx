@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator'
 import { ChatMessage } from '@/components/chat-message'
 import { GetThemeColor } from '@/components/theme-toggle'
 import { FinalResult } from '@/components/final-result'
+import { EChartsComponent } from '@/components/bar-race'
 
 export interface ChatList {
   messages: Message[]
@@ -245,6 +246,7 @@ export function ChatList({ messages, chatDone, table, isLoading, isMessageFinish
           <BeatLoader color={GetThemeColor().antiPrimary} loading={isLoading} size={10} />
         </div>
       )}
+      { chatDone && isMessageFinished && table && <EChartsComponent table={table}/>}
       { chatDone && isMessageFinished && (<FinalResult chatID={chatID} chatDone={chatDone} table={table} /> )}
     </div>
   )

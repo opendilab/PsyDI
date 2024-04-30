@@ -7,7 +7,6 @@ import { BeatLoader } from 'react-spinners'
 import { Separator } from '@/components/ui/separator'
 import { ChatMessage } from '@/components/chat-message'
 import { GetThemeColor } from '@/components/theme-toggle'
-import { EChartsComponent } from '@/components/bar-race'
 
 interface FinalResultProps {
   chatID: string
@@ -19,12 +18,16 @@ export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table
   const [finalResults, setFinalResults] = useState(null);
   const [userImgUrl, setUserImgUrl] = useState(null);
   const [qrcodeImgurl, setQrcodeImgUrl] = useState(null);
+  const [headUrl, setHeadUrl] = useState(null);
+  const [vizResult, setVizResult] = useState(null);
   
   useEffect(() => {
     setTimeout(async () => {
       const res = await fetch('/api/final_results?q=analysis');
       const data = await res.json()
       setFinalResults(data.ret.result);
+      setHeadUrl(data.ret.head_url);
+      setVizResult(data.ret.viz_result);
     }, 3000);
     setTimeout(async () => {
       const resImg = await fetch('/api/final_results?q=figure');
@@ -36,7 +39,6 @@ export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table
 
   return (
     <div id="final-result">
-      {table && <EChartsComponent table={table}/>}
       { (finalResults === null) && ( 
           <Separator className="my-4 md:my-8" />
       )}
@@ -48,7 +50,7 @@ export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table
       { finalResults && (
         <div key={"finalResults"}>
           <Separator className="my-4 md:my-8" />
-          <ChatMessage message={{id: chatID, role: 'assistant', 'content': finalResults}} chatDone={chatDone}/>
+          <ChatMessage message={{id: chatID, role: 'assistant', 'content': `![head](${headUrl})${vizResult}` + finalResults}} chatDone={chatDone}/>
         </div>
       )}
       { finalResults && (userImgUrl === null) && ( 

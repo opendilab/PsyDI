@@ -72,12 +72,12 @@ const mbtiOptionExtensionStyles = [
 function printSortedFormattedObjectStats(obj: Record<string, number>) {
   const entries = Object.entries(obj);
   entries.sort((a, b) => b[1] - a[1]);
-  const topEntries = entries.slice(0, 6);
+  const topEntries = entries.slice(0, 4);
   let output = '';
   for (const [key, value] of topEntries) {
     // first item or items whose value is greater than 70
     if (output?.length === 0 || value >= 70 ) {
-      output += `MBTI 类型: ${key} - 倾向: ${value.toFixed(2)}\n`;
+      output += `MBTI 类型: ${key} - 倾向: ${value.toFixed(2)}\n\n`;
     }
   }
   return output;
@@ -481,21 +481,24 @@ export class PsyDI {
             const headUrl = this.mbtiHeadUrls[mbti]
 
             let finalResult = ""
+            let vizResult = ""
             const finalIndex = (Object.keys(table).length).toString()
             if (lang == 'en') {
-                finalResult += `### Test Completed\n![head img](${headUrl}) \nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
-                finalResult += `The high propensity personality types, as well as the changes in MBTI personality type scores across various assessment stages, are as follows: \n${printSortedFormattedObjectStats(table[finalIndex])}\n`
+                finalResult += `### Test Completed\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
+                //finalResult += `The high propensity personality types, as well as the changes in MBTI personality type scores across various assessment stages, are as follows: \n${printSortedFormattedObjectStats(table[finalIndex])}\n`
             } else if (lang == 'zh') {
-                finalResult += `### 测试完成\n![head img](${headUrl}) \n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
+                finalResult += `### 测试完成\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
                 // @ts-ignore
                 finalResult += mbtiExplanation[mbti] + '\n'
-                finalResult += `其中的高倾向人格类型，以及测评各阶段的 MBTI 人格类型评分变化情况如下：\n${printSortedFormattedObjectStats(table[finalIndex])}\n`
+                vizResult = `你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n\n其中排在前列的高倾向人格类型如下：\n${printSortedFormattedObjectStats(table[finalIndex])}\n`
+                kv.hset(`ucount:${payload.uid}mbti`, {headUrl: headUrl, vizResult: vizResult})
             }
 
             console.info(`[${payload.uid}]QA test done, the result is: `, finalResult);
             let resultExtras = {
                 mbti: mbti, 
                 headUrl: headUrl,
+                vizResult: vizResult,
                 table: table,
             }
             return {done: true, 'response_string': finalResult, 'result_extras': resultExtras};
