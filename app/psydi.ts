@@ -77,7 +77,7 @@ function printSortedFormattedObjectStats(obj: Record<string, number>) {
   for (const [key, value] of topEntries) {
     // first item or items whose value is greater than 70
     if (output?.length === 0 || value >= 70 ) {
-      output += `MBTI 类型: ${key} - 倾向: ${value.toFixed(2)}\n\n`;
+      output += `- ${key} 倾向: ${value.toFixed(2)}\n`;
     }
   }
   return output;
