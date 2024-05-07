@@ -29,15 +29,15 @@ var texts: Texts = {
 }
 if (lang === 'zh') {
     texts.title = "在进入测试之前，PsyDI 将先为您构筑一个简明的人格画像，请尽可能选择与您相符的标签。（默认单选，兴趣爱好和个性标签可多选）"
-    texts.sectionNames = ["年龄段（单选）", "地区（单选）", "职业（单选）", "生活态度（单选）", "科技态度（单选）", "兴趣爱好（多选）", "个性标签（多选）", "您的标签"]
-    texts.backendSectionNames = ["年龄", "地区", "职业", "生活态度", "对待科技态度", "爱好", "个性标签"]
+    texts.sectionNames = ["年龄段（单选）", "地区（单选）", "职业（单选）", "性别（单选，只影响最终人物形象图性别）", "生活态度（单选）", "科技态度（单选）", "兴趣爱好（多选）", "个性标签（多选）", "您的标签"]
+    texts.backendSectionNames = ["年龄", "地区", "职业", "性别", "生活态度", "对待科技态度", "爱好", "个性标签"]
     texts.skip = "跳过【个性化标签】章节"
     texts.finalHint = "再次点击标签以取消选择，点击右下箭头进入对话"
     texts.tagErrorInfo = '请先取消已选标签再选择新标签'
 } else if (lang === 'en') {
     texts.title = "Before entering the test, PsyDI will first build a concise personality portrait for you. Please select the tags that match you as much as possible. (Default single selection, multiple choices for hobbies and personality tags)" 
-    texts.sectionNames = ["Age group (single selection)", "Region (single selection)", "Occupation (single selection)", "Life attitude (single selection)", "Attitude towards technology (single selection)", "Hobbies (multiple selection)", "Personality tags (multiple selection)", "Your tags"]
-    texts.backendSectionNames = ["Age", "Region", "Occupation", "Life attitude", "Attitude towards technology", "Hobbies", "Personality tags"]
+    texts.sectionNames = ["Age group (single selection)", "Region (single selection)", "Occupation (single selection)", "Gender (single selection, only affects the final image)", "Life attitude (single selection)", "Attitude towards technology (single selection)", "Hobbies (multiple selection)", "Personality tags (multiple selection)", "Your tags"]
+    texts.backendSectionNames = ["Age", "Region", "Occupation", "Gender", "Life attitude", "Attitude towards technology", "Hobbies", "Personality tags"]
     texts.skip = "Skip this section and go directly to the test (The customization level of the test will be reduced)"
     texts.finalHint = "Click the tag again to cancel the selection. Click the arrow in the lower right corner to enter the next section"
     texts.tagErrorInfo = 'Please cancel the selected tags before selecting new tags'
@@ -69,6 +69,11 @@ const initialTags: Tag[][] = [
     { id: 3, name: '宅家', selected: false}, 
     { id: 4, name: '自由职业', selected: false},
     { id: 5, name: '其他', selected: false},
+  ],
+  [
+    { id: 1, name: '男性', selected: false},
+    { id: 2, name: '女性', selected: false},
+    { id: 3, name: '其他', selected: false},
   ],
   [
     { id: 1, name: '环保主义者', selected: false},

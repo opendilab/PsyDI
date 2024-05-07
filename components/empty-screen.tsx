@@ -38,7 +38,7 @@ if (lang === 'zh') {
     texts.welcome = '欢迎来到 PsyDI！'
     texts.intro1 = "您好，我是由 "
     texts.intro2 = "开发的 MBTI 测评 AI 智能体，希望通过轻松的对话，共同探索您独特的个性和倾向。"
-    texts.intro3 = "为了更好地了解您，我会先询问您最近的一些想法，然后邀请您完成一个简单有趣的测试。这将帮助我捕捉到您珍贵的内在世界。基于对您的了解，我会进一步提出问题来探寻您内在的动机，您只需要放松地选出最让您感到舒适的选项。最终，我们将一起解读测试结果，生成定制虚拟人格形象，帮助您更好地发现自我。"
+    texts.intro3 = "为了更好地了解您，我会先询问您最近的一些想法，然后邀请您完成一个简单有趣的测试。这将帮助我捕捉到您珍贵的内在世界。基于对您的了解，我会进一步提出问题来探寻您内在的动机，您只需要放松地选出最让您感到舒适的选项。最终，我们将一起解读测试结果，生成定制虚拟人格形象，帮助您更好地发现自我。（为获得最佳体验，请在浏览器中打开）"
     texts.start = "现在开始测试（入口）"
     texts.examples = "经典人物测试样例"
     texts.outsideLinkErrorInfo = "敬请期待"
@@ -46,7 +46,7 @@ if (lang === 'zh') {
     texts.welcome = 'Welcome to PsyDI!'
     texts.intro1 = "Hi, I am an MBTI Agent developed by "
     texts.intro2 = ". I hope to explore your unique personality and tendencies through a relaxed conversation."
-    texts.intro3 = "You can start a MBTI exploration with your posts or try the following examples:"
+    texts.intro3 = "To better understand you, I will first ask you about your recent thoughts and then invite you to complete a simple and fun test. This will help me capture your precious inner world. Based on my understanding of you, I will ask further questions to explore your inner motivations, and you just need to relax and choose the option that makes you most comfortable. Finally, we will interpret the test results together, generate a customized virtual personality image to help you better discover yourself. (For the best experience, please open in a browser)"
     texts.start = "Start the test now (Entry)"
     texts.examples = "Classic character test examples"
     texts.outsideLinkErrorInfo = "Coming soon"
