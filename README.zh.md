@@ -20,7 +20,7 @@ PsyDI 是一款多模态，交互式的心理测评聊天机器人，旨在对�
 | [阿尼亚·福杰（间谍过家家）](http://xhslink.com/Z929fF) | 在《间谍过家家》中，阿尼亚·福杰是一个具有读心能力的小女孩。她发现了黄昏的真实身份，并用读心能力被黄昏收养，组建了临时家庭，在临时家庭的一番秘密活动中扮演了关键角色。 |ENFP       | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anya.png"></a>      |
 | [金克斯（英雄联盟）](http://xhslink.com/Bpt45F) | 金克丝是《英雄联盟》中的一名无政府主义者，也是一名热爱爆炸的神射手。她以混乱的风格和双持枪械在战场上释放冰雹风暴而闻名。 |ESFP     | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/jinx.png"></a>      |
 | [维克托（英雄联盟）](http://xhslink.com/4VaTbH) | 维克多是《英雄联盟》中一位才华横溢、毫不留情的发明家，他利用先进的海克斯技术操纵战场，无情地消灭敌人。 | INTJ |  <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/viktor.png"></a>      |
-| [菲比·布菲 (Friends)](http://xhslink.com/e6wRII) | 菲比·布菲是《老友记》中一个独具魅力的角色，她以古怪、幽默和非传统的个性著称，拥有一系列独特的生活经历和人生观。菲比曾是一名街头艺人，她创作的歌曲充满了个人特色和幽默感。她与生物学父亲的关系和对动物的热爱，以及她在朋友中的支持和关爱，都为剧集增添了许多欢乐和色彩。她的人生充满了不可预测的转折和奇遇，使她成为六位主角中不可或缺的一员。 | ENFP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/phoebe.png"></a>      |
+| [菲比·布菲 (老友记)](http://xhslink.com/e6wRII) | 菲比·布菲是《老友记》中一个独具魅力的角色，她以古怪、幽默和非传统的个性著称，拥有一系列独特的生活经历和人生观。菲比曾是一名街头艺人，她创作的歌曲充满了个人特色和幽默感。她与生物学父亲的关系和对动物的热爱，以及她在朋友中的支持和关爱，都为剧集增添了许多欢乐和色彩。她的人生充满了不可预测的转折和奇遇，使她成为六位主角中不可或缺的一员。 | ENFP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/phoebe.png"></a>      |
 
 
 ## 导航
