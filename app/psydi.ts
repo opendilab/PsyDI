@@ -187,27 +187,27 @@ export class PsyDI {
         '9': "This painting I selected is \"Three Musicians\" created by Spanish artist Pablo Picasso in 1921. It is characterized by bright and rich colors, simplified shapes and figurative elements. It shows Pablo Picasso's bold experiments with form and unique interpretation of the subject during this period."
     }
     this.BlobTreeOptions = {
-        '1': 'For the "blob tree" psychology test, it defines me as a self-confident person, happy with my life and optimistic. I\'m an intelligent person, able to see the great picture and to put things into perspective.',
+        '1': 'For the "blob tree" psychology test, it defines me as a person who tries but does not know how to find the best solutions for my life. I\'m a person who must learn to ask for help from those around me and give up my suspicious nature.',
         '2': 'For the "blob tree" psychology test, it defines me as an ambitious and confident person. I know that I will succeed at all times and that there will always be convenient situations to help me in my evolution.',
         '3': 'For the "blob tree" psychology test, it defines me as an ambitious and confident person. I know that I will succeed at all times and that there will always be convenient situations to help me in my evolution.',
-        '4': 'For the "blob tree" psychology test, it defines me as an unsociable, suspicious and distrustful person. I give up too quickly and not trust my extraordinary potential.',
-        '5': 'For the "blob tree" psychology test, it defines me as creative, loves life, enjoys every moment, of love and knows how to be grateful for all the good things around me. This helps me maintain a positive outlook and so I always have my doors open to the best!',
-        '6': 'For the "blob tree" psychology test, it defines me as having needs to feel loved, protected, and safe. I\'m the kind of person who always falls in love with the wrong person, because of my inexhaustible need for affection and love. I need to learn to look more closely for those people who can help him in my evolution, and not for those who do not understand my vulnerability.',
-        '7': 'For the "blob tree" psychology test, it defines me as communicative people who know how to offer support to my friends. I\'m characterized by high emotional intelligence, which helps me cope successfully with life situations. I have a team spirit, see the full side of the glass and always find solutions',
+        '4': 'For the "blob tree" psychology test, it defines me as a self-confident person, happy with my life and optimistic. I\'m an intelligent person, able to see the great picture and to put things into perspective.',
+        '5': 'For the "blob tree" psychology test, it defines me as an unsociable, suspicious and distrustful person. I give up too quickly and not trust my extraordinary potential.',
+        '6': 'For the "blob tree" psychology test, it defines me as communicative people who know how to offer support to my friends. I\'m characterized by high emotional intelligence, which helps me cope successfully with life situations. I have a team spirit, see the full side of the glass and always find solutions.',
+        '7': 'For the "blob tree" psychology test, it defines me as having needs to feel loved, protected, and safe. I\'m the kind of person who always falls in love with the wrong person, because of my inexhaustible need for affection and love. I need to learn to look more closely for those people who can help him in my evolution, and not for those who do not understand my vulnerability.',
         '8': 'For the "blob tree" psychology test, it defines me as dreamy and romantic. I like to have some moments just for myself. In this way, I regain my energy and zest for life and socialization. It is good for loved ones to understand my need for isolation and not misinterpret it, to understand it, and to give me the space I need.',
-        '9': 'For the "blob tree" psychology test, it defines me as an unsociable, suspicious and distrustful person. I would do anything to prove that I\'m also wonderful, but it is easier to keep away from others and stand alone because in this way I justify my distrust of others.',
+        '9': 'For the "blob tree" psychology test, it defines me as creative, loves life, enjoys every moment, of love and knows how to be grateful for all the good things around me. This helps me maintain a positive outlook and so I always have my doors open to the best!',
         '10': 'For the "blob tree" psychology test, it defines me as ambitious, but also very cautious. I\'m hardworking and determined, that’s why I succeed in almost anything I set out to do. My ideas always stand out and I\'m appreciated in any environment.',
         '11': 'For the "blob tree" psychology test, it defines me as communicative people who know how to offer support to my friends. I\'m characterized by high emotional intelligence, which helps me cope successfully with life situations. I have a team spirit, see the full side of the glass and always find solutions',
         '12': 'For the "blob tree" psychology test, it defines me as communicative people who know how to offer support to my friends. I\'m characterized by high emotional intelligence, which helps me cope successfully with life situations. I have a team spirit, see the full side of the glass and always find solutions',
-        '13': 'For the "blob tree" psychology test, it defines me as filled with despair and loss of hope. I have to do my best to recalibrate myselves in the tree of life and the easiest way is to regain my self-confidence, seeking the support of loved ones!',
-        '14': 'For the "blob tree" psychology test, it defines me as a soulmate, a philanthropist, would do anything to help others. I\'m characterized by much empathy and are usually a “great soul.” But I should learn to take great care of myself, not just others.',
+        '13': 'For the "blob tree" psychology test, it defines me as an unsociable, suspicious and distrustful person. I would do anything to prove that I\'m also wonderful, but it is easier to keep away from others and stand alone because in this way I justify my distrust of others.',
+        '14': 'For the "blob tree" psychology test, it defines me as filled with despair and loss of hope. I have to do my best to recalibrate myselves in the tree of life and the easiest way is to regain my self-confidence, seeking the support of loved ones!',
         '15': 'For the "blob tree" psychology test, it defines me as motivated by the beauty of the road to success rather than the success itself. I\'m curious to learn new things, to have new experiences, to meet people, and to learn something from each one.',
         '16': 'For the "blob tree" psychology test, it defines me as optimistic, full of life, with a team spirit, I perform in any field and look at the challenges with detachment.',
-        '17': 'For the "blob tree" psychology test, it defines me as optimistic, full of life, with a team spirit, I perform in any field and look at the challenges with detachment.',
-        '18': 'For the "blob tree" psychology test, it defines me as optimistic, full of life, with a team spirit, I perform in any field and look at the challenges with detachment. And I like to feel loved and appreciated.',
-        '19': 'For the "blob tree" psychology test, it defines me as an unsociable, suspicious and distrustful person. I may have narcissistic inclinations and is envious of the success of others.',
+        '17': 'For the "blob tree" psychology test, it defines me as optimistic, full of life, with a team spirit, I perform in any field and look at the challenges with detachment. And I like to feel loved and appreciated.',
+        '18': 'For the "blob tree" psychology test, it defines me as optimistic, full of life, with a team spirit, I perform in any field and look at the challenges with detachment.',
+        '19': 'For the "blob tree" psychology test, it defines me as a soulmate, a philanthropist, would do anything to help others. I\'m characterized by much empathy and are usually a “great soul.” But I should learn to take great care of myself, not just others.',
         '20': 'For the "blob tree" psychology test, it defines me as ambitious, confident, and full of life, I\'m innovator and not afraid to take risks. My detachment and passion bring me many successes and satisfactions.',
-        '21': 'For the "blob tree" psychology test, it defines me as a person who tries but does not know how to find the best solutions for my life. I\'m a person who must learn to ask for help from those around me and give up my suspicious nature.'
+        '21': 'For the "blob tree" psychology test, it defines me as an unsociable, suspicious and distrustful person. I may have narcissistic inclinations and is envious of the success of others.'
     };
     if (lang === 'en') {
         this.MBTIOptionsTrans = this.MBTIOptions;
@@ -243,28 +243,28 @@ export class PsyDI {
             '9': "这是西班牙艺术家 Pablo Picasso 于1921年创作的油画《Nous autres musiciens (Three Musicians) 》，以明亮丰富的颜色、简化的形状和具象化的元素为特征，展现了 Pablo Picasso 在这一时期对于形式的大胆实验和对于主题的独特演绎。"
         }
         this.BlobTreeOptionsTrans = {
-            '1': '对于 “blob tree” 心理测试，它定义我为一个自信的人，对我的生活感到满意和乐观。我是一个聪明的人，能够看到事物宏观的愿景，并能透过现象看本质。',
-            '2': '对于 “blob tree” 心理测试，它定义我为一个雄心勃勃和自信的人。我知道我总是能够成功，总会有幸运且恰当的情况帮助我进步。',
-            '3': '对于 “blob tree” 心理测试，它定义我为一个雄心勃勃和自信的人。我知道我总是能够成功，总会有幸运且恰当的情况帮助我进步。',
-            '4': '对于 “blob tree” 心理测试，它定义我为一个不合群、猜疑和不信任的人。我经常放弃得太快，不相信我非凡的潜力。',
-            '5': '对于 “blob tree” 心理测试，它定义我为一个有创造力、热爱生活、享受每一刻、热爱和知道如何感激周围所有美好事物的人。这有助于我保持积极的态度，因此我总是对最好的事情敞开大门！',
-            '6': '对于 “blob tree” 心理测试，它定义我为一个需要被爱、被保护和安全的人。我总是爱上错误的人，因为我对爱和感情的无穷需求。我需要学会更仔细地寻找那些可以帮助我进步的人，而不是那些不理解我的脆弱的人。',
-            '7': '对于 “blob tree” 心理测试，它定义我为一个善于沟通的人，我知道如何为我的朋友提供支持。我以高情商著称，这有助于我成功地应对生活中的各种情况。我有团队精神，看到事物的各个方面，总是找到解决方案',
-            '8': '对于 “blob tree” 心理测试，它定义我为一个梦幻和浪漫的人。我喜欢有一些属于自己的时刻。这样，我就能恢复精力和对生活和社交的热情。亲人们最好能理解我对隔离的需求，不要误解它，理解它，并给我我需要的空间。',
-            '9': '对于 “blob tree” 心理测试，它定义我为一个不合群、猜疑和不信任的人。我会为了证明我也很棒而不惜一切代价，但是与其这样，不如远离他人，独自站立，因为这样我就可以证明我对他人的不信任是合理的。',
-            '10': '对于 “blob tree” 心理测试，它定义我为一个雄心勃勃，但也非常谨慎的人。我勤奋而坚定，这就是为什么我几乎在任何我想做的事情上都能成功。我的想法总是脱颖而出，我在任何环境中都受到赞赏。',
-            '11': '对于 “blob tree” 心理测试，它定义我为一个善于沟通的人，我知道如何为我的朋友提供支持。我以高情商著称，这有助于我成功地应对生活中的各种情况。我有团队精神，看到事物的各个方面，总是找到解决方案',
-            '12': '对于 “blob tree” 心理测试，它定义我为一个善于沟通的人，我知道如何为我的朋友提供支持。我以高情商著称，这有助于我成功地应对生活中的各种情况。我有团队精神，看到事物的各个方面，总是找到解决方案',
-            '13': '对于 “blob tree” 心理测试，它定义我为一个充满绝望和失去希望的人。我必须尽我所能在生活中重新校准自己，最简单的方法是恢复自信，寻求亲人的支持！',
-            '14': '对于 “blob tree” 心理测试，它定义我为一个灵魂伴侣，一个慈善家，会为了帮助他人而不惜一切。我具有很强的同理心，通常是一个“伟大的灵魂”。但我应该学会照顾自己，而不仅仅是别人。',
-            '15': '对于 “blob tree” 心理测试，它定义我为一个受到成功之路美丽的驱使而不是成功本身的人。我很好奇学习新事物，有新的经历，结识新的人，并从每个人身上学到一些东西。',
-            '16': '对于 “blob tree” 心理测试，它定义我为一个乐观、充满生机、有团队精神的人，我在任何领域都表现出色，并且在战略上藐视一切挑战。',
-            '17': '对于 “blob tree” 心理测试，它定义我为一个乐观、充满生机、有团队精神的人，我在任何领域都表现出色，并且在战略上藐视一切挑战。',
-            '18': '对于 “blob tree” 心理测试，它定义我为一个乐观、充满生机、有团队精神的人，我在任何领域都表现出色，并且在战略上藐视一切挑战。而且我喜欢感受到被爱和被赞赏。',
-            '19': '对于 “blob tree” 心理测试，它定义我为一个不合群、猜疑和不信任的人。我可能有自恋的倾向，嫉妒别人的成功。',
-            '20': '对于 “blob tree” 心理测试，它定义我为一个雄心勃勃、自信、充满生机的人，我是创新者，不怕冒险。我的自信、进取心和激情给我带来了许多成功和满足。',
-            '21': '对于 “blob tree” 心理测试，它定义我为一个努力但不知道如何为自己的生活找到最佳解决方案的人。我是一个必须学会向身边的人寻求帮助并放弃自己猜疑的人。'
-        }
+          '1': '对于 “blob tree” 心理测试，它定义我为一个努力但不知道如何为自己的生活找到最佳解决方案的人。我是一个必须学会向身边的人寻求帮助并放弃自己猜疑的人。',
+          '2': '对于 “blob tree” 心理测试，它定义我为一个雄心勃勃和自信的人。我知道我总是能够成功，总会有幸运且恰当的情况帮助我进步。',
+          '3': '对于 “blob tree” 心理测试，它定义我为一个雄心勃勃和自信的人。我知道我总是能够成功，总会有幸运且恰当的情况帮助我进步。',
+          '4': '对于 “blob tree” 心理测试，它定义我为一个自信的人，对我的生活感到满意和乐观。我是一个聪明的人，能够看到事物宏观的愿景，并能透过现象看本质。',
+          '5': '对于 “blob tree” 心理测试，它定义我为一个不合群、猜疑和不信任的人。我经常放弃得太快，不相信我非凡的潜力。',
+          '6': '对于 “blob tree” 心理测试，它定义我为一个善于沟通的人，我知道如何为我的朋友提供支持。我以高情商著称，这有助于我成功地应对生活中的各种情况。我有团队精神，看到事物的各个方面，总是找到解决方案。',
+          '7': '对于 “blob tree” 心理测试，它定义我为一个需要被爱、被保护和安全的人。我总是爱上错误的人，因为我对爱和感情的无穷需求。我需要学会更仔细地寻找那些可以帮助我进步的人，而不是那些不理解我的脆弱的人。',
+          '8': '对于 “blob tree” 心理测试，它定义我为一个梦幻和浪漫的人。我喜欢有一些属于自己的时刻。这样，我就能恢复精力和对生活和社交的热情。亲人们最好能理解我对隔离的需求，不要误解它，理解它，并给我我需要的空间。',
+          '9': '对于 “blob tree” 心理测试，它定义我为一个有创造力、热爱生活、享受每一刻、热爱和知道如何感激周围所有美好事物的人。这有助于我保持积极的态度，因此我总是对最好的事情敞开大门！',
+          '10': '对于 “blob tree” 心理测试，它定义我为一个雄心勃勃，但也非常谨慎的人。我勤奋而坚定，这就是为什么我几乎在任何我想做的事情上都能成功。我的想法总是脱颖而出，我在任何环境中都受到赞赏。',
+          '11': '对于 “blob tree” 心理测试，它定义我为一个善于沟通的人，我知道如何为我的朋友提供支持。我以高情商著称，这有助于我成功地应对生活中的各种情况。我有团队精神，看到事物的各个方面，总是找到解决方案',
+          '12': '对于 “blob tree” 心理测试，它定义我为一个善于沟通的人，我知道如何为我的朋友提供支持。我以高情商著称，这有助于我成功地应对生活中的各种情况。我有团队精神，看到事物的各个方面，总是找到解决方案',
+          '13': '对于 “blob tree” 心理测试，它定义我为一个不合群、猜疑和不信任的人。我会为了证明我也很棒而不惜一切代价，但是与其这样，不如远离他人，独自站立，因为这样我就可以证明我对他人的不信任是合理的。',
+          '14': '对于 “blob tree” 心理测试，它定义我为一个充满绝望和失去希望的人。我必须尽我所能在生活中重新校准自己，最简单的方法是恢复自信，寻求亲人的支持！',
+          '15': '对于 “blob tree” 心理测试，它定义我为一个受到成功之路美丽的驱使而不是成功本身的人。我很好奇学习新事物，有新的经历，结识新的人，并从每个人身上学到一些东西。',
+          '16': '对于 “blob tree” 心理测试，它定义我为一个乐观、充满生机、有团队精神的人，我在任何领域都表现出色，并且在战略上藐视一切挑战。',
+          '17': '对于 “blob tree” 心理测试，它定义我为一个乐观、充满生机、有团队精神的人，我在任何领域都表现出色，并且在战略上藐视一切挑战。而且我喜欢感受到被爱和被赞赏。',
+          '18': '对于 “blob tree” 心理测试，它定义我为一个乐观、充满生机、有团队精神的人，我在任何领域都表现出色，并且在战略上藐视一切挑战。',
+          '19': '对于 “blob tree” 心理测试，它定义我为一个灵魂伴侣，一个慈善家，会为了帮助他人而不惜一切。我具有很强的同理心，通常是一个“伟大的灵魂”。但我应该学会照顾自己，而不仅仅是别人。',
+          '20': '对于 “blob tree” 心理测试，它定义我为一个雄心勃勃、自信、充满生机的人，我是创新者，不怕冒险。我的自信、进取心和激情给我带来了许多成功和满足。',
+          '21': '对于 “blob tree” 心理测试，它定义我为一个不合群、猜疑和不信任的人。我可能有自恋的倾向，嫉妒别人的成功。'
+      }
     }
     this.MBTIStatistics = {
         'INTP': 5.71,
