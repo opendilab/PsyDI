@@ -22,6 +22,7 @@ PsyDI 是一款多模态，交互式的心理测评聊天机器人，旨在对�
 | [维克托（英雄联盟）](http://xhslink.com/4VaTbH) | 维克多是《英雄联盟》中一位才华横溢、毫不留情的发明家，他利用先进的海克斯技术操纵战场，无情地消灭敌人。 | INTJ |  <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/viktor.png"></a>      |
 | [菲比·布菲 (老友记)](http://xhslink.com/e6wRII) | 菲比·布菲是《老友记》中一个独具魅力的角色，她以古怪、幽默和非传统的个性著称，拥有一系列独特的生活经历和人生观。菲比曾是一名街头艺人，她创作的歌曲充满了个人特色和幽默感。她与生物学父亲的关系和对动物的热爱，以及她在朋友中的支持和关爱，都为剧集增添了许多欢乐和色彩。她的人生充满了不可预测的转折和奇遇，使她成为六位主角中不可或缺的一员。 | ENFP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/phoebe.png"></a>      |
 | [黄昏 (间谍过家家)](http://xhslink.com/WydWHL) | 在《间谍过家家》中，黄昏是福杰家的一家之主，也在东国从事谍报活动。他为了执行间谍任务而临时组建了家庭，收养了原是孤儿的阿尼亚。随着时间的推移，原本专注于任务的黄昏开始真心在意临时家庭，开始认真思考该如何在任务结束后永远安置她们并隐暪自己是间谍的秘密。 | INTJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/loid.png"></a>      |
+| [钱德勒 (老友记)](http://xhslink.com/A6N6lM) | 钱德勒·宾（Chandler Bing）是美剧《老友记》中的一个角色。他是罗斯的大学室友，幽默风趣，经常以自嘲的方式逗乐大家。他与莫尼卡发展出一段浪漫关系，并最终结婚。钱德勒以他的机智和幽默感著称，是剧中的搞笑担当。 | ENTP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/chandler.png"></a>      |
 
 
 ## 导航
