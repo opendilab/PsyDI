@@ -17,7 +17,6 @@ class PsyDIMiniAgent:
         with open(os.path.join(os.path.dirname(__file__), 'prompt.txt'), 'r', encoding='utf-8') as f:
             self.prompt = f.read()
 
-        self.qa_prompt = "请将这段问答重新组织成受访者的自我描述。只需提供自我描述部分。"
         self.max_turn = 5
 
     def reset(self):
@@ -35,7 +34,6 @@ class PsyDIMiniAgent:
 
         self.history.append({"role": "user", "content": answer})
 
-        print('before call', self.history)
         question, token_count = self.llm.call(self.history)
         self.history.append({"role": "assistant", "content": question})
         return question

@@ -5,3 +5,4 @@ torch
 transformers
 accelerate
 tiktoken
+DI-toolkit
