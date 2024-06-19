@@ -11,8 +11,12 @@ class PsyDIMiniAgent:
 
     def __init__(self):
         self.llm = LLMAPI()
-        # self.reward_model = RewardModel()
-        self.reward_model = FakeRewardModel()
+        self.debug = os.getenv('DEBUG', 'false').lower() == 'true'
+        if self.debug:
+            # use a fake RM for debug
+            self.reward_model = FakeRewardModel()
+        else:
+            self.reward_model = RewardModel()
 
         with open(os.path.join(os.path.dirname(__file__), 'prompt.txt'), 'r', encoding='utf-8') as f:
             self.prompt = f.read()
@@ -21,7 +25,7 @@ class PsyDIMiniAgent:
 
     def reset(self):
         self.table = None
-        self.post_value_list = None
+        self.post_raw_reward = None
         self.history = []
 
         self.history.append({"role": "system", "content": self.prompt})
@@ -39,27 +43,32 @@ class PsyDIMiniAgent:
         return question
 
     def init_table(self, post_list: List[str]):
-        self.table, self.post_value_list, self.post_raw_reward = self.reward_model.init_table(post_list)
+        self.table, _, self.post_raw_reward = self.reward_model.init_table(post_list)
         logging.info(f"Table initialized: {self.table}")
 
-    def choose_post_to_ask(self, posts: list):
+    def print_table(self) -> str:
+        return '\n'.join([f'{k}: {v:.2f}' for k, v in self.table.items()])
+
+    def choose_post_to_ask(self, post_list: List[str]) -> str:
         if self.table is None:
             logging.error("Please initialize the table first.")
             return
 
-        post = posts[0]
-        return post
+        sorted_items = sorted(self.table.items(), key=lambda item: item[1], reverse=True)
+        top_mbti = [item[0] for item in sorted_items[:2]]
+        return self.reward_model.select_post(post_list, self.post_raw_reward, top_mbti)
 
-    def update_table(self, question: str, answer: str):
+    def update_table(self, new_post: str):
         if self.table is None:
             logging.error("Please initialize the table first.")
             return
+        self.table = self.reward_model.update_table(new_post, self.table)
 
         logging.info(f"Table updated: {self.table}")
 
     def run(self, init_post_list: List[str]):
         self.init_table(init_post_list)
-        print(f"MBTI 量表初始化完成，初始分为：{self.table}")
+        print(f"MBTI 量表初始化完成，初始分为：\n{self.print_table()}")
 
         answer = self.choose_post_to_ask(init_post_list)
         logging.info(f"Post to ask: {answer}")
@@ -70,17 +79,17 @@ class PsyDIMiniAgent:
         while count < self.max_turn:
             question = self.get_question(answer)
             if re.search(r'自我描述[】:：\t\*]*\s*(.*?)(?=\.|$)', question):
-                print(f'PsyDI Mini 问答完成\n{question}')
+                print(f'\n\n## PsyDI Mini 问答完成\n\n{question}')
                 break
+            count += 1
 
             question_shown = f'\n\033[32m[Q{count}] \033[0m' + question + '\n' + f'\033[32m[A{count}]\033[0m 请输出选项或输入您自己的答案: '
 
             answer = input(question_shown)
             answer = answer.strip()
-            count += 1
 
-        self.table = self.update_table(question, answer)
-        # print(f"\nMBTI 量表更新完成，更新后分为：{self.table}")
+        self.update_table(question)
+        print(f"\nMBTI 量表更新完成，更新后分为：\n{self.print_table()}")
 
 
 if __name__ == "__main__":
