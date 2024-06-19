@@ -75,10 +75,12 @@ class PsyDIMiniAgent:
         print(f"被选到的用户动态为：{answer}")
 
         count = 0
+        description = None
 
         while count < self.max_turn:
             question = self.get_question(answer)
             if re.search(r'自我描述[】:：\t\*]*\s*(.*?)(?=\.|$)', question):
+                description = re.search(r'自我描述[】:：\t\*]*\s*(.*?)(?=\.|$)', question).group(1)
                 print(f'\n\n## PsyDI Mini 问答完成\n\n{question}')
                 break
             count += 1
@@ -88,7 +90,10 @@ class PsyDIMiniAgent:
             answer = input(question_shown)
             answer = answer.strip()
 
-        self.update_table(question)
+        if description:
+            self.update_table(description)
+        else:
+            self.update_table(question)
         print(f"\nMBTI 量表更新完成，更新后分为：\n{self.print_table()}")
 
 
