@@ -78,13 +78,15 @@ PsyDI 的使用方式很简单！按照以下步骤，您就可以开始自我�
 
 我们提供了一个 PsyDI 流程的最小版本作为演示，让每个人都可以轻松地部署 PsyDI。最小流程允许用户输入几条初始文本，基于初始文本生成用户的 MBTI 分数表。然后，PsyDI 最小流程会选择那些最有可能包含深层意义的文本，以此为基础与用户开展多轮对话。对话结束后，PsyDI 会根据对话结果更新用户的 MBTI 分数表。而这一流程正是[介绍](#books-介绍)中所提到的 PsyDI 的核心组件。
 
+在最小流程中，我们以 [DeepSeek](https://www.deepseek.com/) 为例，作为提供多轮对话的语言模型。用户也可以替换为任意其他具有多轮对话能力的语言模型。
+
 ## 安装
 ```shell
 pip3 install -r requirements.txt
 ```
 
 ## 使用方法
-基于我们公开的 Score Model 运行最小流程：
+基于我们[公开的 Score Model](https://huggingface.co/OpenDILabCommunity/PsyDI-RM-v0.1-zh) 运行最小流程：
 ```shell
 REWARD_MODEL_PATH=<rm-path> API_KEY=<your-api-key> API_URL=https://api.deepseek.com MODEL_NAME=deepseek-chat python3 psydi_mini_agent.py
 ```
