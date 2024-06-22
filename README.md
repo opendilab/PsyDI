@@ -23,6 +23,7 @@ PsyDI can now be accessed directly via our [web link](https://psydi.opendilab.or
 | [Phoebe Buffay (Friends)](http://xhslink.com/e6wRII) | Phoebe Buffay is a charming character in "Friends", known for her quirky, humorous, and unconventional personality, along with a range of unique life experiences and perspectives. Phoebe was once a street performer, crafting songs filled with personal flair and humor. Her relationship with her biological father, her love for animals, and her support and care for her friends all add much joy and vibrancy to the show. | ENFP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/phoebe.png"></a>      |
 | [Twilight (SPY×FAMILY)](http://xhslink.com/WydWHL) | Twilight (Loid Forger) is the top spy from the West Country. In order to carry out his espionage mission, he temporarily formed a family and adopted Anya, who was originally an orphan. As time goes by, Loid, who was originally focused on the mission, began to genuinely care about the temporary family and started to seriously consider how to permanently settle them after the mission and conceal the secret that he is a spy. | INTJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/loid.png"></a>      |
 | [Chandler (Friends)](http://xhslink.com/A6N6lM) | Chandler Bing is a character from "Friends". He is Ross's college roommate, known for his humorous and witty remarks, often making fun of himself to entertain others. He develops a romantic relationship with Monica and eventually marries her. Known for his wit and humor, Chandler is the comic relief of the series. | ENTP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/chandler.png"></a>      |
+| [An Lingrong (Empresses in the Palace)](http://xhslink.com/Q5aN5M) | Originally a friend of Zhen Huan, An Lingrong grows jealous and schemes against her due to family pressure to win the Yongzheng Emperor's favor and manipulation by other imperial consorts. | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anlingrong.PNG"></a>      |
 
 
 ## Outline
@@ -31,6 +32,7 @@ PsyDI can now be accessed directly via our [web link](https://psydi.opendilab.or
 - [News](#boom-news)
 - [Outline](#outline)
 - [Quick Start](#star_struck-quick-start)
+- [PsyDI Mini Pipeline](#key-psydi-mini-pipeline)
 - [Introduction](#books-introduction)
   - [Evaluation Framework](#evaluation-framework)
   - [Process Description](#process-description)
@@ -72,6 +74,28 @@ Getting started with PsyDI is easy! Follow these simple steps to begin your jour
    - Additionally, you'll receive a generated image that matches your temperament, adding a visual element to your understanding of yourself.
 
 Now that you know the basics, dive in and start your journey with PsyDI today!
+
+## :key: PsyDI Mini Pipeline
+
+We offer a mini version of the PsyDI pipeline as a demo, making it accessible for everyone to use. This mini pipeline allows users to input several initial posts and generates an initial MBTI score table. It then selects posts with the highest likelihood of having deep meaning to initiate a multi-turn dialogue with the user. After the dialogue, the pipeline updates the user's MBTI score table. Such mini pipeline is the core module of PsyDI as mentioned in the [Introduction](#books-introduction).
+
+In this mini pipeline, we apply [DeepSeek](https://www.deepseek.com/) as a large language model example to provide multi-turn dialogue. Users can also replace it with any other language model with multi-turn dialogue capabilities.
+
+## Installation
+```shell
+pip3 install -r requirements.txt
+```
+
+## Usage
+Mini Pipeline with Our [Released Score Model](https://huggingface.co/OpenDILabCommunity/PsyDI-RM-v0.1-zh)
+```shell
+REWARD_MODEL_PATH=<rm-path> API_KEY=<your-api-key> API_URL=https://api.deepseek.com MODEL_NAME=deepseek-chat python3 psydi_mini_agent.py
+```
+
+Mini Pipeline with Fake Debug Score Model
+```shell
+DEBUG=true API_KEY=<your-api-key> API_URL=https://api.deepseek.com MODEL_NAME=deepseek-chat python3 psydi_mini_agent.py
+```
 
 ## :books: Introduction
 

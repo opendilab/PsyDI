@@ -1,0 +1,9 @@
+openai>=1
+rich
+scipy
+einops
+torch
+transformers
+accelerate
+tiktoken
+DI-toolkit
