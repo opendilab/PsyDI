@@ -31,6 +31,7 @@ PsyDI can now be accessed directly via our [web link](https://psydi.opendilab.or
 - [News](#boom-news)
 - [Outline](#outline)
 - [Quick Start](#star_struck-quick-start)
+- [PsyDI Mini Pipeline](psydi-mini-pipeline)
 - [Introduction](#books-introduction)
   - [Evaluation Framework](#evaluation-framework)
   - [Process Description](#process-description)
@@ -72,6 +73,26 @@ Getting started with PsyDI is easy! Follow these simple steps to begin your jour
    - Additionally, you'll receive a generated image that matches your temperament, adding a visual element to your understanding of yourself.
 
 Now that you know the basics, dive in and start your journey with PsyDI today!
+
+## :key: PsyDI Mini Pipeline
+
+We offer a mini version of the PsyDI pipeline as a demo, making it accessible for everyone to use. This mini pipeline allows users to input several initial posts and generates an initial MBTI score table. It then selects posts with the highest likelihood of having deep meaning to initiate a multi-turn dialogue with the user. After the dialogue, the pipeline updates the user's MBTI score table. Such mini pipeline is the core module of PsyDI as mentioned in the [Introduction](#books-introduction).
+
+## Installation
+```shell
+pip3 install -r requirements.txt
+```
+
+## Usage
+Mini Pipeline with Our Released Score Model
+```shell
+REWARD_MODEL_PATH=<rm-path> API_KEY=<your-api-key> API_URL=https://api.deepseek.com MODEL_NAME=deepseek-chat python3 psydi_mini_agent.py
+```
+
+Mini Pipeline with Fake Debug Score Model
+```shell
+DEBUG=true API_KEY=<your-api-key> API_URL=https://api.deepseek.com MODEL_NAME=deepseek-chat python3 psydi_mini_agent.py
+```
 
 ## :books: Introduction
 

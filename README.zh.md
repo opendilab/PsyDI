@@ -23,6 +23,7 @@ PsyDI 是一款多模态，交互式的心理测评聊天机器人，旨在对�
 | [菲比·布菲 (老友记)](http://xhslink.com/e6wRII) | 菲比·布菲是《老友记》中一个独具魅力的角色，她以古怪、幽默和非传统的个性著称，拥有一系列独特的生活经历和人生观。菲比曾是一名街头艺人，她创作的歌曲充满了个人特色和幽默感。她与生物学父亲的关系和对动物的热爱，以及她在朋友中的支持和关爱，都为剧集增添了许多欢乐和色彩。她的人生充满了不可预测的转折和奇遇，使她成为六位主角中不可或缺的一员。 | ENFP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/phoebe.png"></a>      |
 | [黄昏 (间谍过家家)](http://xhslink.com/WydWHL) | 在《间谍过家家》中，黄昏是福杰家的一家之主，也在东国从事谍报活动。他为了执行间谍任务而临时组建了家庭，收养了原是孤儿的阿尼亚。随着时间的推移，原本专注于任务的黄昏开始真心在意临时家庭，开始认真思考该如何在任务结束后永远安置她们并隐暪自己是间谍的秘密。 | INTJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/loid.png"></a>      |
 | [钱德勒 (老友记)](http://xhslink.com/A6N6lM) | 钱德勒·宾（Chandler Bing）是美剧《老友记》中的一个角色。他是罗斯的大学室友，幽默风趣，经常以自嘲的方式逗乐大家。他与莫尼卡发展出一段浪漫关系，并最终结婚。钱德勒以他的机智和幽默感著称，是剧中的搞笑担当。 | ENTP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/chandler.png"></a>      |
+| [安陵容 (甄嬛传)](http://xhslink.com/Q5aN5M) | 在紫禁城内，甄嬛和安陵容曾是亲密无间的朋友。但家族的压力和其他嫔妃的挑拨使安陵容的心态发生了变化，她开始嫉妒甄嬛，渴望通过算计和手段，让自己在皇帝心中的地位超越甄嬛。 | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anlingrong.PNG"></a>      |
 
 
 ## 导航
@@ -31,6 +32,7 @@ PsyDI 是一款多模态，交互式的心理测评聊天机器人，旨在对�
 - [最新消息](#boom-最新消息！)
 - [导航](#导航)
 - [快速开始](#star_struck-快速开始)
+- [PsyDI 最小流程](#key-psydi-最小流程)
 - [介绍](#books-介绍)
   - [评估框架](#评估框架)
   - [测试过程](#测试过程)
@@ -71,6 +73,26 @@ PsyDI 的使用方式很简单！按照以下步骤，您就可以开始自我�
    - 此外，PsyDI 还会为您提供一张与您的气质相匹配的生成图，您可以通过生成图对自身性格有视觉上的理解。
 
 以上是使用 PsyDI 的基本方法，现在就开始与 PsyDI 的旅程吧！
+
+## :key: PsyDI 最小流程
+
+我们提供了一个 PsyDI 流程的最小版本作为演示，让每个人都可以轻松地部署 PsyDI。最小流程允许用户输入几条初始文本，基于初始文本生成用户的 MBTI 分数表。然后，PsyDI 最小流程会选择那些最有可能包含深层意义的文本，以此为基础与用户开展多轮对话。对话结束后，PsyDI 会根据对话结果更新用户的 MBTI 分数表。而这一流程正是[介绍](#books-介绍)中所提到的 PsyDI 的核心组件。
+
+## 安装
+```shell
+pip3 install -r requirements.txt
+```
+
+## 使用方法
+基于我们公开的 Score Model 运行最小流程：
+```shell
+REWARD_MODEL_PATH=<rm-path> API_KEY=<your-api-key> API_URL=https://api.deepseek.com MODEL_NAME=deepseek-chat python3 psydi_mini_agent.py
+```
+
+基于用于调试的 Score Model 运行最小流程：
+```shell
+DEBUG=true API_KEY=<your-api-key> API_URL=https://api.deepseek.com MODEL_NAME=deepseek-chat python3 psydi_mini_agent.py
+```
 
 ## :books: 介绍
 
