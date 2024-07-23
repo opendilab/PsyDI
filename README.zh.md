@@ -25,6 +25,8 @@ PsyDI 是一款多模态，交互式的心理测评聊天机器人，旨在对�
 | [钱德勒 (老友记)](http://xhslink.com/A6N6lM) | 钱德勒·宾（Chandler Bing）是美剧《老友记》中的一个角色。他是罗斯的大学室友，幽默风趣，经常以自嘲的方式逗乐大家。他与莫尼卡发展出一段浪漫关系，并最终结婚。钱德勒以他的机智和幽默感著称，是剧中的搞笑担当。 | ENTP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/chandler.png"></a>      |
 | [安陵容 (甄嬛传)](http://xhslink.com/Q5aN5M) | 在紫禁城内，甄嬛和安陵容曾是亲密无间的朋友。但家族的压力和其他嫔妃的挑拨使安陵容的心态发生了变化，她开始嫉妒甄嬛，渴望通过算计和手段，让自己在皇帝心中的地位超越甄嬛。 | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anlingrong.PNG"></a>      |
 | [皇上&皇后 (甄嬛传)](http://xhslink.com/8yglPN) | 在电视剧《甄嬛传》的设定中，皇上雍正帝和皇后是少年夫妻，在雍正还是雍亲王的时候结缘。但随着时间的推移，他们的关系变得复杂和曲折。 | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/emperor.png"></a>      |
+| [祁煜 (恋与深空)](http://xhslink.com/etQHwQ) | 祁煜是《恋与深空》中的男主角之一，出生自海洋文明“利莫里亚”，是一位独树一帜的天才艺术家。虽然有时显得有些倔强和不易接近，但内心深处却有着强烈的责任感和对情感的重视。 | INFP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/qiyu.png"></a>      |
+| [沈星回 (恋与深空)](http://xhslink.com/0l2HwQ) | 沈星回是《恋与深空》中的男主角之一，是现任猎人协会的深空猎人。他展现出非凡的耐心和一种超脱世俗的佛系态度，以一种温柔而平和的方式与世界相处，同时在人际交往中保持着适度的距离。 | ISTP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/shenxinghui.png"></a>      | 
 
 
 ## 导航
