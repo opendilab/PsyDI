@@ -40,6 +40,7 @@ PsyDI can now be accessed directly via our [web link](https://psydi.opendilab.or
   - [Evaluation Framework](#evaluation-framework)
   - [Process Description](#process-description)
   - [Iterative Refinement](#iterative-refinement)
+- [Evaluation](#bar_chart-evaluation)
 - [Roadmap](#roadmap)
 - [Running Frontend Locally](#running-frontend-locally)
 - [Acnowledgements](#acnowledgements)
@@ -103,7 +104,7 @@ DEBUG=true API_KEY=<your-api-key> API_URL=https://api.deepseek.com MODEL_NAME=de
 ## :books: Introduction
 
 <div align="center">
-    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/psydi_pipeline.jpg"></a>
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/psydi_pipeline.pdf"></a>
 </div>
 PsyDI operates on the principle that understanding a user's expressed thoughts involves delving deeper into the underlying cognitive processes. By uncovering these cognitive processes, PsyDI can identify the user's commonly used cognitive styles and ultimately determine their Myers-Briggs Type Indicator (MBTI).
 
@@ -127,6 +128,22 @@ PsyDI first converts the user's multimodal information into text form. The score
 ### Iterative Refinement
 
 PsyDI iterates through these steps until it reaches a confident determination of the user's MBTI, continually refining its understanding through each interaction.
+
+## Evaluation
+
+### Score Model Evaluation
+We have constructed a pair-wise MBTI dataset and compared the performance of multiple closed-source and open-source models with PsyDI on this dataset. PsyDI has demonstrated superior results over existing language models across various MBTI datasets, as shown in the following:
+
+<div align="center">
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/benchmark.png"></a>
+</div>
+
+### Pipeline Evaluation
+We assessed the accuracy of the PsyDI Pipeline compared to existing MBTI tests in evaluating MBTI bots, with the results displayed on the left side of the figure below. Additionally, we evaluated the degree of dependence of the PsyDI Pipeline on initial dynamics and found that PsyDI can determine the user's true MBTI in subsequent conversations even under random initial dynamics, with the results shown on the right side of the figure:
+
+<div align="center">
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/rank_random.png"></a>
+</div>
 
 ## Roadmap
 - [x] Online deployment of PsyDI

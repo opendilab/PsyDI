@@ -40,6 +40,7 @@ PsyDI 是一款多模态，交互式的心理测评聊天机器人，旨在对�
   - [评估框架](#评估框架)
   - [测试过程](#测试过程)
   - [迭代更新](#迭代更新)
+- [评估](#bar_chart-评估)
 - [路线图](#路线图)
 - [本地运行](#本地运行)
 - [致谢](#致谢)
@@ -102,7 +103,7 @@ DEBUG=true API_KEY=<your-api-key> API_URL=https://api.deepseek.com MODEL_NAME=de
 ## :books: 介绍
 
 <div align="center">
-    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/psydi_pipeline.jpg"></a>
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/psydi_pipeline.pdf"></a>
 </div>
 PsyDI 的基本原理是在与用户交流的过程中逐步挖掘用户底层的认知过程。通过发掘这些认知过程，PsyDI 能够识别用户习惯的认知模式，最终确定其迈尔斯-布里格斯类型指标（MBTI）。
 
@@ -126,6 +127,22 @@ PsyDI 首先将用户输入的多模态信息转换为文本形式，然后通�
 ### 迭代更新
 
 PsyDI 通过迭代执行上述三个步骤，在每一次交互中不断加深对用户认知模式的理解，直到确认用户的 MBTI。
+
+## :bar_chart:评估
+
+### Score Model 评估
+我们构建了 pair-wise 的 MBTI 数据集，并且比较了多个闭源模型和开源模型与 PsyDI 在 MBTI 数据集上的效果。PsyDI 在各个 MBTI 数据集上都展现了超越现有语言模型的效果，结果展示如下：
+
+<div align="center">
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/benchmark.png"></a>
+</div>
+
+### Pipeline 评估
+我们评估了 PsyDI Pipeline 与现有 MBTI 测试在评测 MBTI bot 时的准确度，结果展现在下图左侧。同时，我们也评估了 PsyDI Pipeline 对于初始动态的依赖程度，发现 PsyDI 在随机的初始动态下都能够在后续对话中确定用户的真实 MBTI，结果展现在下图右侧：
+
+<div align="center">
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/rank_random.png"></a>
+</div>
 
 ## 路线图
 - [x] PsyDI 的在线部署
