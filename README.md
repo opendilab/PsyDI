@@ -104,7 +104,7 @@ DEBUG=true API_KEY=<your-api-key> API_URL=https://api.deepseek.com MODEL_NAME=de
 ## :books: Introduction
 
 <div align="center">
-    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/psydi_pipeline.pdf"></a>
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/psydi_pipeline.png"></a>
 </div>
 PsyDI operates on the principle that understanding a user's expressed thoughts involves delving deeper into the underlying cognitive processes. By uncovering these cognitive processes, PsyDI can identify the user's commonly used cognitive styles and ultimately determine their Myers-Briggs Type Indicator (MBTI).
 
