@@ -58,7 +58,7 @@ const exampleMessages = [
     {
       heading: '维克托 INTJ',
       subheading: '海克斯科技，为了更美好的世界。欢迎加入光荣的进化吧，我愿做第一个献身者。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_viktor.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1721648301&Signature=QbZOVZz9j6iND%2BsXpQQqLyh9Zbs%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_viktor.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730021530&Signature=N%2FUM5al4gtWCh1gzT9SmCLtkS7U%3D',
       outsideLink: 'http://xhslink.com/4VaTbH',
     },
     //{
