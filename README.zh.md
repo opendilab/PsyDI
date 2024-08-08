@@ -1,8 +1,8 @@
 # PsyDI
-English | [简体中文(Simplified Chinese)](https://github.com/opendilab/PsyDI/blob/main/README.zh.md)
 <div align="center">
     <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/banner.png"></a>
 </div>
+English | [简体中文(Simplified Chinese)](https://github.com/opendilab/PsyDI/blob/main/README.zh.md) | [:fire: PsyDI 论文](https://arxiv.org/abs/2408.03337)
 
 ## PsyDI 简介
 
@@ -152,7 +152,7 @@ PsyDI 通过迭代执行上述三个步骤，在每一次交互中不断加深�
 - [x] 发布后端代码示例和提示
 - [ ] 发布生成的数据集
 - [x] 发布经过训练的奖励模型
-- [ ] 技术报告 arxiv 链接
+- [x] 技术报告 arxiv 链接
 - [ ] 更多多模态和交互式问题和示例
 
 ## 本地运行
@@ -192,12 +192,11 @@ pnpm dev --port 3001
 ## 引用
 
 ```latex
-@misc{psydi,
+@article{li2024psydi,
     title={Psydi: A MBTI agent that helps you understand your personality type through a relaxed multi-modal interaction.},
-    author={PsyDI Contributors},
-    publisher={GitHub},
-    howpublished={\url{https://github.com/opendilab/PsyDI}},
-    year={2024},
+    author={Li, Xueyan and Chen, Xinyan and Niu, Yazhe and Hu, Shuai and Liu, Yu},
+    journal={arXiv preprint arXiv:2408.03337},
+    year={2024}
 }
 ```
 

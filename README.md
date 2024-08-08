@@ -1,8 +1,8 @@
 # PsyDI
-English | [简体中文(Simplified Chinese)](https://github.com/opendilab/PsyDI/blob/main/README.zh.md)
 <div align="center">
     <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/banner.png"></a>
 </div>
+English | [简体中文(Simplified Chinese)](https://github.com/opendilab/PsyDI/blob/main/README.zh.md) | [:fire: PsyDI Paper](https://arxiv.org/abs/2408.03337)
 
 ## Introduction to PsyDI
 
@@ -153,7 +153,7 @@ We assessed the accuracy of the PsyDI Pipeline compared to existing MBTI tests i
 - [x] Release the backend code examples and prompts
 - [ ] Release the generated datasets
 - [x] Release the trained reward model
-- [ ] Technical report arxiv link
+- [x] Technical report arxiv link
 - [ ] More multi-modal and interactive questions and examples
 
 ## Running Frontend Locally
@@ -191,12 +191,11 @@ We appreciate all the feedbacks and contributions to improve PsyDI, both algorit
 ## Citation
 
 ```latex
-@misc{psydi,
+@article{li2024psydi,
     title={Psydi: A MBTI agent that helps you understand your personality type through a relaxed multi-modal interaction.},
-    author={PsyDI Contributors},
-    publisher={GitHub},
-    howpublished={\url{https://github.com/opendilab/PsyDI}},
-    year={2024},
+    author={Li, Xueyan and Chen, Xinyan and Niu, Yazhe and Hu, Shuai and Liu, Yu},
+    journal={arXiv preprint arXiv:2408.03337},
+    year={2024}
 }
 ```
 
