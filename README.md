@@ -193,7 +193,7 @@ We appreciate all the feedbacks and contributions to improve PsyDI, both algorit
 
 ```latex
 @article{li2024psydi,
-    title={Psydi: A MBTI agent that helps you understand your personality type through a relaxed multi-modal interaction.},
+    title={PsyDI: Towards a Personalized and Progressively In-depth Chatbot for Psychological Measurements},
     author={Li, Xueyan and Chen, Xinyan and Niu, Yazhe and Hu, Shuai and Liu, Yu},
     journal={arXiv preprint arXiv:2408.03337},
     year={2024}
