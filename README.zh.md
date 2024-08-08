@@ -2,7 +2,7 @@
 <div align="center">
     <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/banner.png"></a>
 </div>
-English | [简体中文(Simplified Chinese)](https://github.com/opendilab/PsyDI/blob/main/README.zh.md) | [:fire: PsyDI 论文](https://arxiv.org/abs/2408.03337)
+[English](https://github.com/opendilab/PsyDI/blob/main/README.md) | 简体中文(Simplified Chinese) | [🔥PsyDI 论文](https://arxiv.org/abs/2408.03337)
 
 ## PsyDI 简介
 
