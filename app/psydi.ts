@@ -3,7 +3,7 @@ import { auth, clear, getTurnCount, setTurnCount } from '@/auth'
 import { NeteaseCloud } from '@/lib/neteasecloud'
 import { mbtiExplanation } from '@/app/mbti-explanation'
 
-const lang = process.env.LANG || 'zh' // default to zh
+const lang = process.env.NEXT_PUBLIC_PSYDI_LANG || 'zh' // default to zh
 const assert = require('assert');
 assert(lang == 'zh' || lang == 'en')
 
@@ -48,13 +48,13 @@ if (lang === 'zh') {
         "> I feel that no one seems to be willing to talk about the most important things to me, or that no one seems to care about them. If I eventually talk about my interests, it seems that the other party will feel annoyed or bored.",
     ];
     texts.mbtiOptionResponse = "First, I am curious about your preferences for visual arts. Please choose your favorite one from the following nine pictures and tell me the number you choose."
-    texts.mbtiOptionResponseSupp = "(Enter the corresponding picture number 1-9)"
+    texts.mbtiOptionResponseSupp = "(Enter picture number 1-9)"
     texts.mbtiOptionExtensionResponse = "Based on your previous choice, please choose the one that you appreciate the most from the **following six extended pictures** and tell me the corresponding picture number." 
-    texts.mbtiOptionExtensionResponseSupp = "(Enter the corresponding picture number 1-6)"
+    texts.mbtiOptionExtensionResponseSupp = "(Enter picture number 1-6)"
     texts.philosophyResponse = "The famous 'trolley problem' is a controversial topic. I would like to hear your thoughts. Please choose the one that best suits you, or tell me your thoughts directly."
     texts.philosophyAnswers = "(A) Do nothing and let the train run over the five people on the normal route. (B) Pull the lever and change to another track, so that the train runs over the person on the other track. (C) Rush to the track and stop the train with your body to save the six people. (D) Do nothing, because no choice is inherently good or bad."
     texts.blobTreeResponse = "Then, please choose a blob position from the following pictures that makes you feel most comfortable and at ease, and tell me the corresponding blob number."
-    texts.blobTreeResponseSupp = "(Enter the corresponding blob number 1-21)"
+    texts.blobTreeResponseSupp = "(Enter blob number 1-21)"
 }
 
 const mbtiOptionExtensionStyles = [
@@ -77,7 +77,11 @@ function printSortedFormattedObjectStats(obj: Record<string, number>) {
   for (const [key, value] of topEntries) {
     // first item or items whose value is greater than 70
     if (output?.length === 0 || value >= 70 ) {
-      output += `- ${key} 倾向: ${value.toFixed(2)}\n`;
+      if (lang === 'zh') {
+        output += `- ${key} 倾向: ${value.toFixed(2)}\n`;
+      } else if (lang === 'en') {
+        output += `- ${key} Tendency: ${value.toFixed(2)}\n`;
+      }
     }
   }
   return output;
@@ -337,7 +341,9 @@ export class PsyDI {
             const q = data.ret.question
             let responseString = lang == 'en' ? "(Single Select) " : "（单选）"
             if (lang == "en" ) {
-                responseString += q['Question_EN'] + '\n(A) ' + q['Option A_EN'] + '\n(B) ' + q['Option B_EN'] + '\n(C) ' + q['Option C_EN'] + '\n(D) ' + q['Option D_EN'];
+                // TODO: enable real en questions
+                responseString += q['Question_CN'] + '\n(A) ' + q['Option A_CN'] + '\n(B) ' + q['Option B_CN'] + '\n(C) ' + q['Option C_CN'] + '\n(D) ' + q['Option D_CN'];
+                // responseString += q['Question_EN'] + '\n(A) ' + q['Option A_EN'] + '\n(B) ' + q['Option B_EN'] + '\n(C) ' + q['Option C_EN'] + '\n(D) ' + q['Option D_EN'];
             } else if (lang == "zh") {
                 responseString += q['Question_CN'] + '\n(A) ' + q['Option A_CN'] + '\n(B) ' + q['Option B_CN'] + '\n(C) ' + q['Option C_CN'] + '\n(D) ' + q['Option D_CN'];
             }
@@ -485,7 +491,9 @@ export class PsyDI {
             const finalIndex = (Object.keys(table).length).toString()
             if (lang == 'en') {
                 finalResult += `### Test Completed\nYour MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n`
-                //finalResult += `The high propensity personality types, as well as the changes in MBTI personality type scores across various assessment stages, are as follows: \n${printSortedFormattedObjectStats(table[finalIndex])}\n`
+                // TODO: add the explanation of the MBTI type in English
+                vizResult = `Your MBTI type is **${mbti}**. According to statistics, it accounts for ${this.MBTIStatistics[mbti]}% of the MBTI test results.\n\nThe top high tendency personality types are as follows:\n${printSortedFormattedObjectStats(table[finalIndex])}\n`
+                kv.hset(`ucount:${payload.uid}mbti`, {headUrl: headUrl, vizResult: vizResult})
             } else if (lang == 'zh') {
                 finalResult += `### 测试完成\n你的 MBTI 人格类型推测是 **${mbti}**，根据统计，它占 MBTI 测试结果人数的${this.MBTIStatistics[mbti]}%。\n`
                 // @ts-ignore

@@ -14,7 +14,7 @@ import {
 import { useEnterSubmit } from '@/lib/hooks/use-enter-submit'
 import { cn } from '@/lib/utils'
 
-const lang = process.env.LANG || 'zh' // default to zh
+const lang = process.env.NEXT_PUBLIC_PSYDI_LANG || 'zh' // default to zh
 var texts = {
   newChat: "",
   sendMessage: "",

@@ -38,7 +38,7 @@ type ConfirmationDialogProps = {
   onConfirm: () => void;
 };
 
-const lang = process.env.LANG || 'zh' // default to zh
+const lang = process.env.NEXT_PUBLIC_PSYDI_LANG || 'zh' // default to zh
 var texts = {
   musicPlaceholder: '',
   postPlaceholder: '',
@@ -59,6 +59,9 @@ var texts = {
   reanswer: '',
   snapshot: '',
   finalSnapshot: '',
+  checkRetest: '',
+  confirm: '',
+  cancel: ''
 };
 if (lang === 'zh') {
   texts.musicPlaceholder = '请输入一首您喜欢的歌曲名。'
@@ -80,6 +83,9 @@ if (lang === 'zh') {
   texts.reanswer = '重新回答上个问题'
   texts.snapshot = '截长图保存'
   texts.finalSnapshot = '保存最终结果图'
+  texts.checkRetest = '您确定要重新评测吗？'
+  texts.confirm = '确认'
+  texts.cancel = '取消'
 } else if (lang === 'en') {
   texts.musicPlaceholder = 'Please enter the name of a song you like.'
   texts.postPlaceholder = 'Please enter your personal posts (separated by semicolons or newlines).'
@@ -100,6 +106,9 @@ if (lang === 'zh') {
   texts.reanswer = 'Reanswer the previous question'
   texts.snapshot = 'Save the snapshot'
   texts.finalSnapshot = 'Save the final result'
+  texts.checkRetest = 'Are you sure you want to a new test?'
+  texts.confirm = 'Confirm'
+  texts.cancel = 'Cancel'
 }
 
 const ConfirmationDialog = ({ isOpen, onClose, onConfirm }: ConfirmationDialogProps) => {
@@ -113,7 +122,7 @@ const ConfirmationDialog = ({ isOpen, onClose, onConfirm }: ConfirmationDialogPr
 
   return (
     <div style={{ display: isOpen ? 'block' : 'none'}}>
-      <p style={{textAlign: 'center', fontSize: '18px'}}><b>您确定要开启新评测吗？</b></p>
+      <p style={{textAlign: 'center', fontSize: '18px'}}><b>{texts.checkRetest}</b></p>
     <Box
         sx={{
             display: 'grid',
@@ -126,8 +135,8 @@ const ConfirmationDialog = ({ isOpen, onClose, onConfirm }: ConfirmationDialogPr
             gridTemplateColumns: 'repeat(2, 1fr)',
         }}
     >
-      <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={handleConfirm}>确认</MuiButton>
-      <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={onClose}>取消</MuiButton>
+      <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={handleConfirm}>{texts.confirm}</MuiButton>
+      <MuiButton variant={'outlined'} sx={{ m: 0, border: 1, borderRadius: 2, boxShadow: 4, color: 'hsl(var(--primary))' }} onClick={onClose}>{texts.cancel}</MuiButton>
     </Box>
     </div>
   );

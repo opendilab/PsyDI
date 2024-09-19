@@ -1,3 +1,6 @@
+'use client'
+
+
 import { UseChatHelpers } from 'ai/react'
 
 import { Button } from '@/components/ui/button'
@@ -5,7 +8,7 @@ import { ExternalLink } from '@/components/external-link'
 import { IconArrowRight } from '@/components/ui/icons'
 import { errorToaster } from '@/components/toaster'
 
-const lang = process.env.LANG || 'zh' // default to zh
+const lang = process.env.NEXT_PUBLIC_PSYDI_LANG || 'zh' // default to zh
 const exampleMessagesOld = [
   {
     heading: 'A go master (INTJ)',
@@ -61,12 +64,6 @@ const exampleMessages = [
       image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_viktor.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730021530&Signature=N%2FUM5al4gtWCh1gzT9SmCLtkS7U%3D',
       outsideLink: 'http://xhslink.com/4VaTbH',
     },
-    //{
-    //  heading: '秦始皇 ENTJ',
-    //  subheading: '世间纷扰，唯有横扫宇内，统一六国，求得长生不老，方可保我大秦万世基业。',
-    //  image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qinshihuang.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1718888821&Signature=UdqxHZsodmRtjaoYfktc4Iw45W8%3D',
-    //  outsideLink: 'https://psydi.opendilab.org.cn',
-    //},
     {
       heading: '金克斯 ESFP',    
       subheading: '哈！谁需要什么理由？拜托，做我的对手强一点？不然我真的要无聊到打哈欠。',

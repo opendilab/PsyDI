@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { errorToaster } from '@/components/toaster'
 import { IconTablerArrowLeft, IconTablerArrowRight, IconArrowRight } from '@/components/ui/icons'
 
-const lang = process.env.LANG || 'zh' // default to zh
+const lang = process.env.NEXT_PUBLIC_PSYDI_LANG || 'zh' // default to zh
 
 interface Texts {
   title: string;
@@ -35,11 +35,11 @@ if (lang === 'zh') {
     texts.finalHint = "再次点击标签以取消选择，点击右下箭头进入对话"
     texts.tagErrorInfo = '请先取消已选标签再选择新标签'
 } else if (lang === 'en') {
-    texts.title = "Before entering the test, PsyDI will first build a concise personality portrait for you. Please select the tags that match you as much as possible. (Default single selection, multiple choices for hobbies and personality tags)" 
-    texts.sectionNames = ["Age group (single selection)", "Region (single selection)", "Occupation (single selection)", "Gender (single selection, only affects the final image)", "Life attitude (single selection)", "Attitude towards technology (single selection)", "Hobbies (multiple selection)", "Personality tags (multiple selection)", "Your tags"]
+    texts.title = "Before entering the test, PsyDI will first build a concise personality portrait for you. Please select the tags that match you as much as possible." 
+    texts.sectionNames = ["Age group (single pick)", "Region (single pick)", "Occupation (single pick)", "Gender (single pick, only affects the final image)", "Life-style (single pick)", "Technology (single pick)", "Hobbies (multiple pick)", "Tags (multiple pick)", "Your tags"]
     texts.backendSectionNames = ["Age", "Region", "Occupation", "Gender", "Life attitude", "Attitude towards technology", "Hobbies", "Personality tags"]
-    texts.skip = "Skip this section and go directly to the test (The customization level of the test will be reduced)"
-    texts.finalHint = "Click the tag again to cancel the selection. Click the arrow in the lower right corner to enter the next section"
+    texts.skip = "Skip this section (The customization level of the test will be reduced)"
+    texts.finalHint = "Click the tag again to cancel"
     texts.tagErrorInfo = 'Please cancel the selected tags before selecting new tags'
 }
 

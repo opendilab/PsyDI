@@ -8,7 +8,7 @@ import { getPsyDIAgent } from '@/app/psydi'
 import { baiduTranslate } from '@/app/baidu_translate'
 
 
-const lang = process.env.LANG || 'zh' // default to zh
+const lang = process.env.NEXT_PUBLIC_PSYDI_LANG || 'zh' // default to zh
 const streamFlag = process.env.STREAM_FLAG == 'true' || false
 
 

@@ -42,7 +42,7 @@ function deepCopy(obj: any): any {
   return copy;
 }
 
-const lang = process.env.LANG || 'zh' // default to zh
+const lang = process.env.NEXT_PUBLIC_PSYDI_LANG || 'zh' // default to zh
 
 interface Texts {
   startPhaseTitle: string;
@@ -141,10 +141,10 @@ if (lang === 'zh') {
   texts.discoveryIntro = "（基于之前收集的信息和您的回答，在本章节 Agent 将会跟您进行一系列多阶段的探讨和交互。每个阶段 Agent 将会基于特定的话题尝试分析您的部分人格信息，根据您的回答动态生成 2-4 个问答。每个问答约需要等待 3-6 秒。另外，您也可以通过 **每道问题的赞同按钮来表达您的反馈**，这会帮助我们进一步改进测评智能体。）"
   texts.endIntro = "（本章节将会综合前三个阶段的信息，为您生成专属人格分析和 MBTI 形象图。约需等待 10-20 秒。）"
 } else if (lang === 'en') {
-  texts.startPhaseTitle = "[Start Phase]"
+  texts.startPhaseTitle = "Start Phase"
   texts.userPostsAnswer = "Thanks for your sharing. It helps me to know you better. Now, let's explore your unique personality through some interesting questions."
-  texts.explorationPhaseTitle1 = "[Exploration Phase (I)]"
-  texts.explorationPhaseTitle2 = "[Exploration Phase (II)]"
+  texts.explorationPhaseTitle1 = "Exploration Phase (I)"
+  texts.explorationPhaseTitle2 = "Exploration Phase (II)"
   texts.mbtiOptionInfo = {
     '1': "This is Sweet daily life by Swiss artist Seline Burn, capturing the cozy and intimate moments in daily life.",
     '2': "This is Nighthawks by American artist Edward Hopper, depicting the loneliness of a big city from a street restaurant.",
@@ -184,8 +184,8 @@ if (lang === 'zh') {
         '21': 'Your choice may indicates that you are an unsociable, suspicious and distrustful person. You may have narcissistic inclinations and is envious of the success of others.'
   }
   texts.blobTreeOptionAnswer = "After the interaction just now, I have a certain understanding of you. The next question will be more in-depth. I hope you can relax and choose the option that is closest to you."
-  texts.discoveryPhaseTitle = "[Discovery Phase]"
-  texts.endPhaseTitle = "[End Phase]"
+  texts.discoveryPhaseTitle = "Discovery Phase"
+  texts.endPhaseTitle = "End Phase"
   texts.endDescription = "Thank you for your answers! I have prepared a customized personality report for you, hoping to help you better understand yourself. This relaxed conversation not only allows me to capture your unique personality, but also hopes to help you see your heart and accept yourself. Everyone has their own unique charm, which deserves to be recognized and understood. If you want to explore yourself again in the future, please feel free to come to me! I am always here waiting for you to start a conversation again."
   texts.startIntro = "(There are two questions in this chapter, mainly to understand your daily information and help Agent customize your exclusive MBTI questions and analysis.)" 
   texts.explorationIntro = "(There are four questions in this chapter (two in the first part + two in the second part). Combined with the relevant knowledge and tools of classical psychology, your personality information will be collected systematically to ensure that Agent can communicate with you from different perspectives. Each question takes about 2-4 seconds to wait.)"
