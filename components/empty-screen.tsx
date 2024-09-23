@@ -95,6 +95,18 @@ const exampleMessages = [
       outsideLink: 'http://xhslink.com/e6wRII',
     },
     {
+      heading: '祁煜 INFP',
+      subheading: '画作是内心的表达，我喜欢画画，但我的画廊不对外开放，我也不喜欢陌生人随意进出我的画廊。',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qiyu.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1734869899&Signature=aiJUibrmuYqgOyqeDvNc%2FDB1hA0%3D',
+      outsideLink: 'http://xhslink.com/a/nUzESNmuvonW',
+    },
+    {
+      heading: '秦彻 ENTJ',
+      subheading: '只有弱者才会寻求安慰，我不需要。不过，力量上的悬殊并不代表高人一等。',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qinche.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1734869836&Signature=8RYrFD4vzsiDwlgpTy9zW02o6UY%3D',
+      outsideLink: 'http://xhslink.com/a/nbkBN7WBNonW',
+    },
+    {
       heading: '约翰·华生 ISFJ',
       subheading: '无论多么艰难，我们都不能放弃追求真相。我总觉得这件事情背后隐藏着更大的秘密。',
       image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huasheng.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1728402919&Signature=K4I1%2FgSwCv%2BK5PC2y9dllCldpLY%3D',
