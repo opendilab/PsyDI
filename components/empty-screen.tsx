@@ -96,7 +96,7 @@ const exampleMessages = [
     },
     {
       heading: '祁煜 INFP',
-      subheading: '画作是内心的表达，我喜欢画画，但我的画廊不对外开放，我也不喜欢陌生人随意进出我的画廊。',
+      subheading: '画作是内心的表达，我喜欢画画，但我的画廊不对外开放。',
       image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qiyu.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1734869899&Signature=aiJUibrmuYqgOyqeDvNc%2FDB1hA0%3D',
       outsideLink: 'http://xhslink.com/a/nUzESNmuvonW',
     },
