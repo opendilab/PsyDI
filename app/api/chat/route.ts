@@ -122,6 +122,9 @@ export async function POST(req: Request) {
   if (done) {
     streamDelay = 10
   }
+  if (lang == 'en') {
+    streamDelay /= 3
+  }
 
   const dataStream = new ReadableStream({
     start(controller) {

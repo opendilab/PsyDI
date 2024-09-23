@@ -9,24 +9,12 @@ import { IconArrowRight } from '@/components/ui/icons'
 import { errorToaster } from '@/components/toaster'
 
 const lang = process.env.NEXT_PUBLIC_PSYDI_LANG || 'zh' // default to zh
-const exampleMessagesOld = [
-  {
-    heading: 'A go master (INTJ)',
-    message: `I like playing Go.\nIt feels good to gradually improve after defeating your opponents.`
-  },
-  {
-    heading: 'A college student (INFP)',
-    message: `I need space to work this out, don't bother me.`
-  },
-  {
-    heading: 'A 30s traveler (ENFP)',
-    message: `I want to travel with my friends.\nIt’s too boring to be alone in this city.`
-  }
-]
 
 type Message = {
   heading: string;
-  message: string;
+  subheading: string;
+  image: string;
+  outsideLink: string;
 };
 var texts = {
   welcome: '',
@@ -37,6 +25,7 @@ var texts = {
   examples: '',
   outsideLinkErrorInfo: '',
 }
+var exampleMessages: Message[] = []
 if (lang === 'zh') {
     texts.welcome = '欢迎来到 PsyDI！'
     texts.intro1 = "您好，我是由 "
@@ -45,19 +34,7 @@ if (lang === 'zh') {
     texts.start = "现在开始测试（入口）"
     texts.examples = "经典人物测试样例"
     texts.outsideLinkErrorInfo = "敬请期待"
-} else if (lang === 'en') {
-    texts.welcome = 'Welcome to PsyDI!'
-    texts.intro1 = "Hi, I am an MBTI Agent developed by "
-    texts.intro2 = ". I hope to explore your unique personality and tendencies through a relaxed conversation."
-    texts.intro3 = "To better understand you, I will first ask you about your recent thoughts and then invite you to complete a simple and fun test. This will help me capture your precious inner world. Based on my understanding of you, I will ask further questions to explore your inner motivations, and you just need to relax and choose the option that makes you most comfortable. Finally, we will interpret the test results together, generate a customized virtual personality image to help you better discover yourself. (For the best experience, please open in a browser)"
-    texts.start = "Start the test now (Entry)"
-    texts.examples = "Classic character test examples"
-    texts.outsideLinkErrorInfo = "Coming soon"
-} else {
-  // raise error  
-  throw new Error('Language not supported: ' + lang)
-}
-const exampleMessages = [
+    exampleMessages = [
     {
       heading: '维克托 INTJ',
       subheading: '海克斯科技，为了更美好的世界。欢迎加入光荣的进化吧，我愿做第一个献身者。',
@@ -118,7 +95,69 @@ const exampleMessages = [
       image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_fulilian.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1728402940&Signature=NbuYxn5F%2B%2FbwDu3Ei5TK1aAN7jw%3D',
       outsideLink: 'https://psydi.opendilab.org.cn',
     },
-]
+    ]
+} else if (lang === 'en') {
+    texts.welcome = 'Welcome to PsyDI!'
+    texts.intro1 = "Hi, I am an MBTI Agent developed by "
+    texts.intro2 = ". I hope to explore your unique personality and tendencies through a relaxed conversation."
+    texts.intro3 = "To better understand you, I will first ask you about your recent thoughts and then invite you to complete a simple and fun test. This will help me capture your precious inner world. Based on my understanding of you, I will ask further questions to explore your inner motivations, and you just need to relax and choose the option that makes you most comfortable. Finally, we will interpret the test results together, generate a customized virtual personality image to help you better discover yourself. (For the best experience, please open in a browser)"
+    texts.start = "Start the test now (Entry)"
+    texts.examples = "Classic character test examples"
+    texts.outsideLinkErrorInfo = "Coming soon"
+    exampleMessages = [
+    {
+      heading: 'Viktor INTJ',
+      subheading: 'Hextech, for a better world. Welcome to the glorious evolution. I am willing to be the first to dedicate myself.',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_viktor.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730021530&Signature=N%2FUM5al4gtWCh1gzT9SmCLtkS7U%3D',
+      outsideLink: 'http://xhslink.com/4VaTbH',
+    },
+    {
+      heading: 'Jinx ESFP',    
+      subheading: 'Ha! Who needs a reason? Come on, make my opponent stronger? Or else I am really going to be bored to yawn.',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_jinx.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1728402793&Signature=E6dLiv0cUGkAkg%2FMw%2ByzBBqD43w%3D',
+      outsideLink: 'http://xhslink.com/Bpt45F',
+    },
+    {
+      heading: 'Yor Forger ISFJ',
+      subheading: 'Well, it might sound a bit silly. But recently, I have been feeling a bit insecure about my abilities as a wife and mother.',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_yueer2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1728402846&Signature=xWxbmcdoItyR4cHXP7VwTMVrOgs%3D',
+      outsideLink: 'http://xhslink.com/13YTRE',
+    },
+    {
+      heading: 'Anya Forger ENFP',
+      subheading: 'Waku waku! I can read what Daddy and Mommy are thinking, I know what they are thinking about! It is really interesting!',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_aniya.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1728402883&Signature=zp7lE1qB%2Bh9uYczsgs9tsJzSroY%3D',
+      outsideLink: 'http://xhslink.com/Z929fF',
+    },
+    {
+      heading: 'Loid Forger INTJ',
+      subheading: 'Lately, I have been increasingly pondering the long-term impact of my personal work, questioning whether it will ultimately be worth it.',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huanghun.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1734859624&Signature=GOqRmvfaAnZh3nCStM5rIMXj7%2FE%3D',
+      outsideLink: 'http://xhslink.com/WydWHL',
+    },
+    {
+      heading: 'Phoebe Buffay ENFP',
+      subheading: 'These bastards may not care about you, but the universe does, and that says a lot.',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_feibi.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1734859297&Signature=3z9zwqTljdk%2F0s6Le4YB55kFajk%3D',
+      outsideLink: 'http://xhslink.com/e6wRII',
+    },
+    {
+      heading: 'John Watson ISFJ',
+      subheading: 'No matter how difficult it is, we cannot give up the pursuit of the truth. I always feel that there is a bigger secret hidden behind this matter.',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huasheng.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1728402919&Signature=K4I1%2FgSwCv%2BK5PC2y9dllCldpLY%3D',
+      outsideLink: 'https://psydi.opendilab.org.cn',
+    },
+    {
+      heading: 'Freya INTP',
+      subheading: 'As an elf who has lived for thousands of years, this is my daily life. I am amazed by the constant change and aging process of humans.',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_fulilian.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1728402940&Signature=NbuYxn5F%2B%2FbwDu3Ei5TK1aAN7jw%3D',
+      outsideLink: 'https://psydi.opendilab.org.cn',
+    },
+    ]
+} else {
+  // raise error  
+  throw new Error('Language not supported: ' + lang)
+}
 
 export interface EmptyScreenProps
   extends Pick<

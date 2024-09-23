@@ -8,6 +8,16 @@ import { Separator } from '@/components/ui/separator'
 import { ChatMessage } from '@/components/chat-message'
 import { GetThemeColor } from '@/components/theme-toggle'
 
+const lang = process.env.NEXT_PUBLIC_PSYDI_LANG || 'zh' // default to zh
+var texts = {
+  finalImagePrefix: '',
+}
+if (lang == 'zh') {
+  texts.finalImagePrefix = '你的 MBTI 个性化定制形象图如下：'
+} else if (lang == 'en') {
+  texts.finalImagePrefix = 'Your MBTI personalized image is as follows:'
+}
+
 interface FinalResultProps {
   chatID: string
   chatDone: boolean
@@ -64,7 +74,7 @@ export const FinalResult: React.FC<FinalResultProps> = ({chatID, chatDone, table
       { userImgUrl && (
         <div key={"userImgUrl"}>
           <Separator className="my-4 md:my-8" />
-          <ChatMessage message={{id: chatID, role: 'assistant', 'content': `**你的 MBTI 个性化定制形象图如下：** ![final img](${userImgUrl})\n![qrcode](${qrcodeImgurl})`}} chatDone={chatDone}/>
+          <ChatMessage message={{id: chatID, role: 'assistant', 'content': `**${texts.finalImagePrefix}** ![final img](${userImgUrl})\n![qrcode](${qrcodeImgurl})`}} chatDone={chatDone}/>
         </div>
       )}
     </div>

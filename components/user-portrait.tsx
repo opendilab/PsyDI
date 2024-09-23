@@ -37,7 +37,7 @@ if (lang === 'zh') {
 } else if (lang === 'en') {
     texts.title = "Before entering the test, PsyDI will first build a concise personality portrait for you. Please select the tags that match you as much as possible." 
     texts.sectionNames = ["Age group (single pick)", "Region (single pick)", "Occupation (single pick)", "Gender (single pick, only affects the final image)", "Life-style (single pick)", "Technology (single pick)", "Hobbies (multiple pick)", "Tags (multiple pick)", "Your tags"]
-    texts.backendSectionNames = ["Age", "Region", "Occupation", "Gender", "Life attitude", "Attitude towards technology", "Hobbies", "Personality tags"]
+    texts.backendSectionNames = ["Age", "Region", "Occupation", "Gender", "Life-style", "Attitude to technology", "Hobbies", "Personal tags"]
     texts.skip = "Skip this section (The customization level of the test will be reduced)"
     texts.finalHint = "Click the tag again to cancel"
     texts.tagErrorInfo = 'Please cancel the selected tags before selecting new tags'
@@ -50,9 +50,9 @@ type Tag = {
   backendName?: string;
 };
 
-// TODO other language tags
-const initialTags: Tag[][] = [
-  [
+var initialTags: Tag[][] = []
+if (lang === 'zh') {
+  initialTags = [[
     { id: 1, name: '80后', selected: false},
     { id: 2, name: '90后', selected: false},
     { id: 3, name: '00后', selected: false},
@@ -126,6 +126,82 @@ const initialTags: Tag[][] = [
     { id: 24, name: 'ACG', selected: false, backendName: '喜欢动漫、漫画、游戏'},
   ],
 ]
+} else if (lang === 'en') {
+  initialTags = [[
+    { id: 1, name: '80s', selected: false},
+    { id: 2, name: '90s', selected: false},
+    { id: 3, name: '00s', selected: false},
+    { id: 4, name: 'others', selected: false},
+  ],
+  [
+    { id: 1, name: 'coastal regions', selected: false},
+    { id: 2, name: 'inland regions', selected: false},
+    { id: 3, name: 'others', selected: false},
+  ],
+  [
+    { id: 1, name: 'white-collar workers', selected: false},
+    { id: 2, name: 'student', selected: false},
+    { id: 3, name: 'homebody', selected: false}, 
+    { id: 4, name: 'freelancer', selected: false},
+    { id: 5, name: 'others', selected: false},
+  ],
+  [
+    { id: 1, name: 'male', selected: false},
+    { id: 2, name: 'female', selected: false},
+    { id: 3, name: 'others', selected: false},
+  ],
+  [
+    { id: 1, name: 'environmentalist', selected: false},
+    { id: 2, name: 'minimalism', selected: false},
+    { id: 3, name: 'maximalism', selected: false},
+  ],
+  [
+    { id: 1, name: 'tech. enthusiast', selected: false},
+    { id: 2, name: 'tech. conservative', selected: false},
+  ],
+  [
+    { id: 1, name: 'MBTI fans', selected: false},
+    { id: 2, name: 'otaku', selected: false},
+    { id: 3, name: 'games', selected: false},
+    { id: 4, name: 'travel', selected: false},
+    { id: 5, name: 'pets', selected: false},
+    { id: 6, name: 'sports', selected: false},
+    { id: 7, name: 'makeup', selected: false},
+    { id: 8, name: 'books', selected: false},
+    { id: 9, name: 'movies', selected: false},
+    { id: 10, name: 'food', selected: false},
+    { id: 11, name: 'fashion', selected: false},
+    { id: 12, name: 'wellness', selected: false},
+    { id: 13, name: 'history', selected: false},
+  ],
+  [
+    { id: 1, name: 'dancing', selected: false},
+    { id: 2, name: 'foodie', selected: false, backendName: 'food exploration'},
+    { id: 3, name: 'piano', selected: false},
+    { id: 4, name: 'basketball', selected: false},
+    { id: 5, name: 'pet owner', selected: false, backendName: 'keeping pets'},
+    { id: 6, name: 'party', selected: false},
+    { id: 7, name: 'guitar', selected: false},
+    { id: 8, name: 'DIY crafts', selected: false},
+    { id: 9, name: 'karaoke', selected: false},
+    { id: 10, name: 'board games', selected: false},
+    { id: 11, name: 'backpacker', selected: false, backendName: 'outdoor adventure travel'},
+    { id: 12, name: 'photography', selected: false},
+    { id: 13, name: 'writing', selected: false},
+    { id: 14, name: 'tech. geek', selected: false, backendName: 'programming work, geek spirit'},
+    { id: 15, name: 'painting', selected: false},
+    { id: 16, name: 'night owl', selected: false, backendName: 'staying up late'},
+    { id: 17, name: 'cooking', selected: false},
+    { id: 18, name: 'decidophobia', selected: false, backendName: 'scenes of indecision'},
+    { id: 19, name: 'fitness enthusiast', selected: false},
+    { id: 20, name: 'beauty guru', selected: false},
+    { id: 21, name: 'shopping', selected: false},
+    { id: 22, name: 'binge-watching', selected: false, backendName: 'watching TV series'},
+    { id: 23, name: 'bar hopper', selected: false, backendName: 'going to a bar'},
+    { id: 24, name: 'ACG', selected: false, backendName: 'likes anime, manga, and video games'},
+  ],
+]
+}
 
 function getSelectedTags(tags: Tag[][]) {
   const sections = tags.map((section) => section.filter((tag) => tag.selected).map((tag) => ({ id: tag.id, name: tag.name }) ))
