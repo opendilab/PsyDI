@@ -25,10 +25,20 @@ import { Input } from './ui/input'
 import { errorToaster } from './toaster'
 import { LinearProgressWithLabel } from '@/components/progress-bar'
 
+const lang = process.env.NEXT_PUBLIC_PSYDI_LANG || 'zh' // default to zh
 const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
 export interface ChatProps extends React.ComponentProps<'div'> {
   initialMessages?: Message[]
   id?: string
+}
+
+var texts = {
+  errorToasterText: ''
+}
+if (lang === 'zh') {
+  texts.errorToasterText = '服务器超时错误，请重新回答或退回上个问题回答。如果依然无法解决，请点击左下角\'加号\'按钮重启评测，并稍后再试'
+} else if (lang === 'en') {
+  texts.errorToasterText = 'Server timeout error. Please retry or go back to the previous question. If the problem persists, please click the "+" button in the lower left corner to restart the evaluation and try again later.'
 }
 
 
@@ -111,7 +121,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
           errorToaster(response.statusText)
         }
         if (response.headers.get('chat-errorcode') !== '0') {
-            errorToaster("服务器超时错误，请点击左下角'加号'按钮重启评测，并稍后再试", 10000)
+            errorToaster(texts.errorToasterText, 10000)
         }
         setIsMessageFinished(false)
         
