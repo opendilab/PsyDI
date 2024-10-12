@@ -9,7 +9,8 @@
 
 PsyDI 是一款多模态，交互式的心理测评聊天机器人，旨在对用户的多模态输入进行互动分析，从而探索用户的潜在认知模式，最终判定用户的 MBTI（Myers-Briggs Type Indicator）。此外，PsyDI 还为每位用户详细分析的性格分析报告和定制化的生成图。我们正在不断改进 PsyDI，并即将推出如 MBTI 画廊等新功能，期待您的宝贵反馈！
 
-目前可以直接通过[链接](https://psydi.opendilab.org.cn/)访问 PsyDI。
+目前可以直接通过[链接](https://psydi.opendilab.org.cn/)访问中文版 PsyDI。
+（英文版：[链接](https://psydi-en.opendilab.org.cn/)）
 
 ## :boom: 最新消息！
 
@@ -27,7 +28,11 @@ PsyDI 是一款多模态，交互式的心理测评聊天机器人，旨在对�
 | [安陵容 (甄嬛传)](http://xhslink.com/Q5aN5M) | 在紫禁城内，甄嬛和安陵容曾是亲密无间的朋友。但家族的压力和其他嫔妃的挑拨使安陵容的心态发生了变化，她开始嫉妒甄嬛，渴望通过算计和手段，让自己在皇帝心中的地位超越甄嬛。 | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anlingrong.PNG"></a>      |
 | [皇上&皇后 (甄嬛传)](http://xhslink.com/8yglPN) | 在电视剧《甄嬛传》的设定中，皇上雍正帝和皇后是少年夫妻，在雍正还是雍亲王的时候结缘。但随着时间的推移，他们的关系变得复杂和曲折。 | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/emperor.png"></a>      |
 | [祁煜 (恋与深空)](http://xhslink.com/etQHwQ) | 祁煜是《恋与深空》中的男主角之一，出生自海洋文明“利莫里亚”，是一位独树一帜的天才艺术家。虽然有时显得有些倔强和不易接近，但内心深处却有着强烈的责任感和对情感的重视。 | INFP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/qiyu.png"></a>      |
+| [秦彻 (恋与深空)](http://xhslink.com/a/xvzhf8cSkQzX) | 秦彻是《恋与深空》中的男主角之一，他是菲罗斯星有史以来悬赏金额最高的罪犯，也是唯一一个从时空监狱里越狱成功的传说。他以坚定的领导力、果断的行动和深思熟虑的决策，展现出对重要人物的深情关怀和强烈责任感。 | ENTJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/qinche.png"></a>      |
 | [沈星回 (恋与深空)](http://xhslink.com/0l2HwQ) | 沈星回是《恋与深空》中的男主角之一，是现任猎人协会的深空猎人。他展现出非凡的耐心和一种超脱世俗的佛系态度，以一种温柔而平和的方式与世界相处，同时在人际交往中保持着适度的距离。 | ISTP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/shenxinghui.png"></a>      | 
+| [黎深 (恋与深空)](http://xhslink.com/a/HDi13AmEMEzX) | 黎深是《恋与深空》中的男主角之一，是一位才华横溢的心脏外科医生。他珍视独处和自我反思，以冷静分析和策略规划面对挑战，对重要的人则展现出深情的关怀和强烈的责任感。 | INTJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/lishen.png"></a>      | 
+| [日向翔阳 (排球少年)](http://xhslink.com/a/nqZTCNwKeLzX) | 日向翔阳是《排球少年》中的男主角，是乌野高校排球部的副攻手。他以开放和活力感染他人，展现出顽强的斗志和适应力，同时在团队中以温暖的支持和鼓励成为核心，体现了他对人际关系的重视和对生活的热爱。 | ESFP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/rixiang.png"></a>      | 
+| [五条悟 (咒术回战)]( http://xhslink.com/a/secOD0ZlNQzX) | 五条悟是《咒术回战》中的一个角色，他是一位特级咒术师。他以轻松幽默的方式与人交流，展现出高傲的智慧光芒，同时在面对挑战时，表现出不屈不挠的拼搏精神和策略思维。虽然在战斗中展现出冷静和计算，但他对学生和同伴表现出深切的关心和支持。 | ENTP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/wutiaowu.png"></a>      | 
 
 
 ## 导航
@@ -149,7 +154,7 @@ PsyDI 通过迭代执行上述三个步骤，在每一次交互中不断加深�
 - [x] PsyDI 的在线部署
 - [x] 发布所有前端代码和部署脚本
 - [x] MBTI 评估画廊
-- [ ] 其他语言支持（英语/韩语/日语）
+- [x] 其他语言支持（英语）
 - [x] 发布后端代码示例和提示
 - [ ] 发布生成的数据集
 - [x] 发布经过训练的奖励模型
