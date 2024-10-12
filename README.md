@@ -9,7 +9,7 @@ English | [简体中文(Simplified Chinese)](https://github.com/opendilab/PsyDI/
 
 PsyDI is a multi-modal and interactive chatbot for psychological assessments. Its objective is to explore users' potential cognitive styles through interactive analysis of their multimodal inputs, finally determining their Myers-Briggs Type Indicator (MBTI). Additionally, PsyDI offers feedback in the form of customized figures and detailed analysis for each user. We are continuously improving PsyDI, with upcoming features such as an MBTI gallery. Your feedback is valuable to us!
 
-PsyDI can now be accessed directly via our [web link](https://psydi.opendilab.org.cn/).
+Access PsyDI: [English version](https://psydi-en.opendilab.org.cn/) | [Chinese version](https://psydi.opendilab.org.cn/)
 
 ## :boom: News!
 
@@ -26,9 +26,12 @@ PsyDI can now be accessed directly via our [web link](https://psydi.opendilab.or
 | [Chandler (Friends)](http://xhslink.com/A6N6lM) | Chandler Bing is a character from "Friends". He is Ross's college roommate, known for his humorous and witty remarks, often making fun of himself to entertain others. He develops a romantic relationship with Monica and eventually marries her. Known for his wit and humor, Chandler is the comic relief of the series. | ENTP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/chandler.png"></a>      |
 | [An Lingrong (Empresses in the Palace)](http://xhslink.com/Q5aN5M) | Originally a friend of Zhen Huan, An Lingrong grows jealous and schemes against her due to family pressure to win the Yongzheng Emperor's favor and manipulation by other imperial consorts. | ISFJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/anlingrong.PNG"></a>      |
 | [Emperor and Empress (Empresses in the Palace)](http://xhslink.com/8yglPN) | In the setting of the TV drama "The Legend of Zhen Huan," Emperor Yongzheng and the Empress were a young married couple, having tied the knot when Yongzheng was still the Prince of Yong. However, as time passed, their relationship became complex and tortuous. | ESTJ/ISTJ   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/emperor.png"></a>      |
-| [Rafayel (Love and deepspace)](http://xhslink.com/etQHwQ) | Rafayel is one of the character in "Love and Deep Space," hailing from the oceanic civilization of Lemuria. He is a unique and gifted artist, embodying innocence and deep affection. Although he may appear stubborn and somewhat unapproachable at times, his heart is filled with a strong sense of responsibility and a profound regard for emotions. | INFP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/qiyu.png"></a>      |
-| [Xavier (Love and deepspace)](http://xhslink.com/0l2HwQ) | Xavier is one of the male protagonists in "Love and Deep Space," currently serving as a deep space hunter for the Hunter Association. He exhibits extraordinary patience and a detached, Buddhist-like attitude towards life, interacting with the world in a gentle and peaceful manner while maintaining a moderate distance in interpersonal relationships. | ISTP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/shenxinghui.png"></a>      |
-
+| [Rafayel (Love and Deep Space)](http://xhslink.com/etQHwQ) | Rafayel is one of the character in "Love and Deep Space," hailing from the oceanic civilization of Lemuria. He is a unique and gifted artist, embodying innocence and deep affection. Although he may appear stubborn and somewhat unapproachable at times, his heart is filled with a strong sense of responsibility and a profound regard for emotions. | INFP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/qiyu.png"></a>      |
+| [Xavier (Love and Deep Space)](http://xhslink.com/0l2HwQ) | Xavier is one of the male protagonists in "Love and Deep Space," currently serving as a Deep Space hunter for the Hunter Association. He exhibits extraordinary patience and a detached, Buddhist-like attitude towards life, interacting with the world in a gentle and peaceful manner while maintaining a moderate distance in interpersonal relationships. | ISTP   | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/shenxinghui.png"></a>      |
+| [Sylus (Love and Deep Space)](http://xhslink.com/a/xvzhf8cSkQzX) | Sylus is one of the male protagonists in "Love and Deep Space." He is the highest-bounty criminal in the history of Pheros Star and the only one who has successfully escaped from the temporal prison. He demonstrates deep care and a strong sense of responsibility for important people with his firm leadership, decisive action, and thoughtful decision-making.   | ENTJ | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/qinche.png"></a> |
+| [Zayne (Love and Deep Space)](http://xhslink.com/a/HDi13AmEMEzX) | Zayne is one of the male protagonists in "Love and Deep Space," a talented heart surgeon. He values solitude and self-reflection, facing challenges with calm analysis and strategic planning, showing deep care and a strong sense of responsibility for important people.   | INTJ | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/lishen.png"></a> |
+| [Sho Yamanaka (Haikyuu!!)](http://xhslink.com/a/nqZTCNwKeLzX) | Sho Yamanaka is the male protagonist in "Haikyuu!!," the setter of the Karasuno High School Volleyball Club. He infects others with his open and energetic nature, showing tenacious fighting spirit and adaptability, becoming a core in the team with warm support and encouragement, reflecting his emphasis on interpersonal relationships and love for life. | ESFP | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/rixiang.png"></a> |
+| [Gojo Satoru (Jujutsu Kaisen)](http://xhslink.com/a/secOD0ZlNQzX) | Gojo Satoru is a character in "Jujutsu Kaisen," a Special Grade Jujutsu Sorcerer. He communicates with others in a relaxed and humorous way, showing a proud light of wisdom, while demonstrating an indomitable fighting spirit and strategic thinking in the face of challenges. Although he shows calmness and calculation in battle, he shows deep care and support for his students and companions. | ENTP | <img width="120px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/wutiaowu.png"></a> |
 
 ## Outline
 
@@ -61,7 +64,7 @@ Getting started with PsyDI is easy! Follow these simple steps to begin your jour
    - Next, you'll be asked to share one of your recent favorite songs and your most recent thoughts. This information provides valuable insights into your current mindset and preferences.
 
 <div align="center">
-    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/init_part.png"></a>
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/init_part_en.png"></a>
 </div>
 
 :bulb: **Exploring Your Personality:**
@@ -71,7 +74,7 @@ Getting started with PsyDI is easy! Follow these simple steps to begin your jour
    - PsyDI will chat with you to delve deeper into topics mentioned earlier. This interactive process typically consists of 12-15 questions, allowing PsyDI to get to know you better.
 
 <div align="center">
-    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/choose_part.png"></a>
+    <img width="1000px" height="auto" src="https://github.com/opendilab/PsyDI/blob/main/assets/choose_part_en.png"></a>
 </div>
 
 :sparkles: **Detailed Analysis:**
@@ -150,7 +153,7 @@ We assessed the accuracy of the PsyDI Pipeline compared to existing MBTI tests i
 - [x] Online deployment of PsyDI
 - [x] Release all the frontend code and deployment scripts
 - [x] MBTI evaluation gallery
-- [ ] Other language support (English/Korean/Japanese)
+- [x] Other language support (English)
 - [x] Release the backend code examples and prompts
 - [ ] Release the generated datasets
 - [x] Release the trained reward model
