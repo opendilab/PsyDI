@@ -9,7 +9,7 @@ English | [简体中文(Simplified Chinese)](https://github.com/opendilab/PsyDI/
 
 PsyDI is a multi-modal and interactive chatbot for psychological assessments. Its objective is to explore users' potential cognitive styles through interactive analysis of their multimodal inputs, finally determining their Myers-Briggs Type Indicator (MBTI). Additionally, PsyDI offers feedback in the form of customized figures and detailed analysis for each user. We are continuously improving PsyDI, with upcoming features such as an MBTI gallery. Your feedback is valuable to us!
 
-PsyDI can now be accessed directly via [English version](https://psydi-en.opendilab.org.cn/) | [Chinese version](https://psydi.opendilab.org.cn/)
+Access PsyDI: [English version](https://psydi-en.opendilab.org.cn/) | [Chinese version](https://psydi.opendilab.org.cn/)
 
 ## :boom: News!
 

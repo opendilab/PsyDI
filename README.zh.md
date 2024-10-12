@@ -9,7 +9,7 @@
 
 PsyDI 是一款多模态，交互式的心理测评聊天机器人，旨在对用户的多模态输入进行互动分析，从而探索用户的潜在认知模式，最终判定用户的 MBTI（Myers-Briggs Type Indicator）。此外，PsyDI 还为每位用户详细分析的性格分析报告和定制化的生成图。我们正在不断改进 PsyDI，并即将推出如 MBTI 画廊等新功能，期待您的宝贵反馈！
 
-目前可以直接通过链接访问 PsyDI：[中文版](https://psydi.opendilab.org.cn/) | [英文版](https://psydi-en.opendilab.org.cn/)
+访问 PsyDI：[中文版](https://psydi.opendilab.org.cn/) | [英文版](https://psydi-en.opendilab.org.cn/)
 
 ## :boom: 最新消息！
 
