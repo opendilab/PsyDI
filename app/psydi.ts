@@ -140,15 +140,15 @@ export class PsyDI {
     'ENTJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fentj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730022806&Signature=dveklT8aHHakl0wygHghnLCSQgo%3D',
   };
   private mbtiOptionExtensionUrls: Record<string, string> = {
-    '1': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F1.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730022870&Signature=FebG33Vu2oLmcNvs%2FaZgZCY0b5E%3D',
-    '2': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730022870&Signature=vYVqDexxPY9fhPgkml4VHPkD0mE%3D',
-    '3': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F3.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730022870&Signature=9PG2PhTC4YA1eLSK3Xwl%2BLNnyns%3D',
-    '4': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F4.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730022870&Signature=I44ELOoFcxADF%2F9a8xsj3%2B9s1RQ%3D',
-    '5': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F5.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730022870&Signature=I9IbFl4QqMelbKVghbXgffpumOE%3D',
-    '6': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F6.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730022870&Signature=H8bktzLX6NuljpcmbHoHVoD%2F9Kw%3D',
-    '7': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F7.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730022870&Signature=UDxhHstOXRL0vRV6no5Z2%2FWdjDM%3D',
-    '8': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F8.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730022870&Signature=V%2BFhwSzcOhrrrdPZSoiX2lcz59I%3D',
-    '9': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F9.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730022870&Signature=wXvEUz%2BVKnWt%2FOMZT7V%2FhKx4CHU%3D',
+    '1': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F1.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1738563313&Signature=w7sTRiklpGr0%2Fcs3qGTVrmBxEYM%3D',
+    '2': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1738563313&Signature=8LPCmjHoBXmZUZvRU4EMEg6Kfi8%3D',
+    '3': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F3.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1738563313&Signature=BRIZw2Fe8EPZsyY1JaUUldAPkCQ%3D',
+    '4': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F4.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1738563313&Signature=2hZ4QDykpH5pMtgtjBF9b3BvIl0%3D',
+    '5': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F5.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1738563313&Signature=fS1J%2B93WwV0mPXq%2Fxwi7zKG3srE%3D',
+    '6': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F6.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1738563313&Signature=9ayy0%2F1qPt8X1PbezEZq6MtGppo%3D',
+    '7': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F7.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1738563313&Signature=G8JOmqhDqXAWK6tT6mKY23os%2FOs%3D',
+    '8': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F8.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1738563313&Signature=Bh5cdQgL1M2orfeBmEN3zCAFtHs%3D',
+    '9': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F9.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1738563313&Signature=1z%2FBgVUov4UaKyPyXE9dmX9aIvE%3D',
   }
   private musicLabelExample: Record<string, string> = {
     '曲名': '愿与愁',
