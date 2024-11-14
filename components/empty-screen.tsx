@@ -108,7 +108,7 @@ if (lang === 'zh') {
     {
       heading: 'Viktor INTJ',
       subheading: 'Hextech, for a better world. Welcome to the glorious evolution. I am willing to be the first to dedicate myself.',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_viktor.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1730021530&Signature=N%2FUM5al4gtWCh1gzT9SmCLtkS7U%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_viktor.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1738563532&Signature=5oAr5bCoqsoqYlUXIojDnMgdg20%3D',
       outsideLink: 'http://xhslink.com/4VaTbH',
     },
     {
