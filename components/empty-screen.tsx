@@ -44,19 +44,19 @@ if (lang === 'zh') {
     {
       heading: '金克斯 ESFP',    
       subheading: '哈！谁需要什么理由？拜托，做我的对手强一点？不然我真的要无聊到打哈欠。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_jinx.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1736854113&Signature=Vxf7h9pJtN%2BHanl13%2F6QSnv8sMI%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_jinx.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=O8pEQ3Mndhg93X277ouMPdwYQGw%3D',
       outsideLink: 'http://xhslink.com/Bpt45F',
     },
     {
       heading: '约尔·福杰 ISFJ',
       subheading: '嗯，这可能听起来有点傻。但最近，我对自己作为妻子和母亲的能力有点不安。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_yueer2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1736854113&Signature=iB6k%2BmwBZEKkmG%2Bb38FplfuqrqQ%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_yueer2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=F4dpf9sB4qfIcM7mhSRE%2FcKBN4Q%3D',
       outsideLink: 'http://xhslink.com/13YTRE',
     },
     {
       heading: '阿尼亚·福杰 ENFP',
       subheading: '哇库哇库！我能读懂爸爸和妈妈的心思，他们在想什么我都知道！真的很有趣！',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_aniya.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1736854113&Signature=1b3%2FUjhsKcENj%2F0wJpsmNuyej6c%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_aniya.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=YRXPZHbx%2B0rFL%2BNWyf55JM559JY%3D',
       outsideLink: 'http://xhslink.com/Z929fF',
     },
     {
@@ -86,13 +86,13 @@ if (lang === 'zh') {
     {
       heading: '约翰·华生 ISFJ',
       subheading: '无论多么艰难，我们都不能放弃追求真相。我总觉得这件事情背后隐藏着更大的秘密。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huasheng.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1736854113&Signature=v50gUXyChcr5ZvCsQuwoUh0b33w%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huasheng.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=L9GNUygygrQgSg3bYzfnb3NBrZo%3D',
       outsideLink: 'https://psydi.opendilab.org.cn',
     },
     {
       heading: '芙莉莲 INTP',
       subheading: '作为一个几千岁的精灵，我的日常就是如此，我对人类不断变化和变老的过程感到惊讶。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_fulilian.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1736854113&Signature=ga%2F23se%2Bh68OFo2jvsLgxlqrUIA%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_fulilian.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=oYgiuSimgRKvUBPRpNikKsNRcuE%3D',
       outsideLink: 'https://psydi.opendilab.org.cn',
     },
     ]
@@ -114,19 +114,19 @@ if (lang === 'zh') {
     {
       heading: 'Jinx ESFP',    
       subheading: 'Ha! Who needs a reason? Come on, make my opponent stronger? Or else I am really going to be bored to yawn.',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_jinx.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1736854113&Signature=Vxf7h9pJtN%2BHanl13%2F6QSnv8sMI%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_jinx.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=O8pEQ3Mndhg93X277ouMPdwYQGw%3D',
       outsideLink: 'http://xhslink.com/Bpt45F',
     },
     {
       heading: 'Yor Forger ISFJ',
       subheading: 'Well, it might sound a bit silly. But recently, I have been feeling a bit insecure about my abilities as a wife and mother.',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_yueer2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1736854113&Signature=iB6k%2BmwBZEKkmG%2Bb38FplfuqrqQ%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_yueer2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=F4dpf9sB4qfIcM7mhSRE%2FcKBN4Q%3D',
       outsideLink: 'http://xhslink.com/13YTRE',
     },
     {
       heading: 'Anya Forger ENFP',
       subheading: 'Waku waku! I can read what Daddy and Mommy are thinking, I know what they are thinking about! It is really interesting!',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_aniya.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1736854113&Signature=1b3%2FUjhsKcENj%2F0wJpsmNuyej6c%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_aniya.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=YRXPZHbx%2B0rFL%2BNWyf55JM559JY%3D',
       outsideLink: 'http://xhslink.com/Z929fF',
     },
     {
@@ -144,13 +144,13 @@ if (lang === 'zh') {
     {
       heading: 'John Watson ISFJ',
       subheading: 'No matter how difficult it is, we cannot give up the pursuit of the truth. I always feel that there is a bigger secret hidden behind this matter.',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huasheng.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1736854113&Signature=v50gUXyChcr5ZvCsQuwoUh0b33w%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huasheng.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=L9GNUygygrQgSg3bYzfnb3NBrZo%3D',
       outsideLink: 'https://psydi.opendilab.org.cn',
     },
     {
       heading: 'Freya INTP',
       subheading: 'As an elf who has lived for thousands of years, this is my daily life. I am amazed by the constant change and aging process of humans.',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_fulilian.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1736854113&Signature=ga%2F23se%2Bh68OFo2jvsLgxlqrUIA%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_fulilian.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=oYgiuSimgRKvUBPRpNikKsNRcuE%3D',
       outsideLink: 'https://psydi.opendilab.org.cn',
     },
     ]
