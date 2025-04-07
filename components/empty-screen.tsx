@@ -62,25 +62,25 @@ if (lang === 'zh') {
     {
       heading: '黄昏 INTJ',
       subheading: '最近我越来越多地思考着我个人工作的长远影响。我一直在思考最终是否值得。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huanghun.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1743691262&Signature=m8AxDLAL5dXAEnt%2Btkfl3snmoPI%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huanghun.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1751802643&Signature=KY3tifqWXmIfh6L7kyuvNCqvVEY%3D',
       outsideLink: 'http://xhslink.com/WydWHL',
     },
     {
       heading: '菲比·布菲 ENFP',
       subheading: '这些混蛋或许不在乎你，但宇宙在乎你，这一点说明了很多，而这正是意义所在。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_feibi.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1743691262&Signature=0qQlnzqs5XRma9ByKDMGW1H%2BQPA%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_feibi.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1751802643&Signature=L3drYGjrbBOpLuKR2kfxSR9QhX0%3D',
       outsideLink: 'http://xhslink.com/e6wRII',
     },
     {
       heading: '祁煜 INFP',
       subheading: '画作是内心的表达，我喜欢画画，但我的画廊不对外开放。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qiyu.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1743691262&Signature=VrjyJMiQybpbD1NIJtNEz58CtCM%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qiyu.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1751802643&Signature=y2t54OTTihE7QZvC5PgpzhS3WT0%3D',
       outsideLink: 'http://xhslink.com/a/nUzESNmuvonW',
     },
     {
       heading: '秦彻 ENTJ',
       subheading: '只有弱者才会寻求安慰，我不需要。不过，力量上的悬殊并不代表高人一等。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qinche.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1743691262&Signature=cAU%2F0N3yXwyN6%2FHuYUANEYwagj8%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_qinche.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1751802643&Signature=PSlvrtfSzyBxoIMHKQgiedaNnxs%3D',
       outsideLink: 'http://xhslink.com/a/nbkBN7WBNonW',
     },
     {
