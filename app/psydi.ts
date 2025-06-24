@@ -140,16 +140,16 @@ export class PsyDI {
     'ENTJ': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fhead%2Fentj.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1750170358&Signature=wV%2BJHgP1SImAju3t26eakfFdez0%3D',
   };
   private mbtiOptionExtensionUrls: Record<string, string> = {
-    '1': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F1.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1748494407&Signature=Fgt6%2BAwoASRvyCivEDYpdMwN6uo%3D',
-    '2': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1748494407&Signature=WA8PS4I0EpkG0E%2B04q30KmGHN4s%3D',
-    '3': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F3.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1748494407&Signature=k9QhHmaggbX%2B4%2Fco9g7awBw5Dj4%3D',
-    '4': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F4.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1748494407&Signature=%2BCdsAOHX9CfN6DJwdjwTueqYqmA%3D',
-    '5': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F5.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1748494407&Signature=mM3QHUlP7eOMVOJbnaasuJ7C2HQ%3D',
-    '6': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F6.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1748494407&Signature=ii5O%2FQWxUVube3gT8SBTGI89PoE%3D',
-    '7': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F7.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1748494407&Signature=T%2FW5aykr%2F4Dq6VNlnIyuhwupBcc%3D',
-    '8': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F8.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1748494407&Signature=nP5E%2FlHqJFSTumfhskjXgJJyc7c%3D',
-    '9': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F9.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1748494407&Signature=M3Ryclm14ADOdW6tYwt0AVXiPEE%3D',
-  }
+    '1': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F1.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523635&Signature=F%2FGbSqf9fvTAUw1%2FuywWVs2PUV4%3D',
+    '2': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523635&Signature=MMcNe1FR4iN%2BhIFVIieCkvSMELU%3D',
+    '3': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F3.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523635&Signature=2xHNUD9JZS7o23DvK0FNfx%2BgOLw%3D',
+    '4': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F4.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523635&Signature=WSZxV37jcgKKkluy5Q0SAqiKGjQ%3D',
+    '5': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F5.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523635&Signature=eIPCh1NviP7PLhot6vsb5XczCZk%3D',
+    '6': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F6.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523635&Signature=1cdrn822WGlj6bm1Qz2UOMRRO50%3D',
+    '7': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F7.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523635&Signature=NqskMK7XwAIuxSfFajm9dZz288g%3D',
+    '8': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F8.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523635&Signature=PHuIvxRqXOXP2eae%2BA9lSambUjM%3D',
+    '9': 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fextension%2F9.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523635&Signature=mmk4yAK99z6FxLQTniYwajAC1UE%3D',
+    }
   private musicLabelExample: Record<string, string> = {
     '曲名': '愿与愁',
     '歌手': '林俊杰',

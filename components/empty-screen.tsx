@@ -38,25 +38,25 @@ if (lang === 'zh') {
     {
       heading: '维克托 INTJ',
       subheading: '海克斯科技，为了更美好的世界。欢迎加入光荣的进化吧，我愿做第一个献身者。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_viktor.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1750169838&Signature=ezgncXbsa5FEfSiOFovlWXQQDRg%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_viktor.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523925&Signature=JdsDK476%2FwPXfJH9sByRUZTmzJg%3D',
       outsideLink: 'http://xhslink.com/4VaTbH',
     },
     {
       heading: '金克斯 ESFP',    
       subheading: '哈！谁需要什么理由？拜托，做我的对手强一点？不然我真的要无聊到打哈欠。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_jinx.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=O8pEQ3Mndhg93X277ouMPdwYQGw%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_jinx.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523925&Signature=HyWZmamuwA5USXaJdPgaCj4jjxE%3D',
       outsideLink: 'http://xhslink.com/Bpt45F',
     },
     {
       heading: '约尔·福杰 ISFJ',
       subheading: '嗯，这可能听起来有点傻。但最近，我对自己作为妻子和母亲的能力有点不安。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_yueer2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=F4dpf9sB4qfIcM7mhSRE%2FcKBN4Q%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_yueer2.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523925&Signature=DuEotRpYf%2BrfhbuqQIMAK45%2BuS4%3D',
       outsideLink: 'http://xhslink.com/13YTRE',
     },
     {
       heading: '阿尼亚·福杰 ENFP',
       subheading: '哇库哇库！我能读懂爸爸和妈妈的心思，他们在想什么我都知道！真的很有趣！',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_aniya.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=YRXPZHbx%2B0rFL%2BNWyf55JM559JY%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_aniya.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523925&Signature=pPu65XyXp0oe8tx1OYJ2UBbtHPs%3D',
       outsideLink: 'http://xhslink.com/Z929fF',
     },
     {
@@ -86,13 +86,13 @@ if (lang === 'zh') {
     {
       heading: '约翰·华生 ISFJ',
       subheading: '无论多么艰难，我们都不能放弃追求真相。我总觉得这件事情背后隐藏着更大的秘密。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huasheng.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=L9GNUygygrQgSg3bYzfnb3NBrZo%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_huanghun.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523925&Signature=2WFKYONgRmzO%2BVL7REPKNXL3Y9w%3D',
       outsideLink: 'https://psydi.opendilab.org.cn',
     },
     {
       heading: '芙莉莲 INTP',
       subheading: '作为一个几千岁的精灵，我的日常就是如此，我对人类不断变化和变老的过程感到惊讶。',
-      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_fulilian.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1744798616&Signature=oYgiuSimgRKvUBPRpNikKsNRcuE%3D',
+      image: 'https://psydi.oss-cn-shanghai.aliyuncs.com/official_assets%2Fgallery_fulilian.png?x-oss-process&OSSAccessKeyId=LTAI5tJqfodvyN7cj7pHuYYn&Expires=1758523925&Signature=7ZI6lvFK671KCsK52c1uiHW%2BRjY%3D',
       outsideLink: 'https://psydi.opendilab.org.cn',
     },
     ]
